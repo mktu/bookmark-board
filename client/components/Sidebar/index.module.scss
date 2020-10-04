@@ -1,0 +1,30 @@
+.icon-button{
+    @apply pb-4;
+    &:focus {
+        @apply outline-none;
+    }
+    svg {
+        @apply w-10;
+        @apply h-10;
+        @apply opacity-50;
+        fill : white;
+        &:hover{
+            opacity: 0.75;
+        }
+    }
+}
+.heroicon-button{
+    @apply pb-4;
+    &:focus {
+        @apply outline-none;
+    }
+    svg {
+        @apply w-10;
+        @apply h-10;
+        stroke : rgba(255,255,255,0.5);
+        stroke-width: 1.5px;
+        &:hover{
+            stroke : rgba(255,255,255,0.75);
+        }
+    }
+}
