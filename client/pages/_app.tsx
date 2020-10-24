@@ -1,21 +1,21 @@
 import '../styles/globals.css'
-import Header from '../components/Header'
-import Sidebar from '../components/Sidebar'
-import Layout from '../components/Layout'
+import { Provider } from 'react-redux'
+import store from '../reducers'
+import FirebaseProvider from '../components/Provider/FirebaseProvider'
 
 function MyApp({ Component, pageProps }) {
-  if(typeof window !== 'undefined'){
+  if (typeof window !== 'undefined') {
     console.log(window)
   }
-  else{
+  else {
     console.log('server')
   }
   return (
-    <Layout
-      header={<Header />}
-      sidebar={<Sidebar />}
-      main={<Component {...pageProps} />}
-    />
+    <Provider store={store}>
+      <FirebaseProvider>
+        <Component {...pageProps} />
+      </FirebaseProvider>
+    </Provider>
 
   )
 }

@@ -8,10 +8,18 @@
     "start": "next start"
   },
   "dependencies": {
+    "@next/bundle-analyzer": "^9.5.5",
+    "@reduxjs/toolkit": "^1.4.0",
+    "@types/react-redux": "^7.1.9",
+    "classnames": "^2.2.6",
     "firebase": "^7.22.0",
+    "firebase-admin": "^9.2.0",
     "next": "9.5.3",
+    "nookies": "^2.4.0",
+    "popper.js": "^1.16.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-redux": "^7.2.1",
     "sass": "^1.26.11"
   },
   "devDependencies": {

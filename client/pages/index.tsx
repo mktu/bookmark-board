@@ -1,8 +1,5 @@
 import Head from 'next/head'
-import Header from '../components/Header'
-import Sidebar from '../components/Sidebar'
-import Main from '../components/Main'
-import Layout from '../components/Layout'
+import LP from '../components/LP'
 
 export default function Home() {
   return (
@@ -10,7 +7,7 @@ export default function Home() {
       <Head>
         <title>Create Next App</title>
       </Head>
-      <Main/>
+      <LP />
     </div>
   )
 }

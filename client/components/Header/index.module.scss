@@ -1,0 +1,29 @@
+.heroicon-button{
+    &:focus {
+        @apply outline-none;
+    }
+    svg {
+        @apply w-10;
+        @apply h-10;
+        stroke : rgba(255,255,255,0.5);
+        stroke-width: 1.5px;
+        &:hover{
+            stroke : rgba(255,255,255,0.75);
+        }
+    }
+}
+.tooltip {
+    position : relative;
+    .tooltip-text {
+        visibility: hidden;
+        text-align: center;
+        padding: 2px 6px;
+        position: absolute;
+        z-index: 100;
+        left : 0;
+        top : 200;
+    }
+}
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+}
