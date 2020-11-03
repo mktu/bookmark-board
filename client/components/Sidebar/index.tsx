@@ -3,14 +3,14 @@ import { useSelector } from "react-redux";
 import { RootReducer } from '../../reducers'
 
 const Sidebar = () => {
-    const sidebar = useSelector((state:RootReducer)=>state.sidebar)
+    const sidebar = useSelector((state: RootReducer) => state.sidebar)
     return (
-        <div className={`flex flex-row h-full ${sidebar ? 'w-20': 'w-0'} bg-lightslategray-800  transition-all duration-200 ease-in-out`}>
+        <div className={`flex flex-row h-full ${sidebar ? 'w-20' : 'w-0'} bg-lightslategray-800  transition-all duration-200 ease-in-out`}>
             <nav className="h-full w-20 items-center flex flex-col p-4">
                 <div>
-                    <button className={styles['icon-button']}>
-                        <svg viewBox="0 0 57 37" xmlns="http://www.w3.org/2000/svg">
-                            <path fillRule="evenodd" clipRule="evenodd" d="M25.7318 7.72728C25.7318 12.003 22.3061 15.4546 18.0303 15.4546C13.7545 15.4546 10.303 12.003 10.303 7.72728C10.303 3.45152 13.7545 0 18.0303 0C22.3061 0 25.7318 3.45152 25.7318 7.72728ZM46.3379 7.72728C46.3379 12.003 42.9121 15.4546 38.6364 15.4546C34.3606 15.4546 30.9091 12.003 30.9091 7.72728C30.9091 3.45152 34.3606 0 38.6364 0C42.9121 0 46.3379 3.45152 46.3379 7.72728ZM18.0303 20.6061C12.0288 20.6061 0 23.6197 0 29.6212V36.0606H36.0606V29.6212C36.0606 23.6197 24.0318 20.6061 18.0303 20.6061ZM36.1379 20.7348C37.0394 20.6576 37.8894 20.6061 38.6364 20.6061C44.6379 20.6061 56.6667 23.6197 56.6667 29.6212V36.0606H41.2121V29.6212C41.2121 25.8091 39.1258 22.8985 36.1379 20.7348Z" />
+                    <button className={styles['heroicon-button']}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
                         </svg>
                     </button>
                 </div>

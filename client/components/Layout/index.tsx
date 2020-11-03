@@ -1,7 +1,9 @@
 import AppLayout from './AppLayout'
+import LoadingLayout from './LoadingLayout'
 
 export {
-    AppLayout
+    AppLayout,
+    LoadingLayout
 }
 
 export default AppLayout

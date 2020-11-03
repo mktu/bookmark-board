@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import { Provider } from 'react-redux'
 import store from '../reducers'
-import FirebaseProvider from '../components/Provider/FirebaseProvider'
+import AppProvider from '../components/Provider'
 
 function MyApp({ Component, pageProps }) {
   if (typeof window !== 'undefined') {
@@ -12,9 +12,9 @@ function MyApp({ Component, pageProps }) {
   }
   return (
     <Provider store={store}>
-      <FirebaseProvider>
+      <AppProvider>
         <Component {...pageProps} />
-      </FirebaseProvider>
+      </AppProvider>
     </Provider>
 
   )

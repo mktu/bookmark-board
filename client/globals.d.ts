@@ -9,6 +9,34 @@ declare type Profile = {
     image : string,
     loading : boolean
 }
+declare type BookmarkGroup = {
+    users : string[],
+    owner : string,
+    name : string,
+    actions : string[],
+    id : string,
+    idx : number,
+    imageUrl ?: string
+}
+
+declare type Bookmark = {
+    id : string,
+    url : string,
+    title ?: string,
+    neighbors : [],
+    image ?: string,
+    groupId : string,
+    owner : string,
+    created : number,
+    updated ?: number,
+    idx : number,
+    reactions : {[key:string]:string[]},
+}
+
+declare type LoadStatus = {
+    id : string,
+    status : 'loading' | 'loaded' | 'failed'
+}
 declare type Transfer<T> = (value : T) => void;
 declare type CollectionTransfer<T> = (collection : T[]) => void
 declare type ErrorHandler = (error : Error) => void;

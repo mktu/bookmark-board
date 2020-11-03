@@ -1,29 +1,18 @@
-import React, { useEffect, useState } from 'react'
-import FirebaseContext, { createFirebaseService, initialService } from '../../context/FirebaseContext'
+import {useEffect, useState} from 'react'
+import { FirebaseClientServiceType } from '../../../context/FirebaseContext'
 import { useDispatch } from "react-redux";
-import { actions as profileActions } from '../../modules/profileSlice'
-import nookies from 'nookies'
+import { actions as profileActions } from '../../../modules/profileSlice'
 
-type Props = {
-    children: React.ReactNode
-}
-const DefaultProvider: React.FC<Props> = ({ children }) => {
-    const [clientService, setClientService] = useState(initialService)
+const useAuth = (clientService:FirebaseClientServiceType)=>{
     const [uid,setUid] = useState('')
     const dispatch = useDispatch()
     
     useEffect(()=>{
-        if(clientService.mock && typeof window !== 'undefined'){
-            createFirebaseService().then(services => {
-                setClientService(services)
-            })
-            return;
-        }
         const { listenAuthState, getProfile, addProfile } = clientService;
         listenAuthState((user)=>{
             setUid(user.uid)
             user.getIdToken().then(token=>{
-                nookies.set(undefined, 'token', token, {})
+                // nookies.set(undefined, 'bookmarkToken', token, {})
             })
             getProfile(user.uid, ()=>{
                 console.log(`${user.displayName} is already exist in profile`)
@@ -34,9 +23,10 @@ const DefaultProvider: React.FC<Props> = ({ children }) => {
             })
         }, ()=>{
             setUid('')
-            nookies.set(undefined, 'token', '', {})
+            dispatch(profileActions.clear())
+            // nookies.set(undefined, 'bookmarkToken', '', {})
         })
-    }, [clientService.mock])
+    }, [clientService])
 
     useEffect(()=>{
         if(clientService.mock && typeof window !== 'undefined'){
@@ -55,13 +45,7 @@ const DefaultProvider: React.FC<Props> = ({ children }) => {
         }
     }, [uid])
 
-    return (
-        <FirebaseContext.Provider value={{
-            clientService,
-        }}>
-            {children}
-        </FirebaseContext.Provider>
-    )
+    return uid
 }
 
-export default DefaultProvider
+export default useAuth

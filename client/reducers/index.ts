@@ -4,11 +4,15 @@ import thunkMiddleware from 'redux-thunk'
 import sidebarSlice from '../modules/sidebarSlice'
 import serviceSlice from '../modules/serviceSlice'
 import profileSlice from '../modules/profileSlice'
+import groupSlice from '../modules/groupSlice'
+import bookmarkSlice from '../modules/bookmarkSlice'
 
 const rootReducer = combineReducers({
     sidebar : sidebarSlice,
     service : serviceSlice,
-    profile : profileSlice
+    profile : profileSlice,
+    groups : groupSlice,
+    bookmarks : bookmarkSlice
 })
 
 const store = configureStore({

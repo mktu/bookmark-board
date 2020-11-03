@@ -6,6 +6,16 @@ module.exports = {
   purge: ['./components/**/*.tsx', './pages/**/*.tsx'],
   theme: {
     extend: {
+      stroke: theme => ({
+        'primary' : theme('colors.primary.main'),
+        'light' : theme('colors.primary.300'),
+        'dark' : theme('colors.primary.dark'),
+      }),
+      fill: theme => ({
+        'primary' : theme('colors.primary.main'),
+        'light' : theme('colors.primary.300'),
+        'dark' : theme('colors.primary.dark'),
+      }),
       colors: {
         brand: '#293239',
         primary: {
@@ -21,7 +31,9 @@ module.exports = {
           '900':'#263238',
           'light':'#eceff1',
           'main':'#546e7a',
-          'dark':'#263238'
+          'dark':'#263238',
+          'border':'#D5DBE1',
+          'hover':'#F3F4F6'
         },
         gray: {
           '50':  '#f7f8f7',

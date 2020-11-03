@@ -1,0 +1,11 @@
+.svg-outlined-button{
+    &:focus {
+        @apply outline-none;
+    }
+    svg {
+        @apply stroke-primary;
+        &:hover{
+            @apply stroke-dark;
+        }
+    }
+}

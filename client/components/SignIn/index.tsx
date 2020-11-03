@@ -14,7 +14,7 @@ const Signin = ({
         <Presenter 
             handleSignin={()=>{
                 clientService.loginByGoogle(()=>{
-                    router.push('/home')
+                    router.push('/bookmarks')
                 })
             }}
         />

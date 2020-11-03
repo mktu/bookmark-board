@@ -1,5 +1,6 @@
 import React, { useState, useRef } from "react";
 import Popper from "popper.js";
+import classNames from "classnames";
 
 type Children<T extends HTMLElement> = React.ReactElement & {
     ref?: React.Ref<T>;
@@ -7,10 +8,11 @@ type Children<T extends HTMLElement> = React.ReactElement & {
 
 type Props<T extends HTMLElement> = {
     children: Children<T>,
-    content: React.ReactNode | string
+    content: React.ReactNode | string,
+    className?: string
 }
 
-export function Tooltip<T extends HTMLElement>({ children, content }: Props<T>) {
+export default function Tooltip<T extends HTMLElement>({ children, content, className }: Props<T>) {
     const [tooltipShow, setTooltipShow] = useState(false);
     const childRef = useRef<HTMLElement>()
     const tooltipRef = useRef<HTMLDivElement>()
@@ -42,6 +44,7 @@ export function Tooltip<T extends HTMLElement>({ children, content }: Props<T>) 
         onMouseEnter: openLeftTooltip,
         onMouseLeave: closeLeftTooltip
     }
+    
     return (
         <>
             <div className="flex flex-wrap">
@@ -51,8 +54,8 @@ export function Tooltip<T extends HTMLElement>({ children, content }: Props<T>) 
                         (
                             <div
                                 className={
-                                    (tooltipShow ? "" : "hidden ") +
-                                    "bg-primary-600 text-white opacity-80 font-semibold p-3 rounded-lg"
+                                    classNames((tooltipShow ? "" : "hidden ") +
+                                    "bg-primary-600 text-white opacity-80 p-2 rounded-lg", className)
                                 }
                                 ref={tooltipRef}
                             >

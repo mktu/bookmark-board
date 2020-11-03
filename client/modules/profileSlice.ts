@@ -3,9 +3,9 @@ import { useSelector } from 'react-redux'
 
 const initState: Profile = {
     name: '',
-    id : '',
-    image : '',
-    loading : true
+    id: '',
+    image: '',
+    loading: true
 }
 
 type Payload = {
@@ -16,14 +16,19 @@ const profileSlice = createSlice({
     name: 'profile',
     initialState: initState,
     reducers: {
-        saveProfile: (state, action : PayloadAction<Payload>) => {
+        saveProfile: (state, action: PayloadAction<Payload>) => {
             console.log(action)
             state = action.payload.profile
             state.loading = false
             return state
         },
         clear: () => {
-            return initState
+            return {
+                name: '',
+                id: '',
+                image: '',
+                loading: false
+            }
         },
     },
 })

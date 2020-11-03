@@ -4,6 +4,8 @@ export const createFirebaseService = async () => {
     return {
         ...await import('../services/auth'),
         ...await import('../services/profile'),
+        ...await import('../services/group'),
+        ...await import('../services/bookmark'),
         mock : false
     }
 }
@@ -23,6 +25,11 @@ export const createMock = (func: (name: string) => (...args: any[]) => void) => 
         addProfile : func('addProfile'),
         listenProfile : () => {func('listenProfile')(); return ()=>{}},
         getProfile : func('getProfile'),
+        addGroup : func('addGroup'),
+        getGroups : func('addGroup'),
+        listenGroups : () => {func('listenGroups')(); return ()=>{}},
+        addBookmark : func('addBookmark'),
+        listenBookmarks : () => {func('listenBookmarks')(); return ()=>{}},
         mock:true
     }
     return mock;
