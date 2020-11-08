@@ -3,9 +3,19 @@
         @apply outline-none;
     }
     svg {
-        @apply stroke-primary;
+        @apply stroke-primary-main;
         &:hover{
-            @apply stroke-dark;
+            @apply stroke-primary-dark;
         }
     }
+}
+
+.svg-inherit-button{
+    &:focus {
+        @apply outline-none;
+    }
+}
+
+.button-base{
+    @apply outline-none;
 }

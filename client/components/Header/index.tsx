@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { toggleSideBar } from '../../modules/sidebarSlice'
 import { HeaderLogo } from '../Common/Logo'
 import { Popover } from '../Common/Popover'
-import { LinkButton } from '../Common/Button'
+import { TextButton } from '../Common/Button'
 import FirebaseContext from '../../context/FirebaseContext'
 
 
@@ -34,12 +34,12 @@ const Header = () => {
                             placement='bottom-end'
                             content={(
                             <div className='bg-white opacity-80 rounded shadow font-semibold pt-3 pb-3 flex flex-col justify-start align-middle'>
-                                <LinkButton className='block w-full pl-3 pr-3 text-left hover:bg-primary-50'>Profile</LinkButton>
-                                <LinkButton onClick={()=>{
+                                <TextButton className='block w-full pl-3 pr-3 text-left hover:bg-primary-50'>Profile</TextButton>
+                                <TextButton onClick={()=>{
                                     clientService.logout(()=>{
                                         router.push('/signin')
                                     })
-                                }} className='block w-full pl-3 pr-3 text-left hover:bg-primary-50'>Sign Out</LinkButton>
+                                }} className='block w-full pl-3 pr-3 text-left hover:bg-primary-50'>Sign Out</TextButton>
                             </div>
                         )}>
                             <button className={styles['heroicon-button']}>

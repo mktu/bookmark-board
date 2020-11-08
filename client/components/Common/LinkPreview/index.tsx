@@ -14,6 +14,9 @@ const LinkPreview: React.FC<{
     linkData,
     className
 }) => {
+        if(!Boolean(url)){
+            return <></>
+        }
         if (!linkData) {
             return <div className='flex items-center justify-center'><LoadingImg width='50px'/></div>;
         }

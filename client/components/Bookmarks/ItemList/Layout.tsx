@@ -8,7 +8,7 @@ const Layout: React.FC<Props> = ({
     contents
 }) => {
     return (
-        <div className='w-full h-full'>
+        <div className='w-full h-full flex flex-col'>
             <div className='w-full'>{header}</div>
             <div className='w-full h-full'>{contents}</div>
         </div>

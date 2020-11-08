@@ -23,6 +23,7 @@ declare type Bookmark = {
     id : string,
     url : string,
     title ?: string,
+    description ?:string,
     neighbors : [],
     image ?: string,
     groupId : string,
@@ -30,6 +31,7 @@ declare type Bookmark = {
     created : number,
     updated ?: number,
     idx : number,
+    unacquired ?: boolean,
     reactions : {[key:string]:string[]},
 }
 
@@ -37,6 +39,7 @@ declare type LoadStatus = {
     id : string,
     status : 'loading' | 'loaded' | 'failed'
 }
+declare type Notifier = ()=>void
 declare type Transfer<T> = (value : T) => void;
 declare type CollectionTransfer<T> = (collection : T[]) => void
 declare type ErrorHandler = (error : Error) => void;

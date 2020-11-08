@@ -31,7 +31,7 @@ const ItemList: React.FC<Props> = () => {
     return (
         <Layout
             header={<Header group={targetGroup} />}
-            contents={<Content bookmarks={bookmarks} />}
+            contents={<Content bookmarks={bookmarks} group={targetGroup}/>}
         />
     )
 }

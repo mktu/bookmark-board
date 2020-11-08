@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react'
+import { find } from 'linkifyjs';
 
 type Props = {
-    url?: string
+    text?: string
 }
 
 const proxy = 'https://cors-anywhere.herokuapp.com';
@@ -51,30 +52,45 @@ export type LinkData = {
     description?: string;
     images: (string | undefined)[];
 }
+type Status = 'none' | 'loading' | 'loaded' | 'failed'
 
-const useLinkPreview = ({
-    url
-}: Props) => {
-    const [linkData, setLinkData] = useState<LinkData>()
+const useLinkPreview: (props: Props) => {
+    linkData?: LinkData,
+    status: Status,
+    url?: string
+} = ({
+    text
+}) => {
+        const [linkData, setLinkData] = useState<LinkData>()
+        const [status, setStatus] = useState<'none' | 'loading' | 'loaded' | 'failed'>('none')
+        const inputUrls = find(text)
+        const url = inputUrls.length > 0 && inputUrls[0].value
 
-    useEffect(() => {
-        if(!url){
-            return
+        useEffect(() => {
+            if (!url) {
+                return
+            }
+            let cancel = false;
+            setStatus('loading')
+            fetchLinkPreview(`${proxy}/${url}`).then((data) => {
+                !cancel && setLinkData(data)
+                setStatus('loaded')
+            }).catch((e) => {
+                setStatus('failed')
+                console.error(e)
+            });
+
+            return () => {
+                setStatus('none')
+                cancel = true;
+            }
+        }, [url]);
+
+        return {
+            linkData,
+            status,
+            url
         }
-        let cancel = false;
-
-        fetchLinkPreview(`${proxy}/${url}`).then((data) => {
-            !cancel && setLinkData(data)
-        }).catch(console.error);
-
-        return () => {
-            cancel = true;
-        }
-    }, [url]);
-
-    return {
-        linkData
     }
-}
 
 export default useLinkPreview

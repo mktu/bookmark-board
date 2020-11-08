@@ -68,7 +68,7 @@ export function Popover<T extends HTMLElement>({ children, content, placement = 
                             <Clickaway onClickAway={() => {
                                 setPopoverShow(false)
                             }}>
-                                <div className={popoverShow ? '' : 'hidden'} ref={(value) => {
+                                <div className={popoverShow ? 'z-20' : 'hidden'} ref={(value) => {
                                     value && setPopper(value)
                                 }}>{content}</div>
                             </Clickaway>

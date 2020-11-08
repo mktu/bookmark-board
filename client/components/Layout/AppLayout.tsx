@@ -13,9 +13,6 @@ const Layout = ({
 }: Props) => {
     return (
         <div className='w-screen h-screen flex flex-col'>
-            <div>
-                {header}
-            </div>
             <div className='h-full w-full flex flex-row'>
                 <div className='h-full'>{sidebar}</div>
                 <div className='h-full w-full'>{main}</div>
