@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { SvgIconButton } from '../../Common/Button'
 import { FolderOpen, Edit, DotsVertical } from '../../Common/Icon'
 import Tooltip from '../../Common/Tooltip'
+import { Popover } from '../../Common/Popover'
+import GroupMenu from './GroupMenu'
 
 type Props = {
     group: BookmarkGroup
@@ -38,9 +40,13 @@ const Header: React.FC<Props> = ({
             )
             }
             <div className='ml-auto'>
-                <SvgIconButton>
-                    <DotsVertical strokeWidth={2} className='w-6' />
-                </SvgIconButton>
+                <Popover content={<GroupMenu />} >
+                    <div>
+                        <SvgIconButton>
+                            <DotsVertical strokeWidth={2} className='w-6' />
+                        </SvgIconButton>
+                    </div>
+                </Popover>
             </div>
 
         </div >

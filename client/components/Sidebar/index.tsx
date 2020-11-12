@@ -14,7 +14,7 @@ const Sidebar = () => {
                 <div>
                     <Popover
                         content={<ProfileMenu />}
-                        placement='bottom-end'
+                        placement='auto'
                     >
                         <div className='mb-8'>
                             <SvgIconButton variant='inherit' className={styles['heroicon-button']}>

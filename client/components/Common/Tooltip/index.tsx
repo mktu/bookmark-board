@@ -1,5 +1,5 @@
 import React, { useState, useRef } from "react";
-import Popper from "popper.js";
+import { usePopper, PopperChildrenProps } from 'react-popper';
 import classNames from "classnames";
 
 type Children<T extends HTMLElement> = React.ReactElement & {
@@ -14,13 +14,12 @@ type Props<T extends HTMLElement> = {
 
 export default function Tooltip<T extends HTMLElement>({ children, content, className }: Props<T>) {
     const [tooltipShow, setTooltipShow] = useState(false);
-    const childRef = useRef<HTMLElement>()
-    const tooltipRef = useRef<HTMLDivElement>()
+    const [referenceElement, setReferenceElement] = useState<HTMLElement>()
+    const [popperElement, setPopperElement] = useState<HTMLDivElement>()
+    const { styles, attributes } = usePopper(referenceElement, popperElement, {
+        placement:'auto'
+      });
     const openLeftTooltip = () => {
-        if (!childRef.current || !tooltipRef.current) return
-        new Popper(childRef.current, tooltipRef.current, {
-            placement: "auto"
-        });
         setTooltipShow(true);
     };
     const closeLeftTooltip = () => {
@@ -39,7 +38,7 @@ export default function Tooltip<T extends HTMLElement>({ children, content, clas
                     refObject.current = value;
                 }
             }
-            childRef.current = value
+            setReferenceElement(value)
         },
         onMouseEnter: openLeftTooltip,
         onMouseLeave: closeLeftTooltip
@@ -57,7 +56,8 @@ export default function Tooltip<T extends HTMLElement>({ children, content, clas
                                     classNames((tooltipShow ? "" : "hidden ") +
                                     "bg-primary-600 text-white opacity-80 p-2 rounded-lg", className)
                                 }
-                                ref={tooltipRef}
+                                ref={setPopperElement}
+                                style={styles.popper} {...attributes.popper}
                             >
                                 {content}
                             </div>
