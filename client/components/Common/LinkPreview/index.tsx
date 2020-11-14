@@ -14,7 +14,7 @@ const LinkPreview: React.FC<{
     linkData,
     className
 }) => {
-        if(!Boolean(url)){
+        if(!url){
             return <></>
         }
         if (!linkData) {

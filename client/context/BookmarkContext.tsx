@@ -11,8 +11,8 @@ export type ContextType = {
 
 
 export const initialService : BookmarkServices= {
-    load : ()=>{},
-    unload : ()=>{}
+    load : ()=>{console.log('load')},
+    unload : ()=>{console.log('unload')}
 }
 
 const FirebaseContext = React.createContext<ContextType>({

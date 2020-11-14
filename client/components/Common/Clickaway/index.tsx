@@ -1,4 +1,4 @@
-import React, { useState, useEffect, MutableRefObject } from "react";
+import React, { useState, useEffect } from "react";
 
 type ClickAwayListenerProps<T extends HTMLElement> = {
     onClickAway: () => void;
@@ -48,6 +48,6 @@ function ClickAwayListener<T extends HTMLElement>({
         }
     }
     return React.cloneElement(children, childProps);
-};
+}
 
 export default ClickAwayListener;

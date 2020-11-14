@@ -3,11 +3,7 @@ import { useRouter } from 'next/router'
 import FirebaseContext from '../../context/FirebaseContext'
 import Presenter from './Presenter'
 
-type Props = {
-}
-
-const Signin = ({
-}: Props) => {
+const Signin = () => {
     const { clientService } = useContext(FirebaseContext)
     const router = useRouter();
     return (

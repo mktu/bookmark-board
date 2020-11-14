@@ -1,3 +1,4 @@
+import React from 'react'
 import Head from 'next/head'
 import Bookmarks from '../../components/Bookmarks'
 import { AppLayout } from '../../components/Layout'

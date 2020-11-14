@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import { useDrop } from 'react-dnd'
 
 type Props = {
@@ -12,7 +12,7 @@ const Droppable: React.FC<Props> = ({
     open,
     droppable
 }) => {
-    const [_, drop] = useDrop({
+    const [, drop] = useDrop({
         accept: 'LIST',
         drop: (_, monitor) => {
             const i = monitor.getItem()

@@ -16,7 +16,7 @@ const RequireSigned = ({ children }: Props) => {
         if(loading){
             return
         }
-        if(!Boolean(id)){
+        if(!id){
             router.push('/signin')
         }
     }, [id,loading])

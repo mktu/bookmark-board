@@ -16,7 +16,7 @@ const RequireSignedIn = ({ children }: Props) => {
         if(loading){
             return
         }
-        if(Boolean(id)){
+        if(id){
             router.push('/bookmarks')
         }
     }, [id,loading])

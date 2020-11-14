@@ -32,7 +32,7 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
         if(clientService.mock && typeof window !== 'undefined'){
             return;
         }
-        if(!Boolean(uid)){
+        if(!uid){
             return
         }
         const { listenProfile } = clientService

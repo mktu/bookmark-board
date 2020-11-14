@@ -9,7 +9,7 @@ type ContainedButtonProps = ButtonProps & {
     variant?: 'primary' | 'secondary' | 'inherit'
 }
 
-export const ContainedButton: React.FC<ContainedButtonProps> = ({ variant = 'primary', className, ...props }) => {
+export const ContainedButton: React.FC<ButtonProps> = ({ className, ...props }) => {
     return (
         <button className={classNames('bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded', className)} {...props} />
     )

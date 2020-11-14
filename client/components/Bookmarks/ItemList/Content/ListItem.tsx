@@ -57,7 +57,7 @@ const ListItem: React.FC<Props> = ({
             drop(v)
         }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} onMouseOver={() => { setShowCheck(true) }} onMouseLeave={() => { setShowCheck(false) }}>
             <div className='p-2 flex items-center bg-white w-full shadow hover:bg-gray-50'>
-                <div className={true ? 'w-0' :  `overflow-hidden`}>
+                <div className={'w-0'}>
                     <SvgIconButton variant='inherit' className={`mr-2 pr-2 border-primary-border border-r`}>
                         <CheckFill className='w-8 fill-primary-200 hover:fill-primary-main' />
                     </SvgIconButton>

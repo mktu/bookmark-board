@@ -1,5 +1,5 @@
-import React, { useState, useRef } from "react";
-import { usePopper, PopperChildrenProps } from 'react-popper';
+import React, { useState } from "react";
+import { usePopper } from 'react-popper';
 import classNames from "classnames";
 
 type Children<T extends HTMLElement> = React.ReactElement & {
@@ -69,4 +69,4 @@ export default function Tooltip<T extends HTMLElement>({ children, content, clas
             </div>
         </>
     );
-};
+}

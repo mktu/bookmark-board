@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react'
+import React from 'react'
 import GroupList from './GroupList'
 import ItemList from './ItemList'
 import Layout from './Layout'

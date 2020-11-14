@@ -45,7 +45,7 @@ export function getGroups(
     db.collection('groups').where('users','array-contains', uid)
     .get()
     .then((querySnapshot) => {
-        let results: BookmarkGroup[] = [];
+        const results: BookmarkGroup[] = [];
         querySnapshot.forEach((data) => {
             if (data.exists) {
                 results.push({

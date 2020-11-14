@@ -1,6 +1,6 @@
 declare type User = {
     uid : string,
-    isAnonymous : Boolean,
+    isAnonymous : boolean,
     name : string | null
 }
 declare type Profile = {

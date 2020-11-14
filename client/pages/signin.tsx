@@ -1,3 +1,4 @@
+import React from 'react'
 import Head from 'next/head'
 import SignIn from '../components/SignIn'
 import { RequireNotSigned } from '../components/App'

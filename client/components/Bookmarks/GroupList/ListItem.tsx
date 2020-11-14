@@ -10,6 +10,9 @@ type Props = {
 const ListItem: React.FC<Props> = ({
     bookmarkGroup
 }) => {
+    if(!bookmarkGroup || !bookmarkGroup.id){
+        return <div/>
+    }
     const router = useRouter()
     const { ids } = router.query
     const selected = Boolean(ids) && ids[0] === bookmarkGroup.id

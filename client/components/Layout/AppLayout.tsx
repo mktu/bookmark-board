@@ -7,7 +7,6 @@ type Props = {
 }
 
 const Layout = ({
-    header,
     sidebar,
     main
 }: Props) => {

@@ -28,7 +28,7 @@ const GroupList: React.FC<Props> = () => {
                 </div>
                 <div>
                     <SvgIconButton onClick={()=>{
-                        if(newGroup==='' || !Boolean(profile.id)){
+                        if(newGroup==='' || !profile.id){
                             console.warn(`cannot add group:newGroup:${newGroup},profileId:${profile.id}`)
                             return
                         }
