@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import Layout from './Layout'
 import ListItem from './ListItem'
 import Input from './Input'
@@ -7,24 +7,26 @@ import FirebaseContext from '../../../../context/FirebaseContext'
 import { spliceAndInsert } from '../../../../logics'
 
 type Props = {
-    bookmarks: Bookmark[],
+    bookmarkIds: string[],
     group: BookmarkGroup
 }
 
 const Content: React.FC<Props> = ({
-    bookmarks,
+    bookmarkIds,
     group
 }) => {
     const [hover, setHover] = useState(-1)
+    const [checks, setChecks] = useState<{[key:string]:boolean}>({})
+    const [input, setInput] = useState(false)
     const { clientService } = useContext(FirebaseContext)
     const onChangeOrder = (idx:number, target: string) => {
-        const ordered = spliceAndInsert(bookmarks.map(b => b.id), idx, target)
+        const ordered = spliceAndInsert(bookmarkIds, idx, target)
         clientService.changeOrder(group.id, ordered)
     }
     return (
         <Layout
             refinements={<div>REFINEMENT</div>}
-            bookmarks={bookmarks}
+            bookmarkIds={bookmarkIds}
             renderBookmark={(b, idx) => {
 
                 return (
@@ -34,14 +36,14 @@ const Content: React.FC<Props> = ({
                         }} open={hover === 0} />)}
                         <ListItem
                             setHover={setHover}
-                            bookmark={b} />
+                            bookmarkId={b} />
                         <Droppable droppable={hover!=-1} onChangeOrder={(target)=>{
                             onChangeOrder(idx+1, target)
                         }} open={hover === idx + 1} />
                     </>
                 )
             }}
-            input={<Input groupId={group.id} />}
+            input={<Input groupId={group.id} toggle={setInput} show={input}/>}
         />
     )
 }

@@ -52,17 +52,17 @@ export default function Tooltip<T extends HTMLElement>({ children, content, clas
                     {typeof content === 'string' ?
                         (
                             <div
-                                className={
-                                    classNames((tooltipShow ? "" : "hidden ") +
-                                    "bg-primary-600 text-white opacity-80 p-2 rounded-lg", className)
-                                }
+                                className={tooltipShow ? "z-20" : "hidden "}
                                 ref={setPopperElement}
-                                style={styles.popper} {...attributes.popper}
+                                style={styles.popper} 
+                                {...attributes.popper}
                             >
-                                {content}
+                                <div className={classNames('bg-primary-600 text-white opacity-80 p-2 rounded-lg',className)}>
+                                    {content}
+                                </div>
                             </div>
                         ) : (
-                            { content }
+                        <div className={tooltipShow ? 'z-20' : 'hidden'}> { content }</div>
                         )}
 
                 </div>

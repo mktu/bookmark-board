@@ -1,6 +1,6 @@
 import React from 'react'
 import { selectGroupsByUser, useGroups } from '../../../modules/groupSlice'
-import { useBookmarkByGroup } from '../../../modules/bookmarkSlice'
+import { useBookmarkIdsByGroup } from '../../../modules/bookmarkSlice'
 import { useRouter } from 'next/router'
 import NoItem from './NoItem'
 import Layout from './Layout'
@@ -15,12 +15,12 @@ const ItemList: React.FC<Props> = () => {
     const router = useRouter()
     const { ids } = router.query
     const id = ids && ids.length > 0 ? ids[0] : ''
-    const bookmarks = useBookmarkByGroup(id)
+    const bookmarkIds = useBookmarkIdsByGroup(id)
     const targetGroup = selectGroupsByUser(groups, id)
     if (!targetGroup) {
         return <div />
     }
-    if (bookmarks.length == 0) {
+    if (bookmarkIds.length == 0) {
         return (
             <Layout
                 header={<Header group={targetGroup} />}
@@ -31,7 +31,7 @@ const ItemList: React.FC<Props> = () => {
     return (
         <Layout
             header={<Header group={targetGroup} />}
-            contents={<Content bookmarks={bookmarks} group={targetGroup}/>}
+            contents={<Content bookmarkIds={bookmarkIds} group={targetGroup}/>}
         />
     )
 }

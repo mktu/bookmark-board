@@ -1,16 +1,13 @@
 import styles from './index.module.scss'
-import { useSelector } from "react-redux";
-import { RootReducer } from '../../reducers'
 import { User, Book, Setting, Help } from '../Common/Icon'
 import { Popover } from '../Common/Popover'
 import { SvgIconButton } from '../Common/Button'
 import ProfileMenu from './ProfileMenu'
 
 const Sidebar = () => {
-    const sidebar = useSelector((state: RootReducer) => state.sidebar)
     return (
-        <div className={`flex flex-row h-full ${sidebar ? 'w-20' : 'w-0'} bg-primary-dark transition-all duration-200 ease-in-out`}>
-            <nav className="h-full w-20 items-center flex flex-col p-4">
+        <div className={`flex flex-row h-full bg-primary-dark`}>
+            <nav className="h-full items-center flex flex-col p-4">
                 <div>
                     <Popover
                         content={<ProfileMenu />}

@@ -1,9 +1,9 @@
-import React from 'react'
-import { useDrag } from 'react-dnd'
-import { useDrop } from 'react-dnd'
+import React, { useState } from 'react'
+import { useDrag, useDrop } from 'react-dnd'
 import { PlaceHolderImg } from '../../../Common/Image'
-import { ExternalLink } from '../../../Common/Icon'
+import { ExternalLink, CheckFill } from '../../../Common/Icon'
 import { SvgIconButton, ButtonBase } from '../../../Common/Button'
+import { useBookmarkById } from '../../../../modules/bookmarkSlice'
 
 export type HoverItem = {
     id: string,
@@ -11,14 +11,15 @@ export type HoverItem = {
     direction: 'toUpper' | 'toLower'
 }
 type Props = {
-    bookmark: Bookmark,
+    bookmarkId: string,
     setHover: (idx: number) => void,
 }
 
 const ListItem: React.FC<Props> = ({
-    bookmark,
+    bookmarkId,
     setHover,
 }) => {
+    const bookmark = useBookmarkById(bookmarkId)
     const [{ dragging }, drag] = useDrag({
         item: {
             id: bookmark.id,
@@ -29,10 +30,10 @@ const ListItem: React.FC<Props> = ({
         collect: (monitor) => ({
             dragging: monitor.isDragging(),
         }),
-        begin : ()=>{
+        begin: () => {
             setHover(bookmark.idx)
         },
-        end : ()=>{
+        end: () => {
             setHover(-1)
         }
     })
@@ -48,12 +49,19 @@ const ListItem: React.FC<Props> = ({
         }
     })
 
+    const [showCheck, setShowCheck] = useState(false)
+
     return (
         <div ref={(v) => {
             drag(v)
             drop(v)
-        }} className={`w-full ${dragging && 'hidden'}`}>
-            <ButtonBase className='p-2 flex items-center bg-white w-full shadow hover:bg-gray-50'>
+        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} onMouseOver={() => { setShowCheck(true) }} onMouseLeave={() => { setShowCheck(false) }}>
+            <div className='p-2 flex items-center bg-white w-full shadow hover:bg-gray-50'>
+                <div className={true ? 'w-0' :  `overflow-hidden`}>
+                    <SvgIconButton variant='inherit' className={`mr-2 pr-2 border-primary-border border-r`}>
+                        <CheckFill className='w-8 fill-primary-200 hover:fill-primary-main' />
+                    </SvgIconButton>
+                </div>
                 <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r'>
                     {bookmark.image ? (
                         <img src={bookmark.image} className='w-16' />
@@ -62,9 +70,9 @@ const ListItem: React.FC<Props> = ({
                         )}
                 </div>
                 <div className='flex flex-col items-start w-8/12'>
-                    <div>{bookmark.title || bookmark.url}</div>
+                    <div className='overflow-hidden truncate max-w-full'>{bookmark.title || bookmark.url}</div>
                     <div className='overflow-hidden truncate text-xs text-primary-main max-w-full' > {bookmark.description}</div>
-                    <div className='overflow-hidden truncate text-xs text-primary-main font-thin' > {bookmark.url}</div>
+                    <div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>
                 </div>
                 <div className='ml-auto'>
                     <SvgIconButton onClick={() => {
@@ -76,7 +84,7 @@ const ListItem: React.FC<Props> = ({
                         <ExternalLink className='w-6' strokeWidth='1.5px' />
                     </SvgIconButton>
                 </div>
-            </ButtonBase>
+            </div>
         </div>
     )
 }

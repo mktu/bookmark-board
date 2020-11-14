@@ -37,16 +37,36 @@ export const {
 export const selectBookmarksByGroup = createSelector(
     [selectAll, (_, groupId:string)=>groupId],
     (bookmarks,groupId)=>{
-        console.log(bookmarks)
         return bookmarks.filter(b=>b.groupId===groupId)
     }
 )
+
+export const selectBookmarkIdsByGroup = createSelector(
+    [selectAll, (_, groupId:string)=>groupId],
+    (bookmarks,groupId)=>{
+        return bookmarks.filter(b=>b.groupId===groupId).map(b=>b.id)
+    }
+)
+
+export const useBookmarkIdsByGroup = (groupId:string) => {
+    return useSelector(
+        (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
+        selectBookmarkIdsByGroup(state.bookmarks,groupId)
+    )
+}
 
 
 export const useBookmarkByGroup = (groupId:string) => {
     return useSelector(
         (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
         selectBookmarksByGroup(state.bookmarks,groupId)
+    )
+}
+
+export const useBookmarkById = (bookmarkId:string) => {
+    return useSelector(
+        (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
+        selectById(state.bookmarks,bookmarkId)
     )
 }
 

@@ -1,5 +1,5 @@
 import React from 'react'
-
+import styles from './index.module.scss'
 type Props = {
     header: React.ReactNode,
     sidebar: React.ReactNode,
@@ -12,12 +12,9 @@ const Layout = ({
     main
 }: Props) => {
     return (
-        <div className='w-screen h-screen flex flex-col'>
-            <div className='h-full w-full flex flex-row'>
-                <div className='h-full'>{sidebar}</div>
-                <div className='h-full w-full'>{main}</div>
-            </div>
-
+        <div className={styles['app-layout']}>
+            <div>{sidebar}</div>
+            <div>{main}</div>
         </div>
     )
 }

@@ -6,6 +6,15 @@ module.exports = {
   purge: ['./components/**/*.tsx', './pages/**/*.tsx'],
   theme: {
     extend: {
+      maxHeight: {
+        '1/4' : '25%',
+        '2/4' : '50%',
+        '3/4' : '75%',
+        '1/5' : '20%',
+        '2/5' : '40%',
+        '3/5' : '60%',
+        '4/5' : '80%'
+      },
       stroke: theme => ({
         primary: theme('colors.primary'),
         secondary: theme('colors.secondary')

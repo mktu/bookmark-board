@@ -14,7 +14,7 @@ const Header: React.FC<Props> = ({
 }) => {
     const [showRename, setShowRename] = useState(false)
     return (
-        <div className='flex flex-row items-center pl-4 pr-4 pt-2 pb-2 border-b border-primary-border'
+        <div className='h-full w-full flex flex-row items-center pl-4 pr-4 pt-2 pb-2 border-b border-primary-border'
             onMouseLeave={() => {
                 setShowRename(false)
             }}>
@@ -40,7 +40,7 @@ const Header: React.FC<Props> = ({
             )
             }
             <div className='ml-auto'>
-                <Popover content={<GroupMenu />} >
+                <Popover content={<GroupMenu />} placement='left'>
                     <div>
                         <SvgIconButton>
                             <DotsVertical strokeWidth={2} className='w-6' />
