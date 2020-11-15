@@ -1,43 +1,61 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createEntityAdapter, createSelector } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 
+const groupAdapter = createEntityAdapter<BookmarkGroup>({
+    sortComparer : (a,b)=>{
+        return a.idx - b.idx
+    }
+})
+
+const initialState = groupAdapter.getInitialState()
 
 const groupSlice = createSlice({
     name: 'groups',
-    initialState: [] as BookmarkGroup[],
+    initialState,
     reducers: {
         addGroups: (state, action : PayloadAction<{groups:BookmarkGroup[]}>) => {
-            return [...state,...action.payload.groups]
+            groupAdapter.upsertMany(state,action.payload.groups)
         },
         modifyGroups: (state, action : PayloadAction<{groups:BookmarkGroup[]}>) => {
-            return [...state.map(v=> {
-                const matched = action.payload.groups.find(v2=>v2.id===v.id)
-                if(matched){
-                    return matched
-                }
-                return v
-            })]
+            groupAdapter.updateMany(state,action.payload.groups.map(b=>({id:b.id, changes : b})))
         },
         removeGroups: (state, action : PayloadAction<{groups:BookmarkGroup[]}>) => {
-            return state.filter(v => action.payload.groups.map(v=>v.id).includes(v.id) )
+            groupAdapter.removeMany(state, action.payload.groups.map(b=>b.id))
         },
-        clear: () => {
-            return []
+        clear: (state) => {
+            groupAdapter.removeAll(state)
         },
     },
 })
 
 export const actions = groupSlice.actions
 
-export const useGroups = () => {
+export const {
+    selectAll,
+    selectIds,
+    selectById,
+    selectEntities
+} = groupAdapter.getSelectors()
+
+export const selectGroupByUser = createSelector(
+    [selectAll, (_, uid:string)=>uid],
+    (groups,uid)=>{
+        return groups.filter(b=>b.users.includes(uid))
+    }
+)
+
+export const useGroupsByUser = (uid:string) => {
     return useSelector(
         (state: { groups: ReturnType<typeof groupSlice.reducer> }) =>
-            state.groups,
+        selectGroupByUser(state.groups,uid)
     )
 }
 
-export const selectGroupsByUser = (state:BookmarkGroup[], id:string)=>{
-    return state.find(group => group.id === id)
+export const useGroupById = (groupId:string) => {
+    return useSelector(
+        (state: { groups: ReturnType<typeof groupSlice.reducer> }) =>
+        selectById(state.groups,groupId)
+    )
 }
 
 export default groupSlice.reducer

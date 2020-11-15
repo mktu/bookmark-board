@@ -184,7 +184,8 @@ module.exports = {
 
   },
   variants: {
-    fill: ['responsive', 'hover', 'focus']
+    fill: ['responsive', 'hover', 'focus'],
+    stroke: ['responsive', 'hover', 'focus'],
   },
   plugins: [],
 }

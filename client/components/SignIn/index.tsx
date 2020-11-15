@@ -13,6 +13,11 @@ const Signin = () => {
                     router.push('/bookmarks')
                 })
             }}
+            handleAnonymous={()=>{
+                clientService.loginWithAnonymous(()=>{
+                    router.push('/bookmarks')
+                })
+            }}
         />
     )
 }

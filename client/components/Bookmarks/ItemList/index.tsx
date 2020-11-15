@@ -1,5 +1,4 @@
 import React from 'react'
-import { selectGroupsByUser, useGroups } from '../../../modules/groupSlice'
 import { useBookmarkIdsByGroup } from '../../../modules/bookmarkSlice'
 import { useRouter } from 'next/router'
 import NoItem from './NoItem'
@@ -11,27 +10,25 @@ type Props = {
 
 }
 const ItemList: React.FC<Props> = () => {
-    const groups = useGroups()
     const router = useRouter()
     const { ids } = router.query
-    const id = ids && ids.length > 0 ? ids[0] : ''
-    const bookmarkIds = useBookmarkIdsByGroup(id)
-    const targetGroup = selectGroupsByUser(groups, id)
-    if (!targetGroup) {
+    const groupId = ids && ids.length > 0 ? ids[0] : ''
+    const bookmarkIds = useBookmarkIdsByGroup(groupId)
+    if (!groupId) {
         return <div />
     }
     if (bookmarkIds.length == 0) {
         return (
             <Layout
-                header={<Header group={targetGroup} />}
-                contents={<NoItem groupId={targetGroup.id} />}
+                header={<Header groupId={groupId} />}
+                contents={<NoItem groupId={groupId} />}
             />
         )
     }
     return (
         <Layout
-            header={<Header group={targetGroup} />}
-            contents={<Content bookmarkIds={bookmarkIds} group={targetGroup}/>}
+            header={<Header groupId={groupId} />}
+            contents={<Content bookmarkIds={bookmarkIds} groupId={groupId}/>}
         />
     )
 }

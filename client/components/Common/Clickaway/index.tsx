@@ -17,7 +17,7 @@ function ClickAwayListener<T extends HTMLElement>({
             if (unmounted || !element) {
                 return;
             }
-            if (!element.contains(e.currentTarget as Node)) {
+            if (!element.contains(e.target as Node)) {
                 onClickAway();
             }
         }

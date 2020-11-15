@@ -3,11 +3,13 @@ import { BookmarksSigninImg, GoogleSignInImg } from '../Common/Image'
 import { Logo } from '../Common/Logo'
 
 type Props = {
-    handleSignin : ()=>void
+    handleSignin : ()=>void,
+    handleAnonymous : ()=> void
 }
 
 const Presenter = ({
-    handleSignin
+    handleSignin,
+    handleAnonymous
 }: Props) => {
     return (
         <div className='w-screen h-screen flex flex-row'>
@@ -28,6 +30,9 @@ const Presenter = ({
                 <button className='bg-white p-0' onClick={handleSignin}>
                     <GoogleSignInImg className='inline-block'/> 
                     <span className='pl-4 pr-4 inline-block text-primary-main'>Sign in with Google</span>
+                </button>
+                <button className='border border-primary-light p-2 mt-2' onClick={handleAnonymous}>
+                    Anonymous
                 </button>
             </div>
         </div>

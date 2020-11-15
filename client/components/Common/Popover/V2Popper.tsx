@@ -61,11 +61,11 @@ export function Popover<T extends HTMLElement>({ children, content, placement = 
                                 <div style={styles.arrow} />
                                 {content}
                             </div>
-                        ) : (
+                        ) : popoverShow && (
                             <Clickaway onClickAway={() => {
                                 setPopoverShow(false)
                             }}>
-                                <div className={popoverShow ? 'z-20' : 'hidden'} ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+                                <div className={'z-20'} ref={setPopperElement} style={styles.popper} {...attributes.popper}>
                                     {content}
                                 </div>
                             </Clickaway>

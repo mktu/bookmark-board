@@ -4,14 +4,16 @@ import { FolderOpen, Edit, DotsVertical } from '../../Common/Icon'
 import Tooltip from '../../Common/Tooltip'
 import { Popover } from '../../Common/Popover'
 import GroupMenu from './GroupMenu'
+import { useGroupById } from '../../../modules/groupSlice'
 
 type Props = {
-    group: BookmarkGroup
+    groupId : string
 }
 
 const Header: React.FC<Props> = ({
-    group
+    groupId
 }) => {
+    const group = useGroupById(groupId)
     const [showRename, setShowRename] = useState(false)
     return (
         <div className='h-full w-full flex flex-row items-center pl-4 pr-4 pt-2 pb-2 border-b border-primary-border'
@@ -27,7 +29,7 @@ const Header: React.FC<Props> = ({
                 onMouseEnter={() => {
                     setShowRename(true)
                 }} >
-                {group.name}
+                {group && group.name}
             </div>
             {showRename && (
                 <Tooltip content='名前を変更' className='text-sm'>

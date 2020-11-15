@@ -4,7 +4,7 @@ import { SvgIconButton } from '../../Common/Button'
 import { Add, Folder } from '../../Common/Icon'
 import FirebaseContext from '../../../context/FirebaseContext'
 import { useProfile } from '../../../modules/profileSlice'
-import { useGroups } from '../../../modules/groupSlice'
+import { useGroupsByUser } from '../../../modules/groupSlice'
 import ListItem from './ListItem'
 
 type Props = {
@@ -15,7 +15,7 @@ const GroupList: React.FC<Props> = () => {
     const [newGroup, setNewGroup] = useState('')
     const { clientService } = useContext(FirebaseContext)
     const profile = useProfile()
-    const groups = useGroups()
+    const groups = useGroupsByUser(profile.id)
     return (
         <div className='bg-white w-full h-full flex flex-col border-primary-border border-r'>
             <div className='border-primary-border flex flex-row justify-between p-1 items-center text-primary-main'>

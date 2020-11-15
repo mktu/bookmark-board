@@ -9,6 +9,9 @@ declare type Profile = {
     image : string,
     loading : boolean
 }
+
+declare type ListViewMask = 'description' | 'url'
+
 declare type BookmarkGroup = {
     users : string[],
     owner : string,
@@ -16,7 +19,8 @@ declare type BookmarkGroup = {
     actions : string[],
     id : string,
     idx : number,
-    imageUrl ?: string
+    imageUrl ?: string,
+    listViewMask ?: ListViewMask[]
 }
 
 declare type Bookmark = {

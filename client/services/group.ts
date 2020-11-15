@@ -37,12 +37,27 @@ export function listenGroups(
     ))
 }
 
+export function modifyGroup(
+    groupId : string,
+    data : Partial<BookmarkGroup>,
+    onSucceeded ?: Notifier,
+    onFailed : ErrorHandler = console.error
+){
+    db.collection('groups').doc(groupId).set({
+        ...data,
+        lastUpdate: Date.now()
+    }, { merge: true })
+        .then(onSucceeded)
+        .catch(onFailed);
+}
+
 export function getGroups(
     uid : string,
     onSucceeded : Transfer<BookmarkGroup[]>,
     onFailed : ErrorHandler = console.error
 ){
-    db.collection('groups').where('users','array-contains', uid)
+    db.collection('groups')
+    .where('users','array-contains', uid)
     .get()
     .then((querySnapshot) => {
         const results: BookmarkGroup[] = [];

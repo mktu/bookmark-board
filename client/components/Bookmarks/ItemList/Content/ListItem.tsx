@@ -1,9 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { PlaceHolderImg } from '../../../Common/Image'
-import { ExternalLink, CheckFill } from '../../../Common/Icon'
-import { SvgIconButton, ButtonBase } from '../../../Common/Button'
+import { ExternalLink, Trash } from '../../../Common/Icon'
+import { SvgIconButton } from '../../../Common/Button'
 import { useBookmarkById } from '../../../../modules/bookmarkSlice'
+import { useGroupById } from '../../../../modules/groupSlice'
+import FirebaseContext from '../../../../context/FirebaseContext'
 
 export type HoverItem = {
     id: string,
@@ -13,13 +15,18 @@ export type HoverItem = {
 type Props = {
     bookmarkId: string,
     setHover: (idx: number) => void,
+    idx : number
 }
 
 const ListItem: React.FC<Props> = ({
     bookmarkId,
     setHover,
+    idx
 }) => {
     const bookmark = useBookmarkById(bookmarkId)
+    const { clientService } = useContext(FirebaseContext)
+    const group = useGroupById(bookmark.groupId)
+    const { listViewMask = [] } = group || {}
     const [{ dragging }, drag] = useDrag({
         item: {
             id: bookmark.id,
@@ -31,57 +38,55 @@ const ListItem: React.FC<Props> = ({
             dragging: monitor.isDragging(),
         }),
         begin: () => {
-            setHover(bookmark.idx)
+            setHover(idx)
         },
         end: () => {
             setHover(-1)
         }
     })
-    const [_, drop] = useDrop({
+    const [, drop] = useDrop({
         accept: 'LIST',
         hover: (_, monitor) => {
             if (monitor.getDifferenceFromInitialOffset().y < 0) {
-                setHover(bookmark.idx)
+                setHover(idx)
             }
             else {
-                setHover(bookmark.idx + 1)
+                setHover(idx + 1)
             }
         }
     })
-
-    const [showCheck, setShowCheck] = useState(false)
 
     return (
         <div ref={(v) => {
             drag(v)
             drop(v)
-        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} onMouseOver={() => { setShowCheck(true) }} onMouseLeave={() => { setShowCheck(false) }}>
-            <div className='p-2 flex items-center bg-white w-full shadow hover:bg-gray-50'>
-                <div className={'w-0'}>
-                    <SvgIconButton variant='inherit' className={`mr-2 pr-2 border-primary-border border-r`}>
-                        <CheckFill className='w-8 fill-primary-200 hover:fill-primary-main' />
-                    </SvgIconButton>
-                </div>
-                <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r'>
+        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} >
+            <div className='p-2 flex  bg-white w-full shadow hover:bg-gray-50'>
+                <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r flex items-center'>
                     {bookmark.image ? (
                         <img src={bookmark.image} className='w-16' />
                     ) : (
                             <PlaceHolderImg className='w-16' />
                         )}
                 </div>
-                <div className='flex flex-col items-start w-8/12'>
+                <div className='flex flex-col items-start justify-center w-8/12'>
                     <div className='overflow-hidden truncate max-w-full'>{bookmark.title || bookmark.url}</div>
-                    <div className='overflow-hidden truncate text-xs text-primary-main max-w-full' > {bookmark.description}</div>
-                    <div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>
+                    {!listViewMask.includes('description') && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' > {bookmark.description}</div>)}
+                    {!listViewMask.includes('url') && (<div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>)}
                 </div>
-                <div className='ml-auto'>
-                    <SvgIconButton onClick={() => {
+                <div className='ml-auto flex items-center'>
+                    <SvgIconButton className='block' onClick={() => {
                         window && window.open(
                             bookmark.url,
                             '_blank' // <- This is what makes it open in a new window.
                         );
                     }}>
                         <ExternalLink className='w-6' strokeWidth='1.5px' />
+                    </SvgIconButton>
+                    <SvgIconButton className='block ml-3' onClick={() => {
+                        clientService.deleteBookmark(bookmark.groupId,bookmark.id)
+                    }}>
+                        <Trash className='w-6' strokeWidth='1.5px' />
                     </SvgIconButton>
                 </div>
             </div>

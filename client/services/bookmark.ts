@@ -48,6 +48,21 @@ export function changeOrder(
         .catch(onFailed)
 }
 
+export function deleteBookmark(
+    groupId : string,
+    bookmarkId : string,
+    onSucceeded?: Notifier,
+    onFailed: ErrorHandler = console.error
+){
+    db.collection('groups')
+    .doc(groupId)
+    .collection('bookmarks')
+    .doc(bookmarkId)
+    .delete()
+    .then(onSucceeded)
+    .catch(onFailed);
+}
+
 export function listenBookmarks(
     groupId: string,
     onAdded: Transfer<Bookmark[]>,

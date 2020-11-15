@@ -25,7 +25,7 @@ const Input: React.FC<Props> = ({
     return (
         <div className='absolute w-full left-0 bottom-0 bg-white border-t border-primary-border'>
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>
-                <div className='flex flex-row items-center max-w-screen-sm '>
+                <div className='flex flex-row items-center max-w-full'>
                     <div>
                         <SvgIconButton className='block mr-2' onClick={() => { toggle(false) }}>
                             <ChevronDown strokeWidth='1.5px' className='w-8' />
