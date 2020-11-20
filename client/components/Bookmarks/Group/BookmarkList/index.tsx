@@ -12,12 +12,11 @@ type Props = {
     groupId: string
 }
 
-const Content: React.FC<Props> = ({
+const BookmarkList: React.FC<Props> = ({
     bookmarkIds,
     groupId
 }) => {
     const [hover, setHover] = useState(-1)
-    const [checks, setChecks] = useState<{[key:string]:boolean}>({})
     const [input, setInput] = useState(false)
     const { clientService } = useContext(FirebaseContext)
     const onChangeOrder = (idx:number, target: string) => {
@@ -29,7 +28,6 @@ const Content: React.FC<Props> = ({
             refinements={<Refinements groupId={groupId}/>}
             bookmarkIds={bookmarkIds}
             renderBookmark={(b, idx) => {
-
                 return (
                     <>
                         {idx === 0 && (<Droppable droppable={hover!=-1} onChangeOrder={(target)=>{
@@ -50,4 +48,4 @@ const Content: React.FC<Props> = ({
     )
 }
 
-export default Content
+export default BookmarkList

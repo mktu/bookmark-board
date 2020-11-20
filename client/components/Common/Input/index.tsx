@@ -1,7 +1,9 @@
 import React from 'react'
-type PropsBase = React.InputHTMLAttributes<HTMLInputElement>
+import TextareaAutosize, {TextareaAutosizeProps} from 'react-textarea-autosize';
 
-export const InputWithIcon: React.FC<PropsBase & {
+type InputProps = React.InputHTMLAttributes<HTMLInputElement>
+
+export const InputWithIcon: React.FC<InputProps & {
     icon?: React.ReactNode,
 }> = ({
     icon,
@@ -17,7 +19,27 @@ export const InputWithIcon: React.FC<PropsBase & {
         )
     }
 
-export const BookmarkInput: React.FC<PropsBase> = ({
+export const TextInput: React.FC<InputProps> = ({
+    ...props
+}) => {
+    return (
+        <div className="relative flex w-full flex-wrap items-stretch border-b">
+            <input {...props} type="text" className="px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white text-sm outline-none focus:outline-none w-full" />
+        </div>
+    )
+}
+
+export const ResizableTextArea: React.FC<TextareaAutosizeProps> = ({
+    ...props
+}) => {
+    return (
+        <div className="relative flex w-full flex-wrap items-stretch border-b border-primary-border p-2">
+            <TextareaAutosize {...props}  className=" placeholder-primary-200 text-primary-700 relative bg-white text-sm outline-none focus:outline-none w-full" />
+        </div>
+    )
+}
+
+export const BookmarkInput: React.FC<InputProps> = ({
     ...props
 }) => {
     return (
@@ -27,7 +49,7 @@ export const BookmarkInput: React.FC<PropsBase> = ({
     )
 }
 
-export const BookmarkInputBase: React.FC<PropsBase> = ({
+export const BookmarkInputBase: React.FC<InputProps> = ({
     ...props
 }) => {
     return (

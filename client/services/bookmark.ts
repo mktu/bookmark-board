@@ -1,17 +1,19 @@
 import firebase from './firebaseClient'
 import { getCollectionListener } from './firestoreUtil'
 const db = firebase.firestore();
-
-type AddBookmarkProps = Omit<Bookmark, 'created' | 'updated' | 'idx' | 'id'>
+const auth = firebase.auth()
+type AddBookmarkProps = Omit<Bookmark, 'created' | 'updated' | 'idx' | 'id' | 'owner'>
 
 export function addBookmark(
     bookmark: AddBookmarkProps,
     onSucceeded: (id: string) => void,
     onFailed: ErrorHandler = console.error
 ) {
+    
     const time = Date.now()
     const added: Omit<Bookmark, 'id'> = {
         ...bookmark,
+        owner : auth.currentUser.uid,
         created: time,
         idx: time
     }
@@ -46,6 +48,26 @@ export function changeOrder(
     batch.commit()
         .then(onSucceeded)
         .catch(onFailed)
+}
+
+export function modifyBookmark(
+    groupId : string,
+    bookmarkId : string,
+    data : Partial<Bookmark>,
+    onSucceeded ?: Notifier,
+    onFailed : ErrorHandler = console.error
+){
+    const merged : Partial<Bookmark> = {
+        ...data,
+        lastUpdate : Date.now()
+    }
+    db.collection('groups')
+    .doc(groupId)
+    .collection('bookmarks')
+    .doc(bookmarkId)
+    .set(merged, { merge: true })
+        .then(onSucceeded)
+        .catch(onFailed);
 }
 
 export function deleteBookmark(

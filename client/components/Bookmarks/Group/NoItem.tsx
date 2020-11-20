@@ -39,7 +39,6 @@ const NoItem: React.FC<Props> = ({
                             description : linkData.description,
                             neighbors : [],
                             groupId,
-                            owner : '',
                             reactions : {}
                         }, (id)=>{
                             console.log(`created new bookmark ${id}`)

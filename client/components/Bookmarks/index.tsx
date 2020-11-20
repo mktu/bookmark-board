@@ -1,13 +1,13 @@
 import React from 'react'
 import GroupList from './GroupList'
-import ItemList from './ItemList'
+import Group from './Group'
 import Layout from './Layout'
 
 const Bookmarks = ()=>{
     return (
         <Layout 
             groups={<GroupList />}
-            bookmarks={<ItemList/>}
+            group={<Group/>}
         />
     )
 }

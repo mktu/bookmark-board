@@ -23,7 +23,7 @@ export const loginByGoogle = (
     onSucceeded: Transfer<User> = console.log,
     onFailed: ErrorHandler = console.error
 ) => {
-    var provider = new firebase.auth.GoogleAuthProvider();
+    const provider = new firebase.auth.GoogleAuthProvider();
     firebase.auth().signInWithPopup(provider).then((usercred) => {
         usercred.user && onSucceeded(convertUser(usercred.user))
     }).catch(onFailed);

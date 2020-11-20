@@ -1,5 +1,6 @@
 import React from 'react'
 import '../styles/globals.css'
+import 'react-responsive-modal/styles.css';
 import { Provider } from 'react-redux'
 import store from '../reducers'
 import AppProvider from '../components/Provider'

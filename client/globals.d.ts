@@ -33,7 +33,7 @@ declare type Bookmark = {
     groupId : string,
     owner : string,
     created : number,
-    updated ?: number,
+    lastUpdate ?: number,
     idx : number,
     unacquired ?: boolean,
     reactions : {[key:string]:string[]},

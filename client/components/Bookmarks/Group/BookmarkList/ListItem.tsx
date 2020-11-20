@@ -1,5 +1,6 @@
 import React, { useContext } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { useRouter } from 'next/router'
 import { PlaceHolderImg } from '../../../Common/Image'
 import { ExternalLink, Trash } from '../../../Common/Icon'
 import { SvgIconButton } from '../../../Common/Button'
@@ -7,11 +8,6 @@ import { useBookmarkById } from '../../../../modules/bookmarkSlice'
 import { useGroupById } from '../../../../modules/groupSlice'
 import FirebaseContext from '../../../../context/FirebaseContext'
 
-export type HoverItem = {
-    id: string,
-    idx: number,
-    direction: 'toUpper' | 'toLower'
-}
 type Props = {
     bookmarkId: string,
     setHover: (idx: number) => void,
@@ -23,7 +19,9 @@ const ListItem: React.FC<Props> = ({
     setHover,
     idx
 }) => {
+    const router = useRouter()
     const bookmark = useBookmarkById(bookmarkId)
+    const {description} = bookmark
     const { clientService } = useContext(FirebaseContext)
     const group = useGroupById(bookmark.groupId)
     const { listViewMask = [] } = group || {}
@@ -55,12 +53,13 @@ const ListItem: React.FC<Props> = ({
             }
         }
     })
-
     return (
         <div ref={(v) => {
             drag(v)
             drop(v)
-        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} >
+        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} onClick={()=>{
+            router.push(`/bookmarks/[[...ids]]`,`/bookmarks/${bookmark.groupId}/${bookmark.id}`, {shallow:true})
+        }}>
             <div className='p-2 flex  bg-white w-full shadow hover:bg-gray-50'>
                 <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r flex items-center'>
                     {bookmark.image ? (
@@ -71,7 +70,7 @@ const ListItem: React.FC<Props> = ({
                 </div>
                 <div className='flex flex-col items-start justify-center w-8/12'>
                     <div className='overflow-hidden truncate max-w-full'>{bookmark.title || bookmark.url}</div>
-                    {!listViewMask.includes('description') && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' > {bookmark.description}</div>)}
+                    {!listViewMask.includes('description') && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
                     {!listViewMask.includes('url') && (<div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>)}
                 </div>
                 <div className='ml-auto flex items-center'>

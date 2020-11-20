@@ -5,26 +5,15 @@ import styles from './index.module.scss'
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
-type ContainedButtonProps = ButtonProps & {
-    variant?: 'primary' | 'secondary' | 'inherit'
-}
-
 export const ContainedButton: React.FC<ButtonProps> = ({ className, ...props }) => {
     return (
         <button className={classNames('bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded', className)} {...props} />
     )
 }
 
-type TextButtonProps = ContainedButtonProps
-
-export const TextButton: React.FC<TextButtonProps> = ({ variant = 'primary', className, ...props }) => {
-    if (variant === 'inherit') {
-        return (
-            <button className={classNames('background-transparent font-bold uppercase outline-none focus:outline-none mr-1 mb-1', className)} {...props} />
-        )
-    }
+export const TextButton: React.FC<ButtonProps> = ({ className, ...props }) => {
     return (
-        <button className={classNames('text-primary-600 hover:text-primary-700 background-transparent font-bold uppercase outline-none focus:outline-none mr-1 mb-1', className)} {...props} />
+        <ButtonBase className={classNames(className,'text-primary-600 hover:text-primary-700 background-transparent font-bold uppercase ')} {...props} />
     )
 }
 

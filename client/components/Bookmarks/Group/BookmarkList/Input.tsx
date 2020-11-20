@@ -61,7 +61,6 @@ const Input: React.FC<Props> = ({
                                     description: linkData.description || '',
                                     neighbors: [],
                                     groupId,
-                                    owner: '',
                                     reactions: {},
                                 }
                             }
@@ -70,7 +69,6 @@ const Input: React.FC<Props> = ({
                                     url,
                                     neighbors: [],
                                     groupId,
-                                    owner: '',
                                     reactions: {},
                                     unacquired: true
                                 }

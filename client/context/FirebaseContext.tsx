@@ -30,6 +30,7 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         modifyGroup : func('modifyGroup'),
         listenGroups : () => {func('listenGroups')(); return ()=>{1}},
         addBookmark : func('addBookmark'),
+        modifyBookmark : func('modifyBookmark'),
         deleteBookmark : func('deleteBookmark'),
         listenBookmarks : () => {func('listenBookmarks')(); return ()=>{1}},
         changeOrder : func('changeOrder'),

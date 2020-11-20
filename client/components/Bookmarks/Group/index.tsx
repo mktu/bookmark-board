@@ -4,15 +4,17 @@ import { useRouter } from 'next/router'
 import NoItem from './NoItem'
 import Layout from './Layout'
 import Header from './Header'
-import Content from './Content'
+import BookmarkList from './BookmarkList'
+import Bookmark, { Dialog } from './Bookmark'
 
 type Props = {
 
 }
-const ItemList: React.FC<Props> = () => {
+const Group: React.FC<Props> = () => {
     const router = useRouter()
     const { ids } = router.query
     const groupId = ids && ids.length > 0 ? ids[0] : ''
+    const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
     const bookmarkIds = useBookmarkIdsByGroup(groupId)
     if (!groupId) {
         return <div />
@@ -26,11 +28,18 @@ const ItemList: React.FC<Props> = () => {
         )
     }
     return (
-        <Layout
-            header={<Header groupId={groupId} />}
-            contents={<Content bookmarkIds={bookmarkIds} groupId={groupId}/>}
-        />
+        <>
+            <Layout
+                header={<Header groupId={groupId} />}
+                contents={<BookmarkList bookmarkIds={bookmarkIds} groupId={groupId} />}
+            />
+            <Dialog open={Boolean(bookmarkId)} onClose={()=>{
+                router.push(`/bookmarks/[[...ids]]`,`/bookmarks/${groupId}`, {shallow:true})
+            }}>
+                <Bookmark bookmarkId={bookmarkId}/>
+            </Dialog>
+        </>
     )
 }
 
-export default ItemList
+export default Group
