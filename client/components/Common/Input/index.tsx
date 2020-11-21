@@ -1,5 +1,6 @@
 import React from 'react'
-import TextareaAutosize, {TextareaAutosizeProps} from 'react-textarea-autosize';
+import classNames from 'classnames'
+import TextareaAutosize, { TextareaAutosizeProps } from 'react-textarea-autosize';
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
@@ -19,6 +20,15 @@ export const InputWithIcon: React.FC<InputProps & {
         )
     }
 
+export const TextInputBase: React.FC<InputProps> = ({
+    className,
+    ...props
+}) => {
+    return (
+        <input {...props} type="text" className={classNames(className,'outline-none focus:outline-none w-full')} />
+    )
+}
+
 export const TextInput: React.FC<InputProps> = ({
     ...props
 }) => {
@@ -29,12 +39,21 @@ export const TextInput: React.FC<InputProps> = ({
     )
 }
 
+export const ResizableTextAreaBase: React.FC<TextareaAutosizeProps> = ({
+    className,
+    ...props
+}) => {
+    return (
+        <TextareaAutosize {...props} className={classNames(className,'relative outline-none focus:outline-none w-full')} />
+    )
+}
+
 export const ResizableTextArea: React.FC<TextareaAutosizeProps> = ({
     ...props
 }) => {
     return (
         <div className="relative flex w-full flex-wrap items-stretch border-b border-primary-border p-2">
-            <TextareaAutosize {...props}  className=" placeholder-primary-200 text-primary-700 relative bg-white text-sm outline-none focus:outline-none w-full" />
+            <TextareaAutosize {...props} className=" placeholder-primary-200 text-primary-700 relative bg-white text-sm outline-none focus:outline-none w-full" />
         </div>
     )
 }

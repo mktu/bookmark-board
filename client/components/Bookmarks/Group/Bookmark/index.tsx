@@ -48,17 +48,17 @@ const Bookmark: React.FC<Props> = ({
                     <TextArea id='description' maxRows={4} value={bookmark.description} handleSubmit={updateBookmark('description')} />
                 </div>
             </div>
-            <div>
+            <div className='w-full overflow-hidden p-4'>
                 <Label htmlFor='url'>URL</Label>
                 <TextInput id='url' value={bookmark.url} handleSubmit={updateBookmark('url')} />
             </div>
             <div className='p-2 mt-8 flex flex-col items-end justify-center'>
                 {status === 'loading' ? (
-                    <p className=' text-primary-main text-sm'>更新中...</p>
+                    <p className=' text-primary-400 text-xs'>更新中...</p>
                 ) : (
-                        <p className=' text-primary-main text-sm'>{bookmark.lastUpdate && `更新日時 : ${(new Date(bookmark.lastUpdate).toLocaleString())}`}</p>
+                        <p className=' text-primary-400 text-xs'>{bookmark.lastUpdate && `更新日時   ${(new Date(bookmark.lastUpdate).toLocaleString())}`}</p>
                     )}
-                <p className=' text-primary-main text-sm'>{`作成日時 : ${(new Date(bookmark.created).toLocaleString())}`}</p>
+                <p className=' text-primary-400 text-xs'>{`作成日時   ${(new Date(bookmark.created).toLocaleString())}`}</p>
             </div>
         </div>
     )
