@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react'
+import Image from 'next/image'
 import { PlaceHolderImg } from '../Common/Image'
 import { TextInput } from '../Common/Input'
 import { Label } from '../Common/Label'
@@ -22,7 +23,7 @@ const Profile: React.FC<Props> = () => {
                 <div>
                     <div className={styles['avatar-wrapper']}>
                         {profile.image ? (
-                            <img className={styles['avatar-image']} src={profile.image} />
+                            <Image alt='Avatar' className={styles['avatar-image']} src={profile.image} layout='fill' objectFit='cover'/>
                         ) : (
                                 <PlaceHolderImg className={styles['avatar-image']} />
                             )}
