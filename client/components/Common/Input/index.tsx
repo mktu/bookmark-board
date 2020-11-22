@@ -1,6 +1,8 @@
 import React from 'react'
 import classNames from 'classnames'
 import TextareaAutosize, { TextareaAutosizeProps } from 'react-textarea-autosize';
+import TextArea from './TextArea'
+import TextInput from './TextInput'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
@@ -29,32 +31,12 @@ export const TextInputBase: React.FC<InputProps> = ({
     )
 }
 
-export const TextInput: React.FC<InputProps> = ({
-    ...props
-}) => {
-    return (
-        <div className="relative flex w-full flex-wrap items-stretch border-b">
-            <input {...props} type="text" className="px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white text-sm outline-none focus:outline-none w-full" />
-        </div>
-    )
-}
-
 export const ResizableTextAreaBase: React.FC<TextareaAutosizeProps> = ({
     className,
     ...props
 }) => {
     return (
         <TextareaAutosize {...props} className={classNames(className,'relative outline-none focus:outline-none w-full')} />
-    )
-}
-
-export const ResizableTextArea: React.FC<TextareaAutosizeProps> = ({
-    ...props
-}) => {
-    return (
-        <div className="relative flex w-full flex-wrap items-stretch border-b border-primary-border p-2">
-            <TextareaAutosize {...props} className=" placeholder-primary-200 text-primary-700 relative bg-white text-sm outline-none focus:outline-none w-full" />
-        </div>
     )
 }
 
@@ -74,4 +56,9 @@ export const BookmarkInputBase: React.FC<InputProps> = ({
     return (
         <input {...props} type="text" className="px-3 py-3 bg-transparent placeholder-primary-200 text-primary-700 relative text-sm outline-none focus:outline-none w-full" />
     )
+}
+
+export {
+    TextArea,
+    TextInput
 }

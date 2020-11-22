@@ -1,6 +1,8 @@
 import firebase from './firebaseClient'
 import {getDocumentListener} from './firestoreUtil'
+
 const db = firebase.firestore();
+const storageRef = firebase.storage().ref();
 
 export function addProfile(
     nickname: string,
@@ -46,4 +48,44 @@ export function getProfile(
             onSucceeded(data);
         })
         .catch(onFailed);
+}
+
+export function updateProfile(
+    id: string,
+    profile : Partial<Profile>,
+    onSucceeded ?: Notifier,
+    onFailed : ErrorHandler = console.error
+){
+    db.collection('profiles')
+    .doc(id).set({
+        ...profile,
+        lastUpdate: Date.now()
+    }, { merge: true })
+        .then(onSucceeded)
+        .catch(onFailed);
+}
+
+export function uploadProfileImage(
+    profileId: string,
+    image: File,
+    onSucceeded: (url: string) => void,
+    onProgress?: (progress: number, status: 'paused' | 'running') => void,
+    onFailed?: ErrorHandler
+) {
+    const task = storageRef.child(`profiles/${profileId}`).put(image);
+    task.on('state_changed', (snapshot) => {
+        const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
+        switch (snapshot.state) {
+            case firebase.storage.TaskState.PAUSED: // or 'paused'
+                onProgress && onProgress(progress, 'paused');
+                break;
+            case firebase.storage.TaskState.RUNNING: // or 'running'
+                onProgress && onProgress(progress, 'running');
+                break;
+        }
+    }, onFailed, () => {
+        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+            onSucceeded(downloadURL);
+        });
+    })
 }

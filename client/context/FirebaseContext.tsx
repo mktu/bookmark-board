@@ -25,6 +25,8 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         addProfile : func('addProfile'),
         listenProfile : () => {func('listenProfile')(); return ()=>{1}},
         getProfile : func('getProfile'),
+        uploadProfileImage : func('uploadProfileImage'),
+        updateProfile: func('updateProfile'),
         addGroup : func('addGroup'),
         getGroups : func('addGroup'),
         modifyGroup : func('modifyGroup'),

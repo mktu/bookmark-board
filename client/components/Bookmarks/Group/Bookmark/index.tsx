@@ -1,19 +1,14 @@
 import React, { useContext, useState } from 'react'
 import { useBookmarkById } from '../../../../modules/bookmarkSlice'
-import TextInput from './TextInput'
-import TextArea from './TextArea'
-import classNames from 'classnames'
 import { Modal } from 'react-responsive-modal';
+import { TextInput,TextArea } from '../../../Common/Input'
+import { Label } from '../../../Common/Label'
 import FirebaseContext from '../../../../context/FirebaseContext'
 
 
 type Props = {
     bookmarkId: string
 }
-
-const Label: React.FC<React.LabelHTMLAttributes<HTMLLabelElement>> = ({ className, ...props }) => (
-    <label {...props} className={classNames('block text-primary-400 text-sm font-bold', className)} />
-)
 
 const Bookmark: React.FC<Props> = ({
     bookmarkId
@@ -76,7 +71,7 @@ export const Dialog: React.FC<DialogProps> = ({
     onClose
 }) => {
     return (
-        <Modal open={open} focusTrapped={false} onClose={onClose} center classNames={{
+        <Modal open={open} showCloseIcon={false} focusTrapped={false} onClose={onClose} center classNames={{
             modal: 'w-2/3',
             overlay: 'bg-red-500'
         }}>

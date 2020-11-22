@@ -1,0 +1,42 @@
+.input-border{
+    position:relative; 
+    display:block;
+    &:before,&:after {
+        content:'';
+        height:2px; 
+        width:0;
+        bottom:1px; 
+        position:absolute;
+        @apply bg-primary-border;
+        transition:0.2s ease all; 
+        -moz-transition:0.2s ease all; 
+        -webkit-transition:0.2s ease all;
+    }
+    &:before{
+        left:50%;
+    }
+    &:after{
+        right:50%;
+    }
+}
+.input-border-focus{
+    position:relative; 
+    display:block;
+    &:before,&:after {
+        content:'';
+        height:2px; 
+        width:50%;
+        bottom:1px; 
+        position:absolute;
+        @apply bg-primary-300;
+        transition:0.2s ease all; 
+        -moz-transition:0.2s ease all; 
+        -webkit-transition:0.2s ease all;
+    }
+    &:before{
+        left:50%;
+    }
+    &:after{
+        right:50%;
+    }
+}

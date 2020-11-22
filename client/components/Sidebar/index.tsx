@@ -1,10 +1,12 @@
 import styles from './index.module.scss'
+import { useRouter } from 'next/router'
 import { User, Book, Setting, Help } from '../Common/Icon'
 import { Popover } from '../Common/Popover'
 import { SvgIconButton } from '../Common/Button'
 import ProfileMenu from './ProfileMenu'
 
 const Sidebar = () => {
+    const router = useRouter()
     return (
         <div className={`flex flex-row h-full bg-primary-dark`}>
             <nav className="h-full items-center flex flex-col p-4">
@@ -20,7 +22,9 @@ const Sidebar = () => {
                         </div>
                     </Popover>
 
-                    <SvgIconButton variant='inherit' className={styles['heroicon-button']}>
+                    <SvgIconButton variant='inherit' className={styles['heroicon-button']} onClick={()=>{
+                        router.push('/bookmarks')
+                    }}>
                         <Book />
                     </SvgIconButton>
                 </div>

@@ -7,7 +7,8 @@ declare type Profile = {
     name : string | null,
     id : string,
     image : string,
-    loading : boolean
+    loading : boolean,
+    lastUpdate ?: number
 }
 
 declare type ListViewMask = 'description' | 'url'

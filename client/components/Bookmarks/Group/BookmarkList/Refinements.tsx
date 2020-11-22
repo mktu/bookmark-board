@@ -1,7 +1,7 @@
 import React from 'react'
 import { Sort, Template } from '../../../Common/Icon'
 import { Popover } from '../../../Common/Popover'
-import { SvgIconButton, TextButton } from '../../../Common/Button'
+import { TextButton } from '../../../Common/Button'
 import ListOptions from './ListOptions'
 
 type Props = {

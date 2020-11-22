@@ -1,7 +1,4 @@
-import {useContext} from 'react'
-import { useRouter } from 'next/router'
 import { TextButton } from '../../Common/Button'
-import FirebaseContext from '../../../context/FirebaseContext'
 
 const GroupMenu = () => {
     return (

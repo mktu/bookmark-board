@@ -1,0 +1,15 @@
+.avatar-wrapper{
+    width: 200px;
+    height: 200px;
+    border-radius : 50%;
+    overflow:hidden;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+}
+
+.avatar-image{
+    width : 200px;
+    height : auto;
+    border-radius : 50%;
+}
