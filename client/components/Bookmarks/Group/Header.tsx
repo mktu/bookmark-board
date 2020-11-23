@@ -5,6 +5,7 @@ import Tooltip from '../../Common/Tooltip'
 import { Popover } from '../../Common/Popover'
 import GroupMenu from './GroupMenu'
 import { useGroupById } from '../../../modules/groupSlice'
+import { ShareDialog, Share } from './Share'
 
 type Props = {
     groupId : string
@@ -15,6 +16,7 @@ const Header: React.FC<Props> = ({
 }) => {
     const group = useGroupById(groupId)
     const [showRename, setShowRename] = useState(false)
+    const [showShare, setShowShare] = useState(false)
     return (
         <div className='h-full w-full flex flex-row items-center pl-4 pr-4 pt-2 pb-2 border-b border-primary-border'
             onMouseLeave={() => {
@@ -42,7 +44,9 @@ const Header: React.FC<Props> = ({
             )
             }
             <div className='ml-auto'>
-                <Popover content={<GroupMenu />} placement='left'>
+                <Popover content={<GroupMenu handleShowShareSetting={()=>{
+                    setShowShare(true)
+                }}/>} placement='left'>
                     <div>
                         <SvgIconButton>
                             <DotsVertical strokeWidth={2} className='w-6' />
@@ -50,7 +54,11 @@ const Header: React.FC<Props> = ({
                     </div>
                 </Popover>
             </div>
-
+            <ShareDialog open={showShare} onClose={() => {
+                setShowShare(false)
+            }}>
+                <Share sharable={Boolean(group.sharable)} id={groupId}/>
+            </ShareDialog>
         </div >
     )
 }

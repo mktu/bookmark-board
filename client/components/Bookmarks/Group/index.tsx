@@ -12,6 +12,7 @@ type Props = {
 }
 const Group: React.FC<Props> = () => {
     const router = useRouter()
+    
     const { ids } = router.query
     const groupId = ids && ids.length > 0 ? ids[0] : ''
     const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
@@ -33,11 +34,12 @@ const Group: React.FC<Props> = () => {
                 header={<Header groupId={groupId} />}
                 contents={<BookmarkList bookmarkIds={bookmarkIds} groupId={groupId} />}
             />
-            <Dialog open={Boolean(bookmarkId)} onClose={()=>{
-                router.push(`/bookmarks/[[...ids]]`,`/bookmarks/${groupId}`, {shallow:true})
+            <Dialog open={Boolean(bookmarkId)} onClose={() => {
+                router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}`, { shallow: true })
             }}>
-                <Bookmark bookmarkId={bookmarkId}/>
+                <Bookmark bookmarkId={bookmarkId} />
             </Dialog>
+            
         </>
     )
 }

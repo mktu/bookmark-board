@@ -13,7 +13,7 @@ export const ContainedButton: React.FC<ButtonProps> = ({ className, ...props }) 
 
 export const OutlinedButton: React.FC<ButtonProps> = ({ className, ...props }) => {
     return (
-        <button className={classNames('py-2 px-4 rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark focus:outline-none', className)} {...props} />
+        <button className={classNames(`py-2 px-4 rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark focus:outline-none`, className)} {...props} />
     )
 }
 

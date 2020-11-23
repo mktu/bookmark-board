@@ -6,6 +6,7 @@ import { ExternalLink, Duplicate, Trash } from '../../../Common/Icon'
 import { SvgIconButton } from '../../../Common/Button'
 import { useBookmarkById } from '../../../../modules/bookmarkSlice'
 import { useGroupById } from '../../../../modules/groupSlice'
+import { copyToClipBoard } from '../../../../utils'
 import { toast } from 'react-toastify';
 import FirebaseContext from '../../../../context/FirebaseContext'
 
@@ -76,12 +77,10 @@ const ListItem: React.FC<Props> = ({
                 </div>
                 <div className='ml-auto flex items-center'>
                     <SvgIconButton className='block' onClick={(e) => {
-                        if (navigator && navigator.clipboard) {
-                            navigator.clipboard.writeText(bookmark.url).then(() => {
-                                toast.success('クリップボードにURLをコピーしました',)
-                            });
-                            e.stopPropagation()
-                        }
+                        copyToClipBoard(bookmark.url,()=>{
+                            toast.success('クリップボードにURLをコピーしました',)
+                        })
+                        e.stopPropagation()
                     }}>
                         <Duplicate className='w-6' strokeWidth='1.5px' />
                     </SvgIconButton>

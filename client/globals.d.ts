@@ -20,6 +20,7 @@ declare type BookmarkGroup = {
     actions : string[],
     id : string,
     idx : number,
+    sharable ?: boolean, // todo requires
     imageUrl ?: string,
     listViewMask ?: ListViewMask[]
 }
