@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 import { Modal } from 'react-responsive-modal';
 import { OutlinedButton, SvgIconButton } from '../../Common/Button'
 import { EditFill, ShareFill as ShareIcon, Duplicate, XFill } from '../../Common/Icon'
+import Link from 'next/link'
 import Tooltip from '../../Common/Tooltip'
 import FirebaseContext from '../../../context/FirebaseContext'
 import { copyToClipBoard } from '../../../utils'
@@ -18,7 +19,8 @@ const Share: React.FC<Props> = ({
 }) => {
     const { clientService } = useContext(FirebaseContext)
     const host = window.location.host
-    const publicUrl = `${host}/public-bookmarks/${id}`
+    const publicPath = `/public-bookmarks/${id}`
+    const publicUrl = `${host}${publicPath}`
     const requestUrl = `${host}/request-bookmarks/${id}`
     return (
         <div className='text-primary-main'>
@@ -40,7 +42,10 @@ const Share: React.FC<Props> = ({
 
                         <div className='flex items-center my-2'>
                             <p>閲覧用リンク</p>
-                            <a className='border-b text-blue-500 border-blue-300 mx-2' href={publicUrl}>{publicUrl}</a>
+                            <Link href={publicPath}>
+                                <a className='border-b text-blue-500 border-blue-300 mx-2'>{publicUrl}</a>
+                            </Link>
+
                             <Tooltip content='URLをコピー' placement='bottom'>
                                 <div>
                                     <SvgIconButton className='block' onClick={() => {

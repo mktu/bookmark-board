@@ -84,7 +84,7 @@ const Input: React.FC<Props> = ({
             </div>
             {!show && (
                 <div className={styles['fab']}>
-                    <SvgIconButton variant='inherit' className='p-0 w-10 h-10 bg-secondary-main hover:bg-secondary-700 rounded-full shadow-lg' onClick={() => { toggle(true) }}>
+                    <SvgIconButton colorType='none' className='p-0 w-10 h-10 bg-secondary-main hover:bg-secondary-700 rounded-full shadow-lg' onClick={() => { toggle(true) }}>
                         <AddFill className={'inline-block w-6 h-6'} />
                     </SvgIconButton>
                 </div>

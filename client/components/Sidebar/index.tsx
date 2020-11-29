@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import { User, Book, Setting, Help } from '../Common/Icon'
 import { Popover } from '../Common/Popover'
 import { SvgIconButton } from '../Common/Button'
-import ProfileMenu from './ProfileMenu'
+import {ProfileMenu} from '../PopoverMenu'
 
 const Sidebar = () => {
     const router = useRouter()
@@ -16,23 +16,23 @@ const Sidebar = () => {
                         placement='auto'
                     >
                         <div className='mb-8'>
-                            <SvgIconButton variant='inherit' className={styles['heroicon-button']}>
+                            <SvgIconButton colorType='none' className={styles['heroicon-button']}>
                                 <User />
                             </SvgIconButton>
                         </div>
                     </Popover>
 
-                    <SvgIconButton variant='inherit' className={styles['heroicon-button']} onClick={()=>{
+                    <SvgIconButton colorType='none' className={styles['heroicon-button']} onClick={()=>{
                         router.push('/bookmarks')
                     }}>
                         <Book />
                     </SvgIconButton>
                 </div>
                 <div className='mt-auto'>
-                    <SvgIconButton variant='inherit' className={styles['heroicon-button']}>
+                    <SvgIconButton colorType='none' className={styles['heroicon-button']}>
                         <Setting />
                     </SvgIconButton>
-                    <SvgIconButton variant='inherit' className={styles['heroicon-button']}>
+                    <SvgIconButton colorType='none' className={styles['heroicon-button']}>
                         <Help />
                     </SvgIconButton>
                 </div>

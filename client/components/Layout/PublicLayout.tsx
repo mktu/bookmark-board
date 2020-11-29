@@ -1,17 +1,17 @@
 import React from 'react'
 import styles from './index.module.scss'
 type Props = {
-    sidebar: React.ReactNode,
+    header: React.ReactNode,
     main: React.ReactNode
 }
 
 const Layout = ({
-    sidebar,
+    header,
     main
 }: Props) => {
     return (
-        <div className={styles['app-layout']}>
-            <div>{sidebar}</div>
+        <div className='w-screen'>
+            <div className='w-full'>{header}</div>
             <div>{main}</div>
         </div>
     )

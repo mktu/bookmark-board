@@ -17,6 +17,9 @@ const Header: React.FC<Props> = ({
     const group = useGroupById(groupId)
     const [showRename, setShowRename] = useState(false)
     const [showShare, setShowShare] = useState(false)
+    if(!group){
+        return <div/>
+    }
     return (
         <div className='h-full w-full flex flex-row items-center pl-4 pr-4 pt-2 pb-2 border-b border-primary-border'
             onMouseLeave={() => {
@@ -31,7 +34,7 @@ const Header: React.FC<Props> = ({
                 onMouseEnter={() => {
                     setShowRename(true)
                 }} >
-                {group && group.name}
+                {group.name}
             </div>
             {showRename && (
                 <Tooltip content='名前を変更' className='text-sm'>

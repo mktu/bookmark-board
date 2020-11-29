@@ -12,15 +12,7 @@ const Presenter = ({
     handleLogin
 }: Props) => {
     return (
-        <div className='w-screen h-screen flex flex-col'>
-            <div className='w-full flex flex-row items-center p-8 mb-12'>
-                <div><Logo /></div>
-                <div className='ml-auto'>
-                    <ContainedButton onClick={handleLogin}>
-                        SIGN IN
-                    </ContainedButton>
-                </div>
-            </div>
+        <div className='w-screen flex flex-col mt-12'>
             <div className='w-full flex flex-row p-8 justify-center'>
                 <div className='w-2/6 break-words mr-16 mt-16'>
                     <h1 className=' text-primary-700 text-2xl p-4 font-bold'>ブックマークをより価値あるものへ</h1>

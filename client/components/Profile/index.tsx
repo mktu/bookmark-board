@@ -1,11 +1,9 @@
 import React, { useContext, useState } from 'react'
-import Image from 'next/image'
-import { PlaceHolderImg } from '../Common/Image'
 import { TextInput } from '../Common/Input'
 import { Label } from '../Common/Label'
 import { useProfile } from '../../modules/profileSlice'
+import Avatar from '../Common/Avatar'
 import FirebaseContext from '../../context/FirebaseContext'
-import styles from './index.module.scss'
 
 type Props = {
 
@@ -21,13 +19,7 @@ const Profile: React.FC<Props> = () => {
         <div className='w-full h-full p-6'>
             <div className='w-full flex'>
                 <div>
-                    <div className={styles['avatar-wrapper']}>
-                        {profile.image ? (
-                            <Image alt='Avatar' className={styles['avatar-image']} src={profile.image} layout='fill' objectFit='cover'/>
-                        ) : (
-                                <PlaceHolderImg className={styles['avatar-image']} />
-                            )}
-                    </div>
+                    <Avatar src={profile.image} width='192px' height='192px'/>
                     <div className='flex items-center justify-center p-4'>
                         {status === 'loading' && (
                             <label className='py-2 px-4 text-primary-300 rounded border'>

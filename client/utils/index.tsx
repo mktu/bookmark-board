@@ -5,3 +5,7 @@ export const copyToClipBoard = (value:string, onSucceeded:Notifier)=>{
         });
     }
 }
+
+export const numberToDateTime = (time:number)=>{
+    return new Date(time).toLocaleString()
+}

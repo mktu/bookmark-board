@@ -5,9 +5,16 @@ import styles from './index.module.scss'
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
-export const ContainedButton: React.FC<ButtonProps> = ({ className, ...props }) => {
+type ColorType = 'dark' | 'light' | 'none'
+
+export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
+    const colorClasses : {[key in ColorType]:string}= {
+        dark : 'bg-primary-300 hover:bg-primary-main text-white',
+        light : 'bg-white text-primary-main hover:text-primary-dark',
+        none : ''
+    }
     return (
-        <button className={classNames('bg-primary-600 hover:bg-primary-700 text-white font-bold py-2 px-4 rounded', className)} {...props} />
+        <ButtonBase className={classNames(`${colorClasses[colorType]} font-bold py-2 px-4 rounded`, className)} {...props} />
     )
 }
 
@@ -17,29 +24,25 @@ export const OutlinedButton: React.FC<ButtonProps> = ({ className, ...props }) =
     )
 }
 
-export const TextButton: React.FC<ButtonProps> = ({ className, ...props }) => {
+export const TextButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
+    const colorClasses : {[key in ColorType]:string}= {
+        dark : 'text-primary-600 hover:text-primary-700',
+        light : 'text-white',
+        none : ''
+    }
     return (
-        <ButtonBase className={classNames(className,'text-primary-600 hover:text-primary-700 background-transparent font-bold uppercase ')} {...props} />
+        <ButtonBase className={classNames(className,colorClasses[colorType],'background-transparent font-bold uppercase')} {...props} />
     )
 }
 
-type IconButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
-    children: React.ReactNode,
-    variant?: 'outlined' | 'contained' | 'inherit'
-}
-
-export const SvgIconButton: React.FC<IconButtonProps> = ({ variant = 'outlined', className, children, ...props }) => {
-    if (variant === 'inherit') {
-        return (
-            <button className={classNames(styles['svg-inherit-button'], className)} {...props}>
-                {children}
-            </button>
-        )
+export const SvgIconButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ colorType='dark', className, ...props }) => {
+    const colorClasses : {[key in ColorType]:string}= {
+        dark : 'stroke-primary-main hover:stroke-primary-dark',
+        light : 'stroke-white',
+        none : ''
     }
     return (
-        <button className={classNames(styles['svg-outlined-button'], className)} {...props}>
-            {children}
-        </button>
+        <ButtonBase className={classNames(className,colorClasses[colorType])} {...props} />
     )
 }
 

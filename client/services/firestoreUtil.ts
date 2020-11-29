@@ -12,10 +12,10 @@ export function getCollectionListener<T>(
         if(unsubscribeNotifier && unsubscribeNotifier.unsubscribe){
             return;
         }
-        let added: T[] = [];
-        let modified: T[] = [];
-        let deleted: T[] = [];
-        for (let change of querySnapshot.docChanges()) {
+        const added: T[] = [];
+        const modified: T[] = [];
+        const deleted: T[] = [];
+        for (const change of querySnapshot.docChanges()) {
             const data = change.doc.data() as T;
             const target = {
                 id: change.doc.id,

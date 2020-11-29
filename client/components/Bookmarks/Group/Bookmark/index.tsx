@@ -4,7 +4,7 @@ import { Modal } from 'react-responsive-modal';
 import { TextInput,TextArea } from '../../../Common/Input'
 import { Label } from '../../../Common/Label'
 import FirebaseContext from '../../../../context/FirebaseContext'
-
+import { numberToDateTime } from '../../../../utils'
 
 type Props = {
     bookmarkId: string
@@ -51,9 +51,9 @@ const Bookmark: React.FC<Props> = ({
                 {status === 'loading' ? (
                     <p className=' text-primary-400 text-xs'>更新中...</p>
                 ) : (
-                        <p className=' text-primary-400 text-xs'>{bookmark.lastUpdate && `更新日時   ${(new Date(bookmark.lastUpdate).toLocaleString())}`}</p>
+                        <p className=' text-primary-400 text-xs'>{bookmark.lastUpdate && `更新日時   ${numberToDateTime(bookmark.lastUpdate)}`}</p>
                     )}
-                <p className=' text-primary-400 text-xs'>{`作成日時   ${(new Date(bookmark.created).toLocaleString())}`}</p>
+                <p className=' text-primary-400 text-xs'>{`作成日時   ${numberToDateTime(bookmark.created)}`}</p>
             </div>
         </div>
     )
