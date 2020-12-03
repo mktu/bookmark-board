@@ -3,15 +3,17 @@ import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
 import BookmarkContext, { ContextType } from '../../../context/BookmarkContext'
 import useGroup from './useGroup'
+import useEditors from './useEditors'
 import useBookmarks from './useBookmarks'
 
 type Props = {
     children: React.ReactNode
 }
+
 const DefaultProvider: React.FC<Props> = ({ children }) => {
     const bookmarkServices = useBookmarks()
     useGroup(bookmarkServices)
-
+    useEditors()
     const value = useMemo<ContextType>(() => ({
         bookmarkServices,
     }), [bookmarkServices])

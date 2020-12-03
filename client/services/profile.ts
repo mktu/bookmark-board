@@ -50,6 +50,29 @@ export function getProfile(
         .catch(onFailed);
 }
 
+export function getProfiles(
+    uids: string[],
+    onSucceeded: Transfer<Profile[]>,
+    onFailed: ErrorHandler = console.error
+){
+    db.collection('profiles')
+    .where(firebase.firestore.FieldPath.documentId(),'in', uids)
+    .get()
+    .then(function (querySnapshot) {
+        const results: Profile[] = [];
+        querySnapshot.forEach((data) => {
+            if (data.exists) {
+                results.push({
+                    id: data.id,
+                    ...data.data()
+                } as Profile)
+            }
+        });
+        results.length > 0 && onSucceeded(results)
+    })
+    .catch(onFailed)
+}
+
 export function updateProfile(
     id: string,
     profile : Partial<Profile>,

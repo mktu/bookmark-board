@@ -17,7 +17,6 @@ const profileSlice = createSlice({
     initialState: initState,
     reducers: {
         saveProfile: (state, action: PayloadAction<Payload>) => {
-            console.log(action)
             state = action.payload.profile
             state.loading = false
             return state

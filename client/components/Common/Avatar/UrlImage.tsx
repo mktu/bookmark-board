@@ -1,7 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
 import { PlaceHolderImg } from '../Image'
-import Image from 'next/image'
 
 type Props = {
     src ?: string,

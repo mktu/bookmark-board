@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import { PlaceHolderImg } from '../Image'
 import Image from 'next/image'
 import UrlImage from './UrlImage'
+import GroupImage from './GroupImage'
 
 type Props = {
     src ?: string,
@@ -29,5 +30,6 @@ const Avatar: React.FC<Props> = ({
 export default Avatar
 
 export {
-    UrlImage
+    UrlImage,
+    GroupImage
 }

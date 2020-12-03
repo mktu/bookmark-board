@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import { PlaceHolderImg } from '../../../Common/Image'
 import { ExternalLink, Duplicate, Trash } from '../../../Common/Icon'
 import { SvgIconButton } from '../../../Common/Button'
+import { TooltipDivContainer } from '../../../Common/Tooltip'
 import { useBookmarkById } from '../../../../modules/bookmarkSlice'
 import { useGroupById } from '../../../../modules/groupSlice'
 import { copyToClipBoard } from '../../../../utils'
@@ -76,27 +77,34 @@ const ListItem: React.FC<Props> = ({
                     {!listViewMask.includes('url') && (<div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>)}
                 </div>
                 <div className='ml-auto flex items-center'>
-                    <SvgIconButton className='block' onClick={(e) => {
-                        copyToClipBoard(bookmark.url,()=>{
-                            toast.success('クリップボードにURLをコピーしました',)
-                        })
-                        e.stopPropagation()
-                    }}>
-                        <Duplicate className='w-6' strokeWidth='1.5px' />
-                    </SvgIconButton>
-                    <SvgIconButton className='block ml-3' onClick={() => {
-                        window && window.open(
-                            bookmark.url,
-                            '_blank' // <- This is what makes it open in a new window.
-                        );
-                    }}>
-                        <ExternalLink className='w-6' strokeWidth='1.5px' />
-                    </SvgIconButton>
-                    <SvgIconButton className='block ml-3' onClick={() => {
-                        clientService.deleteBookmark(bookmark.groupId, bookmark.id)
-                    }}>
-                        <Trash className='w-6' strokeWidth='1.5px' />
-                    </SvgIconButton>
+                    <TooltipDivContainer content='コピー' placement='bottom'>
+                        <SvgIconButton onClick={(e) => {
+                            copyToClipBoard(bookmark.url, () => {
+                                toast.success('クリップボードにURLをコピーしました',)
+                            })
+                            e.stopPropagation()
+                        }}>
+                            <Duplicate className='w-6' strokeWidth='1.5px' />
+                        </SvgIconButton>
+                    </TooltipDivContainer>
+                    <TooltipDivContainer content='URLを開く' placement='bottom'>
+                        <SvgIconButton className='ml-3' onClick={() => {
+                            window && window.open(
+                                bookmark.url,
+                                '_blank' // <- This is what makes it open in a new window.
+                            );
+                        }}>
+                            <ExternalLink className='w-6' strokeWidth='1.5px' />
+                        </SvgIconButton>
+                    </TooltipDivContainer>
+                    <TooltipDivContainer content='削除' placement='bottom'>
+                        <SvgIconButton className='ml-3' onClick={() => {
+                            clientService.deleteBookmark(bookmark.groupId, bookmark.id)
+                        }}>
+                            <Trash className='w-6' strokeWidth='1.5px' />
+                        </SvgIconButton>
+                    </TooltipDivContainer>
+
                 </div>
             </div>
         </div>

@@ -5,11 +5,12 @@ import styles from './index.module.scss'
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
-type ColorType = 'dark' | 'light' | 'none'
+type ColorType = 'dark' | 'light' | 'none' | 'secondary'
 
 export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
         dark : 'bg-primary-300 hover:bg-primary-main text-white',
+        secondary : 'bg-secondary-300 hover:bg-secondary-main text-white',
         light : 'bg-white text-primary-main hover:text-primary-dark',
         none : ''
     }
@@ -18,15 +19,22 @@ export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = (
     )
 }
 
-export const OutlinedButton: React.FC<ButtonProps> = ({ className, ...props }) => {
+export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, disabled, colorType='dark', ...props }) => {
+    const colorClasses : {[key in ColorType]:string}= {
+        dark : 'text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark',
+        secondary : 'text-secondary-main hover:text-secondary-dark border-secondary-main hover:border-secondary-dark',
+        light : 'bg-white text-primary-main hover:text-primary-dark',
+        none : ''
+    }
     return (
-        <button className={classNames(`py-2 px-4 rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark focus:outline-none`, className)} {...props} />
+        <ButtonBase disabled={disabled} className={classNames(`py-2 px-4 rounded border focus:outline-none`, disabled ? 'cursor-default opacity-25':'', colorClasses[colorType], className)} {...props} />
     )
 }
 
 export const TextButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
         dark : 'text-primary-600 hover:text-primary-700',
+        secondary : 'text-secondary-600 hover:text-secondary-700',
         light : 'text-white',
         none : ''
     }
@@ -38,6 +46,7 @@ export const TextButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ cla
 export const SvgIconButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ colorType='dark', className, ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
         dark : 'stroke-primary-main hover:stroke-primary-dark',
+        secondary : 'stroke-secondary-main hover:stroke-secondary-dark',
         light : 'stroke-white',
         none : ''
     }

@@ -51,6 +51,17 @@ export function modifyGroup(
         .catch(onFailed);
 }
 
+export function deleteGroup(
+    groupId : string,
+    onSucceeded ?: Notifier,
+    onFailed : ErrorHandler = console.error
+){
+    db.collection('groups').doc(groupId)
+    .delete()
+    .then(onSucceeded)
+    .catch(onFailed)
+}
+
 export function getGroups(
     uid : string,
     onSucceeded : Transfer<BookmarkGroup[]>,

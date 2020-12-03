@@ -1,11 +1,11 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import classNames from 'classnames'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import { HeaderLogo } from '../Common/Logo'
 import { User, Login, Book } from '../Common/Icon'
 import { Popover } from '../Common/Popover'
-import Tooltip from '../Common/Tooltip'
+import { TooltipDivContainer } from '../Common/Tooltip'
 import { ProfileMenu } from '../PopoverMenu'
 import { SvgIconButton, ButtonBase, TextButton } from '../Common/Button'
 import { useProfile } from '../../modules/profileSlice'
@@ -25,15 +25,13 @@ const Header = () => {
                 <div className="ml-auto">
                     {profile.id ? (
                         <div className='flex flex-row items-center mr-2'>
-                            <Tooltip content='Bookmarkアプリ' placement='bottom'>
-                                <div className='mr-4'>
-                                    <SvgIconButton colorType='none' className={styles['heroicon-button']} onClick={()=>{
-                                        router.push('/bookmarks')
-                                    }}>
-                                        <Book />
-                                    </SvgIconButton>
-                                </div>
-                            </Tooltip>
+                            <TooltipDivContainer content='Bookmarkアプリ' placement='bottom' className='mr-4'>
+                                <SvgIconButton colorType='none' className={styles['heroicon-button']} onClick={() => {
+                                    router.push('/bookmarks')
+                                }}>
+                                    <Book />
+                                </SvgIconButton>
+                            </TooltipDivContainer>
                             <Popover
                                 placement='bottom-end'
                                 content={<ProfileMenu />}>

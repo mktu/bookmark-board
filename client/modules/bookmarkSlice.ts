@@ -34,6 +34,7 @@ export const {
     selectEntities
 } = bookmarkAdapter.getSelectors()
 
+// recalculate only when return value of selectAll or groupId chancges
 export const selectBookmarksByGroup = createSelector(
     [selectAll, (_, groupId:string)=>groupId],
     (bookmarks,groupId)=>{

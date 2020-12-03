@@ -13,7 +13,7 @@ const Provider: React.FC<Props> = ({
     return (
         <FirebaseProvider>
             <BookmarksProvider>
-                <ToastContainer/>
+                <ToastContainer />
                 {children}
             </BookmarksProvider>
         </FirebaseProvider>

@@ -6,7 +6,6 @@ import { actions as profileActions } from '../../../modules/profileSlice'
 const useAuth = (clientService:FirebaseClientServiceType)=>{
     const [uid,setUid] = useState('')
     const dispatch = useDispatch()
-    
     useEffect(()=>{
         const { listenAuthState, getProfile, addProfile } = clientService;
         listenAuthState((user)=>{

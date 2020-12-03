@@ -13,7 +13,7 @@ const useBookmarks = ()=>{
     const unsubscribes = useRef<{[key:string]:Unsubscribe}>({})
     const load = useCallback((groupId)=>{
         const unsub = clientService.listenBookmarks(groupId, (bookmarks)=>{
-            loadStatusActions.onLoaded(groupId)
+            dispatch(loadStatusActions.onLoaded(groupId))
             dispatch(actions.add(bookmarks))
         }, (bookmarks)=>{
             dispatch(actions.modify(bookmarks))

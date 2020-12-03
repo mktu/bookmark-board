@@ -17,6 +17,7 @@ declare type BookmarkGroup = {
     users : string[],
     owner : string,
     name : string,
+    description ?: string,
     actions : string[],
     id : string,
     idx : number,

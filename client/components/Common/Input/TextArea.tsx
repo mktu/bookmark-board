@@ -2,28 +2,40 @@ import React, { useState, useEffect } from 'react'
 import { ResizableTextAreaBase } from '.'
 import { SvgIconButton } from '../Button'
 import { XFill } from '../Icon'
+import classNames from 'classnames'
 import styles from './index.module.scss'
+
+type BorderType = 'square' | 'underline' | 'none'
 
 type Props = Parameters<typeof ResizableTextAreaBase>[0] & {
     handleSubmit: (value: string) => void,
-    clearButton?: boolean
+    clearButton?: boolean,
+    borderType?: BorderType
 }
 
 const TextArea: React.FC<Props> = ({
     value,
     handleSubmit,
     clearButton,
+    borderType = 'underline',
     ...props
 }) => {
+
     const [text, setText] = useState(value)
     const [focus, setFocus] = useState(false)
     useEffect(() => {
         setText(value)
     }, [value])
 
+    const borderClasses: { [key in BorderType]: string } = {
+        square: 'border rounded',
+        underline: 'border-b',
+        none: ''
+    }
+
     return (
         <div className='w-full'>
-            <div className="relative flex border-b items-center border-primary-border pl-2 pb-2">
+            <div className={classNames('relative flex items-center border-primary-border pl-2 pb-2', borderClasses[borderType])}>
                 <ResizableTextAreaBase {...props} className='placeholder-primary-200 text-primary-700 bg-white text-sm resize-none'
                     value={text}
                     onChange={(e) => {
@@ -50,7 +62,9 @@ const TextArea: React.FC<Props> = ({
                 )}
 
             </div>
-            <div className={`${focus ? styles['input-border-focus'] : styles['input-border']}`}></div>
+            {borderType === 'underline' && (
+                <div className={`${focus ? styles['input-border-focus'] : styles['input-border']}`}></div>
+            )}
         </div>
     )
 }

@@ -12,7 +12,7 @@ const useGroup = (bookmarkService : BookmarkServices) => {
     const dispatch = useDispatch()
 
     useEffect(() => {
-        loadStatusActions.onLoad('group')
+        dispatch(loadStatusActions.onLoad('group'))
     }, [])
 
     useEffect(() => {
@@ -21,9 +21,9 @@ const useGroup = (bookmarkService : BookmarkServices) => {
         }
         const { listenGroups } = clientService;
         const unsub = listenGroups(id, (groups) => {
-            loadStatusActions.onLoaded('group')
+            dispatch(loadStatusActions.onLoaded('group'))
             for(const group of groups){
-                loadStatusActions.onLoad(group.id)
+                dispatch(loadStatusActions.onLoad(group.id))
                 bookmarkService.load(group.id)
             }
             dispatch(actions.addGroups({ groups }))
@@ -32,7 +32,7 @@ const useGroup = (bookmarkService : BookmarkServices) => {
         }, (groups) => {
             dispatch(actions.removeGroups({ groups }))
             for(const group of groups){
-                loadStatusActions.onUnload(group.id)
+                dispatch(loadStatusActions.onUnload(group.id))
                 bookmarkService.unload(group.id)
             }
         })
