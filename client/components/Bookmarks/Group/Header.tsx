@@ -1,10 +1,8 @@
 import React, { useState } from 'react'
 import { SvgIconButton } from '../../Common/Button'
-import { FolderOpen, DotsVertical } from '../../Common/Icon'
-import { Popover } from '../../Common/Popover'
+import { FolderOpen, Share as ShareIcon } from '../../Common/Icon'
 import { TooltipDivContainer } from '../../Common/Tooltip'
 import Avatar from '../../Common/Avatar'
-import GroupMenu from './GroupMenu'
 import { useGroupById } from '../../../modules/groupSlice'
 import { useEditorsByIds } from '../../../modules/editorsSlice'
 import { ShareDialog, Share } from './Share'
@@ -51,15 +49,13 @@ const Header: React.FC<Props> = ({
                         </SvgIconButton>
                     </TooltipDivContainer>
                 ))}
-                <Popover content={<GroupMenu handleShowShareSetting={() => {
-                    setShowShare(true)
-                }} />} placement='left'>
-                    <div>
-                        <SvgIconButton>
-                            <DotsVertical strokeWidth={2} className='w-6' />
-                        </SvgIconButton>
-                    </div>
-                </Popover>
+                <TooltipDivContainer className='px-2' content='共有' placement='bottom'>
+                    <SvgIconButton onClick={()=>{
+                        setShowShare(true)
+                    }}>
+                        <ShareIcon strokeWidth={2} className='w-6'/>
+                    </SvgIconButton>
+                </TooltipDivContainer>
             </div>
             <ShareDialog open={showShare} onClose={() => {
                 setShowShare(false)

@@ -71,7 +71,7 @@ const Detail: React.FC<Props> = ({
                     ))}
                 </div>
             </div>
-            <DangerZone className='mt-4' groupName={group.name} handleDelete={() => {
+            <DangerZone className='mt-6' groupName={group.name} handleDelete={() => {
                 clientService.deleteGroup(group.id, ()=>{
                     router.push('/bookmarks')
                 })
