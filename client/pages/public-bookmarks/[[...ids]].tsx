@@ -17,7 +17,7 @@ const PublicBookmarksPage : React.FC<InferGetStaticPropsType<typeof getStaticPro
       </Head>
       <PublicLayout 
         header={<Header/>}
-        main={<PublicBookmarks group={group} bookmarks={bookmarks} profile={profile}/>}
+        main={<PublicBookmarks group={group} bookmarks={bookmarks} editor={profile}/>}
       />
     </div>
   )

@@ -27,18 +27,15 @@ export const createEntityState = <T extends { id : string }>(items:T[])=>{
 export const upsertMany =<T extends { id : string }>(entityState:LocalEntityState<T>, items:T[])=>{
     const inserted = items.filter(i=>!entityState.ids.includes(i.id))
     const updated = items.filter(i=>entityState.ids.includes(i.id))
-    if(inserted.length===0&&updated.length===0){
-        return entityState
+    if(inserted.length===0){
+        return updateMany(entityState,updated)
     }
-    const insertedEntity = createEntityState(items)
+    const insertedEntity = createEntityState(inserted)
     const newState : LocalEntityState<T> = {
         ids:[...entityState.ids,...insertedEntity.ids],
         entities:{...entityState.entities,...insertedEntity.entities}
     }
-    for(const item of updated){
-        newState.entities[item.id] = item
-    }
-    return newState
+    return updateMany(newState,updated)
 }
 
 

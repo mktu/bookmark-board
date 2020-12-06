@@ -58,7 +58,7 @@ declare type BookmarkComment = {
     readers : string[],
     created : number,
     lastUpdate ?: number,
-    reactions : Reaction[]
+    reactions : Omit<Reaction,'id'|'targetId'>[]
 }
 
 declare type LoadStatus = {

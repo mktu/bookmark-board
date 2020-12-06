@@ -6,6 +6,7 @@ type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 type ColorType = 'dark' | 'light' | 'none' | 'secondary'
+type FillColorType = ColorType | 'dark-active' | 'secondary-active'
 
 export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
@@ -48,6 +49,20 @@ export const SvgIconButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ 
         dark : 'stroke-primary-main hover:stroke-primary-dark',
         secondary : 'stroke-secondary-main hover:stroke-secondary-dark',
         light : 'stroke-white',
+        none : ''
+    }
+    return (
+        <ButtonBase className={classNames(className,colorClasses[colorType])} {...props} />
+    )
+}
+
+export const SvgFillIconButton: React.FC<ButtonProps & {colorType?:FillColorType}> = ({ colorType='dark', className, ...props }) => {
+    const colorClasses : {[key in FillColorType]:string}= {
+        dark : 'fill-primary-300 hover:fill-primary-main',
+        "dark-active" : 'fill-primary-main hover:fill-primary-300',
+        secondary : 'fill-secondary-300 hover:fill-secondary-main',
+        "secondary-active" : 'fill-secondary-main hover:fill-secondary-300',
+        light : 'fill-white',
         none : ''
     }
     return (

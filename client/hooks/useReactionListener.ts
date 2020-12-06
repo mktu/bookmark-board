@@ -1,23 +1,34 @@
-import { useEffect, useContext, useState } from 'react'
+import { useEffect, useContext, useState, useMemo, useCallback } from 'react'
 import FirebaseContext from '../context/FirebaseContext'
 import { createInitialEntityState, upsertMany, updateMany, deleteMany } from './entityGenerator'
 
-const useCommentListener = (groupId:string) => {
-    const [reactions,setReactions] = useState(createInitialEntityState<Reaction>())
+const useReactionListener = (groupId:string, type:Reaction['type']) => {
+    const [reactionState,setReactionState] = useState(createInitialEntityState<Reaction>())
+    const [status,setStatus] = useState<LoadStatus['status']>('loading')
     const {clientService} = useContext(FirebaseContext)
     useEffect(()=>{
-        const unsubscribe = clientService.listenReactions(groupId, (reactions)=>{
-            setReactions(before=>upsertMany(before,reactions))
+        const unsubscribe = clientService.listenReactions(groupId, type, (reactions)=>{
+            setStatus('loaded')
+            setReactionState(before=>upsertMany(before,reactions))
         },(reactions)=>{
-            setReactions(before=>updateMany(before,reactions))
+            setReactionState(before=>updateMany(before,reactions))
         },(reactions)=>{
-            setReactions(before=>deleteMany(before,reactions))
+            setReactionState(before=>deleteMany(before,reactions))
         })
         return ()=>{
             unsubscribe()
         }
     },[groupId,clientService])
-    return reactions
+    const reactions = useMemo(()=>Object.values(reactionState.entities),[reactionState])
+    const getReactionByUid = useCallback((uid:string)=>{
+        return reactions.find(v=>v.user===uid)
+    },[reactions])
+    return {
+        reactionState,
+        reactions,
+        status,
+        getReactionByUid
+    }
 }
 
-export default useCommentListener
+export default useReactionListener

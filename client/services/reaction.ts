@@ -5,7 +5,7 @@ const auth = firebase.auth()
 
 
 export function addReaction(
-    reaction: Omit<Reaction, 'user'>,
+    reaction: Omit<Reaction, 'user'|'id'>,
     onSucceeded?: (id: string) => void,
     onFailed: ErrorHandler = console.error
 ) {
@@ -19,7 +19,7 @@ export function addReaction(
         .collection('reactions')
         .add(added)
         .then((data) => {
-            onSucceeded(data.id)
+            onSucceeded && onSucceeded(data.id)
         })
         .catch(onFailed);
 }
@@ -41,6 +41,7 @@ export function deleteReaction(
 
 export function listenReactions(
     groupId: string,
+    type: Reaction['type'],
     onAdded: Transfer<Reaction[]>,
     onModified: Transfer<Reaction[]>,
     onDeleted: Transfer<Reaction[]>,
@@ -48,6 +49,7 @@ export function listenReactions(
     return db.collection('groups')
         .doc(groupId)
         .collection('reactions')
+        .where('type','==',type)
         .onSnapshot(getCollectionListener(
             onAdded,
             onModified,
