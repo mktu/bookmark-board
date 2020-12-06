@@ -35,14 +35,14 @@ export const {
 } = bookmarkAdapter.getSelectors()
 
 // recalculate only when return value of selectAll or groupId chancges
-export const selectBookmarksByGroup = createSelector(
+const selectBookmarksByGroup = createSelector(
     [selectAll, (_, groupId:string)=>groupId],
     (bookmarks,groupId)=>{
         return bookmarks.filter(b=>b.groupId===groupId)
     }
 )
 
-export const selectBookmarkIdsByGroup = createSelector(
+const selectBookmarkIdsByGroup = createSelector(
     [selectAll, (_, groupId:string)=>groupId],
     (bookmarks,groupId)=>{
         return bookmarks.filter(b=>b.groupId===groupId).map(b=>b.id)

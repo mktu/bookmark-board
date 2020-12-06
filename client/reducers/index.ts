@@ -7,6 +7,7 @@ import profileSlice from '../modules/profileSlice'
 import groupSlice from '../modules/groupSlice'
 import bookmarkSlice from '../modules/bookmarkSlice'
 import editorsSlice from '../modules/editorsSlice'
+import commentSlice from '../modules/commentSlice'
 
 const rootReducer = combineReducers({
     sidebar : sidebarSlice,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
     profile : profileSlice,
     groups : groupSlice,
     bookmarks : bookmarkSlice,
-    editors : editorsSlice
+    editors : editorsSlice,
+    comments : commentSlice
 })
 
 const store = configureStore({

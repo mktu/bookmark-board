@@ -1,7 +1,7 @@
-import { useEffect, useContext, useState, useMemo } from 'react'
-import FirebaseContext from '../../../context/FirebaseContext'
+import { useEffect, useMemo } from 'react'
 import { useEditorsByIds, actions } from '../../../modules/editorsSlice'
 import { useGroupsByUser } from '../../../modules/groupSlice'
+import { useProfileService } from '../../../hooks'
 import { useProfile } from '../../../modules/profileSlice'
 import { useDispatch } from "react-redux";
 
@@ -13,24 +13,11 @@ const useEditors = () => {
         acc = [...acc,...value.users]
         return acc
     },[] as string[]),[groups])
-    const { clientService } = useContext(FirebaseContext)
-    const [status, setStatus] = useState<LoadStatus['status']>('loaded')
     const editors = useEditorsByIds(bookmarkUids).map(p => p.id)
-    const key = Array.from(new Set(bookmarkUids.filter(uid => !editors.includes(uid)))).sort().join(',')
-    useEffect(() => {
-        if (key && status === 'loaded') {
-            setStatus('loading')
-            const retrieveTraget = key.split(',')
-            clientService.getProfiles(retrieveTraget, (editors) => {
-                dispatch(actions.addEditors({ editors }))
-            })
-        }
-    }, [key, status])
+    const profiles = useProfileService(bookmarkUids.filter(uid => !editors.includes(uid)))
     useEffect(()=>{
-        if(!key){
-            setStatus('loaded')
-        }
-    },[key])
+        dispatch(actions.addEditors({ editors:profiles }))
+    },[profiles])
 }
 
 export default useEditors

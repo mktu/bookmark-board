@@ -11,6 +11,13 @@ declare type Profile = {
     lastUpdate ?: number
 }
 
+declare type Reaction = {
+    id : string,
+    type : 'likes'|'thumbs',
+    user : string,
+    targetId : string,
+}
+
 declare type ListViewMask = 'description' | 'url'
 
 declare type BookmarkGroup = {
@@ -21,7 +28,7 @@ declare type BookmarkGroup = {
     actions : string[],
     id : string,
     idx : number,
-    sharable ?: boolean, // todo requires
+    sharable ?: boolean, // todo requires,
     imageUrl ?: string,
     lastUpdate ?: number,
     listViewMask ?: ListViewMask[]
@@ -41,6 +48,17 @@ declare type Bookmark = {
     idx : number,
     unacquired ?: boolean,
     reactions : {[key:string]:string[]},
+}
+
+declare type BookmarkComment = {
+    id : string,
+    groupId : string,
+    comment : string,
+    sender : string,
+    readers : string[],
+    created : number,
+    lastUpdate ?: number,
+    reactions : Reaction[]
 }
 
 declare type LoadStatus = {

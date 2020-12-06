@@ -19,7 +19,7 @@ export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = (
     )
 }
 
-export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, disabled, colorType='dark', ...props }) => {
+export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
         dark : 'text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark',
         secondary : 'text-secondary-main hover:text-secondary-dark border-secondary-main hover:border-secondary-dark',
@@ -27,7 +27,7 @@ export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({
         none : ''
     }
     return (
-        <ButtonBase disabled={disabled} className={classNames(`py-2 px-4 rounded border focus:outline-none`, disabled ? 'cursor-default opacity-25':'', colorClasses[colorType], className)} {...props} />
+        <ButtonBase  className={classNames(`py-2 px-4 rounded border focus:outline-none`,  colorClasses[colorType], className)} {...props} />
     )
 }
 
@@ -59,6 +59,6 @@ export const SvgIconLink : React.FC<LinkProps> = (props)=>(
     <a className='text-current' {...props}/>
 )
 
-export const ButtonBase : React.FC<ButtonProps> = ({className, ...props})=> (
-    <button className={classNames(styles['button-base'], className, 'focus:outline-none')} {...props} /> 
+export const ButtonBase : React.FC<ButtonProps> = ({className, disabled, ...props})=> (
+    <button disabled={disabled} className={classNames(styles['button-base'], className, disabled ? 'cursor-default opacity-25':'', 'focus:outline-none' )} {...props} /> 
 )

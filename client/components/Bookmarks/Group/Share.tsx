@@ -42,7 +42,7 @@ const Share: React.FC<Props> = ({
 
                         <div className='flex items-center my-2'>
                             <p>閲覧用リンク</p>
-                            <Link href={publicPath}>
+                            <Link href={publicPath} shallow>
                                 <a className='border-b text-blue-500 border-blue-300 mx-2'>{publicUrl}</a>
                             </Link>
 

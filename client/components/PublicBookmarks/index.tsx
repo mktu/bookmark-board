@@ -5,6 +5,7 @@ import { numberToDateTime } from '../../utils'
 import { SvgIconButton } from '../Common/Button'
 import { HeartFill } from '../Common/Icon'
 import CommentInput from './CommentInput'
+import Comments from './Comments'
 
 type Props = {
     group: BookmarkGroup,
@@ -35,12 +36,12 @@ const PublicBookmarks: React.FC<Props> = ({
                     </div>
                 </div>
             </div>
-            <div className='flex w-7/12 p-2'>
-                説明・・・
+            <div className='flex w-7/12 p-4 mt-2 text-primary-main text-sm whitespace-pre-wrap'>
+                {group.description}
             </div>
-            <div className='flex w-7/12 p-2 justify-end'>
+            <div className='flex w-7/12 px-2 justify-end'>
                 <SvgIconButton colorType='none'>
-                    <HeartFill className='w-6 fill-primary-main hover:fill-primary-dark'/>
+                    <HeartFill className='w-6 fill-primary-300 hover:fill-primary-main'/>
                 </SvgIconButton>
             </div>
             <div className='w-7/12 p-2 flex flex-col justify-center'>
@@ -52,7 +53,8 @@ const PublicBookmarks: React.FC<Props> = ({
             </div>
             <div className='w-7/12 p-2 mt-4'>
                 <h2 className='text-primary-main mb-2'>コメント</h2>
-                <CommentInput />
+                <Comments groupId={group.id}/>
+                <CommentInput className='mt-4' groupId={group.id}/>
             </div>
         </div>
     )
