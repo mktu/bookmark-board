@@ -10,7 +10,13 @@ const Signin = () => {
         <Presenter 
             handleSignin={()=>{
                 clientService.loginByGoogle(()=>{
-                    router.push('/bookmarks')
+                    const fromPath = sessionStorage.getItem('fromPath')
+                    if(fromPath){
+                        router.push(fromPath)
+                    }
+                    else{
+                        router.push('/bookmarks')
+                    }
                 })
             }}
             handleAnonymous={()=>{

@@ -47,7 +47,7 @@ export const TextButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ cla
 export const SvgIconButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ colorType='dark', className, ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
         dark : 'stroke-primary-main hover:stroke-primary-dark',
-        secondary : 'stroke-secondary-main hover:stroke-secondary-dark',
+        secondary : 'stroke-secondary-main hover:stroke-secondary-600',
         light : 'stroke-white',
         none : ''
     }

@@ -6,9 +6,9 @@ type Children<T extends HTMLElement> = React.ReactElement & {
     ref?: React.Ref<T>;
 }
 
-type Props<T extends HTMLElement> = {
+export type Props<T extends HTMLElement> = {
     children: Children<T>,
-    content: React.ReactNode | string,
+    content: React.ReactNode,
     placement?: PopperChildrenProps['placement']
 }
 
@@ -18,10 +18,10 @@ export function Popover<T extends HTMLElement>({ children, content, placement = 
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
         placement
-      });
+    });
     const toggle = useCallback(() => {
         setPopoverShow(before => !before)
-    },[]);
+    }, []);
 
     return (
         <>
@@ -46,31 +46,16 @@ export function Popover<T extends HTMLElement>({ children, content, placement = 
                             onClick: toggle,
                         }
                         return React.cloneElement(children, childProps)
-                    }, [children,toggle])}
-                    {typeof content === 'string' ?
-                        (
-                            <div
-                                className={
-                                    (popoverShow ? "" : "hidden ") +
-                                    "bg-primary-600 text-white opacity-80 font-semibold p-3 rounded-lg"
-                                }
-                                ref={setPopperElement}
-                                style={styles.popper}
-                                {...attributes.popper}
-                            >
-                                <div style={styles.arrow} />
+                    }, [children, toggle])}
+                    {popoverShow && (
+                        <Clickaway onClickAway={() => {
+                            setPopoverShow(false)
+                        }}>
+                            <div className={'z-20'} ref={setPopperElement} style={styles.popper} {...attributes.popper}>
                                 {content}
                             </div>
-                        ) : popoverShow && (
-                            <Clickaway onClickAway={() => {
-                                setPopoverShow(false)
-                            }}>
-                                <div className={'z-20'} ref={setPopperElement} style={styles.popper} {...attributes.popper}>
-                                    {content}
-                                </div>
-                            </Clickaway>
-                        )}
-
+                        </Clickaway>
+                    )}
                 </div>
             </div>
         </>

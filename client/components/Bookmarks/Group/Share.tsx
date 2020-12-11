@@ -21,7 +21,7 @@ const Share: React.FC<Props> = ({
     const host = window.location.host
     const publicPath = `/public-bookmarks/${id}`
     const publicUrl = `${host}${publicPath}`
-    const requestUrl = `${host}/request-bookmarks/${id}`
+    const requestUrl = `${host}/bookmark-requests/${id}`
     return (
         <div className='text-primary-main'>
             <h1 className='text-primary-dark text-lg p-2'>

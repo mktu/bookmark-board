@@ -1,10 +1,11 @@
-import React, { useMemo } from 'react'
+import React from 'react'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { DndProvider } from 'react-dnd'
-import BookmarkContext, { ContextType } from '../../../context/BookmarkContext'
 import useGroup from './useGroup'
 import useEditors from './useEditors'
 import useBookmarks from './useBookmarks'
+import useRequest from './useRequest'
+import useRequestors from './useRequestors'
 
 type Props = {
     children: React.ReactNode
@@ -12,17 +13,13 @@ type Props = {
 
 const DefaultProvider: React.FC<Props> = ({ children }) => {
     const bookmarkServices = useBookmarks()
-    useGroup(bookmarkServices)
+    const requestService = useRequest()
+    useGroup([bookmarkServices,requestService])
     useEditors()
-    const value = useMemo<ContextType>(() => ({
-        bookmarkServices,
-    }), [bookmarkServices])
-
+    useRequestors()
     return (
         <DndProvider backend={HTML5Backend}>
-            <BookmarkContext.Provider value={value}>
-                {children}
-            </BookmarkContext.Provider>
+           {children}
         </DndProvider>
 
     )

@@ -11,7 +11,7 @@ export type Props<T extends HTMLElement> = {
     placement?: PopperChildrenProps['placement']
 }
 
-export default function Tooltip<T extends HTMLElement>({ children, content, placement='auto' }: Props<T>) {
+export default function Tooltip<T extends HTMLElement>({ children, content, placement = 'auto' }: Props<T>) {
     const [tooltipShow, setTooltipShow] = useState(false);
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
@@ -60,8 +60,11 @@ export default function Tooltip<T extends HTMLElement>({ children, content, plac
                                     {content}
                                 </div>
                             </div>
-                        ) :  (
-                            <div className='z-20'> { content}</div>
+                        ) : (
+                            <div className='z-20'
+                                ref={setPopperElement}
+                                style={styles.popper}
+                                {...attributes.popper}> { content}</div>
                         ))}
 
                 </div>

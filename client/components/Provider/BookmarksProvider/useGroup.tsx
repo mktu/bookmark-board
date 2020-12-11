@@ -1,12 +1,16 @@
 import { useEffect, useContext } from 'react'
 import FirebaseContext from '../../../context/FirebaseContext'
-import {BookmarkServices} from '../../../context/BookmarkContext'
 import { useDispatch } from "react-redux";
 import { actions } from '../../../modules/groupSlice'
 import { useProfile } from '../../../modules/profileSlice'
 import { actions as loadStatusActions } from '../../../modules/loadStatusSlice'
 
-const useGroup = (bookmarkService : BookmarkServices) => {
+export type GroupMonitor = {
+    onLoad : (groupId:string, owner : boolean)=>void,
+    onUnload : (groupId:string, owner : boolean)=>void,
+}
+
+const useGroup = (groupMonitors : GroupMonitor[]) => {
     const { clientService } = useContext(FirebaseContext)
     const { id } = useProfile()
     const dispatch = useDispatch()
@@ -24,7 +28,9 @@ const useGroup = (bookmarkService : BookmarkServices) => {
             dispatch(loadStatusActions.onLoaded('group'))
             for(const group of groups){
                 dispatch(loadStatusActions.onLoad(group.id))
-                bookmarkService.load(group.id)
+                for(const monitor of groupMonitors){
+                    monitor.onLoad(group.id, group.owner===id)
+                }
             }
             dispatch(actions.addGroups({ groups }))
         }, (groups) => {
@@ -33,7 +39,9 @@ const useGroup = (bookmarkService : BookmarkServices) => {
             dispatch(actions.removeGroups({ groups }))
             for(const group of groups){
                 dispatch(loadStatusActions.onUnload(group.id))
-                bookmarkService.unload(group.id)
+                for(const monitor of groupMonitors){
+                    monitor.onUnload(group.id, group.owner===id)
+                }
             }
         })
         return () => {

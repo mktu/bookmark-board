@@ -37,10 +37,17 @@ export const {
     selectEntities
 } = groupAdapter.getSelectors()
 
-export const selectGroupByUser = createSelector(
+const selectGroupByUser = createSelector(
     [selectAll, (_, uid:string)=>uid],
     (groups,uid)=>{
         return groups.filter(b=>b.users.includes(uid))
+    }
+)
+
+const selectGroupByOwner = createSelector(
+    [selectAll, (_, uid:string)=>uid],
+    (groups,uid)=>{
+        return groups.filter(b=>b.owner===uid)
     }
 )
 
@@ -48,6 +55,13 @@ export const useGroupsByUser = (uid:string) => {
     return useSelector(
         (state: { groups: ReturnType<typeof groupSlice.reducer> }) =>
         selectGroupByUser(state.groups,uid)
+    )
+}
+
+export const useGroupsByOwner = (uid:string) => {
+    return useSelector(
+        (state: { groups: ReturnType<typeof groupSlice.reducer> }) =>
+        selectGroupByOwner(state.groups,uid)
     )
 }
 

@@ -5,7 +5,7 @@ import Avatar, { GroupImage } from '../../Common/Avatar'
 import { Label } from '../../Common/Label'
 import { OutlinedButton, SvgIconButton, ContainedButton } from '../../Common/Button'
 import { TextInput, TextArea } from '../../Common/Input'
-import { useEditorsByIds } from '../../../modules/editorsSlice'
+import { useUsersByIds } from '../../../modules/usersSlice'
 import { numberToDateTime } from '../../../utils'
 import DangerZone from './DangerZone'
 import FirebaseContext from '../../../context/FirebaseContext'
@@ -18,7 +18,7 @@ const Detail: React.FC<Props> = ({
     group
 }) => {
     const router = useRouter()
-    const editors = useEditorsByIds(group.users)
+    const editors = useUsersByIds(group.users)
     const { clientService } = useContext(FirebaseContext)
     return (
         <div className='w-full px-2'>

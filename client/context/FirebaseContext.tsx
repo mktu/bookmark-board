@@ -8,6 +8,7 @@ export const createFirebaseService = async () => {
         ...await import('../services/bookmark'),
         ...await import('../services/comment'),
         ...await import('../services/reaction'),
+        ...await import('../services/request'),
         mock : false
     }
 }
@@ -31,7 +32,8 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         uploadProfileImage : func('uploadProfileImage'),
         updateProfile: func('updateProfile'),
         addGroup : func('addGroup'),
-        getGroups : func('addGroup'),
+        getGroups : func('getGroups'),
+        getGroup : func('getGroup'),
         deleteGroup : func('deleteGroup'),
         modifyGroup : func('modifyGroup'),
         listenGroups : () => {func('listenGroups')(); return ()=>{1}},
@@ -41,6 +43,9 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         addComment : func('addComment'),
         updateComment : func('updateComment'),
         listenComments : () => {func('listenComments')(); return ()=>{1}},
+        addRequest : func('addRequest'),
+        updateRequest : func('updateRequest'),
+        listenRequest : () => {func('listenRequest')(); return ()=>{1}},
         addBookmark : func('addBookmark'),
         modifyBookmark : func('modifyBookmark'),
         deleteBookmark : func('deleteBookmark'),

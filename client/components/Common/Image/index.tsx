@@ -1,4 +1,5 @@
 import React from 'react'
+import Image, {ImageProps} from 'next/image'
 import BookmarksMainImg from './BookmarksMain'
 
 const BookmarksSigninImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...props})=>{
@@ -21,11 +22,16 @@ const PlaceHolderImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({.
     return <img src={'/PlaceHolder.svg'} alt='UrlImage...' {...props}/>;
 }
 
+const WelcomeImg : React.FC<{width?:string,height?:string}> = ({width,height})=>{
+    return <Image src={'/Welcoming.svg'} alt='UrlImage...' width={width} height={height}/>;
+}
+
 export {
     BookmarksMainImg,
     BookmarksSigninImg,
     GoogleSignInImg,
     NoItemImg,
     LoadingImg,
-    PlaceHolderImg
+    PlaceHolderImg,
+    WelcomeImg
 }

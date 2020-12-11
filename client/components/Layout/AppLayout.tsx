@@ -12,7 +12,7 @@ const Layout = ({
     return (
         <div className={styles['app-layout']}>
             <div>{sidebar}</div>
-            <div>{main}</div>
+            <div className=' overflow-hidden'>{main}</div>
         </div>
     )
 }

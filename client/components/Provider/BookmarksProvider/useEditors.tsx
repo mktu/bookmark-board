@@ -1,5 +1,5 @@
 import { useEffect, useMemo } from 'react'
-import { useEditorsByIds, actions } from '../../../modules/editorsSlice'
+import { useUsersByIds, actions } from '../../../modules/usersSlice'
 import { useGroupsByUser } from '../../../modules/groupSlice'
 import { useProfileService } from '../../../hooks'
 import { useProfile } from '../../../modules/profileSlice'
@@ -13,10 +13,10 @@ const useEditors = () => {
         acc = [...acc,...value.users]
         return acc
     },[] as string[]),[groups])
-    const editors = useEditorsByIds(bookmarkUids).map(p => p.id)
+    const editors = useUsersByIds(bookmarkUids).map(p => p.id)
     const profiles = useProfileService(bookmarkUids.filter(uid => !editors.includes(uid)))
     useEffect(()=>{
-        dispatch(actions.addEditors({ editors:profiles }))
+        dispatch(actions.upsertUsers({ users:profiles }))
     },[profiles])
 }
 

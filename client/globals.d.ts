@@ -61,6 +61,15 @@ declare type BookmarkComment = {
     reactions : Omit<Reaction,'id'|'targetId'>[]
 }
 
+declare type BookmarkRequest = {
+    id : string,
+    groupId : string,
+    status : 'requesting' | 'accepted' | 'rejected',
+    sender : string,
+    created : number,
+    lastUpdate ?: number,
+}
+
 declare type LoadStatus = {
     id : string,
     status : 'loading' | 'loaded' | 'failed'

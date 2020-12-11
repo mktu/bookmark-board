@@ -84,3 +84,26 @@ export function getGroups(
     })
     .catch(onFailed)
 }
+
+export function getGroup(
+    groupId : string,
+    onSucceeded : Transfer<BookmarkGroup>,
+    onNotfound: ()=> void,
+    onFailed : ErrorHandler = console.error
+){
+    db.collection('groups')
+    .doc(groupId)
+    .get()
+    .then((querySnapshot) => {
+        if (!querySnapshot.exists) {
+            onNotfound()
+            return;
+        }
+        const data = {
+            id: querySnapshot.id,
+            ...querySnapshot.data()
+        } as BookmarkGroup;
+        onSucceeded(data);
+    })
+    .catch(onFailed)
+}

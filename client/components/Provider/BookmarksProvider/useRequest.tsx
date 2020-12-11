@@ -1,26 +1,32 @@
 import {useEffect,useRef, useCallback, useContext} from 'react'
 import { useDispatch } from "react-redux";
 import FirebaseContext from '../../../context/FirebaseContext'
-import { actions as loadStatusActions } from '../../../modules/loadStatusSlice'
-import { actions } from '../../../modules/bookmarkSlice'
+import { actions } from '../../../modules/requestSlice'
 
-const useBookmarks = ()=>{
+const useRequests = ()=>{
     const dispatch = useDispatch()
     const {clientService} = useContext(FirebaseContext)
-    type Unsubscribe = ReturnType<typeof clientService.listenBookmarks>
+    type Unsubscribe = ReturnType<typeof clientService.listenRequest>
     const unsubscribes = useRef<{[key:string]:Unsubscribe}>({})
-    const onLoad = useCallback((groupId)=>{
-        const unsub = clientService.listenBookmarks(groupId, (bookmarks)=>{
-            dispatch(loadStatusActions.onLoaded(groupId))
-            dispatch(actions.add(bookmarks))
-        }, (bookmarks)=>{
-            dispatch(actions.modify(bookmarks))
-        }, (bookmarks)=>[
-            dispatch(actions.delete(bookmarks))
-        ])
+    const onLoad = useCallback((groupId, owner)=>{
+        if(!owner) return
+        const unsub = clientService.listenRequest({
+            groupId,
+            onAdded: (requests)=>{
+                dispatch(actions.upsert(requests))
+            }, 
+            onModified: (requests)=>{
+                dispatch(actions.modify(requests))
+            }, 
+            onDeleted: (requests)=>[
+                dispatch(actions.delete(requests))
+            ], 
+            status : 'requesting'
+        })
         unsubscribes.current[groupId] = unsub
     },[clientService])
-    const onUnload = useCallback((groupId)=>{
+    const onUnload = useCallback((groupId, owner)=>{
+        if(!owner) return
         unsubscribes.current[groupId] && 
         unsubscribes.current[groupId]()
         delete unsubscribes.current[groupId]
@@ -39,4 +45,4 @@ const useBookmarks = ()=>{
     }
 }
 
-export default useBookmarks
+export default useRequests

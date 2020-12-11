@@ -14,6 +14,7 @@
     }
 }
 .heroicon-button{
+    display : block;
     &:focus {
         @apply outline-none;
     }

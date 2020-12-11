@@ -1,12 +1,15 @@
 import React, { useState } from 'react'
-import { SvgIconButton } from '../../Common/Button'
-import { FolderOpen, Share as ShareIcon } from '../../Common/Icon'
+import { SvgIconButton, SvgFillIconButton } from '../../Common/Button'
+import { FolderOpen, Share as ShareIcon, UserAddFill } from '../../Common/Icon'
 import { TooltipDivContainer } from '../../Common/Tooltip'
+import { PopoverDivContainer } from '../../Common/Popover'
 import Avatar from '../../Common/Avatar'
 import { useGroupById } from '../../../modules/groupSlice'
-import { useEditorsByIds } from '../../../modules/editorsSlice'
+import { useUsersByIds } from '../../../modules/usersSlice'
+import { useRequestsByGroup } from '../../../modules/requestSlice'
 import { ShareDialog, Share } from './Share'
 import { DetailDialog, Detail } from './Detail'
+import RequestUsers from './RequestUsers'
 
 type Props = {
     groupId: string
@@ -16,9 +19,10 @@ const Header: React.FC<Props> = ({
     groupId
 }) => {
     const group = useGroupById(groupId)
-    const editors = useEditorsByIds(group ? group.users : []).slice(0, 5)
+    const editors = useUsersByIds(group ? group.users : []).slice(0, 5)
     const [showDetail, setShowDetail] = useState(false)
     const [showShare, setShowShare] = useState(false)
+    const requests = useRequestsByGroup(group?.id)
     if (!group) {
         return <div />
     }
@@ -42,6 +46,16 @@ const Header: React.FC<Props> = ({
             </div>
 
             <div className='ml-auto flex items-center'>
+                {requests.length > 0 && (
+                    <PopoverDivContainer className='px-2' placement='bottom' content={<RequestUsers requests={requests} />}>
+                        <div>
+                            <SvgFillIconButton colorType='secondary' className='relative'>
+                                <UserAddFill className='w-8' />
+                                <span className='text-xs text-white bg-secondary-300 rounded-full p-1 absolute' style={{ left: '-10px', top: '-10px' }}>{requests.length}</span>
+                            </SvgFillIconButton>
+                        </div>
+                    </PopoverDivContainer>
+                )}
                 {editors.map(e => (
                     <TooltipDivContainer key={e.id} content={e.name} placement='bottom' className='px-1'>
                         <SvgIconButton>
@@ -50,13 +64,14 @@ const Header: React.FC<Props> = ({
                     </TooltipDivContainer>
                 ))}
                 <TooltipDivContainer className='px-2' content='共有' placement='bottom'>
-                    <SvgIconButton onClick={()=>{
+                    <SvgIconButton onClick={() => {
                         setShowShare(true)
                     }}>
-                        <ShareIcon strokeWidth={2} className='w-6'/>
+                        <ShareIcon strokeWidth={2} className='w-6' />
                     </SvgIconButton>
                 </TooltipDivContainer>
             </div>
+
             <ShareDialog open={showShare} onClose={() => {
                 setShowShare(false)
             }}>
