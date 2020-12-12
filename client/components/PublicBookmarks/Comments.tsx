@@ -2,8 +2,10 @@ import React, { useMemo, useContext } from 'react'
 import { useCommentsByGroup } from '../../modules/commentSlice'
 import { useProfileService, useCommentListener } from '../../hooks'
 import { numberToDateTime } from '../../utils'
-import { SvgFillIconButton } from '../Common/Button'
+import { SvgFillIconButton, SvgIconButton } from '../Common/Button'
 import { HeartFill } from '../Common/Icon'
+import { PopoverDivContainer } from '../Common/Popover'
+import { UserPopover } from '../PopoverMenu'
 import { useProfile } from '../../modules/profileSlice'
 import Avatar from '../Common/Avatar'
 import FirebaseContext from '../../context/FirebaseContext'
@@ -32,9 +34,11 @@ const Comments: React.FC<Props> = ({
                 const myReaction = c.reactions.find(r => r.user === myProfile.id)
                 return (
                     <div key={c.id} className='flex items-center p-2 border-b'>
-                        <div>
-                            <Avatar src={senders[c.sender]?.image} width='40px' height='40px' />
-                        </div>
+                        <PopoverDivContainer content={senders[c.sender] && <UserPopover user={senders[c.sender]} />}>
+                            <SvgIconButton>
+                                <Avatar src={senders[c.sender]?.image} width='40px' height='40px' />
+                            </SvgIconButton>
+                        </PopoverDivContainer>
                         <div className='px-2 text-sm text-primary-main'>
                             <div className='text-xs text-primary-400'>
                                 {senders[c.sender]?.name}

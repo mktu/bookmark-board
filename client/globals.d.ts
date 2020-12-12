@@ -5,6 +5,7 @@ declare type User = {
 }
 declare type Profile = {
     name : string | null,
+    comment ?: string,
     id : string,
     image : string,
     loading : boolean,
@@ -18,7 +19,7 @@ declare type Reaction = {
     targetId : string,
 }
 
-declare type ListViewMask = 'description' | 'url'
+declare type ListViewMask = 'description' | 'url' | 'comment'
 
 declare type BookmarkGroup = {
     users : string[],
@@ -39,6 +40,7 @@ declare type Bookmark = {
     url : string,
     title ?: string,
     description ?:string,
+    comment ?: string,
     neighbors : [],
     image ?: string,
     groupId : string,

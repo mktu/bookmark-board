@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRouter } from 'next/router'
 import { PlaceHolderImg } from '../../../Common/Image'
-import { ExternalLink, Duplicate, Trash } from '../../../Common/Icon'
+import { ExternalLink, Duplicate, Trash, Chat } from '../../../Common/Icon'
 import { SvgIconButton } from '../../../Common/Button'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
 import { useBookmarkById } from '../../../../modules/bookmarkSlice'
@@ -71,10 +71,17 @@ const ListItem: React.FC<Props> = ({
                             <PlaceHolderImg className='w-16' />
                         )}
                 </div>
-                <div className='flex flex-col items-start justify-center w-8/12'>
+                <div className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1'>
                     <div className='overflow-hidden truncate max-w-full'>{bookmark.title || bookmark.url}</div>
                     {!listViewMask.includes('description') && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
                     {!listViewMask.includes('url') && (<div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>)}
+                    {!listViewMask.includes('comment') && bookmark.comment && (
+                        <div className='text-xs text-primary-main font-thin max-w-full flex items-center py-1' >
+                            <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2}/>
+                            <div className='overflow-hidden truncate flex-1'>
+                                {bookmark.comment}
+                            </div>
+                        </div>)}
                 </div>
                 <div className='ml-auto flex items-center'>
                     <TooltipDivContainer content='コピー' placement='bottom'>

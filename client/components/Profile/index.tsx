@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react'
-import { TextInput } from '../Common/Input'
+import { TextInput, TextArea } from '../Common/Input'
 import { Label } from '../Common/Label'
 import { useProfile } from '../../modules/profileSlice'
 import Avatar from '../Common/Avatar'
@@ -73,6 +73,12 @@ const Profile: React.FC<Props> = () => {
                             name: value
                         })
                     }} />
+                    <Label htmlFor='comment' className='mt-4'>COMMENT</Label>
+                    <TextArea id='comment' borderType='square' value={profile.comment} minRows={4} handleSubmit={(value)=>{
+                        clientService.updateProfile(profile.id, {
+                            comment: value
+                        })
+                    }}/>
                     <div className='flex justify-end my-2'>
                         <p className=' text-primary-400 text-xs'>{profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`}</p>
                     </div>

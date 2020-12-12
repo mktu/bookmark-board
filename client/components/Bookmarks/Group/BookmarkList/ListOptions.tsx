@@ -13,6 +13,7 @@ const ListOptions: React.FC<Props> = ({
     const { listViewMask = [] } = useGroupById(groupId)
     const maskDescription = listViewMask.includes('description')
     const maskUrl = listViewMask.includes('url')
+    const maskComment = listViewMask.includes('comment')
     const createChangeEvent = (type: ListViewMask) => (e: React.ChangeEvent<HTMLInputElement>) => {
         const value: ListViewMask[] = e.target.checked ? listViewMask.filter(v => v !== type) : [...listViewMask, type]
         clientService.modifyGroup(groupId, { listViewMask: value })
@@ -29,6 +30,11 @@ const ListOptions: React.FC<Props> = ({
                 <input type='checkbox' className='block mr-2 hover:bg-primary-50 cursor-pointer' defaultChecked={!maskUrl} 
                 onChange={createChangeEvent('url')} />
                 <span>URL</span>
+            </label>
+            <label className='flex flex-row items-center mt-2'>
+                <input type='checkbox' className='block mr-2 hover:bg-primary-50 cursor-pointer' defaultChecked={!maskComment} 
+                onChange={createChangeEvent('comment')} />
+                <span>ひとこと</span>
             </label>
         </div>
     )

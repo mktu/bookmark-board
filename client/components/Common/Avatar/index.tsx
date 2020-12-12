@@ -2,20 +2,23 @@ import React from 'react'
 import styles from './index.module.scss'
 import { PlaceHolderImg } from '../Image'
 import Image from 'next/image'
+import classNames from 'classnames'
 import UrlImage from './UrlImage'
 import GroupImage from './GroupImage'
 
 type Props = {
     src ?: string,
     width ?: string,
-    height ?: string
+    height ?: string,
+    className ?: string
 }
 const Avatar: React.FC<Props> = ({
     src,
     width,
-    height
+    height,
+    className
 }) => (
-    <div className={styles['avatar-wrapper']} style={{
+    <div className={classNames(styles['avatar-wrapper'],className)} style={{
         width,
         height
     }}>
@@ -31,5 +34,6 @@ export default Avatar
 
 export {
     UrlImage,
-    GroupImage
+    GroupImage,
+    Avatar
 }

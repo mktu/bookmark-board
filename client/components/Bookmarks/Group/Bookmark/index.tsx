@@ -40,12 +40,16 @@ const Bookmark: React.FC<Props> = ({
                     <Label htmlFor='title'>Title</Label>
                     <TextInput id='title' value={bookmark.title} handleSubmit={updateBookmark('title')} />
                     <Label htmlFor='description' className='my-4'>Description</Label>
-                    <TextArea id='description' maxRows={4} value={bookmark.description} handleSubmit={updateBookmark('description')} />
+                    <TextArea id='description'  maxRows={4} value={bookmark.description} handleSubmit={updateBookmark('description')} />
                 </div>
             </div>
             <div className='w-full overflow-hidden p-4'>
                 <Label htmlFor='url'>URL</Label>
                 <TextInput id='url' value={bookmark.url} handleSubmit={updateBookmark('url')} />
+            </div>
+            <div className='w-full overflow-hidden p-4'>
+                <Label htmlFor='comment' className='mb-4'>ひとこと</Label>
+                <TextArea id='comment' value={bookmark.comment} handleSubmit={updateBookmark('comment')} />
             </div>
             <div className='p-2 mt-8 flex flex-col items-end justify-center'>
                 {status === 'loading' ? (

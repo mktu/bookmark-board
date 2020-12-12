@@ -3,6 +3,7 @@ import { SvgIconButton, SvgFillIconButton } from '../../Common/Button'
 import { FolderOpen, Share as ShareIcon, UserAddFill } from '../../Common/Icon'
 import { TooltipDivContainer } from '../../Common/Tooltip'
 import { PopoverDivContainer } from '../../Common/Popover'
+import { UserPopover } from '../../PopoverMenu'
 import Avatar from '../../Common/Avatar'
 import { useGroupById } from '../../../modules/groupSlice'
 import { useUsersByIds } from '../../../modules/usersSlice'
@@ -57,11 +58,11 @@ const Header: React.FC<Props> = ({
                     </PopoverDivContainer>
                 )}
                 {editors.map(e => (
-                    <TooltipDivContainer key={e.id} content={e.name} placement='bottom' className='px-1'>
+                    <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='px-1'>
                         <SvgIconButton>
                             <Avatar src={e.image} width='32px' height='32px' />
                         </SvgIconButton>
-                    </TooltipDivContainer>
+                    </PopoverDivContainer>
                 ))}
                 <TooltipDivContainer className='px-2' content='共有' placement='bottom'>
                     <SvgIconButton onClick={() => {

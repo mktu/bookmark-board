@@ -6,6 +6,7 @@ import { Label } from '../../Common/Label'
 import { OutlinedButton, SvgIconButton, ContainedButton } from '../../Common/Button'
 import { TextInput, TextArea } from '../../Common/Input'
 import { useUsersByIds } from '../../../modules/usersSlice'
+import { useProfile } from '../../../modules/profileSlice'
 import { numberToDateTime } from '../../../utils'
 import DangerZone from './DangerZone'
 import FirebaseContext from '../../../context/FirebaseContext'
@@ -18,6 +19,7 @@ const Detail: React.FC<Props> = ({
     group
 }) => {
     const router = useRouter()
+    const profile = useProfile()
     const editors = useUsersByIds(group.users)
     const { clientService } = useContext(FirebaseContext)
     return (
@@ -57,22 +59,24 @@ const Detail: React.FC<Props> = ({
                 <div className='p-2 w-full'>
                     {editors.map(e => (
                         <div key={e.id} className='flex items-center'>
-                            <SvgIconButton className='block mr-2'>
-                                <Avatar src={e.image} width='48px' height='48px' />
-                            </SvgIconButton>
+                            <Avatar src={e.image} width='48px' height='48px' className='block mr-2 my-2' />
                             <p className='text-primary-main text-center'>{e.name}</p>
-                            {group.owner !== e.id && (
+                            {group.owner !== e.id && (profile.id === e.id ? (
                                 <ContainedButton className='ml-auto text-sm whitespace-no-wrap'>
-                                    除外
+                                    離脱する
                                 </ContainedButton>
-                            )}
+                            ) : (
+                                    <ContainedButton className='ml-auto text-sm whitespace-no-wrap'>
+                                        除外
+                                    </ContainedButton>
+                                ))}
 
                         </div>
                     ))}
                 </div>
             </div>
             <DangerZone className='mt-6' groupName={group.name} handleDelete={() => {
-                clientService.deleteGroup(group.id, ()=>{
+                clientService.deleteGroup(group.id, () => {
                     router.push('/bookmarks')
                 })
             }} />

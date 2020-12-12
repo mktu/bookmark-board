@@ -1,6 +1,6 @@
 import React from 'react'
 import { UrlImage } from '../Common/Avatar'
-import { ExternalLink, Duplicate } from '../Common/Icon'
+import { ExternalLink, Duplicate, Chat } from '../Common/Icon'
 import { SvgIconButton } from '../Common/Button'
 import { copyToClipBoard } from '../../utils'
 import { toast } from 'react-toastify';
@@ -19,11 +19,19 @@ const ListItem: React.FC<Props> = ({
             <div className='ml-2 text-primary-main overflow-hidden w-full'>
                 <div className='text-sm overflow-hidden truncate max-w-full'>{bookmark.title}</div>
                 <div className='text-xs overflow-hidden truncate max-w-full'>{bookmark.description}</div>
+                {bookmark.comment && (
+                    <div className='text-xs overflow-hidden truncate max-w-full flex items-center text-primary-main py-1'>
+                        <div className='border-primary-200 border rounded p-1 mr-2 flex items-center'><Chat className='w-6 stroke-primary-300'/> ひとこと</div>
+                        <div className='overflow-hidden truncate flex-1 text-sm'>
+                            {bookmark.comment}
+                        </div>
+                    </div>
+                )}
             </div>
             <Tooltip content='URLをコピー' placement='bottom'>
                 <div>
-                    <SvgIconButton className='block ml-2' onClick={(e)=>{
-                        copyToClipBoard(bookmark.url,()=>{
+                    <SvgIconButton className='block ml-2' onClick={(e) => {
+                        copyToClipBoard(bookmark.url, () => {
                             toast.success('クリップボードにURLをコピーしました',)
                         })
                         e.stopPropagation()
@@ -37,7 +45,7 @@ const ListItem: React.FC<Props> = ({
                     <SvgIconButton className='block ml-2' onClick={() => {
                         window && window.open(
                             bookmark.url,
-                            '_blank' 
+                            '_blank'
                         );
                     }}>
                         <ExternalLink className='w-6 stroke-primary-500' strokeWidth='1.5px' />

@@ -2,8 +2,10 @@ import React, { useContext } from 'react'
 import Avatar from '../Common/Avatar'
 import ListItem from './ListItem'
 import { numberToDateTime } from '../../utils'
-import { SvgFillIconButton } from '../Common/Button'
+import { SvgFillIconButton, SvgIconButton } from '../Common/Button'
 import { HeartFill } from '../Common/Icon'
+import { PopoverDivContainer } from '../Common/Popover'
+import { UserPopover } from '../PopoverMenu'
 import CommentInput from './CommentInput'
 import Comments from './Comments'
 import { useReactionListener } from '../../hooks'
@@ -32,7 +34,11 @@ const PublicBookmarks: React.FC<Props> = ({
                     {group.name}
                 </h1>
                 <div className='ml-auto flex items-center'>
-                    <Avatar src={editor.image} width='48px' height='48px' />
+                    <PopoverDivContainer placement='bottom' content={<UserPopover user={editor} />}>
+                        <SvgIconButton>
+                            <Avatar src={editor.image} width='48px' height='48px' />
+                        </SvgIconButton>
+                    </PopoverDivContainer>
                     <div className='ml-2 text-primary-main'>
                         <div>
                             {editor.name}
