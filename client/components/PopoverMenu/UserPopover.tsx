@@ -9,7 +9,7 @@ const UserPopover: React.FC<Props> = ({
 }) => {
     return (
         <div className='bg-white opacity-80 rounded shadow-lg border border-primary-border font-semibold p-3 flex'>
-            <Avatar height='48px' width='48px' src={user.image} />
+            <Avatar height='48px' width='48px' src={user.image} name={user.name}/>
             <div className='ml-2 flex flex-col items-start'>
                 <div className='text-primary-dark'>
                     {user.name}

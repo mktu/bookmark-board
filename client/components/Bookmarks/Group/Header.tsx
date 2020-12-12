@@ -60,7 +60,7 @@ const Header: React.FC<Props> = ({
                 {editors.map(e => (
                     <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='px-1'>
                         <SvgIconButton>
-                            <Avatar src={e.image} width='32px' height='32px' />
+                            <Avatar src={e.image} width='32px' height='32px' name={e.name}/>
                         </SvgIconButton>
                     </PopoverDivContainer>
                 ))}

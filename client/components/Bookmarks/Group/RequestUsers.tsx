@@ -17,7 +17,7 @@ const ListItem: React.FC<{ request: BookmarkRequest }> = ({
     const group = useGroupById(request.groupId)
     return (
         <div className='flex items-center'>
-            <Avatar src={user.image} width='32px' height='32px' />
+            <Avatar src={user.image} width='32px' height='32px' name={user.name}/>
             <div className='mx-2 text-primary-main'>
                 {user.name}
             </div>

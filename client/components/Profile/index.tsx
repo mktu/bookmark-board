@@ -19,7 +19,7 @@ const Profile: React.FC<Props> = () => {
         <div className='w-full h-full p-6'>
             <div className='w-full flex'>
                 <div>
-                    <Avatar src={profile.image} width='192px' height='192px'/>
+                    <Avatar src={profile.image} width='192px' height='192px' name={profile.name} usePlaceholder/>
                     <div className='flex items-center justify-center p-4'>
                         {status === 'loading' && (
                             <label className='py-2 px-4 text-primary-300 rounded border'>

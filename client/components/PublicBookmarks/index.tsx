@@ -36,7 +36,7 @@ const PublicBookmarks: React.FC<Props> = ({
                 <div className='ml-auto flex items-center'>
                     <PopoverDivContainer placement='bottom' content={<UserPopover user={editor} />}>
                         <SvgIconButton>
-                            <Avatar src={editor.image} width='48px' height='48px' />
+                            <Avatar src={editor.image} width='48px' height='48px' name={editor.name}/>
                         </SvgIconButton>
                     </PopoverDivContainer>
                     <div className='ml-2 text-primary-main'>

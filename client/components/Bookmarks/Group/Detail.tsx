@@ -59,7 +59,7 @@ const Detail: React.FC<Props> = ({
                 <div className='p-2 w-full'>
                     {editors.map(e => (
                         <div key={e.id} className='flex items-center'>
-                            <Avatar src={e.image} width='48px' height='48px' className='block mr-2 my-2' />
+                            <Avatar src={e.image} width='48px' height='48px' className='block mr-2 my-2' name={e.name}/>
                             <p className='text-primary-main text-center'>{e.name}</p>
                             {group.owner !== e.id && (profile.id === e.id ? (
                                 <ContainedButton className='ml-auto text-sm whitespace-no-wrap'>

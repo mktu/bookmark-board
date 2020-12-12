@@ -36,7 +36,7 @@ const Comments: React.FC<Props> = ({
                     <div key={c.id} className='flex items-center p-2 border-b'>
                         <PopoverDivContainer content={senders[c.sender] && <UserPopover user={senders[c.sender]} />}>
                             <SvgIconButton>
-                                <Avatar src={senders[c.sender]?.image} width='40px' height='40px' />
+                                <Avatar src={senders[c.sender]?.image} width='40px' height='40px' name={senders[c.sender]?.name}/>
                             </SvgIconButton>
                         </PopoverDivContainer>
                         <div className='px-2 text-sm text-primary-main'>
