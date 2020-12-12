@@ -6,11 +6,10 @@ import { LinkPreview, useLinkPreview } from '../../../Common/LinkPreview'
 import FirebaseContext from '../../../../context/FirebaseContext'
 import styles from './index.module.scss'
 
-
 type Props = {
     groupId: string,
-    show : boolean,
-    toggle : (show:boolean) => void
+    show: boolean,
+    toggle: (show: boolean) => void
 }
 
 const Input: React.FC<Props> = ({
@@ -22,18 +21,51 @@ const Input: React.FC<Props> = ({
     const { linkData, url, status } = useLinkPreview({ text: bookmarkInput })
     const invalidUrl = status === 'none' && Boolean(bookmarkInput)
     const { clientService } = useContext(FirebaseContext)
+    const submit = () => {
+        if (invalidUrl) return
+        const hasLinkData = Boolean(linkData)
+        let data;
+        if (hasLinkData) {
+            data = {
+                url,
+                title: linkData.title,
+                image: linkData.images.length > 0 && linkData.images[0],
+                description: linkData.description || '',
+                neighbors: [],
+                groupId,
+                reactions: {},
+            }
+        }
+        else {
+            data = {
+                url,
+                neighbors: [],
+                groupId,
+                reactions: {},
+                unacquired: true
+            }
+        }
+        !invalidUrl && clientService.addBookmark(data, () => {
+            setBookmarkInput('')
+        })
+    }
     return (
         <div className='absolute w-full left-0 bottom-0 bg-white border-t border-primary-border'>
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>
-                <div className='flex flex-row items-center max-w-full'>
+                <div className='flex flex-row items-center max-w-full overflow-hidden'>
                     <div>
                         <SvgIconButton className='block mr-2' onClick={() => { toggle(false) }}>
                             <ChevronDown strokeWidth='1.5px' className='w-8' />
                         </SvgIconButton>
                     </div>
-                    <div className='w-full'>
+                    <div className='w-full flex-1 overflow-hidden'>
                         <div className='bg-white rounded shadow focus:shadow-outline'>
-                            <BookmarkInputBase placeholder={'ブックマークURLを入力'} value={bookmarkInput} onChange={(e) => {
+                            <BookmarkInputBase placeholder={'ブックマークURLを入力'} value={bookmarkInput} onKeyPress={(e) => {
+                                if (e.key == 'Enter') {
+                                    submit()
+                                    e.preventDefault()
+                                }
+                            }} onChange={(e) => {
                                 setBookmarkInput(e.target.value)
                             }} />
                         </div>
@@ -49,35 +81,8 @@ const Input: React.FC<Props> = ({
                         )}
                     </div>
                     <div className='ml-auto'>
-                        <SvgIconButton className='block ml-2' onClick={() => {
-                            if (invalidUrl) return
-                            const hasLinkData = Boolean(linkData)
-                            let data;
-                            if (hasLinkData) {
-                                data = {
-                                    url,
-                                    title: linkData.title,
-                                    image: linkData.images.length > 0 && linkData.images[0],
-                                    description: linkData.description || '',
-                                    neighbors: [],
-                                    groupId,
-                                    reactions: {},
-                                }
-                            }
-                            else{
-                                data = {
-                                    url,
-                                    neighbors: [],
-                                    groupId,
-                                    reactions: {},
-                                    unacquired: true
-                                }
-                            }
-                            !invalidUrl && clientService.addBookmark(data, () => {
-                                setBookmarkInput('')
-                            })
-                        }}>
-                            <Add strokeWidth='1.5px' className='w-10' />
+                        <SvgIconButton className='block ml-2' onClick={submit}>
+                            <Add strokeWidth='1.5px' className='w-10  stroke-primary-main hover:stroke-primary-dark' />
                         </SvgIconButton>
                     </div>
                 </div>

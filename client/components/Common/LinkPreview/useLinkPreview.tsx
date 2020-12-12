@@ -82,6 +82,7 @@ const useLinkPreview: (props: Props) => {
 
             return () => {
                 setStatus('none')
+                setLinkData(undefined)
                 cancel = true;
             }
         }, [url]);
