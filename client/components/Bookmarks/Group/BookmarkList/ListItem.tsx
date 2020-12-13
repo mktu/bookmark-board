@@ -102,7 +102,8 @@ const ListItem: React.FC<Props> = ({
                             </SvgIconButton>
                         </TooltipDivContainer>
                         <TooltipDivContainer content='URLを開く' placement='bottom'>
-                            <SvgIconButton className='mx-1' onClick={() => {
+                            <SvgIconButton className='mx-1' onClick={(e) => {
+                                e.stopPropagation()
                                 window && window.open(
                                     bookmark.url,
                                     '_blank' // <- This is what makes it open in a new window.
@@ -112,7 +113,8 @@ const ListItem: React.FC<Props> = ({
                             </SvgIconButton>
                         </TooltipDivContainer>
                         <TooltipDivContainer content='削除' placement='bottom'>
-                            <SvgIconButton className='mx-1' onClick={() => {
+                            <SvgIconButton className='mx-1' onClick={(e) => {
+                                e.stopPropagation()
                                 clientService.deleteBookmark(bookmark.groupId, bookmark.id)
                             }}>
                                 <Trash className='w-5' strokeWidth={1.5} />
