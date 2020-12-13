@@ -48,11 +48,11 @@ const Avatar: React.FC<Props> = ({
             {src ? (
                 <Image alt={name} className={styles['avatar-image']} src={src} layout='fill' objectFit='cover' />
             ) : usePlaceholder ? (
-                <PlaceHolderImg className={styles['avatar-image']} width={width} height={height}/>
+                <PlaceHolderImg className={styles['avatar-image']} width={width} height={height} />
             ) : (
                         <div className={`flex items-center justify-center rounded-full bg-${bgNames[colodIdx]}-500 text-white p-2 overflow-hidden`} style={{
                             width,
-                            height
+                            height,
                         }}>
                             {ini}
                         </div>

@@ -58,7 +58,7 @@ const Header: React.FC<Props> = ({
                     </PopoverDivContainer>
                 )}
                 {editors.map(e => (
-                    <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='px-1'>
+                    <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='px-1 flex items-center'>
                         <SvgIconButton>
                             <Avatar src={e.image} width='32px' height='32px' name={e.name}/>
                         </SvgIconButton>

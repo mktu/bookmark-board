@@ -3,6 +3,7 @@ import classNames from 'classnames'
 import TextareaAutosize, { TextareaAutosizeProps } from 'react-textarea-autosize';
 import TextArea from './TextArea'
 import TextInput from './TextInput'
+import Dropdowns from './Dropdowns'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
@@ -60,5 +61,6 @@ export const BookmarkInputBase: React.FC<InputProps> = ({
 
 export {
     TextArea,
-    TextInput
+    TextInput,
+    Dropdowns
 }

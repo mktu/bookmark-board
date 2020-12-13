@@ -2,11 +2,12 @@ import React, { useContext } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRouter } from 'next/router'
 import { PlaceHolderImg } from '../../../Common/Image'
-import { ExternalLink, Duplicate, Trash, Chat } from '../../../Common/Icon'
+import { ExternalLink, Duplicate, Trash, Chat, HeartFill } from '../../../Common/Icon'
 import { SvgIconButton } from '../../../Common/Button'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
 import { useBookmarkById } from '../../../../modules/bookmarkSlice'
 import { useGroupById } from '../../../../modules/groupSlice'
+import { useProfile } from '../../../../modules/profileSlice'
 import { copyToClipBoard } from '../../../../utils'
 import { toast } from 'react-toastify';
 import FirebaseContext from '../../../../context/FirebaseContext'
@@ -28,11 +29,13 @@ const ListItem: React.FC<Props> = ({
     const { clientService } = useContext(FirebaseContext)
     const group = useGroupById(bookmark.groupId)
     const { listViewMask = [] } = group || {}
+    const profile = useProfile()
     const [{ dragging }, drag] = useDrag({
         item: {
             id: bookmark.id,
             name: bookmark.title,
             idx: bookmark.idx,
+            groupId: bookmark.groupId,
             type: 'LIST'
         },
         collect: (monitor) => ({
@@ -56,6 +59,9 @@ const ListItem: React.FC<Props> = ({
             }
         }
     })
+    const likes = bookmark.reactions['likes'] || []
+    const sentLikes = likes.includes(profile.id)
+
     return (
         <div ref={(v) => {
             drag(v)
@@ -77,41 +83,49 @@ const ListItem: React.FC<Props> = ({
                     {!listViewMask.includes('url') && (<div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>)}
                     {!listViewMask.includes('comment') && bookmark.comment && (
                         <div className='text-xs text-primary-main font-thin max-w-full flex items-center py-1' >
-                            <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2}/>
+                            <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2} />
                             <div className='overflow-hidden truncate flex-1'>
                                 {bookmark.comment}
                             </div>
                         </div>)}
                 </div>
-                <div className='ml-auto flex items-center'>
-                    <TooltipDivContainer content='コピー' placement='bottom'>
-                        <SvgIconButton onClick={(e) => {
-                            copyToClipBoard(bookmark.url, () => {
-                                toast.success('クリップボードにURLをコピーしました',)
-                            })
-                            e.stopPropagation()
-                        }}>
-                            <Duplicate className='w-6' strokeWidth='1.5px' />
-                        </SvgIconButton>
-                    </TooltipDivContainer>
-                    <TooltipDivContainer content='URLを開く' placement='bottom'>
-                        <SvgIconButton className='ml-3' onClick={() => {
-                            window && window.open(
-                                bookmark.url,
-                                '_blank' // <- This is what makes it open in a new window.
-                            );
-                        }}>
-                            <ExternalLink className='w-6' strokeWidth='1.5px' />
-                        </SvgIconButton>
-                    </TooltipDivContainer>
-                    <TooltipDivContainer content='削除' placement='bottom'>
-                        <SvgIconButton className='ml-3' onClick={() => {
-                            clientService.deleteBookmark(bookmark.groupId, bookmark.id)
-                        }}>
-                            <Trash className='w-6' strokeWidth='1.5px' />
-                        </SvgIconButton>
-                    </TooltipDivContainer>
-
+                <div className='ml-auto flex flex-col justify-start'>
+                    <div className='flex items-start'>
+                        <TooltipDivContainer content='コピー' placement='bottom'>
+                            <SvgIconButton className='mx-1' onClick={(e) => {
+                                copyToClipBoard(bookmark.url, () => {
+                                    toast.success('クリップボードにURLをコピーしました',)
+                                })
+                                e.stopPropagation()
+                            }}>
+                                <Duplicate className='w-5' strokeWidth={1.5} />
+                            </SvgIconButton>
+                        </TooltipDivContainer>
+                        <TooltipDivContainer content='URLを開く' placement='bottom'>
+                            <SvgIconButton className='mx-1' onClick={() => {
+                                window && window.open(
+                                    bookmark.url,
+                                    '_blank' // <- This is what makes it open in a new window.
+                                );
+                            }}>
+                                <ExternalLink className='w-5' strokeWidth={1.5} />
+                            </SvgIconButton>
+                        </TooltipDivContainer>
+                        <TooltipDivContainer content='削除' placement='bottom'>
+                            <SvgIconButton className='mx-1' onClick={() => {
+                                clientService.deleteBookmark(bookmark.groupId, bookmark.id)
+                            }}>
+                                <Trash className='w-5' strokeWidth={1.5} />
+                            </SvgIconButton>
+                        </TooltipDivContainer>
+                    </div>
+                    <div className='mt-auto flex items-center justify-end'>
+                        {sentLikes && (
+                            <div className='bg-secondary-light rounded-full p-1'>
+                                <HeartFill className='w-5 fill-secondary-main' strokeWidth={0} />
+                            </div>
+                        )}
+                    </div>
                 </div>
             </div>
         </div>
