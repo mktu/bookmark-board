@@ -41,7 +41,7 @@ export const TextButton: React.FC<ButtonProps & {colorType?:ColorType, fontType?
         none : ''
     }
     const fontTypes : {[key in FontType]:string}= {
-        bold : 'bold',
+        bold : 'font-bold',
         none : ''
     }
     return (

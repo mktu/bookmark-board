@@ -2,6 +2,7 @@ import {useEffect, useState} from 'react'
 import { FirebaseClientServiceType } from '../../../context/FirebaseContext'
 import { useDispatch } from "react-redux";
 import { actions as profileActions } from '../../../modules/profileSlice'
+import { actions as usersActions } from '../../../modules/usersSlice'
 
 const useAuth = (clientService:FirebaseClientServiceType)=>{
     const [uid,setUid] = useState('')
@@ -37,6 +38,7 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
         const { listenProfile } = clientService
         const unsub = listenProfile(uid, (profile)=>{
             dispatch(profileActions.saveProfile({profile}))
+            dispatch(usersActions.upsertUsers({users:[profile]}))
         })
         return ()=>{
             unsub()

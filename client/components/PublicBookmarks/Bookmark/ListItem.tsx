@@ -1,7 +1,7 @@
 import React from 'react'
 import { UrlImage } from '../../Common/Avatar'
 import { Duplicate, Chat, ChevronDoubleDown } from '../../Common/Icon'
-import { SvgIconButton, TextButton } from '../../Common/Button'
+import { SvgIconButton } from '../../Common/Button'
 import { copyToClipBoard } from '../../../utils'
 import { toast } from 'react-toastify';
 import { TooltipDivContainer } from '../../Common/Tooltip'

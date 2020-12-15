@@ -90,7 +90,7 @@ export function updateProfile(
 
 export function uploadProfileImage(
     profileId: string,
-    image: File,
+    image: Blob,
     onSucceeded: (url: string) => void,
     onProgress?: (progress: number, status: 'paused' | 'running') => void,
     onFailed?: ErrorHandler

@@ -3,6 +3,8 @@ import { TextInput, TextArea } from '../Common/Input'
 import { Label } from '../Common/Label'
 import { useProfile } from '../../modules/profileSlice'
 import Avatar from '../Common/Avatar'
+import { toast } from 'react-toastify';
+import Compressor from 'compressorjs';
 import FirebaseContext from '../../context/FirebaseContext'
 
 type Props = {
@@ -19,7 +21,7 @@ const Profile: React.FC<Props> = () => {
         <div className='w-full h-full p-6'>
             <div className='w-full flex'>
                 <div>
-                    <Avatar src={profile.image} width='192px' height='192px' name={profile.name} usePlaceholder/>
+                    <Avatar src={profile.image} width='192px' height='192px' name={profile.name} usePlaceholder />
                     <div className='flex items-center justify-center p-4'>
                         {status === 'loading' && (
                             <label className='py-2 px-4 text-primary-300 rounded border'>
@@ -33,28 +35,38 @@ const Profile: React.FC<Props> = () => {
                                     if (!e.target.files || e.target.files.length === 0) {
                                         return
                                     }
-                                    setStatus('loading')
-                                    setProgress(0)
-                                    clientService.uploadProfileImage(
-                                        profile.id,
-                                        e.target.files[0],
-                                        (url) => {
-                                            clientService.updateProfile(
+                                    if (e.target.files[0].size > 1024 * 1024 * 5) {
+                                        toast.error('ERROR 画像サイズが5MBを超えています')
+                                        return
+                                    }
+                                    new Compressor(e.target.files[0], {
+                                        quality: 0.3,
+                                        success: (result) => {
+                                            setStatus('loading')
+                                            setProgress(0)
+                                            clientService.uploadProfileImage(
                                                 profile.id,
-                                                { image: url },
-                                                () => {
-                                                    setStatus('loaded')
+                                                result,
+                                                (url) => {
+                                                    clientService.updateProfile(
+                                                        profile.id,
+                                                        { image: url },
+                                                        () => {
+                                                            setStatus('loaded')
+                                                        }
+                                                    )
+                                                },
+                                                (progress) => {
+                                                    setProgress(Math.round(progress))
+                                                },
+                                                (e) => {
+                                                    setError(e)
+                                                    setStatus('failed')
                                                 }
                                             )
-                                        },
-                                        (progress) => {
-                                            setProgress(Math.round(progress))
-                                        },
-                                        (e) => {
-                                            setError(e)
-                                            setStatus('failed')
                                         }
-                                    )
+                                    })
+
                                 }
                                 } />
                             </label>
@@ -74,11 +86,11 @@ const Profile: React.FC<Props> = () => {
                         })
                     }} />
                     <Label htmlFor='comment' className='mt-4'>COMMENT</Label>
-                    <TextArea id='comment' borderType='square' value={profile.comment} minRows={4} handleSubmit={(value)=>{
+                    <TextArea id='comment' borderType='square' value={profile.comment} minRows={4} handleSubmit={(value) => {
                         clientService.updateProfile(profile.id, {
                             comment: value
                         })
-                    }}/>
+                    }} />
                     <div className='flex justify-end my-2'>
                         <p className=' text-primary-400 text-xs'>{profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`}</p>
                     </div>
