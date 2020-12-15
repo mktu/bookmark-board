@@ -5,19 +5,21 @@ import { PlaceHolderImg } from '../Image'
 type Props = {
     src ?: string,
     width ?: string,
-    height ?: string
+    height ?: string,
+    name ?: string
 }
 const UrlImage: React.FC<Props> = ({
     src,
     width,
-    height
+    height,
+    name = 'Unknown'
 }) => (
     <div className={styles['url-image-wrapper']} style={{
         width,
         height
     }}>
         {src ? (
-            <img alt='Avatar' src={src} />
+            <img alt={name} src={src}/>
         ) : (
                 <PlaceHolderImg />
             )}

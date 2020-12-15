@@ -7,6 +7,7 @@ type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 type ColorType = 'dark' | 'light' | 'none' | 'secondary'
 type FillColorType = ColorType | 'dark-active' | 'secondary-active'
+type FontType = 'bold' | 'none'
 
 export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
@@ -32,15 +33,19 @@ export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({
     )
 }
 
-export const TextButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
+export const TextButton: React.FC<ButtonProps & {colorType?:ColorType, fontType?:FontType}> = ({ className, colorType='dark', fontType='bold', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
         dark : 'text-primary-600 hover:text-primary-700',
         secondary : 'text-secondary-600 hover:text-secondary-700',
         light : 'text-white',
         none : ''
     }
+    const fontTypes : {[key in FontType]:string}= {
+        bold : 'bold',
+        none : ''
+    }
     return (
-        <ButtonBase className={classNames(className,colorClasses[colorType],'background-transparent font-bold uppercase')} {...props} />
+        <ButtonBase className={classNames(className,colorClasses[colorType], fontTypes[fontType], 'background-transparent uppercase')} {...props} />
     )
 }
 

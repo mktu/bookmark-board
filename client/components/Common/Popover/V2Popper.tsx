@@ -26,7 +26,7 @@ export function Popover<T extends HTMLElement>({ children, content, placement = 
     return (
         <>
             <div className="flex flex-wrap">
-                <div className="w-full text-center">
+                <div className="w-full">
                     {useMemo(() => {
                         const childProps = {
                             ...children.props,

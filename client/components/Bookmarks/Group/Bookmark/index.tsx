@@ -43,7 +43,7 @@ const Bookmark: React.FC<Props> = ({
     const likes = bookmark.reactions['likes'] || []
     const sentLikes = likes.includes(profile.id)
     return (
-        <div className='flex flex-col '>
+        <div className='flex flex-col'>
             <div className='flex items-center'>
                 <div>
                     <img className='w-32 border-primary-border border' src={bookmark.image} />

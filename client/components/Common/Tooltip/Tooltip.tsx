@@ -46,7 +46,7 @@ export default function Tooltip<T extends HTMLElement>({ children, content, plac
     return (
         <>
             <div className="flex flex-wrap">
-                <div className="w-full text-center">
+                <div className="w-full">
                     {React.cloneElement(children, childProps)}
                     {tooltipShow && (typeof content === 'string' ?
                         (

@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import Avatar from '../Common/Avatar'
-import ListItem from './ListItem'
+import Bookmark from './Bookmark'
 import { numberToDateTime } from '../../utils'
 import { SvgFillIconButton, SvgIconButton } from '../Common/Button'
 import { HeartFill } from '../Common/Icon'
@@ -36,7 +36,7 @@ const PublicBookmarks: React.FC<Props> = ({
                 <div className='ml-auto flex items-center'>
                     <PopoverDivContainer placement='bottom' content={<UserPopover user={editor} />}>
                         <SvgIconButton>
-                            <Avatar src={editor.image} width='48px' height='48px' name={editor.name}/>
+                            <Avatar src={editor.image} width='48px' height='48px' name={editor.name} />
                         </SvgIconButton>
                     </PopoverDivContainer>
                     <div className='ml-2 text-primary-main'>
@@ -66,9 +66,7 @@ const PublicBookmarks: React.FC<Props> = ({
             </div>
             <div className='w-7/12 p-2 flex flex-col justify-center'>
                 {bookmarks.map(b => (
-                    <div key={b.id} className='mt-2'>
-                        <ListItem bookmark={b} />
-                    </div>
+                    <Bookmark bookmark={b} key={b.id}/>
                 ))}
             </div>
             <div className='w-7/12 p-2 mt-4'>
@@ -76,6 +74,7 @@ const PublicBookmarks: React.FC<Props> = ({
                 <Comments groupId={group.id} />
                 <CommentInput className='mt-4' groupId={group.id} />
             </div>
+
         </div>
     )
 }
