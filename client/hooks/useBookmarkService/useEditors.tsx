@@ -1,8 +1,8 @@
 import { useEffect, useMemo } from 'react'
-import { useUsersByIds, actions } from '../../../modules/usersSlice'
-import { useGroupsByUser } from '../../../modules/groupSlice'
-import { useProfileService } from '../../../hooks'
-import { useProfile } from '../../../modules/profileSlice'
+import { useUsersByIds, actions } from '../../modules/usersSlice'
+import { useGroupsByUser } from '../../modules/groupSlice'
+import { useProfileService } from '..'
+import { useProfile } from '../../modules/profileSlice'
 import { useDispatch } from "react-redux";
 
 const useEditors = () => {

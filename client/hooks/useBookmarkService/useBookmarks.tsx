@@ -1,8 +1,8 @@
 import {useEffect,useRef, useCallback, useContext} from 'react'
 import { useDispatch } from "react-redux";
-import FirebaseContext from '../../../context/FirebaseContext'
-import { actions as loadStatusActions } from '../../../modules/loadStatusSlice'
-import { actions } from '../../../modules/bookmarkSlice'
+import FirebaseContext from '../../context/FirebaseContext'
+import { actions as loadStatusActions } from '../../modules/loadStatusSlice'
+import { actions } from '../../modules/bookmarkSlice'
 
 const useBookmarks = ()=>{
     const dispatch = useDispatch()

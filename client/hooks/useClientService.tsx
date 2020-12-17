@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react'
-import { createFirebaseService, initialService } from '../../../context/FirebaseContext'
+import { createFirebaseService, initialService } from '../context/FirebaseContext'
 
 const useClientService = ()=>{
     const [clientService, setClientService] = useState(initialService)

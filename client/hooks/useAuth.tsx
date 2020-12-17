@@ -1,11 +1,12 @@
 import {useEffect, useState} from 'react'
-import { FirebaseClientServiceType } from '../../../context/FirebaseContext'
+import { FirebaseClientServiceType } from '../context/FirebaseContext'
 import { useDispatch } from "react-redux";
-import { actions as profileActions } from '../../../modules/profileSlice'
-import { actions as usersActions } from '../../../modules/usersSlice'
+import { actions as profileActions } from '../modules/profileSlice'
+import { actions as usersActions } from '../modules/usersSlice'
 
 const useAuth = (clientService:FirebaseClientServiceType)=>{
     const [uid,setUid] = useState('')
+    const [hasProfile,setHasProfile] = useState(false)
     const dispatch = useDispatch()
     useEffect(()=>{
         const { listenAuthState, getProfile, addProfile } = clientService;
@@ -15,6 +16,7 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
                 // nookies.set(undefined, 'bookmarkToken', token, {})
             })
             getProfile(user.uid, ()=>{
+                setHasProfile(true)
                 console.log(`${user.displayName} is already exist in profile`)
             }, ()=>{
                 addProfile(user.displayName, user.uid, ()=>{
@@ -24,7 +26,6 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
         }, ()=>{
             setUid('')
             dispatch(profileActions.clear())
-            // nookies.set(undefined, 'bookmarkToken', '', {})
         })
     }, [clientService])
 

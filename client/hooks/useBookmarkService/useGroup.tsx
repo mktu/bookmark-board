@@ -1,9 +1,9 @@
 import { useEffect, useContext } from 'react'
-import FirebaseContext from '../../../context/FirebaseContext'
+import FirebaseContext from '../../context/FirebaseContext'
 import { useDispatch } from "react-redux";
-import { actions } from '../../../modules/groupSlice'
-import { useProfile } from '../../../modules/profileSlice'
-import { actions as loadStatusActions } from '../../../modules/loadStatusSlice'
+import { actions } from '../../modules/groupSlice'
+import { useProfile } from '../../modules/profileSlice'
+import { actions as loadStatusActions } from '../../modules/loadStatusSlice'
 
 export type GroupMonitor = {
     onLoad : (groupId:string, owner : boolean)=>void,

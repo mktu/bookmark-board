@@ -11,6 +11,7 @@ const Signin = () => {
             handleSignin={()=>{
                 clientService.loginByGoogle(()=>{
                     const fromPath = sessionStorage.getItem('fromPath')
+                    // tbd check if profile exists
                     if(fromPath){
                         router.push(fromPath)
                     }

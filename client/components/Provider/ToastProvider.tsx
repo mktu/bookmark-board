@@ -14,7 +14,7 @@ const contextClass = {
     dark: "bg-white-600 font-gray-300",
 };
 
-const Container: React.FC<Props> = () => (
+const ToastProvider: React.FC<Props> = () => (
     <ToastContainer
         toastClassName={({ type }) => contextClass[type || "default"] +
             " flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
@@ -32,4 +32,4 @@ const Container: React.FC<Props> = () => (
     />
 )
 
-export default Container
+export default ToastProvider

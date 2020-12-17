@@ -1,7 +1,7 @@
 import {useEffect,useRef, useCallback, useContext} from 'react'
 import { useDispatch } from "react-redux";
-import FirebaseContext from '../../../context/FirebaseContext'
-import { actions } from '../../../modules/requestSlice'
+import FirebaseContext from '../../context/FirebaseContext'
+import { actions } from '../../modules/requestSlice'
 
 const useRequests = ()=>{
     const dispatch = useDispatch()

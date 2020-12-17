@@ -1,22 +1,21 @@
-import React, { useContext, useState } from 'react'
+import React from 'react'
 import { TextInput, TextArea } from '../Common/Input'
 import { Label } from '../Common/Label'
-import { useProfile } from '../../modules/profileSlice'
 import Avatar from '../Common/Avatar'
-import { toast } from 'react-toastify';
-import Compressor from 'compressorjs';
-import FirebaseContext from '../../context/FirebaseContext'
+import useProfileContainer from './useProfileContainer'
 
 type Props = {
 
 }
 
 const Profile: React.FC<Props> = () => {
-    const profile = useProfile()
-    const { clientService } = useContext(FirebaseContext)
-    const [progress, setProgress] = useState(0)
-    const [status, setStatus] = useState<LoadStatus['status']>('loaded')
-    const [error, setError] = useState<Error>()
+    const {
+        profile,
+        progress,
+        error,
+        handleChangeImage,
+        updateProfile
+    } = useProfileContainer()
     return (
         <div className='w-full h-full p-6'>
             <div className='w-full flex'>
@@ -31,44 +30,7 @@ const Profile: React.FC<Props> = () => {
                         {status === 'loaded' && (
                             <label className='py-2 px-4 cursor-pointer rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark' htmlFor='file-upload'>
                                 変更
-                                <input id="file-upload" type='file' className='hidden' onChange={(e) => {
-                                    if (!e.target.files || e.target.files.length === 0) {
-                                        return
-                                    }
-                                    if (e.target.files[0].size > 1024 * 1024 * 5) {
-                                        toast.error('ERROR 画像サイズが5MBを超えています')
-                                        return
-                                    }
-                                    new Compressor(e.target.files[0], {
-                                        quality: 0.3,
-                                        success: (result) => {
-                                            setStatus('loading')
-                                            setProgress(0)
-                                            clientService.uploadProfileImage(
-                                                profile.id,
-                                                result,
-                                                (url) => {
-                                                    clientService.updateProfile(
-                                                        profile.id,
-                                                        { image: url },
-                                                        () => {
-                                                            setStatus('loaded')
-                                                        }
-                                                    )
-                                                },
-                                                (progress) => {
-                                                    setProgress(Math.round(progress))
-                                                },
-                                                (e) => {
-                                                    setError(e)
-                                                    setStatus('failed')
-                                                }
-                                            )
-                                        }
-                                    })
-
-                                }
-                                } />
+                                <input id="file-upload" type='file' className='hidden' onChange={handleChangeImage} />
                             </label>
                         )}
                         {status === 'failed' && (
@@ -80,17 +42,9 @@ const Profile: React.FC<Props> = () => {
                 </div>
                 <div className='p-4 w-1/3'>
                     <Label htmlFor='name'>NAME</Label>
-                    <TextInput id='name' value={profile.name} handleSubmit={(value) => {
-                        clientService.updateProfile(profile.id, {
-                            name: value
-                        })
-                    }} />
+                    <TextInput id='name' value={profile.name} handleSubmit={updateProfile('name')} />
                     <Label htmlFor='comment' className='mt-4'>COMMENT</Label>
-                    <TextArea id='comment' borderType='square' value={profile.comment} minRows={4} handleSubmit={(value) => {
-                        clientService.updateProfile(profile.id, {
-                            comment: value
-                        })
-                    }} />
+                    <TextArea id='comment' borderType='square' value={profile.comment} minRows={4} handleSubmit={updateProfile('comment')} />
                     <div className='flex justify-end my-2'>
                         <p className=' text-primary-400 text-xs'>{profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`}</p>
                     </div>

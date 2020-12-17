@@ -1,9 +1,9 @@
 import { useEffect } from 'react'
-import { useUserIdsByIds, actions } from '../../../modules/usersSlice'
-import { useGroupsByOwner } from '../../../modules/groupSlice'
-import { useRequestsByGroups } from '../../../modules/requestSlice'
-import { useProfileService } from '../../../hooks'
-import { useProfile } from '../../../modules/profileSlice'
+import { useUserIdsByIds, actions } from '../../modules/usersSlice'
+import { useGroupsByOwner } from '../../modules/groupSlice'
+import { useRequestsByGroups } from '../../modules/requestSlice'
+import { useProfileService } from '..'
+import { useProfile } from '../../modules/profileSlice'
 import { useDispatch } from "react-redux";
 
 const useRequestors = () => {
