@@ -45,30 +45,25 @@ export default function Tooltip<T extends HTMLElement>({ children, content, plac
 
     return (
         <>
-            <div className="flex flex-wrap">
-                <div className="w-full">
-                    {React.cloneElement(children, childProps)}
-                    {tooltipShow && (typeof content === 'string' ?
-                        (
-                            <div
-                                className='z-20'
-                                ref={setPopperElement}
-                                style={styles.popper}
-                                {...attributes.popper}
-                            >
-                                <div className='bg-primary-600 text-white opacity-80 p-2 rounded-lg text-sm'>
-                                    {content}
-                                </div>
-                            </div>
-                        ) : (
-                            <div className='z-20'
-                                ref={setPopperElement}
-                                style={styles.popper}
-                                {...attributes.popper}> { content}</div>
-                        ))}
-
-                </div>
-            </div>
+            {React.cloneElement(children, childProps)}
+            {tooltipShow && (typeof content === 'string' ?
+                (
+                    <div
+                        className='z-20'
+                        ref={setPopperElement}
+                        style={styles.popper}
+                        {...attributes.popper}
+                    >
+                        <div className='bg-primary-600 text-white opacity-80 p-2 rounded-lg text-sm'>
+                            {content}
+                        </div>
+                    </div>
+                ) : (
+                    <div className='z-20'
+                        ref={setPopperElement}
+                        style={styles.popper}
+                        {...attributes.popper}> { content}</div>
+                ))}
         </>
     );
 }

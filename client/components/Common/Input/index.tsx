@@ -25,19 +25,21 @@ export const InputWithIcon: React.FC<InputProps & {
 
 export const TextInputBase: React.FC<InputProps> = ({
     className,
+    disabled,
     ...props
 }) => {
     return (
-        <input {...props} type="text" className={classNames(className,'outline-none focus:outline-none w-full')} />
+        <input disabled={disabled} {...props} type="text" className={classNames(className,'outline-none focus:outline-none w-full',disabled ? 'cursor-default opacity-25':'')} />
     )
 }
 
 export const ResizableTextAreaBase: React.FC<TextareaAutosizeProps> = ({
     className,
+    disabled,
     ...props
 }) => {
     return (
-        <TextareaAutosize {...props} className={classNames(className,'relative outline-none focus:outline-none w-full')} />
+        <TextareaAutosize disabled={disabled} {...props} className={classNames(className,'relative outline-none focus:outline-none w-full',disabled ? 'cursor-default opacity-25':'')} />
     )
 }
 

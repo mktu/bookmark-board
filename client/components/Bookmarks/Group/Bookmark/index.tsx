@@ -5,11 +5,14 @@ import { useGroupsByUser } from '../../../../modules/groupSlice'
 import { useProfile } from '../../../../modules/profileSlice'
 import { Modal } from 'react-responsive-modal';
 import { TextInput, TextArea, Dropdowns } from '../../../Common/Input'
-import { OutlinedButton, SvgIconButton } from '../../../Common/Button'
-import { ExternalLink, HeartFill } from '../../../Common/Icon'
+import { LoadingImg } from '../../../Common/Image'
+import { OutlinedButton, SvgIconButton, TextButton } from '../../../Common/Button'
+import { ExternalLink, HeartFill, Refresh } from '../../../Common/Icon'
+import { TooltipDivContainer } from '../../../Common/Tooltip'
 import { Label } from '../../../Common/Label'
 import FirebaseContext from '../../../../context/FirebaseContext'
 import { numberToDateTime } from '../../../../utils'
+import { fetchLinkPreview } from '../../../../logics'
 
 type Props = {
     bookmarkId: string
@@ -27,14 +30,8 @@ const Bookmark: React.FC<Props> = ({
     const [status, setStatus] = useState<LoadStatus['status']>('loaded')
     const [moveDest, setMoveDest] = useState(group)
     const updateBookmark = (key: keyof Bookmark) => (value: string) => {
-        setStatus('loading')
         clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
             [key]: value
-        }, () => {
-            setStatus('loaded')
-        }, (e) => {
-            setStatus('failed')
-            console.error(e)
         })
     }
     if (!bookmark) {
@@ -45,14 +42,39 @@ const Bookmark: React.FC<Props> = ({
     return (
         <div className='flex flex-col'>
             <div className='flex items-center'>
-                <div>
-                    <img className='w-32 border-primary-border border' src={bookmark.image} />
+                <div className='flex flex-col'>
+                    <div>
+                        {status === 'loading' ? (<LoadingImg className='w-32' />) : (
+                            <img className='w-32 border-primary-border border' src={bookmark.image} />
+                        )}
+                    </div>
+                    <TooltipDivContainer content='説明や画像の情報を再度取得します' placement='bottom'>
+                        <TextButton className='my-4 text-xs flex items-center justify-center' fontType='none' onClick={() => {
+                            setStatus('loading')
+                            fetchLinkPreview(bookmark.url).then(result => {
+                                clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
+                                    title: result.title,
+                                    description: result.description || '',
+                                    image: result.images.length > 0 && result.images[0]
+                                },()=>{
+                                    setStatus('loaded')
+                                },(err)=>{
+                                    setStatus('failed')
+                                    console.error(err)
+                                })
+                            })
+                        }}>
+                            <Refresh className='w-4 stroke-primary-500 mr-2' strokeWidth={1.5} />
+                            <span>情報再取得</span>
+                        </TextButton>
+                    </TooltipDivContainer>
+
                 </div>
                 <div className='w-full overflow-hidden p-4'>
                     <div className='flex items-center'>
                         <div className='w-full flex-1'>
                             <Label htmlFor='title'>Title</Label>
-                            <TextInput id='title' value={bookmark.title} handleSubmit={updateBookmark('title')} />
+                            <TextInput disabled={status==='loading'} id='title' value={bookmark.title} handleSubmit={updateBookmark('title')} />
                         </div>
                         <SvgIconButton onClick={() => {
                             clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
@@ -63,14 +85,14 @@ const Bookmark: React.FC<Props> = ({
                             })
                         }}
                             className={`flex items-end ${sentLikes ? 'fill-secondary-main hover:fill-secondary-300' : 'fill-primary-300 hover:fill-primary-main'}`}>
-                            <div className={`rounded-full p-1 ${ sentLikes ? 'bg-secondary-light' : 'bg-primary-light'}`}><HeartFill className='w-6' strokeWidth={0} /></div>
+                            <div className={`rounded-full p-1 ${sentLikes ? 'bg-secondary-light' : 'bg-primary-light'}`}><HeartFill className='w-6' strokeWidth={0} /></div>
                             {likes.length > 0 && (
                                 <div className={`text-xs ${sentLikes ? 'text-secondary-main' : 'text-primary-main'}`}>{likes.length}</div>
                             )}
                         </SvgIconButton>
                     </div>
                     <Label htmlFor='description' className='my-4'>Description</Label>
-                    <TextArea id='description' maxRows={4} value={bookmark.description} handleSubmit={updateBookmark('description')} />
+                    <TextArea id='description' disabled={status==='loading'} maxRows={4} value={bookmark.description} handleSubmit={updateBookmark('description')} />
                 </div>
             </div>
             <div className='w-full overflow-hidden p-4'>

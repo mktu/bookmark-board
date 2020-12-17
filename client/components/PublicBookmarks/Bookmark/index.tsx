@@ -11,7 +11,7 @@ const Bookmark : React.FC<Props> = ({
 })=>{
     const [cardView, setCardView] = useState(false)
     return (
-        <a className='mt-2 cursor-pointer block hover:bg-primary-hover' target='_blank' rel='noopener noreferrer' href={bookmark.url} >
+        <a className='mt-2 cursor-pointer block' target='_blank' rel='noopener noreferrer' href={bookmark.url} >
             {cardView ? (
                 <Card bookmark={bookmark} showSimple={()=>{
                     setCardView(false)
