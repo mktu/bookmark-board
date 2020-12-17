@@ -8,10 +8,11 @@ type Children<T extends HTMLElement> = React.ReactElement & {
 export type Props<T extends HTMLElement> = {
     children: Children<T>,
     content: React.ReactNode | string,
-    placement?: PopperChildrenProps['placement']
+    placement?: PopperChildrenProps['placement'],
+    disabled?:boolean
 }
 
-export default function Tooltip<T extends HTMLElement>({ children, content, placement = 'auto' }: Props<T>) {
+export default function Tooltip<T extends HTMLElement>({ children, content, placement = 'auto', disabled }: Props<T>) {
     const [tooltipShow, setTooltipShow] = useState(false);
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
@@ -46,7 +47,7 @@ export default function Tooltip<T extends HTMLElement>({ children, content, plac
     return (
         <>
             {React.cloneElement(children, childProps)}
-            {tooltipShow && (typeof content === 'string' ?
+            {!disabled && tooltipShow && (typeof content === 'string' ?
                 (
                     <div
                         className='z-20'

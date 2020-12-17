@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import { useBookmarkIdsByGroup } from '../../../modules/bookmarkSlice'
 import { useRouter } from 'next/router'
 import NoItem from './NoItem'
@@ -17,6 +17,21 @@ const Group: React.FC<Props> = () => {
     const groupId = ids && ids.length > 0 ? ids[0] : ''
     const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
     const bookmarkIds = useBookmarkIdsByGroup(groupId)
+
+    useEffect(()=>{
+        if(!localStorage){
+            return
+        }
+        if(groupId){
+            localStorage.setItem('groupId', groupId)
+        } else {
+            const lastGroupId = localStorage.getItem('groupId')
+            if(lastGroupId){
+                router.replace(`/bookmarks/[[...ids]]`, `/bookmarks/${lastGroupId}`, { shallow: true })
+            }
+        }
+    },[groupId])
+
     if (!groupId) {
         return <div />
     }
