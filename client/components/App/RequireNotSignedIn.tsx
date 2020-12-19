@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
-import { useProfile } from '../../modules/profileSlice'
+import React, { useEffect } from 'react'
+import { useAuthState } from '../../modules/authSlice'
 import { useRouter } from 'next/router'
 import { LoadingLayout } from '../Layout'
 import { LoadingImg } from '../Common/Image'
@@ -8,30 +8,28 @@ type Props = {
     children: React.ReactNode
 }
 
-const RequireSignedIn = ({ children }: Props) => {
-    const profile = useProfile()
+const RequireNotSignedIn = ({ children }: Props) => {
+    const { authState, profileState } = useAuthState()
     const router = useRouter()
-    const {loading, id} = profile
-    useEffect(()=>{
-        if(loading){
-            return
-        }
-        if(id){
+    useEffect(() => {
+        // if signed in transition to bookmark root
+        if (profileState === 'loaded') {
             router.push('/bookmarks')
         }
-    }, [id,loading])
+    }, [profileState])
 
-    if(loading || Boolean(id)){
+    if (authState === 'failed' || authState === 'loaded') {
         return (
-            <LoadingLayout>
-                <LoadingImg />
-            </LoadingLayout>
+            <>
+                {children}
+            </>
         )
     }
     return (
-        <>
-            {children}
-        </>)
+        <LoadingLayout>
+            <LoadingImg />
+        </LoadingLayout>
+    )
 }
 
-export default RequireSignedIn
+export default RequireNotSignedIn

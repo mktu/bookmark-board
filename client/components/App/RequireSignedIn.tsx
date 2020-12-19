@@ -1,5 +1,5 @@
-import React, {useEffect} from 'react'
-import { useProfile } from '../../modules/profileSlice'
+import React, { useEffect } from 'react'
+import { useAuthState } from '../../modules/authSlice'
 import { useRouter } from 'next/router'
 import { LoadingLayout } from '../Layout'
 import { LoadingImg } from '../Common/Image'
@@ -9,29 +9,26 @@ type Props = {
 }
 
 const RequireSigned = ({ children }: Props) => {
-    const profile = useProfile()
+    const { authState, profileState } = useAuthState()
     const router = useRouter()
-    const {loading, id} = profile
-    useEffect(()=>{
-        if(loading){
-            return
-        }
-        if(!id){
+    useEffect(() => {
+        if (authState === 'failed' || profileState === 'failed') {
             router.push('/signin')
         }
-    }, [id,loading])
+    }, [authState, profileState])
 
-    if(loading){
+    if (profileState === 'loaded') {
         return (
-            <LoadingLayout>
-                <LoadingImg />
-            </LoadingLayout>
+            <>
+                {children}
+            </>
         )
     }
     return (
-        <>
-            {children}
-        </>)
+        <LoadingLayout>
+            <LoadingImg />
+        </LoadingLayout>
+    )
 }
 
 export default RequireSigned

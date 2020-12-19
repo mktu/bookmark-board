@@ -22,6 +22,9 @@ const bookmarkSlice = createSlice({
         delete(state,action : PayloadAction<Bookmark[]>){
             bookmarkAdapter.removeMany(state, action.payload.map(b=>b.id))
         },
+        clear(state){
+            bookmarkAdapter.removeAll(state)
+        }
     }
 })
 

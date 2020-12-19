@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { ResizableTextAreaBase } from '.'
+import { Label } from '../Label'
 import { SvgIconButton } from '../Button'
 import { XFill } from '../Icon'
 import classNames from 'classnames'
@@ -11,13 +12,18 @@ type Props = Parameters<typeof ResizableTextAreaBase>[0] & {
     handleSubmit: (value: string) => void,
     clearButton?: boolean,
     borderType?: BorderType
+    label?:string,
+    className?:string
 }
 
 const TextArea: React.FC<Props> = ({
+    id,
     value,
     handleSubmit,
     clearButton,
+    label,
     borderType = 'underline',
+    className,
     ...props
 }) => {
 
@@ -34,9 +40,13 @@ const TextArea: React.FC<Props> = ({
     }
 
     return (
-        <div className='w-full'>
+        <div className={classNames('w-full',className)}>
+            {label &&
+                <Label htmlFor={id} className='mb-2'>
+                    {label}
+                </Label>}
             <div className={classNames('relative flex items-center border-primary-border pl-2 pb-2', borderClasses[borderType])}>
-                <ResizableTextAreaBase {...props} className='placeholder-primary-200 text-primary-700 bg-white text-sm resize-none'
+                <ResizableTextAreaBase id={id} {...props} className='placeholder-primary-200 text-primary-700 bg-white text-sm resize-none'
                     value={text}
                     onChange={(e) => {
                         setText(e.target.value)

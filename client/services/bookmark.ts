@@ -1,5 +1,7 @@
 import firebase from './firebaseClient'
 import { getCollectionListener } from './firestoreUtil'
+import {removeUndefined} from '../utils'
+
 const db = firebase.firestore();
 const auth = firebase.auth()
 type AddBookmarkProps = Omit<Bookmark, 'created' | 'updated' | 'idx' | 'id' | 'owner'>
@@ -20,7 +22,7 @@ export function addBookmark(
     db.collection('groups')
         .doc(bookmark.groupId)
         .collection('bookmarks')
-        .add(added)
+        .add(removeUndefined(added))
         .then((data) => {
             onSucceeded(data.id)
         })

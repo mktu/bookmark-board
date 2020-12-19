@@ -1,7 +1,6 @@
 import {useEffect,useRef, useCallback, useContext} from 'react'
 import { useDispatch } from "react-redux";
 import FirebaseContext from '../../context/FirebaseContext'
-import { actions as loadStatusActions } from '../../modules/loadStatusSlice'
 import { actions } from '../../modules/bookmarkSlice'
 
 const useBookmarks = ()=>{
@@ -11,7 +10,6 @@ const useBookmarks = ()=>{
     const unsubscribes = useRef<{[key:string]:Unsubscribe}>({})
     const onLoad = useCallback((groupId)=>{
         const unsub = clientService.listenBookmarks(groupId, (bookmarks)=>{
-            dispatch(loadStatusActions.onLoaded(groupId))
             dispatch(actions.add(bookmarks))
         }, (bookmarks)=>{
             dispatch(actions.modify(bookmarks))
@@ -24,6 +22,14 @@ const useBookmarks = ()=>{
         unsubscribes.current[groupId] && 
         unsubscribes.current[groupId]()
         delete unsubscribes.current[groupId]
+        dispatch(actions.delete)
+    },[])
+    const clearAll = useCallback(()=>{
+        for(const unsubscribe in unsubscribes.current){
+            unsubscribes.current[unsubscribe]()
+            delete unsubscribes.current[unsubscribe]
+        }
+        dispatch(actions.clear())
     },[])
     useEffect(()=>{
         return ()=>{
@@ -35,7 +41,8 @@ const useBookmarks = ()=>{
     },[])
     return {
         onLoad,
-        onUnload
+        onUnload,
+        clearAll
     }
 }
 

@@ -13,7 +13,8 @@ const Profile: React.FC<Props> = () => {
         profile,
         progress,
         error,
-        handleChangeImage,
+        status,
+        handleChangeFile,
         updateProfile
     } = useProfileContainer()
     return (
@@ -30,7 +31,7 @@ const Profile: React.FC<Props> = () => {
                         {status === 'loaded' && (
                             <label className='py-2 px-4 cursor-pointer rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark' htmlFor='file-upload'>
                                 変更
-                                <input id="file-upload" type='file' className='hidden' onChange={handleChangeImage} />
+                                <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />
                             </label>
                         )}
                         {status === 'failed' && (

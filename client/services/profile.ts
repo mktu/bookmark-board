@@ -1,21 +1,27 @@
 import firebase from './firebaseClient'
-import {getDocumentListener} from './firestoreUtil'
+import { getDocumentListener } from './firestoreUtil'
 
 const db = firebase.firestore();
 const storageRef = firebase.storage().ref();
+const auth = firebase.auth()
 
 export function addProfile(
-    nickname: string,
-    uid: string,
-    onSucceeded : ()=>void,
+    profile: Omit<Profile, 'lastUpdate' | 'id' | 'image'>,
+    onSucceeded: (id:string) => void,
     onFailed: ErrorHandler = console.error
 ) {
-    db.collection('profiles').doc(uid).set({
-        name : nickname,
+    if(!auth.currentUser){
+        onFailed(new Error('NOT AUTHENTICATED'))
+        return
+    }
+    db.collection('profiles').doc(auth.currentUser.uid).set({
+        ...profile,
         lastUpdate: Date.now()
     })
-    .then(onSucceeded)
-    .catch(onFailed);
+        .then(()=>{
+            onSucceeded(auth.currentUser.uid)
+        })
+        .catch(onFailed);
 }
 
 export function listenProfile(
@@ -24,13 +30,28 @@ export function listenProfile(
 ) {
     return db.collection('profiles')
         .doc(uid)
-        .onSnapshot(getDocumentListener<Profile>( onModified ))
+        .onSnapshot(getDocumentListener<Profile>(onModified))
+}
+
+export function getMyProfile(
+    onSucceeded: Transfer<Profile>,
+    onNotfound: () => void,
+    onFailed: ErrorHandler = console.error
+) {
+    if(!auth.currentUser){
+        onNotfound()
+        return
+    }
+    getProfile(auth.currentUser.uid,
+        onSucceeded,
+        onNotfound,
+        onFailed)
 }
 
 export function getProfile(
     uid: string,
     onSucceeded: Transfer<Profile>,
-    onNotfound: ()=> void,
+    onNotfound: () => void,
     onFailed: ErrorHandler = console.error
 ) {
     db.collection('profiles')
@@ -54,36 +75,36 @@ export function getProfiles(
     uids: string[],
     onSucceeded: Transfer<Profile[]>,
     onFailed: ErrorHandler = console.error
-){
+) {
     db.collection('profiles')
-    .where(firebase.firestore.FieldPath.documentId(),'in', uids)
-    .get()
-    .then(function (querySnapshot) {
-        const results: Profile[] = [];
-        querySnapshot.forEach((data) => {
-            if (data.exists) {
-                results.push({
-                    id: data.id,
-                    ...data.data()
-                } as Profile)
-            }
-        });
-        results.length > 0 && onSucceeded(results)
-    })
-    .catch(onFailed)
+        .where(firebase.firestore.FieldPath.documentId(), 'in', uids)
+        .get()
+        .then(function (querySnapshot) {
+            const results: Profile[] = [];
+            querySnapshot.forEach((data) => {
+                if (data.exists) {
+                    results.push({
+                        id: data.id,
+                        ...data.data()
+                    } as Profile)
+                }
+            });
+            results.length > 0 && onSucceeded(results)
+        })
+        .catch(onFailed)
 }
 
 export function updateProfile(
     id: string,
-    profile : Partial<Profile>,
-    onSucceeded ?: Notifier,
-    onFailed : ErrorHandler = console.error
-){
+    profile: Partial<Profile>,
+    onSucceeded?: Notifier,
+    onFailed: ErrorHandler = console.error
+) {
     db.collection('profiles')
-    .doc(id).set({
-        ...profile,
-        lastUpdate: Date.now()
-    }, { merge: true })
+        .doc(id).set({
+            ...profile,
+            lastUpdate: Date.now()
+        }, { merge: true })
         .then(onSucceeded)
         .catch(onFailed);
 }

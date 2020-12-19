@@ -2,30 +2,26 @@ import {useEffect, useState} from 'react'
 import { FirebaseClientServiceType } from '../context/FirebaseContext'
 import { useDispatch } from "react-redux";
 import { actions as profileActions } from '../modules/profileSlice'
+import { actions as authActions } from '../modules/authSlice'
 import { actions as usersActions } from '../modules/usersSlice'
 
 const useAuth = (clientService:FirebaseClientServiceType)=>{
     const [uid,setUid] = useState('')
-    const [hasProfile,setHasProfile] = useState(false)
     const dispatch = useDispatch()
     useEffect(()=>{
-        const { listenAuthState, getProfile, addProfile } = clientService;
+        const { listenAuthState, getProfile } = clientService;
         listenAuthState((user)=>{
             setUid(user.uid)
-            user.getIdToken().then(token=>{
-                // nookies.set(undefined, 'bookmarkToken', token, {})
-            })
+            dispatch(authActions.authSucceeded(user.uid))
             getProfile(user.uid, ()=>{
-                setHasProfile(true)
-                console.log(`${user.displayName} is already exist in profile`)
+                dispatch(authActions.registerSucceeded())
             }, ()=>{
-                addProfile(user.displayName, user.uid, ()=>{
-                    console.log(`added profile ${user.displayName}`)
-                })
+                dispatch(authActions.registerFailed())
             })
         }, ()=>{
             setUid('')
             dispatch(profileActions.clear())
+            dispatch(authActions.authFailed())
         })
     }, [clientService])
 
@@ -40,10 +36,12 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
         const unsub = listenProfile(uid, (profile)=>{
             dispatch(profileActions.saveProfile({profile}))
             dispatch(usersActions.upsertUsers({users:[profile]}))
+            dispatch(authActions.registerSucceeded())
         })
         return ()=>{
             unsub()
             dispatch(profileActions.clear())
+            dispatch(usersActions.clear())
         }
     }, [uid])
 

@@ -5,6 +5,7 @@ import useCommentListener from './useCommentListener'
 import useReactionListener from './useReactionListener'
 import useRequestListener from './useRequestListener'
 import useBookmarkService from './useBookmarkService'
+import useUpload from './useUpload'
 
 export {
     useClientService,
@@ -13,5 +14,6 @@ export {
     useCommentListener,
     useReactionListener,
     useRequestListener,
-    useBookmarkService
+    useBookmarkService,
+    useUpload
 }

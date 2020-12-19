@@ -5,7 +5,6 @@ const initState: Profile = {
     name: '',
     id: '',
     image: '',
-    loading: true
 }
 
 type Payload = {
@@ -18,7 +17,6 @@ const profileSlice = createSlice({
     reducers: {
         saveProfile: (state, action: PayloadAction<Payload>) => {
             state = action.payload.profile
-            state.loading = false
             return state
         },
         clear: () => {
@@ -26,7 +24,6 @@ const profileSlice = createSlice({
                 name: '',
                 id: '',
                 image: '',
-                loading: false
             }
         },
     },

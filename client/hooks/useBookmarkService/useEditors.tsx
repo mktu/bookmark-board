@@ -17,6 +17,9 @@ const useEditors = () => {
     const profiles = useProfileService(bookmarkUids.filter(uid => !editors.includes(uid)))
     useEffect(()=>{
         dispatch(actions.upsertUsers({ users:profiles }))
+        return ()=>{
+            profiles.length > 0 && dispatch(actions.removeUsers({ users:profiles }))
+        }
     },[profiles])
 }
 

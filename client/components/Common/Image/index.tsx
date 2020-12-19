@@ -26,6 +26,10 @@ const WelcomeImg : React.FC<{width?:string,height?:string}> = ({width,height})=>
     return <Image src={'/Welcoming.svg'} alt='UrlImage...' width={width} height={height}/>;
 }
 
+const SigninImg : React.FC<{width?:string,height?:string}> = ({width,height})=>{
+    return <Image src={'/StepToTheSun.svg'} alt='UrlImage...' width={width} height={height}/>;
+}
+
 export {
     BookmarksMainImg,
     BookmarksSigninImg,
@@ -33,5 +37,6 @@ export {
     NoItemImg,
     LoadingImg,
     PlaceHolderImg,
-    WelcomeImg
+    WelcomeImg,
+    SigninImg
 }

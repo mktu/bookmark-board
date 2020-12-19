@@ -3,12 +3,17 @@ declare type User = {
     isAnonymous : boolean,
     name : string | null
 }
+declare type AuthState = {
+    authState : 'loading' | 'loaded' | 'failed',
+    profileState : 'loading' | 'loaded' | 'failed',
+    uid : string,
+}
+
 declare type Profile = {
     name : string | null,
     comment ?: string,
     id : string,
     image : string,
-    loading : boolean,
     lastUpdate ?: number
 }
 

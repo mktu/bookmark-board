@@ -3,9 +3,6 @@ import styles from './index.module.scss'
 import initials from 'initials'
 import Image from 'next/image'
 import classNames from 'classnames'
-import UrlImage from './UrlImage'
-import GroupImage from './GroupImage'
-import AvatarImage from './AvatarImage'
 import { PlaceHolderImg } from '../Image'
 
 const bgNames = [
@@ -32,42 +29,51 @@ type Props = {
     usePlaceholder?: boolean,
     disableNextImage?: boolean
 }
-const Avatar: React.FC<Props> = ({
+const Inner: React.FC<Props> = ({
     src,
     width,
     height,
-    className,
     name = 'Unknown',
     usePlaceholder,
     disableNextImage
 }) => {
+    const validSrc = src && src !== ''
+    if (validSrc) {
+        if (disableNextImage) {
+            return <img alt={name} className={styles['avatar-image']} src={src} />
+        } else {
+            return <Image alt={name} className={styles['avatar-image']} src={src} layout='fill' objectFit='cover' />
+        }
+    }
+    if (usePlaceholder) {
+        return <PlaceHolderImg className={styles['avatar-image']} width={width} height={height} />
+    }
     const ini = initials(name)
     const colodIdx = (name.length * ini.length) % bgNames.length
+    return (
+        <div className={`flex items-center justify-center rounded-full bg-${bgNames[colodIdx]}-500 text-white p-2 overflow-hidden`} style={{
+            width,
+            height,
+        }}>
+            {ini}
+        </div>
+    )
+}
+
+const AvatarImage: React.FC<Props> = ({
+    className,
+    width,
+    height,
+    ...props
+}) => {
     return (
         <div className={classNames(styles['avatar-wrapper'], className)} style={{
             width,
             height
         }}>
-            {(src&&src!=='') ? (
-                <Image alt={name} className={styles['avatar-image']} src={src} layout='fill' objectFit='cover' />
-            ) : usePlaceholder ? (
-                <PlaceHolderImg className={styles['avatar-image']} width={width} height={height} />
-            ) : (
-                        <div className={`flex items-center justify-center rounded-full bg-${bgNames[colodIdx]}-500 text-white p-2 overflow-hidden`} style={{
-                            width,
-                            height,
-                        }}>
-                            {ini}
-                        </div>
-                    )}
+            <Inner width={width} height={height} {...props}/> 
         </div>
     )
 }
 
 export default AvatarImage
-
-export {
-    UrlImage,
-    GroupImage,
-    Avatar
-}

@@ -22,6 +22,9 @@ const requestSlice = createSlice({
         delete(state,action : PayloadAction<BookmarkRequest[]>){
             requestAdapter.removeMany(state, action.payload.map(b=>b.id))
         },
+        clear(state){
+            requestAdapter.removeAll(state)
+        }
     }
 })
 

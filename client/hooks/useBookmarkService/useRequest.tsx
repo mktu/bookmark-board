@@ -31,6 +31,13 @@ const useRequests = ()=>{
         unsubscribes.current[groupId]()
         delete unsubscribes.current[groupId]
     },[])
+    const clearAll = useCallback(()=>{
+        for(const unsubscribe in unsubscribes.current){
+            unsubscribes.current[unsubscribe]()
+            delete unsubscribes.current[unsubscribe]
+        }
+        dispatch(actions.clear())
+    },[])
     useEffect(()=>{
         return ()=>{
             for(const unsub of Object.values(unsubscribes.current)){
@@ -41,7 +48,8 @@ const useRequests = ()=>{
     },[])
     return {
         onLoad,
-        onUnload
+        onUnload,
+        clearAll
     }
 }
 
