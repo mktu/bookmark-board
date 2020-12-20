@@ -1,6 +1,6 @@
 import {useState,useContext,useCallback,useRef,useEffect} from 'react'
-import FirebaseContext from '../../context/FirebaseContext'
-import { useLinkPreview } from '../../components/Common/LinkPreview'
+import FirebaseContext from '../context/FirebaseContext'
+import { useLinkPreview } from '../components/Common/LinkPreview'
 
 const useNewBookmark = (groupId:string)=>{
     const unmounted = useRef(false)

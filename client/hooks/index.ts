@@ -4,7 +4,7 @@ import useProfileService from './useProfileService'
 import useCommentListener from './useCommentListener'
 import useReactionListener from './useReactionListener'
 import useRequestListener from './useRequestListener'
-import useBookmarkService from './useBookmarkService'
+import useRegistrantsService from './useRegistrantsService'
 import useUpload from './useUpload'
 
 export {
@@ -14,6 +14,6 @@ export {
     useCommentListener,
     useReactionListener,
     useRequestListener,
-    useBookmarkService,
+    useRegistrantsService,
     useUpload
 }

@@ -4,7 +4,7 @@ import { SvgIconButton } from '../../../Common/Button'
 import { BookmarkInputBase } from '../../../Common/Input'
 import { LinkPreview } from '../../../Common/LinkPreview'
 import styles from './index.module.scss'
-import useNewBookmark from '../../../../hooks/useBookmarkService/useNewBookmark'
+import useNewBookmark from '../../../../hooks/useNewBookmark'
 
 type Props = {
     groupId: string,

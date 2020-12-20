@@ -4,7 +4,7 @@ import { BookmarkInput } from '../../Common/Input'
 import { SvgIconButton } from '../../Common/Button'
 import { Add } from '../../Common/Icon'
 import { LinkPreview } from '../../Common/LinkPreview'
-import useNewBookmark from '../../../hooks/useBookmarkService/useNewBookmark'
+import useNewBookmark from '../../../hooks/useNewBookmark'
 
 type Props = {
     groupId: string

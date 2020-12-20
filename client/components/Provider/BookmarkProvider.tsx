@@ -1,12 +1,12 @@
 import React from 'react'
-import { useBookmarkService } from '../../hooks'
+import { useRegistrantsService } from '../../hooks'
 
 type Props = {
     children: React.ReactNode
 }
 
 const DefaultProvider: React.FC<Props> = ({ children }) => {
-    useBookmarkService()
+    useRegistrantsService()
     return (
         <>
             {children}

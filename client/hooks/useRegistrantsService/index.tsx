@@ -4,7 +4,7 @@ import useBookmarks from './useBookmarks'
 import useRequest from './useRequest'
 import useRequestors from './useRequestors'
 
-const useBookmarkService = ()=>{
+const useRegistrantsService = ()=>{
     const bookmarkServices = useBookmarks()
     const requestService = useRequest()
     useGroup([bookmarkServices,requestService])
@@ -12,4 +12,4 @@ const useBookmarkService = ()=>{
     useRequestors()
 }
 
-export default useBookmarkService
+export default useRegistrantsService
