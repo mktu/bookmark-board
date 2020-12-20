@@ -37,9 +37,9 @@ export const linkWithGoogle = (
     const curUser = firebase.auth().currentUser;
     curUser?.linkWithPopup(provider).then(function (usercred) {
         const user = usercred.user;
-        const profile = usercred.additionalUserInfo?.profile;
+        const profile  = usercred.additionalUserInfo?.profile as {name:string};
         user?.updateProfile({
-            displayName: (profile as any).name
+            displayName: profile.name
         }).then(function () {
             onSucceeded(convertUser(user));
         }).catch(onFailed)

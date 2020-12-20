@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import { NoItemImg } from '../../Common/Image'
 import { BookmarkInput } from '../../Common/Input'
 import { SvgIconButton } from '../../Common/Button'
 import { Add } from '../../Common/Icon'
-import { LinkPreview, useLinkPreview } from '../../Common/LinkPreview'
-import FirebaseContext from '../../../context/FirebaseContext'
+import { LinkPreview } from '../../Common/LinkPreview'
+import useNewBookmark from '../../../hooks/useBookmarkService/useNewBookmark'
 
 type Props = {
     groupId: string
@@ -13,11 +13,14 @@ type Props = {
 const NoItem: React.FC<Props> = ({
     groupId
 }) => {
-    const [inText, setInText] = useState('')
-    const { linkData, status, url } = useLinkPreview({
-        text : inText
-    })
-    const { clientService } = useContext(FirebaseContext)
+    const {
+        bookmarkInput,
+        onKeyPress,
+        onChangeBookmarkInput,
+        submit,
+        url,
+        linkData
+    } = useNewBookmark(groupId)
     return (
         <div className='flex flex-col items-center justify-center p-4 w-full h-full bg-primary-light'>
             <p className='mb-4 text-primary-main'>
@@ -28,23 +31,13 @@ const NoItem: React.FC<Props> = ({
             </div>
             <div className='w-6/12 mt-4'>
                 <div className='flex flex-row items-center'>
-                    <BookmarkInput placeholder={'ブックマークURLを入力'} value={inText} onChange={(e) => {
-                        setInText(e.target.value)
-                    }} />
-                    <SvgIconButton className='block ml-2' onClick={() => {
-                        linkData.url && clientService.addBookmark({
-                            url : linkData.url,
-                            title : linkData.title,
-                            image : linkData.images.length > 0 && linkData.images[0],
-                            description : linkData.description,
-                            neighbors : [],
-                            groupId,
-                            reactions : {}
-                        }, (id)=>{
-                            console.log(`created new bookmark ${id}`)
-                            setInText('')
-                        })
-                    }}>
+                    <BookmarkInput 
+                        placeholder={'ブックマークURLを入力'} 
+                        value={bookmarkInput} 
+                        onChange={onChangeBookmarkInput} 
+                        onKeyPress={onKeyPress}
+                        />
+                    <SvgIconButton className='block ml-2' onClick={submit}>
                         <Add strokeWidth='1.5px' className='w-10' />
                     </SvgIconButton>
                 </div>

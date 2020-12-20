@@ -33,9 +33,15 @@ const useLinkPreview: (props: Props) => {
             let cancel = false;
             setStatus('loading')
             fetchLinkPreview(url).then((data) => {
-                !cancel && setLinkData(data)
+                if(cancel){
+                    return
+                }
+                setLinkData(data)
                 setStatus('loaded')
             }).catch((e) => {
+                if(cancel){
+                    return
+                }
                 setStatus('failed')
                 console.error(e)
             });

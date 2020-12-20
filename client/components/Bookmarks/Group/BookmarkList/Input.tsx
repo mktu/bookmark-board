@@ -1,10 +1,10 @@
-import React, { useState, useContext } from 'react'
+import React from 'react'
 import { AddFill, Add, ChevronDown } from '../../../Common/Icon'
 import { SvgIconButton } from '../../../Common/Button'
 import { BookmarkInputBase } from '../../../Common/Input'
-import { LinkPreview, useLinkPreview } from '../../../Common/LinkPreview'
-import FirebaseContext from '../../../../context/FirebaseContext'
+import { LinkPreview } from '../../../Common/LinkPreview'
 import styles from './index.module.scss'
+import useNewBookmark from '../../../../hooks/useBookmarkService/useNewBookmark'
 
 type Props = {
     groupId: string,
@@ -17,38 +17,16 @@ const Input: React.FC<Props> = ({
     show,
     toggle
 }) => {
-    const [bookmarkInput, setBookmarkInput] = useState('')
-    const { linkData, url, status } = useLinkPreview({ text: bookmarkInput })
-    const invalidUrl = status === 'none' && Boolean(bookmarkInput)
-    const { clientService } = useContext(FirebaseContext)
-    const submit = () => {
-        if (invalidUrl) return
-        const hasLinkData = Boolean(linkData)
-        let data;
-        if (hasLinkData) {
-            data = {
-                url,
-                title: linkData.title,
-                image: linkData.images.length > 0 && linkData.images[0],
-                description: linkData.description || '',
-                neighbors: [],
-                groupId,
-                reactions: {},
-            }
-        }
-        else {
-            data = {
-                url,
-                neighbors: [],
-                groupId,
-                reactions: {},
-                unacquired: true
-            }
-        }
-        !invalidUrl && clientService.addBookmark(data, () => {
-            setBookmarkInput('')
-        })
-    }
+    const {
+        url,
+        status,
+        invalidUrl,
+        linkData,
+        bookmarkInput,
+        onChangeBookmarkInput,
+        submit,
+        onKeyPress
+    } = useNewBookmark(groupId)
     return (
         <div className='absolute w-full left-0 bottom-0 bg-white border-t border-primary-border'>
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>
@@ -60,14 +38,7 @@ const Input: React.FC<Props> = ({
                     </div>
                     <div className='w-full flex-1 overflow-hidden'>
                         <div className='bg-white rounded shadow focus:shadow-outline'>
-                            <BookmarkInputBase placeholder={'ブックマークURLを入力'} value={bookmarkInput} onKeyPress={(e) => {
-                                if (e.key == 'Enter') {
-                                    submit()
-                                    e.preventDefault()
-                                }
-                            }} onChange={(e) => {
-                                setBookmarkInput(e.target.value)
-                            }} />
+                            <BookmarkInputBase placeholder={'ブックマークURLを入力'} value={bookmarkInput} onKeyPress={onKeyPress} onChange={onChangeBookmarkInput} />
                         </div>
                         {status !== 'none' && (
                             <div className='bg-white mt-2 rounded shadow focus:shadow-outline' >

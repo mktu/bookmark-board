@@ -1,5 +1,5 @@
 import React from 'react'
-import Image, {ImageProps} from 'next/image'
+import Image from 'next/image'
 import BookmarksMainImg from './BookmarksMain'
 
 const BookmarksSigninImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...props})=>{

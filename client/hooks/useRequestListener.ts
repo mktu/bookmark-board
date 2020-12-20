@@ -20,7 +20,6 @@ const useRequestListener = (groupId:string) => {
         const unsubscribe = clientService.listenRequest({
             groupId,
             onAdded: (requests)=>{
-                console.log(requests)
                 setStatus('loaded')
                 setRequestState(before=>upsertMany(before,requests))
             },
