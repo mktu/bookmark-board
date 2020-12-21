@@ -1,5 +1,5 @@
-
-const proxy = 'https://cors-anywhere.herokuapp.com';
+//const proxy = 'https://cors-anywhere.herokuapp.com';
+const proxy = 'https://mysterious-coast-24489.herokuapp.com';
 
 const logic = async (url: string) => {
     const response = await fetch(url, {
