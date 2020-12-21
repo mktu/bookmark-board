@@ -17,7 +17,7 @@ const BookmarkList: React.FC<Props> = ({
     groupId
 }) => {
     const [hover, setHover] = useState(-1)
-    const [input, setInput] = useState(false)
+    const [input, setInput] = useState(true)
     const { clientService } = useContext(FirebaseContext)
     const onChangeOrder = (idx:number, target: string) => {
         const ordered = spliceAndInsert(bookmarkIds, idx, target)

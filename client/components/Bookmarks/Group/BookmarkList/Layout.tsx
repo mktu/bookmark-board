@@ -14,8 +14,8 @@ const Layout: React.FC<Props> = ({
     input
 }) => {
     return (
-        <div className='flex flex-col items-center bg-primary-light h-full w-full relative'>
-            <div className='flex flex-col items-center h-full w-full'>
+        <div className='flex flex-col items-center bg-primary-light h-full w-full relative overflow-hidden'>
+            <div className='flex flex-col items-center h-full w-full flex-1 overflow-hidden'>
                 <div className='w-full'>
                     {refinements}
                 </div>
@@ -27,7 +27,7 @@ const Layout: React.FC<Props> = ({
                     ))}
                 </div>
             </div>
-            <div className='w-full'>
+            <div className='w-full mt-auto pt-1'>
                 {input}
             </div>
         </div>

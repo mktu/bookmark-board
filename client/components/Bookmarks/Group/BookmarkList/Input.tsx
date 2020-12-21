@@ -28,7 +28,7 @@ const Input: React.FC<Props> = ({
         onKeyPress
     } = useNewBookmark(groupId)
     return (
-        <div className='absolute w-full left-0 bottom-0 bg-white border-t border-primary-border'>
+        <div className='w-full relative bg-white border-t border-primary-border'>
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>
                 <div className='flex flex-row items-center max-w-full overflow-hidden'>
                     <div>
