@@ -16,7 +16,7 @@ const rootReducer = combineReducers({
     users : usersSlice,
     comments : commentSlice,
     requests : requestSlice,
-    auth : authSlice
+    auth : authSlice,
 })
 
 const store = configureStore({

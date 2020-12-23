@@ -7,13 +7,18 @@ const groupAdapter = createEntityAdapter<BookmarkGroup>({
     }
 })
 
-const initialState = groupAdapter.getInitialState()
+const initialState = groupAdapter.getInitialState<{
+    status : LoadStatus['status']
+}>({
+    status : 'loading'
+})
 
 const groupSlice = createSlice({
     name: 'groups',
     initialState,
     reducers: {
         addGroups: (state, action : PayloadAction<{groups:BookmarkGroup[]}>) => {
+            state.status = 'loaded'
             groupAdapter.upsertMany(state,action.payload.groups)
         },
         modifyGroups: (state, action : PayloadAction<{groups:BookmarkGroup[]}>) => {
@@ -69,6 +74,13 @@ export const useGroupById = (groupId:string) => {
     return useSelector(
         (state: { groups: ReturnType<typeof groupSlice.reducer> }) =>
         selectById(state.groups,groupId)
+    )
+}
+
+export const useGroupStatus = () => {
+    return useSelector(
+        (state: { groups: ReturnType<typeof groupSlice.reducer> }) =>
+        state.groups.status
     )
 }
 

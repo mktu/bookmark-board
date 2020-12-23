@@ -1,5 +1,6 @@
 import React, {useEffect} from 'react'
 import { useBookmarkIdsByGroup } from '../../../modules/bookmarkSlice'
+import { useGroupById, useGroupStatus } from '../../../modules/groupSlice'
 import { useRouter } from 'next/router'
 import NoItem from './NoItem'
 import Layout from './Layout'
@@ -17,20 +18,30 @@ const Group: React.FC<Props> = () => {
     const groupId = ids && ids.length > 0 ? ids[0] : ''
     const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
     const bookmarkIds = useBookmarkIdsByGroup(groupId)
+    const status = useGroupStatus()
+    const group = useGroupById(groupId)
 
     useEffect(()=>{
         if(!localStorage){
             return
         }
-        if(groupId){
-            localStorage.setItem('groupId', groupId)
-        } else {
+        if(!groupId){
             const lastGroupId = localStorage.getItem('groupId')
             if(lastGroupId){
                 router.replace(`/bookmarks/[[...ids]]`, `/bookmarks/${lastGroupId}`, { shallow: true })
+                localStorage.removeItem('groupId')
             }
+            return
         }
-    },[groupId])
+        if(status === 'loading'){
+            return
+        }
+        if(!group){
+            router.replace(`/bookmarks`, `/bookmarks`, { shallow: true })
+            return
+        }
+        localStorage.setItem('groupId', group.id)
+    },[group, status, groupId])
 
     if (!groupId) {
         return <div />

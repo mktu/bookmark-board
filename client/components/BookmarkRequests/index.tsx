@@ -15,7 +15,7 @@ const BookmarkRequests: React.FC<Props> = () => {
     const { id } = router.query
     const groupId = id as string ?? ''
     const { clientService } = useContext(FirebaseContext)
-    const { latestStatus, exceededLimit } = useRequestListener(groupId)
+    const { latestStatus, exceededLimit, latestRequest } = useRequestListener(groupId)
     useEffect(() => {
         clientService.getGroup(groupId, (group) => {
             setGroup(group)
@@ -26,6 +26,7 @@ const BookmarkRequests: React.FC<Props> = () => {
 
     useEffect(() => {
         if (latestStatus === 'accepted') {
+            clientService.removeRequest(groupId, latestRequest.id)
             router.push(`/bookmarks/${groupId}`)
         }
     }, [latestStatus])

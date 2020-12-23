@@ -22,7 +22,7 @@ export function addRequest(
         .collection('requests')
         .add(added)
         .then((data) => {
-            onSucceeded(data.id)
+            onSucceeded&&onSucceeded(data.id)
         })
         .catch(onFailed);
 }
@@ -42,6 +42,21 @@ export function updateRequest(
             ...request,
             lastUpdate: Date.now()
         }, { merge: true })
+        .then(onSucceeded)
+        .catch(onFailed);
+}
+
+export function removeRequest(
+    groupId: string,
+    requestId: string,
+    onSucceeded?: Notifier,
+    onFailed: ErrorHandler = console.error
+) {
+    db.collection('groups')
+        .doc(groupId)
+        .collection('requests')
+        .doc(requestId)
+        .delete()
         .then(onSucceeded)
         .catch(onFailed);
 }

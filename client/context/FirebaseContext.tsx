@@ -48,6 +48,7 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         addRequest : func('addRequest'),
         updateRequest : func('updateRequest'),
         listenRequest : () => {func('listenRequest')(); return ()=>{1}},
+        removeRequest : func('removeRequest'),
         addBookmark : func('addBookmark'),
         modifyBookmark : func('modifyBookmark'),
         deleteBookmark : func('deleteBookmark'),

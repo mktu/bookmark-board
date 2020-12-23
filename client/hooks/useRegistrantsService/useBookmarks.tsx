@@ -22,7 +22,7 @@ const useBookmarks = ()=>{
         unsubscribes.current[groupId] && 
         unsubscribes.current[groupId]()
         delete unsubscribes.current[groupId]
-        dispatch(actions.delete)
+        dispatch(actions.removeGroup(groupId))
     },[])
     const clearAll = useCallback(()=>{
         for(const unsubscribe in unsubscribes.current){

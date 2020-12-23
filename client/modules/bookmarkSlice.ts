@@ -7,13 +7,18 @@ const bookmarkAdapter = createEntityAdapter<Bookmark>({
     }
 })
 
-const initialState = bookmarkAdapter.getInitialState()
+const initialState = bookmarkAdapter.getInitialState<{
+    status : LoadStatus['status']
+}>({
+    status : 'loading'
+})
 
 const bookmarkSlice = createSlice({
     name : 'bookmarks',
     initialState,
     reducers : {
         add(state,action : PayloadAction<Bookmark[]>){
+            state.status = 'loaded'
             bookmarkAdapter.upsertMany(state, action.payload)
         },
         modify(state,action : PayloadAction<Bookmark[]>){
@@ -22,8 +27,15 @@ const bookmarkSlice = createSlice({
         delete(state,action : PayloadAction<Bookmark[]>){
             bookmarkAdapter.removeMany(state, action.payload.map(b=>b.id))
         },
+        removeGroup(state,action : PayloadAction<string>){
+            const ids = selectBookmarkIdsByGroup(state,action.payload)
+            bookmarkAdapter.removeMany(state, ids)
+        },
         clear(state){
             bookmarkAdapter.removeAll(state)
+        },
+        fail(state){
+            state.status = 'failed'
         }
     }
 })
@@ -71,6 +83,13 @@ export const useBookmarkById = (bookmarkId:string) => {
     return useSelector(
         (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
         selectById(state.bookmarks,bookmarkId)
+    )
+}
+
+export const useBookmarkStatus = () => {
+    return useSelector(
+        (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
+        state.bookmarks.status
     )
 }
 

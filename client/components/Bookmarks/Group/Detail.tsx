@@ -22,6 +22,12 @@ const Detail: React.FC<Props> = ({
     const profile = useProfile()
     const editors = useUsersByIds(group.users)
     const { clientService } = useContext(FirebaseContext)
+    const handleRemoveUser = (uid:string)=>{
+        clientService.modifyGroup(group.id, {
+            users : group.users.filter(u=>u!==uid)
+        })
+    }
+
     return (
         <div className='w-full px-2'>
             <div className='flex items-center'>
@@ -66,7 +72,7 @@ const Detail: React.FC<Props> = ({
                                     離脱する
                                 </ContainedButton>
                             ) : (
-                                    <ContainedButton className='ml-auto text-sm whitespace-no-wrap'>
+                                    <ContainedButton className='ml-auto text-sm whitespace-no-wrap' onClick={()=>{handleRemoveUser(e.id)}}>
                                         除外
                                     </ContainedButton>
                                 ))}
