@@ -3,7 +3,7 @@ import { useDrag, useDrop } from 'react-dnd'
 import { useRouter } from 'next/router'
 import { PlaceHolderImg } from '../../../Common/Image'
 import { ExternalLink, Duplicate, Trash, Chat, HeartFill } from '../../../Common/Icon'
-import { SvgIconButton } from '../../../Common/Button'
+import { SvgIconButton, HeartButton } from '../../../Common/Button'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
 import { useBookmarkById } from '../../../../modules/bookmarkSlice'
 import { useGroupById } from '../../../../modules/groupSlice'
@@ -61,6 +61,15 @@ const ListItem: React.FC<Props> = ({
     })
     const likes = bookmark.reactions['likes'] || []
     const sentLikes = likes.includes(profile.id)
+    const handleClickLike = (e : React.MouseEvent<HTMLButtonElement>) => {
+        e.stopPropagation()
+        clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
+            reactions: {
+                ...bookmark.reactions,
+                likes: sentLikes ? likes.filter(t => t !== profile.id) : Array.from(new Set([...likes, profile.id]))
+            }
+        })
+    }
 
     return (
         <div ref={(v) => {
@@ -122,11 +131,11 @@ const ListItem: React.FC<Props> = ({
                         </TooltipDivContainer>
                     </div>
                     <div className='mt-auto flex items-center justify-end'>
-                        {sentLikes && (
-                            <div className='bg-secondary-light rounded-full p-1'>
-                                <HeartFill className='w-5 fill-secondary-main' strokeWidth={0} />
-                            </div>
-                        )}
+                        <HeartButton
+                            size='w-4'
+                            active={sentLikes}
+                            onClick={handleClickLike}
+                        />
                     </div>
                 </div>
             </div>

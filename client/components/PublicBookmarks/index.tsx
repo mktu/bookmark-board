@@ -1,9 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext } from 'react'
 import Avatar from '../Common/Avatar'
 import Bookmark from './Bookmark'
 import { numberToDateTime } from '../../utils'
-import { SvgFillIconButton, SvgIconButton } from '../Common/Button'
-import { HeartFill } from '../Common/Icon'
+import { HeartButton, SvgIconButton } from '../Common/Button'
 import { PopoverDivContainer } from '../Common/Popover'
 import { UserPopover } from '../PopoverMenu'
 import CommentInput from './CommentInput'
@@ -53,20 +52,21 @@ const PublicBookmarks: React.FC<Props> = ({
                 {group.description}
             </div>
             <div className='flex w-7/12 px-2 justify-end items-end'>
-                <SvgFillIconButton colorType={myReaction ? 'dark-active' : 'dark'} disabled={status === 'loading'} onClick={() => {
-                    myReaction ? clientService.deleteReaction(group.id, myReaction.id) :
-                        clientService.addReaction({
-                            type: 'likes',
-                            targetId: group.id
-                        })
-                }}>
-                    <HeartFill className='w-6' />
-                </SvgFillIconButton>
-                {reactions.length > 0 && (<div className='text-xs text-primary-main'>{reactions.length}</div>)}
+                <HeartButton
+                    disabled={status === 'loading'} 
+                    active={Boolean(myReaction)}
+                    counter={reactions.length > 0 && reactions.length}
+                    onClick={() => {
+                        myReaction ? clientService.deleteReaction(group.id, myReaction.id) :
+                            clientService.addReaction({
+                                type: 'likes',
+                                targetId: group.id
+                            })
+                    }} />
             </div>
             <div className='w-7/12 p-2 flex flex-col justify-center'>
                 {bookmarks.map(b => (
-                    <Bookmark bookmark={b} key={b.id}/>
+                    <Bookmark bookmark={b} key={b.id} />
                 ))}
             </div>
             <div className='w-7/12 p-2 mt-4'>

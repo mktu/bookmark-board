@@ -1,6 +1,7 @@
 import React from 'react'
 import classNames from 'classnames'
 import styles from './index.module.scss'
+import HeartButton from './HeartButton'
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
 type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
@@ -82,3 +83,7 @@ export const SvgIconLink : React.FC<LinkProps> = (props)=>(
 export const ButtonBase : React.FC<ButtonProps> = ({className, disabled, ...props})=> (
     <button disabled={disabled} className={classNames(styles['button-base'], className, disabled ? 'cursor-default opacity-25':'', 'focus:outline-none' )} {...props} /> 
 )
+
+export {
+    HeartButton
+}

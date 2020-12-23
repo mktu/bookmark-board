@@ -2,8 +2,7 @@ import React, { useMemo, useContext } from 'react'
 import { useCommentsByGroup } from '../../modules/commentSlice'
 import { useProfileService, useCommentListener } from '../../hooks'
 import { numberToDateTime } from '../../utils'
-import { SvgFillIconButton, SvgIconButton } from '../Common/Button'
-import { HeartFill } from '../Common/Icon'
+import { SvgIconButton, HeartButton } from '../Common/Button'
 import { PopoverDivContainer } from '../Common/Popover'
 import { UserPopover } from '../PopoverMenu'
 import { useProfile } from '../../modules/profileSlice'
@@ -49,19 +48,20 @@ const Comments: React.FC<Props> = ({
                         </div>
                         <div className='ml-auto'>
                             <div className='flex justify-end p-2'>
-                                <SvgFillIconButton colorType={myReaction ? 'dark-active' : 'dark'} onClick={() => {
-                                    myReaction ? clientService.updateComment(groupId, c.id, {
-                                        reactions: c.reactions.filter(r => r.user !== myProfile.id)
-                                    }) : clientService.updateComment(groupId, c.id, {
-                                        reactions: [...c.reactions, {
-                                            user: myProfile.id,
-                                            type: 'likes',
-                                        }]
-                                    })
-                                }}>
-                                    <HeartFill className='w-6' />
-                                </SvgFillIconButton>
-                                {c.reactions.length > 0 && (<div className='text-xs text-primary-main'>{c.reactions.length}</div>)}
+                                <HeartButton 
+                                    active={Boolean(myReaction)}
+                                    counter={c.reactions.length > 0 && c.reactions.length}
+                                    onClick={() => {
+                                        myReaction ? clientService.updateComment(groupId, c.id, {
+                                            reactions: c.reactions.filter(r => r.user !== myProfile.id)
+                                        }) : clientService.updateComment(groupId, c.id, {
+                                            reactions: [...c.reactions, {
+                                                user: myProfile.id,
+                                                type: 'likes',
+                                            }]
+                                        })
+                                    }}
+                                />
                             </div>
                             <div className='text-xs text-primary-300'>
                                 {c.lastUpdate ? numberToDateTime(c.lastUpdate) : numberToDateTime(c.created)}

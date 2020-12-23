@@ -1,8 +1,8 @@
 import React from 'react'
 import { TextInput, TextArea, Dropdowns, Checkbox } from '../../../Common/Input'
 import { LoadingImg } from '../../../Common/Image'
-import { OutlinedButton, SvgIconButton, TextButton } from '../../../Common/Button'
-import { ExternalLink, HeartFill, Refresh } from '../../../Common/Icon'
+import { OutlinedButton, SvgIconButton, TextButton, HeartButton } from '../../../Common/Button'
+import { ExternalLink, Refresh } from '../../../Common/Icon'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
 import { Label } from '../../../Common/Label'
 import { numberToDateTime } from '../../../../utils'
@@ -13,15 +13,15 @@ type Props = {
     likes: string[],
     moveDest: BookmarkGroup,
     sentLikes: boolean,
-    status : LoadStatus['status'],
-    copyGroup : boolean,
+    status: LoadStatus['status'],
+    copyGroup: boolean,
     handleLikes: () => void
     handleRefetch: () => void,
     handleSelectMoveDest: (s: string) => void,
-    updateBookmark: (key:keyof Bookmark) => (value: string) => void,
+    updateBookmark: (key: keyof Bookmark) => (value: string) => void,
     handleMove: () => void,
-    handleJumpLink: ()=>void,
-    handleCheckCopy: (checked:boolean)=>void
+    handleJumpLink: () => void,
+    handleCheckCopy: (checked: boolean) => void
 }
 
 const Presenter: React.FC<Props> = ({
@@ -64,15 +64,12 @@ const Presenter: React.FC<Props> = ({
                             <Label htmlFor='title'>Title</Label>
                             <TextInput disabled={inputDisabled} id='title' value={bookmark.title} handleSubmit={updateBookmark('title')} />
                         </div>
-                        <SvgIconButton onClick={handleLikes}
-                            className={`flex items-end ${sentLikes ? 'fill-secondary-main hover:fill-secondary-300' : 'fill-primary-300 hover:fill-primary-main'}`}>
-                            <div className={`rounded-full p-1 ${sentLikes ? 'bg-secondary-light' : 'bg-primary-light'}`}>
-                                <HeartFill className='w-6' strokeWidth={0} />
-                            </div>
-                            {likes.length > 0 && (
-                                <div className={`text-xs ${sentLikes ? 'text-secondary-main' : 'text-primary-main'}`}>{likes.length}</div>
-                            )}
-                        </SvgIconButton>
+                        <HeartButton
+                            onClick={handleLikes}
+                            active={sentLikes}
+                            counter={likes.length > 0 && likes.length}
+                        />
+
                     </div>
                     <Label htmlFor='description' className='my-4'>Description</Label>
                     <TextArea
@@ -105,13 +102,13 @@ const Presenter: React.FC<Props> = ({
                         options={groups.map(g => ({ label: g.name, value: g.id }))}
                         selected={{ label: moveDest.name, value: moveDest.id }}
                         onSelect={handleSelectMoveDest} />
-                    <Checkbox label='コピーを作成' className='ml-2 mt-2' id='copy' onChange={(e)=>{handleCheckCopy(e.target.checked)}}/>
+                    <Checkbox label='コピーを作成' className='ml-2 mt-2' id='copy' onChange={(e) => { handleCheckCopy(e.target.checked) }} />
                     <OutlinedButton
                         disabled={moveDest.id === bookmark.groupId}
                         className='ml-auto'
                         colorType='secondary'
                         onClick={handleMove}>
-                        {copyGroup ? 'コピーする': '移動する'}
+                        {copyGroup ? 'コピーする' : '移動する'}
                     </OutlinedButton>
                 </div>
             </div>
