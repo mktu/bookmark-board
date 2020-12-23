@@ -75,7 +75,8 @@ export function modifyBookmark(
 async function moveGroupAsync(
     sourceId: string,
     sourceGroupId: string,
-    destGroupId: string
+    destGroupId: string,
+    copy ?: boolean
 ) {
     const sourceDoc = db.collection('groups')
         .doc(sourceGroupId)
@@ -86,6 +87,7 @@ async function moveGroupAsync(
     const destData = {
         ...sourceData.data(),
         groupId : destGroupId,
+        reactions : {},
         lastUpdate : Date.now()
     }
     const batch = db.batch();
@@ -94,7 +96,9 @@ async function moveGroupAsync(
         .collection('bookmarks')
         .doc()
     batch.set(destDoc,destData)
-    batch.delete(sourceDoc)
+    if(!copy){
+        batch.delete(sourceDoc)
+    }
     await batch.commit()
 }
 
@@ -102,9 +106,10 @@ export function moveGroup(
     source: Pick<Bookmark, 'id'|'groupId'>,
     destGroupId: string,
     onSucceeded?: Notifier,
+    copy?:boolean,
     onFailed: ErrorHandler = console.error
 ) {
-    moveGroupAsync(source.id, source.groupId, destGroupId)
+    moveGroupAsync(source.id, source.groupId, destGroupId, copy)
     .then(onSucceeded)
     .catch(onFailed)
 }

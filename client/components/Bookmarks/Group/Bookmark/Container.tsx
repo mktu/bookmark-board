@@ -21,6 +21,7 @@ const Container: React.FC<Props> = ({
     const group = groups.find(g => bookmark && g.id === bookmark.groupId)
     const { clientService } = useContext(FirebaseContext)
     const [status, setStatus] = useState<LoadStatus['status']>('loaded')
+    const [copyGroup,setCopyGroup] = useState(false)
     const [moveDest, setMoveDest] = useState(group)
     const updateBookmark = (key: keyof Bookmark) => (value: string) => {
         clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
@@ -58,7 +59,7 @@ const Container: React.FC<Props> = ({
     const handleMove = () => {
         clientService.moveGroup(bookmark, moveDest.id, () => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
-        })
+        }, copyGroup)
     }
 
     const handleSelectMoveDest = (s: string) => {
@@ -85,6 +86,8 @@ const Container: React.FC<Props> = ({
             handleSelectMoveDest={handleSelectMoveDest}
             handleMove={handleMove}
             handleJumpLink={handleJumpLink}
+            handleCheckCopy={setCopyGroup}
+            copyGroup={copyGroup}
         />
     )
 }

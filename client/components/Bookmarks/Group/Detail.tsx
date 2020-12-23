@@ -35,7 +35,7 @@ const Detail: React.FC<Props> = ({
                     <GroupImage width='48px' height='48px' src={group.imageUrl} />
                 </div>
                 <div className='w-full'>
-                    <Label textSize='xs' htmlFor='groupName'>グループ名</Label>
+                    <Label textSize='text-xs' htmlFor='groupName'>グループ名</Label>
                     <TextInput id='groupName' value={group.name} handleSubmit={(name) => {
                         clientService.modifyGroup(group.id, {
                             name
@@ -50,7 +50,7 @@ const Detail: React.FC<Props> = ({
             </div>
             <div className='mt-2'>
                 <div className='w-full'>
-                    <Label textSize='xs' htmlFor='description' className='mb-2'>説明</Label>
+                    <Label textSize='text-xs' htmlFor='description' className='mb-2'>説明</Label>
                     <TextArea id='description' value={group.description || ''} minRows={4} borderType='square' handleSubmit={(description) => {
                         clientService.modifyGroup(group.id, {
                             description
@@ -60,7 +60,7 @@ const Detail: React.FC<Props> = ({
             </div>
             <div className='mt-2'>
                 <div className='w-full'>
-                    <Label textSize='xs'>編集者</Label>
+                    <Label textSize='text-xs'>編集者</Label>
                 </div>
                 <div className='p-2 w-full'>
                     {editors.map(e => (

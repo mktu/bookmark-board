@@ -2,7 +2,7 @@ import React from 'react'
 import { UrlImage } from '../../Common/Avatar'
 import { Duplicate, Chat, ChevronDoubleUp } from '../../Common/Icon'
 import { Label } from '../../Common/Label'
-import { SvgIconButton, TextButton } from '../../Common/Button'
+import { SvgIconButton } from '../../Common/Button'
 import { copyToClipBoard } from '../../../utils'
 import { toast } from 'react-toastify';
 import { TooltipDivContainer } from '../../Common/Tooltip'
@@ -20,11 +20,11 @@ const ListCard: React.FC<Props> = ({
         <div className='flex py-1 px-2 border rounded border-primary-border'>
             <UrlImage width='64px' height='64px' src={bookmark.image} />
             <div className='ml-2 text-primary-main overflow-hidden w-full px-1'>
-                <Label htmlFor='title' textSize='xs'>タイトル</Label>
+                <Label htmlFor='title' textSize='text-xs'>タイトル</Label>
                 <div id='title' className='text-sm break-words max-w-full p-1'>{bookmark.title}</div>
-                <Label htmlFor='description' textSize='xs'>説明</Label>
+                <Label htmlFor='description' textSize='text-xs'>説明</Label>
                 <div id='description' className='text-xs break-words max-w-full p-1'>{bookmark.description}</div>
-                <Label htmlFor='url' textSize='xs'>URL</Label>
+                <Label htmlFor='url' textSize='text-xs'>URL</Label>
                 <div id='url' className='text-sm break-words max-w-full p-1'>{bookmark.url}</div>
                 {bookmark.comment && (
                     <div className='text-xs overflow-hidden max-w-full flex items-center text-primary-main py-1'>

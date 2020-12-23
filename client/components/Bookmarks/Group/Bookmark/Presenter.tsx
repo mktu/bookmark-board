@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextInput, TextArea, Dropdowns } from '../../../Common/Input'
+import { TextInput, TextArea, Dropdowns, Checkbox } from '../../../Common/Input'
 import { LoadingImg } from '../../../Common/Image'
 import { OutlinedButton, SvgIconButton, TextButton } from '../../../Common/Button'
 import { ExternalLink, HeartFill, Refresh } from '../../../Common/Icon'
@@ -14,12 +14,14 @@ type Props = {
     moveDest: BookmarkGroup,
     sentLikes: boolean,
     status : LoadStatus['status'],
+    copyGroup : boolean,
     handleLikes: () => void
     handleRefetch: () => void,
     handleSelectMoveDest: (s: string) => void,
     updateBookmark: (key:keyof Bookmark) => (value: string) => void,
     handleMove: () => void,
-    handleJumpLink: ()=>void
+    handleJumpLink: ()=>void,
+    handleCheckCopy: (checked:boolean)=>void
 }
 
 const Presenter: React.FC<Props> = ({
@@ -29,12 +31,14 @@ const Presenter: React.FC<Props> = ({
     sentLikes,
     moveDest,
     status,
+    copyGroup,
     handleLikes,
     handleRefetch,
     updateBookmark,
     handleSelectMoveDest,
     handleMove,
-    handleJumpLink
+    handleJumpLink,
+    handleCheckCopy
 }) => {
     const inputDisabled = status === 'loading'
     return (
@@ -101,12 +105,13 @@ const Presenter: React.FC<Props> = ({
                         options={groups.map(g => ({ label: g.name, value: g.id }))}
                         selected={{ label: moveDest.name, value: moveDest.id }}
                         onSelect={handleSelectMoveDest} />
+                    <Checkbox label='コピーを作成' className='ml-2 mt-2' id='copy' onChange={(e)=>{handleCheckCopy(e.target.checked)}}/>
                     <OutlinedButton
                         disabled={moveDest.id === bookmark.groupId}
                         className='ml-auto'
                         colorType='secondary'
                         onClick={handleMove}>
-                        移動する
+                        {copyGroup ? 'コピーする': '移動する'}
                     </OutlinedButton>
                 </div>
             </div>
