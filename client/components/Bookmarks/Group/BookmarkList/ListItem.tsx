@@ -1,16 +1,14 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRouter } from 'next/router'
 import { PlaceHolderImg } from '../../../Common/Image'
-import { ExternalLink, Duplicate, Trash, Chat, HeartFill } from '../../../Common/Icon'
+import { ExternalLink, Duplicate, Trash, Chat } from '../../../Common/Icon'
 import { SvgIconButton, HeartButton } from '../../../Common/Button'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
-import { useBookmarkById } from '../../../../modules/bookmarkSlice'
 import { useGroupById } from '../../../../modules/groupSlice'
-import { useProfile } from '../../../../modules/profileSlice'
 import { copyToClipBoard } from '../../../../utils'
 import { toast } from 'react-toastify';
-import FirebaseContext from '../../../../context/FirebaseContext'
+import { useBookmark } from '../../../../hooks/useBookmark'
 
 type Props = {
     bookmarkId: string,
@@ -24,12 +22,16 @@ const ListItem: React.FC<Props> = ({
     idx
 }) => {
     const router = useRouter()
-    const bookmark = useBookmarkById(bookmarkId)
+    const { 
+        bookmark,
+        sentLikes,
+        handleLikes,
+        deleteBookmark,
+        handleJumpLink
+     } = useBookmark(bookmarkId)
     const { description } = bookmark
-    const { clientService } = useContext(FirebaseContext)
     const group = useGroupById(bookmark.groupId)
     const { listViewMask = [] } = group || {}
-    const profile = useProfile()
     const [{ dragging }, drag] = useDrag({
         item: {
             id: bookmark.id,
@@ -59,17 +61,6 @@ const ListItem: React.FC<Props> = ({
             }
         }
     })
-    const likes = bookmark.reactions['likes'] || []
-    const sentLikes = likes.includes(profile.id)
-    const handleClickLike = (e : React.MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation()
-        clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
-            reactions: {
-                ...bookmark.reactions,
-                likes: sentLikes ? likes.filter(t => t !== profile.id) : Array.from(new Set([...likes, profile.id]))
-            }
-        })
-    }
 
     return (
         <div ref={(v) => {
@@ -113,10 +104,7 @@ const ListItem: React.FC<Props> = ({
                         <TooltipDivContainer content='URLを開く' placement='bottom'>
                             <SvgIconButton className='mx-1' onClick={(e) => {
                                 e.stopPropagation()
-                                window && window.open(
-                                    bookmark.url,
-                                    '_blank' // <- This is what makes it open in a new window.
-                                );
+                                handleJumpLink()
                             }}>
                                 <ExternalLink className='w-5' strokeWidth={1.5} />
                             </SvgIconButton>
@@ -124,7 +112,7 @@ const ListItem: React.FC<Props> = ({
                         <TooltipDivContainer content='削除' placement='bottom'>
                             <SvgIconButton className='mx-1' onClick={(e) => {
                                 e.stopPropagation()
-                                clientService.deleteBookmark(bookmark.groupId, bookmark.id)
+                                deleteBookmark()
                             }}>
                                 <Trash className='w-5' strokeWidth={1.5} />
                             </SvgIconButton>
@@ -134,7 +122,10 @@ const ListItem: React.FC<Props> = ({
                         <HeartButton
                             size='w-4'
                             active={sentLikes}
-                            onClick={handleClickLike}
+                            onClick={(e)=>{
+                                e.stopPropagation()
+                                handleLikes()
+                            }}
                         />
                     </div>
                 </div>

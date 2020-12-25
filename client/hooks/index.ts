@@ -15,5 +15,5 @@ export {
     useReactionListener,
     useRequestListener,
     useRegistrantsService,
-    useUpload
+    useUpload,
 }
