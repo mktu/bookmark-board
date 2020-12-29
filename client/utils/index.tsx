@@ -6,7 +6,8 @@ export const copyToClipBoard = (value:string, onSucceeded:Notifier)=>{
     }
 }
 
-export const numberToDateTime = (time:number)=>{
+export const numberToDateTime = (time?:number)=>{
+    if(!time) return ''
     return new Date(time).toLocaleString('ja-JP',{ timeZone: 'Asia/Tokyo' })
 }
 

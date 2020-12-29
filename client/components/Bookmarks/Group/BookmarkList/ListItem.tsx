@@ -2,11 +2,11 @@ import React from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRouter } from 'next/router'
 import { PlaceHolderImg } from '../../../Common/Image'
-import { ExternalLink, Duplicate, Trash, Chat } from '../../../Common/Icon'
+import { ExternalLink, Duplicate, Trash, Chat, Refresh } from '../../../Common/Icon'
 import { SvgIconButton, HeartButton } from '../../../Common/Button'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
 import { useGroupById } from '../../../../modules/groupSlice'
-import { copyToClipBoard } from '../../../../utils'
+import { copyToClipBoard, numberToDateTime } from '../../../../utils'
 import { toast } from 'react-toastify';
 import { useBookmark } from '../../../../hooks/useBookmark'
 
@@ -90,6 +90,10 @@ const ListItem: React.FC<Props> = ({
                                 {bookmark.comment}
                             </div>
                         </div>)}
+                    {!listViewMask.includes('lastUpdate') && bookmark.lastUpdate && (<div className='mt-auto pt-1 overflow-hidden truncate text-xs text-primary-main font-thin max-w-full flex items-center' > 
+                    <span className='mr-1'><Refresh className='w-4 stroke-primary-main'/></span>
+                    <span>{numberToDateTime(bookmark.lastUpdate)}</span>
+                    </div>)}
                 </div>
                 <div className='ml-auto flex flex-col justify-start'>
                     <div className='flex items-start'>

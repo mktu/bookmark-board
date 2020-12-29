@@ -24,7 +24,7 @@ declare type Reaction = {
     targetId: string,
 }
 
-declare type ListViewMask = 'description' | 'url' | 'comment'
+declare type ListViewMask = 'description' | 'url' | 'comment' | 'lastUpdate'
 
 declare type BookmarkColorDescription = {
     color :string,

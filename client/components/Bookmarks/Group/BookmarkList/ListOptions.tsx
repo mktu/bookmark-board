@@ -32,6 +32,11 @@ const ListOptions: React.FC<Props> = ({
                 <span>URL</span>
             </label>
             <label className='flex flex-row items-center mt-2'>
+                <input type='checkbox' className='block mr-2 hover:bg-primary-50 cursor-pointer' defaultChecked={!maskUrl} 
+                onChange={createChangeEvent('lastUpdate')} />
+                <span>更新日時</span>
+            </label>
+            <label className='flex flex-row items-center mt-2'>
                 <input type='checkbox' className='block mr-2 hover:bg-primary-50 cursor-pointer' defaultChecked={!maskComment} 
                 onChange={createChangeEvent('comment')} />
                 <span>ひとこと</span>

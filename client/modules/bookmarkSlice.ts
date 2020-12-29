@@ -97,7 +97,7 @@ export const useBookmarkIdsByGroupFilter = (group:BookmarkGroup) => {
 }
 
 
-export const useBookmarkByGroup = (groupId:string) => {
+export const useBookmarksByGroup = (groupId:string) => {
     return useSelector(
         (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
         selectBookmarksByGroup(state.bookmarks,groupId)
