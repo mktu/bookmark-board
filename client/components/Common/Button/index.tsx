@@ -50,29 +50,29 @@ export const TextButton: React.FC<ButtonProps & {colorType?:ColorType, fontType?
     )
 }
 
-export const SvgIconButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ colorType='dark', className, ...props }) => {
+export const SvgIconButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ colorType='dark', className, disabled, ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
-        dark : 'stroke-primary-main hover:stroke-primary-dark',
-        secondary : 'stroke-secondary-main hover:stroke-secondary-600',
+        dark : `stroke-primary-main ${!disabled && 'hover:stroke-primary-dark'}`,
+        secondary : `stroke-secondary-main ${!disabled && 'hover:stroke-secondary-600'}`,
         light : 'stroke-white',
         none : ''
     }
     return (
-        <ButtonBase className={classNames(className,colorClasses[colorType])} {...props} />
+        <ButtonBase disabled={disabled} className={classNames(className,colorClasses[colorType])} {...props} />
     )
 }
 
-export const SvgFillIconButton: React.FC<ButtonProps & {colorType?:SvgFillColorType}> = ({ colorType='dark', className, ...props }) => {
+export const SvgFillIconButton: React.FC<ButtonProps & {colorType?:SvgFillColorType}> = ({ colorType='dark', className, disabled, ...props }) => {
     const colorClasses : {[key in SvgFillColorType]:string}= {
-        dark : 'fill-primary-300 hover:fill-primary-main',
-        "dark-active" : 'fill-primary-main hover:fill-primary-300',
-        secondary : 'fill-secondary-300 hover:fill-secondary-main',
-        "secondary-active" : 'fill-secondary-main hover:fill-secondary-300',
+        dark : `fill-primary-300 ${!disabled && 'hover:fill-primary-main'}`,
+        "dark-active" : `fill-primary-main ${!disabled && 'hover:fill-primary-300'}`,
+        secondary : `fill-secondary-300 ${!disabled && 'hover:fill-secondary-main'}`,
+        "secondary-active" : `fill-secondary-main ${!disabled && 'hover:fill-secondary-300'}`,
         light : 'fill-white',
         none : ''
     }
     return (
-        <ButtonBase className={classNames(className,colorClasses[colorType])} {...props} />
+        <ButtonBase disabled={disabled} className={classNames(className,colorClasses[colorType])} {...props} />
     )
 }
 

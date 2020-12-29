@@ -1,8 +1,9 @@
 import React, { useContext } from 'react'
+import { useRouter } from 'next/router'
 import Avatar from '../Common/Avatar'
 import Bookmark from './Bookmark'
 import { numberToDateTime } from '../../utils'
-import { HeartButton, SvgIconButton } from '../Common/Button'
+import { HeartButton, SvgIconButton, ContainedButton } from '../Common/Button'
 import { PopoverDivContainer } from '../Common/Popover'
 import { UserPopover } from '../PopoverMenu'
 import CommentInput from './CommentInput'
@@ -23,9 +24,13 @@ const PublicBookmarks: React.FC<Props> = ({
     bookmarks
 }) => {
     const profile = useProfile()
+    const router = useRouter()
     const { clientService } = useContext(FirebaseContext)
     const { reactions, status, getReactionByUid } = useReactionListener(group.id, 'likes')
     const myReaction = getReactionByUid(profile.id)
+    const handleLogin = ()=>{
+        router.push('/signin')
+    }
     return (
         <div className='w-screen flex flex-col items-center justify-center py-8'>
             <div className='flex w-7/12'>
@@ -53,7 +58,7 @@ const PublicBookmarks: React.FC<Props> = ({
             </div>
             <div className='flex w-7/12 px-2 justify-end items-end'>
                 <HeartButton
-                    disabled={status === 'loading'} 
+                    disabled={status === 'loading' || !profile.id}
                     active={Boolean(myReaction)}
                     counter={reactions.length > 0 && reactions.length}
                     onClick={() => {
@@ -72,7 +77,13 @@ const PublicBookmarks: React.FC<Props> = ({
             <div className='w-7/12 p-2 mt-4'>
                 <h2 className='text-primary-main mb-2'>コメント</h2>
                 <Comments groupId={group.id} />
-                <CommentInput className='mt-4' groupId={group.id} />
+                {profile.id ? (
+                    <CommentInput className='mt-4' groupId={group.id} />
+                ) : (
+                        <div className='flex justify-center py-6'>
+                            <ContainedButton onClick={handleLogin}>ログインまたはサインアップする</ContainedButton>
+                        </div>
+                    )}
             </div>
 
         </div>

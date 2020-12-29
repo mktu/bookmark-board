@@ -49,6 +49,7 @@ const Comments: React.FC<Props> = ({
                         <div className='ml-auto'>
                             <div className='flex justify-end p-2'>
                                 <HeartButton 
+                                    disabled={!myProfile.id}
                                     active={Boolean(myReaction)}
                                     counter={c.reactions.length > 0 && c.reactions.length}
                                     onClick={() => {
