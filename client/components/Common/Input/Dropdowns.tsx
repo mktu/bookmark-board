@@ -14,7 +14,8 @@ type Props = {
     selected: string,
     onSelect: (selected: string) => void,
     placement?: PopperChildrenProps['placement'],
-    className ?:string
+    className?: string
+    allowEmpty?: boolean
 }
 
 const Dropdowns: React.FC<Props> = ({
@@ -22,7 +23,8 @@ const Dropdowns: React.FC<Props> = ({
     selected,
     onSelect,
     className,
-    placement = 'auto'
+    placement = 'auto',
+    allowEmpty
 }) => {
 
     const [popoverShow, setPopoverShow] = useState(false);
@@ -34,7 +36,7 @@ const Dropdowns: React.FC<Props> = ({
     const toggle = useCallback(() => {
         setPopoverShow(before => !before)
     }, []);
-    const selectedLabel = options.find(v=>v.value===selected)
+    const selectedLabel = options.find(v => v.value === selected)
     return (
         <div className={className}>
             <div ref={(value) => {
@@ -66,6 +68,12 @@ const Dropdowns: React.FC<Props> = ({
                                         setPopoverShow(false)
                                     }} className="block px-4 py-2 text-sm text-primary-700 hover:bg-primary-hover hover:text-primary-dark w-full text-left" role="menuitem" key={o.value}>{o.label}</TextButton>
                                 ))}
+                                {allowEmpty && (
+                                    <TextButton onClick={() => {
+                                        onSelect('')
+                                        setPopoverShow(false)
+                                    }} className="block px-4 py-2 text-sm text-primary-700 hover:bg-primary-hover hover:text-primary-dark w-full text-left" role="menuitem" key={'empty'}>選択なし</TextButton>
+                                )}
                             </div>
                         </div>
                     </div>

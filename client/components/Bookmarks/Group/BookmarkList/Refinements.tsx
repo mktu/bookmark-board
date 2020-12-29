@@ -20,13 +20,13 @@ const Refinements: React.FC<Props> = ({
                 <div className='ml-auto flex items-center'>
                     <div>
                         <TextButton className='flex items-center stroke-primary-main hover:stroke-primary-dark' onClick={()=>{setShowColor(true)}}>
-                            <ColorSwatch className='w-8' />
+                            <ColorSwatch className='w-6' />
                             <div className=' text-sm'>色設定</div>
                         </TextButton>
                     </div>
                     <div>
                         <TextButton className='flex items-center stroke-primary-main hover:stroke-primary-dark ml-4'>
-                            <Sort className='w-8' />
+                            <Sort className='w-6' />
                             <div className=' text-sm'>並び替え</div>
                         </TextButton>
                     </div>
@@ -34,7 +34,7 @@ const Refinements: React.FC<Props> = ({
                         <Popover placement='left-start' content={<ListOptions groupId={groupId} />}>
                             <div>
                                 <TextButton className='flex items-center stroke-primary-main hover:stroke-primary-dark ml-4'>
-                                    <Template className='w-8' />
+                                    <Template className='w-6' />
                                     <div className=' text-sm'>表示</div>
                                 </TextButton>
                             </div>

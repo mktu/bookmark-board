@@ -1,94 +1,99 @@
 declare type User = {
-    uid : string,
-    isAnonymous : boolean,
-    name : string | null
+    uid: string,
+    isAnonymous: boolean,
+    name: string | null
 }
 declare type AuthState = {
-    authState : 'loading' | 'loaded' | 'failed',
-    profileState : 'loading' | 'loaded' | 'failed',
-    uid : string,
+    authState: 'loading' | 'loaded' | 'failed',
+    profileState: 'loading' | 'loaded' | 'failed',
+    uid: string,
 }
 
 declare type Profile = {
-    name : string | null,
-    comment ?: string,
-    id : string,
-    image : string,
-    lastUpdate ?: number
+    name: string | null,
+    comment?: string,
+    id: string,
+    image: string,
+    lastUpdate?: number
 }
 
 declare type Reaction = {
-    id : string,
-    type : 'likes'|'thumbs',
-    user : string,
-    targetId : string,
+    id: string,
+    type: 'likes' | 'thumbs',
+    user: string,
+    targetId: string,
 }
 
 declare type ListViewMask = 'description' | 'url' | 'comment'
 
-declare type BookmarkColor = {
-    color : string,
-    name : string
+declare type BookmarkColorDescription = {
+    color :string,
+    name: string,
+    show?: boolean
+}
+
+declare type BookmarkColors = {
+    [key: string]:BookmarkColorDescription
 }
 
 declare type BookmarkGroup = {
-    users : string[],
-    owner : string,
-    name : string,
-    description ?: string,
-    actions : string[],
-    id : string,
-    idx : number,
-    sharable ?: boolean, // todo requires,
-    imageUrl ?: string,
-    lastUpdate ?: number,
-    listViewMask ?: ListViewMask[],
-    colors ?: BookmarkColor[]
+    users: string[],
+    owner: string,
+    name: string,
+    description?: string,
+    actions: string[],
+    id: string,
+    idx: number,
+    sharable?: boolean, // todo requires,
+    imageUrl?: string,
+    lastUpdate?: number,
+    listViewMask?: ListViewMask[],
+    colors?: BookmarkColors
 }
 
 declare type Bookmark = {
-    id : string,
-    url : string,
-    title ?: string,
-    description ?:string,
-    comment ?: string,
-    neighbors : [],
-    image ?: string,
-    groupId : string,
-    owner : string,
-    created : number,
-    lastUpdate ?: number,
-    idx : number,
-    unacquired ?: boolean,
-    reactions : {[key:string]:string[]},
-    color ?: string
+    id: string,
+    url: string,
+    title?: string,
+    description?: string,
+    comment?: string,
+    neighbors: [],
+    image?: string,
+    groupId: string,
+    owner: string,
+    created: number,
+    lastUpdate?: number,
+    idx: number,
+    unacquired?: boolean,
+    reactions: { [key: string]: string[] },
+    color?: string
 }
 
 declare type BookmarkComment = {
-    id : string,
-    groupId : string,
-    comment : string,
-    sender : string,
-    readers : string[],
-    created : number,
-    lastUpdate ?: number,
-    reactions : Omit<Reaction,'id'|'targetId'>[]
+    id: string,
+    groupId: string,
+    comment: string,
+    sender: string,
+    readers: string[],
+    created: number,
+    lastUpdate?: number,
+    reactions: Omit<Reaction, 'id' | 'targetId'>[]
 }
 
 declare type BookmarkRequest = {
-    id : string,
-    groupId : string,
-    status : 'requesting' | 'accepted' | 'rejected',
-    sender : string,
-    created : number,
-    lastUpdate ?: number,
+    id: string,
+    groupId: string,
+    status: 'requesting' | 'accepted' | 'rejected',
+    sender: string,
+    created: number,
+    lastUpdate?: number,
 }
 
 declare type LoadStatus = {
-    id : string,
-    status : 'loading' | 'loaded' | 'failed'
+    id: string,
+    status: 'loading' | 'loaded' | 'failed'
 }
-declare type Notifier = ()=>void
-declare type Transfer<T> = (value : T) => void;
-declare type CollectionTransfer<T> = (collection : T[]) => void
-declare type ErrorHandler = (error : Error) => void;
+declare type Notifier = () => void
+declare type Transfer<T> = (value: T) => void;
+declare type CollectionTransfer<T> = (collection: T[]) => void
+declare type ErrorHandler = (error: Error) => void;

@@ -1,9 +1,8 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Modal } from 'react-responsive-modal';
-import { useGroupById } from '../../../../modules/groupSlice'
-import { SvgIconButton, SvgFillIconButton } from '../../../Common/Button'
-import { TextInput } from '../../../Common/Input'
-import { Check, CheckFill } from '../../../Common/Icon'
+import { TextInput, Checkbox } from '../../../Common/Input'
+import { SvgFillIconButton } from '../../../Common/Button'
+import { EyeOffFill, EyeFill } from '../../../Common/Icon'
 import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
 
 type Props = {
@@ -13,18 +12,37 @@ type Props = {
 const ColorOptions: React.FC<Props> = ({
     groupId
 }) => {
-    const { group, updateColorName } = useBookmarkGroup(groupId)
-    const { colors } = group
+    const { colors, updateColor, updateColors } = useBookmarkGroup(groupId)
     return (
         <div className='bg-white p-4 rounded flex flex-col justify-start align-middle overflow-scroll'>
-            <p className='text-sm text-primary-main'>オリジナルの色名を設定することができます</p>
+            <p className='text-sm text-primary-main'>色名や表示有無の設定をすることができます</p>
+            <div className='flex justify-end'><Checkbox label='すべて表示' checked={Object.values(colors).every(v=>v.show)} onChange={(e)=>{
+                if(e.target.checked){
+                    updateColors(colors.map(v=>({...v,show:true})))
+                }else{
+                    updateColors(colors.map(v=>({...v,show:false})))
+                }
+            }}/></div>
             <div className=''>
-                {colors && colors.map(c => {
+                {colors.map(c => {
                     return (
                         <div key={c.color} className='flex items-center'>
+                            {c.show ? (
+                                <SvgFillIconButton onClick={()=>{
+                                    updateColor(c.color, {show:false})
+                                }}>
+                                    <EyeFill className='w-5 fill-primary-main' strokeWidth={1.5}/>
+                                </SvgFillIconButton>
+                            ) : (
+                                <SvgFillIconButton onClick={()=>{
+                                    updateColor(c.color, {show:true})
+                                }}>
+                                    <EyeOffFill className='w-5 fill-primary-300' strokeWidth={1.5}/>
+                                </SvgFillIconButton>
+                            )}
                             <div className='flex items-center w-full mr-2'>
                                 <TextInput className='w-full' value={c.name} handleSubmit={(value)=>{
-                                    updateColorName(c.color,value)
+                                    updateColor(c.color,{name:value})
                                 }}/>
                             </div>
                             <div className='ml-auto w-5 h-5 rounded' style={{ backgroundColor: c.color }} />

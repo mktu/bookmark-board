@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react'
-import { useBookmarkIdsByGroup } from '../../../modules/bookmarkSlice'
+import { useBookmarkIdsByGroupFilter } from '../../../modules/bookmarkSlice'
 import { useGroupById, useGroupStatus } from '../../../modules/groupSlice'
 import { useRouter } from 'next/router'
 import NoItem from './NoItem'
@@ -17,9 +17,9 @@ const Group: React.FC<Props> = () => {
     const { ids } = router.query
     const groupId = ids && ids.length > 0 ? ids[0] : ''
     const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
-    const bookmarkIds = useBookmarkIdsByGroup(groupId)
-    const status = useGroupStatus()
     const group = useGroupById(groupId)
+    const bookmarkIds = useBookmarkIdsByGroupFilter(group)
+    const status = useGroupStatus()
 
     useEffect(()=>{
         if(!localStorage){

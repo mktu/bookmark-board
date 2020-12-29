@@ -100,10 +100,11 @@ const Presenter: React.FC<Props> = ({
             <div className='w-full overflow-hidden p-4 flex'>
                 <Label className='block'>色を設定</Label>
                 <div className='ml-auto flex flex-col items-end'>
-                    <ColorPallet className='' colors={group.colors} boxSize={5} value={bookmark.color} handleSelectColor={updateBookmark('color')} />
+                    <ColorPallet colors={group.colors} boxSize={5} value={bookmark.color} handleSelectColor={updateBookmark('color')} />
                     <Dropdowns
+                        allowEmpty
                         placement='bottom'
-                        options={group.colors.map(g => ({ label: g.name, value: g.color }))}
+                        options={Object.values(group.colors).map(g => ({ label: g.name, value: g.color }))}
                         selected={bookmark.color}
                         onSelect={updateBookmark('color')} />
                 </div>

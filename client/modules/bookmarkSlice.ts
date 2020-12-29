@@ -64,10 +64,35 @@ const selectBookmarkIdsByGroup = createSelector(
     }
 )
 
+const selectBookmarksByGroupFilter = createSelector(
+    [selectAll, (_, group:BookmarkGroup)=>group],
+    (bookmarks,group)=>{
+        return bookmarks.filter(b=>{
+            if(!group) return false
+            if(b.groupId === group.id){
+                if(!group.colors || !b.color || !group.colors[b.color]){
+                    return true
+                }
+                if(group.colors[b.color].show){
+                    return true
+                }
+            }
+            return false
+        } ).map(b=>b.id)
+    }
+)
+
 export const useBookmarkIdsByGroup = (groupId:string) => {
     return useSelector(
         (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
         selectBookmarkIdsByGroup(state.bookmarks,groupId)
+    )
+}
+
+export const useBookmarkIdsByGroupFilter = (group:BookmarkGroup) => {
+    return useSelector(
+        (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
+        selectBookmarksByGroupFilter(state.bookmarks,group)
     )
 }
 
