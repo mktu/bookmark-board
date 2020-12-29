@@ -1,6 +1,7 @@
 import React from 'react'
 import Presenter from './Presenter'
 import { useBookmark, useMoveGroup } from '../../../../hooks/useBookmark'
+import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
 
 type Props = {
     bookmarkId: string
@@ -9,7 +10,6 @@ type Props = {
 const Container: React.FC<Props> = ({
     bookmarkId
 }) => {
-
     const {
         bookmark,
         likes,
@@ -21,6 +21,7 @@ const Container: React.FC<Props> = ({
         handleJumpLink,
     } = useBookmark(bookmarkId)
     const moveGroupProps = useMoveGroup(bookmark)
+    const { group } = useBookmarkGroup(bookmark?.groupId)
     if (!bookmark) {
         return <div />
     }
@@ -33,6 +34,7 @@ const Container: React.FC<Props> = ({
                 likes,
                 sentLikes,
                 status,
+                group,
                 handleLikes,
                 handleRefetch,
                 updateBookmark,

@@ -9,6 +9,9 @@ type Props = {
 const Bookmark: React.FC<Props> = ({
     bookmarkId
 }) => {
+    if(!bookmarkId){
+        return <div />
+    }
     return (
         <Container bookmarkId={bookmarkId}/>
     )

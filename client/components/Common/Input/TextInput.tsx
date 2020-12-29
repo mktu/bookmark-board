@@ -10,7 +10,8 @@ type Props = Parameters<typeof TextInputBase>[0] & {
     clearButton?: boolean,
     label?: string,
     required?: boolean,
-    requiredMessage ?: string
+    requiredMessage ?: string,
+    className?: string
 }
 
 
@@ -22,6 +23,7 @@ const TextInput: React.FC<Props> = ({
     required,
     requiredMessage,
     label,
+    className,
     ...props
 }) => {
     const [text, setText] = useState(value)
@@ -31,7 +33,7 @@ const TextInput: React.FC<Props> = ({
         setText(value)
     }, [value])
     return (
-        <div className='w-full'>
+        <div className={className}>
             {label &&
                 <Label htmlFor={id}>
                     {label}

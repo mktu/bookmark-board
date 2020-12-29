@@ -11,7 +11,7 @@ type Label = {
 
 type Props = {
     options: Label[],
-    selected: Label,
+    selected: string,
     onSelect: (selected: string) => void,
     placement?: PopperChildrenProps['placement'],
     className ?:string
@@ -34,7 +34,7 @@ const Dropdowns: React.FC<Props> = ({
     const toggle = useCallback(() => {
         setPopoverShow(before => !before)
     }, []);
-
+    const selectedLabel = options.find(v=>v.value===selected)
     return (
         <div className={className}>
             <div ref={(value) => {
@@ -48,7 +48,7 @@ const Dropdowns: React.FC<Props> = ({
                     id="options-menu"
                     aria-haspopup="true"
                     aria-expanded="true">
-                    {selected.label}
+                    {selectedLabel?.label}
                     <ChevronDown className='ml-2 w-5' strokeWidth={2} />
                 </ButtonBase>
             </div>

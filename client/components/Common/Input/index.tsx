@@ -5,6 +5,7 @@ import TextArea from './TextArea'
 import TextInput from './TextInput'
 import Dropdowns from './Dropdowns'
 import Checkbox from './Checkbox'
+import ColorPicker from './ColorPicker'
 
 type InputProps = React.InputHTMLAttributes<HTMLInputElement>
 
@@ -66,5 +67,6 @@ export {
     TextArea,
     TextInput,
     Dropdowns,
-    Checkbox
+    Checkbox,
+    ColorPicker
 }

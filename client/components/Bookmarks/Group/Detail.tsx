@@ -1,15 +1,13 @@
-import React, { useContext } from 'react'
+import React from 'react'
 import { Modal } from 'react-responsive-modal'
-import { useRouter } from 'next/router'
 import Avatar, { GroupImage } from '../../Common/Avatar'
 import { Label } from '../../Common/Label'
 import { OutlinedButton, ContainedButton } from '../../Common/Button'
 import { TextInput, TextArea } from '../../Common/Input'
-import { useUsersByIds } from '../../../modules/usersSlice'
 import { useProfile } from '../../../modules/profileSlice'
 import { numberToDateTime } from '../../../utils'
 import DangerZone from './DangerZone'
-import FirebaseContext from '../../../context/FirebaseContext'
+import { useBookmarkGroup } from '../../../hooks/useBookmarkGroup'
 
 type Props = {
     group: BookmarkGroup
@@ -18,15 +16,13 @@ type Props = {
 const Detail: React.FC<Props> = ({
     group
 }) => {
-    const router = useRouter()
     const profile = useProfile()
-    const editors = useUsersByIds(group.users)
-    const { clientService } = useContext(FirebaseContext)
-    const handleRemoveUser = (uid:string)=>{
-        clientService.modifyGroup(group.id, {
-            users : group.users.filter(u=>u!==uid)
-        })
-    }
+    const {
+        editors,
+        updateGroup,
+        handleRemoveUser,
+        handleDeleteGroup
+    } = useBookmarkGroup(group.id)
 
     return (
         <div className='w-full px-2'>
@@ -36,11 +32,7 @@ const Detail: React.FC<Props> = ({
                 </div>
                 <div className='w-full'>
                     <Label textSize='text-xs' htmlFor='groupName'>グループ名</Label>
-                    <TextInput id='groupName' value={group.name} handleSubmit={(name) => {
-                        clientService.modifyGroup(group.id, {
-                            name
-                        })
-                    }} />
+                    <TextInput id='groupName' value={group.name} handleSubmit={updateGroup('name')} />
                 </div>
                 <div className='ml-auto px-2'>
                     <OutlinedButton className='text-sm whitespace-no-wrap'>
@@ -51,11 +43,7 @@ const Detail: React.FC<Props> = ({
             <div className='mt-2'>
                 <div className='w-full'>
                     <Label textSize='text-xs' htmlFor='description' className='mb-2'>説明</Label>
-                    <TextArea id='description' value={group.description || ''} minRows={4} borderType='square' handleSubmit={(description) => {
-                        clientService.modifyGroup(group.id, {
-                            description
-                        })
-                    }} />
+                    <TextArea id='description' value={group.description || ''} minRows={4} borderType='square' handleSubmit={updateGroup('description')} />
                 </div>
             </div>
             <div className='mt-2'>
@@ -81,11 +69,7 @@ const Detail: React.FC<Props> = ({
                     ))}
                 </div>
             </div>
-            <DangerZone className='mt-6' groupName={group.name} handleDelete={() => {
-                clientService.deleteGroup(group.id, () => {
-                    router.push('/bookmarks')
-                })
-            }} />
+            <DangerZone className='mt-6' groupName={group.name} handleDelete={handleDeleteGroup} />
             <div className='mt-2 flex justify-end text-xs text-primary-main'>
                 <div>
                     {group.lastUpdate && `最終更新 ${numberToDateTime(group.lastUpdate)}`}

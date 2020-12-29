@@ -18,8 +18,7 @@ const HeartButton : React.FC<Props>= ({
 }) => (
     <SvgIconButton
         {...props}
-        className={ClassNames(className,`flex items-end ${active ? 'fill-secondary-main hover:fill-secondary-300' : 'fill-primary-300 hover:fill-primary-main'}`)}
-        disabled={status === 'loading'} >
+        className={ClassNames(className,`flex items-end ${active ? 'fill-secondary-main hover:fill-secondary-300' : 'fill-primary-300 hover:fill-primary-main'}`)}>
         <div className={`rounded-full p-1 ${active ? 'bg-secondary-light' : 'bg-primary-light'}`}>
             <HeartFill className={size} strokeWidth={0} />
         </div>

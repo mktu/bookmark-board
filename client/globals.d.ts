@@ -26,6 +26,11 @@ declare type Reaction = {
 
 declare type ListViewMask = 'description' | 'url' | 'comment'
 
+declare type BookmarkColor = {
+    color : string,
+    name : string
+}
+
 declare type BookmarkGroup = {
     users : string[],
     owner : string,
@@ -37,7 +42,8 @@ declare type BookmarkGroup = {
     sharable ?: boolean, // todo requires,
     imageUrl ?: string,
     lastUpdate ?: number,
-    listViewMask ?: ListViewMask[]
+    listViewMask ?: ListViewMask[],
+    colors ?: BookmarkColor[]
 }
 
 declare type Bookmark = {
@@ -55,6 +61,7 @@ declare type Bookmark = {
     idx : number,
     unacquired ?: boolean,
     reactions : {[key:string]:string[]},
+    color ?: string
 }
 
 declare type BookmarkComment = {

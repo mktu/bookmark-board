@@ -66,9 +66,11 @@ const ListItem: React.FC<Props> = ({
         <div ref={(v) => {
             drag(v)
             drop(v)
-        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} onClick={() => {
+        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} role='button' onClick={() => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${bookmark.groupId}/${bookmark.id}`, { shallow: true })
-        }}>
+        }} style={bookmark.color ?{
+            borderLeft : `5px solid ${bookmark.color}`
+        }:{}}>
             <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
                 <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r flex items-center'>
                     {bookmark.image ? (

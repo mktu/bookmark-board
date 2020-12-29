@@ -5,11 +5,13 @@ import { OutlinedButton, SvgIconButton, TextButton, HeartButton } from '../../..
 import { ExternalLink, Refresh } from '../../../Common/Icon'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
 import { Label } from '../../../Common/Label'
+import { ColorPallet } from '../../../Common/Input/ColorPicker'
 import { numberToDateTime } from '../../../../utils'
 
 type Props = {
     bookmark: Bookmark,
     groups: BookmarkGroup[],
+    group : BookmarkGroup,
     likes: string[],
     moveDest: BookmarkGroup,
     sentLikes: boolean,
@@ -31,6 +33,7 @@ const Presenter: React.FC<Props> = ({
     sentLikes,
     moveDest,
     status,
+    group,
     copyGroup,
     handleLikes,
     handleRefetch,
@@ -94,13 +97,24 @@ const Presenter: React.FC<Props> = ({
                 <Label htmlFor='comment' className='mb-4'>ひとこと</Label>
                 <TextArea id='comment' value={bookmark.comment} handleSubmit={updateBookmark('comment')} />
             </div>
+            <div className='w-full overflow-hidden p-4 flex'>
+                <Label className='block'>色を設定</Label>
+                <div className='ml-auto flex flex-col items-end'>
+                    <ColorPallet className='' colors={group.colors} boxSize={5} value={bookmark.color} handleSelectColor={updateBookmark('color')} />
+                    <Dropdowns
+                        placement='bottom'
+                        options={group.colors.map(g => ({ label: g.name, value: g.color }))}
+                        selected={bookmark.color}
+                        onSelect={updateBookmark('color')} />
+                </div>
+            </div>
             <div className='w-full overflow-hidden p-4'>
                 <Label htmlFor='comment' className='mb-4'>グループを移動</Label>
                 <div className='flex items-center'>
                     <Dropdowns
                         placement='bottom'
                         options={groups.map(g => ({ label: g.name, value: g.id }))}
-                        selected={{ label: moveDest.name, value: moveDest.id }}
+                        selected={moveDest.id}
                         onSelect={handleSelectMoveDest} />
                     <Checkbox label='コピーを作成' className='ml-2 mt-2' id='copy' onChange={(e) => { handleCheckCopy(e.target.checked) }} />
                     <OutlinedButton

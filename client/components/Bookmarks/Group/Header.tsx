@@ -5,12 +5,11 @@ import { TooltipDivContainer } from '../../Common/Tooltip'
 import { PopoverDivContainer } from '../../Common/Popover'
 import { UserPopover } from '../../PopoverMenu'
 import Avatar from '../../Common/Avatar'
-import { useGroupById } from '../../../modules/groupSlice'
-import { useUsersByIds } from '../../../modules/usersSlice'
 import { useRequestsByGroup } from '../../../modules/requestSlice'
 import { ShareDialog, Share } from './Share'
 import { DetailDialog, Detail } from './Detail'
 import RequestUsers from './RequestUsers'
+import { useBookmarkGroup } from '../../../hooks/useBookmarkGroup'
 
 type Props = {
     groupId: string
@@ -19,8 +18,7 @@ type Props = {
 const Header: React.FC<Props> = ({
     groupId
 }) => {
-    const group = useGroupById(groupId)
-    const editors = useUsersByIds(group ? group.users : []).slice(0, 5)
+    const { group, editors } = useBookmarkGroup(groupId)
     const [showDetail, setShowDetail] = useState(false)
     const [showShare, setShowShare] = useState(false)
     const requests = useRequestsByGroup(group?.id)

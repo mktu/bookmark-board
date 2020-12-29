@@ -25,39 +25,35 @@ export function Popover<T extends HTMLElement>({ children, content, placement = 
 
     return (
         <>
-            <div className="flex flex-wrap">
-                <div className="w-full">
-                    {useMemo(() => {
-                        const childProps = {
-                            ...children.props,
-                            ref: (value: T) => {
-                                if (!value) return; // called when unmounted
-                                if (children.ref) {
-                                    if (typeof children.ref === 'function') {
-                                        children.ref(value);
-                                    }
-                                    else {
-                                        const refObject = children.ref as React.MutableRefObject<T>
-                                        refObject.current = value;
-                                    }
-                                }
-                                setReferenceElement(value)
-                            },
-                            onClick: toggle,
+            {useMemo(() => {
+                const childProps = {
+                    ...children.props,
+                    ref: (value: T) => {
+                        if (!value) return; // called when unmounted
+                        if (children.ref) {
+                            if (typeof children.ref === 'function') {
+                                children.ref(value);
+                            }
+                            else {
+                                const refObject = children.ref as React.MutableRefObject<T>
+                                refObject.current = value;
+                            }
                         }
-                        return React.cloneElement(children, childProps)
-                    }, [children, toggle])}
-                    {popoverShow && (
-                        <Clickaway onClickAway={() => {
-                            setPopoverShow(false)
-                        }}>
-                            <div className={'z-20'} ref={setPopperElement} style={styles.popper} {...attributes.popper}>
-                                {content}
-                            </div>
-                        </Clickaway>
-                    )}
-                </div>
-            </div>
+                        setReferenceElement(value)
+                    },
+                    onClick: toggle,
+                }
+                return React.cloneElement(children, childProps)
+            }, [children, toggle])}
+            {popoverShow && (
+                <Clickaway onClickAway={() => {
+                    setPopoverShow(false)
+                }}>
+                    <div className={'z-20'} ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+                        {content}
+                    </div>
+                </Clickaway>
+            )}
         </>
     );
 }
