@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import FirebaseContext, { ContextType } from '../../context/FirebaseContext'
-import { useAuth, useClientService } from '../../hooks'
+import useAuth from '../../hooks/useAuth'
+import useClientService from '../../hooks/useClientService'
 
 type Props = {
     children: React.ReactNode

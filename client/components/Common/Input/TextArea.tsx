@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import ResizableTextAreaBase from './ResizableTextAreaBase'
 import { Label } from '../Label'
 import { SvgIconButton } from '../Button'
-import { XFill } from '../Icon'
+import XFill from '../Icon/XFill'
 import classNames from 'classnames'
 import styles from './index.module.scss'
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { useRegistrantsService } from '../../hooks'
+import useRegistrantsService from '../../hooks/useRegistrantsService'
 
 type Props = {
     children: React.ReactNode

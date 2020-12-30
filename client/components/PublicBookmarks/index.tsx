@@ -8,7 +8,7 @@ import { PopoverDivContainer } from '../Common/Popover'
 import { UserPopover } from '../PopoverMenu'
 import CommentInput from './CommentInput'
 import Comments from './Comments'
-import { useReactionListener } from '../../hooks'
+import useReactionListener from '../../hooks/useReactionListener'
 import { useProfile } from '../../modules/profileSlice'
 import FirebaseContext from '../../context/FirebaseContext'
 

@@ -1,12 +1,13 @@
 import React, { useState, useContext, useRef, useEffect } from 'react'
 import FirebaseContext from '../../../context/FirebaseContext'
 import { useRouter } from 'next/router'
-import { TextInput, TextArea } from '../../Common/Input'
+import TextArea from '../../Common/Input/TextArea'
+import TextInput from '../../Common/Input/TextInput'
 import { ContainedButton, OutlinedButton } from '../../Common/Button'
 import { SigninImg, LoadingImg } from '../../Common/Image'
 import Avatar from '../../Common/Avatar/AvatarImage'
 import { toast } from 'react-toastify';
-import { useUpload } from '../../../hooks'
+import useUpload from '../../../hooks/useUpload'
 
 type Props = {
     handleCancelSignup: () => void

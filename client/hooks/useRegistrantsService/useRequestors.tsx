@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useUserIdsByIds, actions } from '../../modules/usersSlice'
 import { useGroupsByOwner } from '../../modules/groupSlice'
 import { useRequestsByGroups } from '../../modules/requestSlice'
-import { useProfileService } from '..'
+import useProfileService from '../useProfileService'
 import { useProfile } from '../../modules/profileSlice'
 import { useDispatch } from "react-redux";
 

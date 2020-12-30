@@ -1,6 +1,7 @@
 import React, { useMemo, useContext } from 'react'
 import { useCommentsByGroup } from '../../modules/commentSlice'
-import { useProfileService, useCommentListener } from '../../hooks'
+import useCommentListener from '../../hooks/useCommentListener'
+import useProfileService from '../../hooks/useProfileService'
 import { numberToDateTime } from '../../utils'
 import { SvgIconButton, HeartButton } from '../Common/Button'
 import { PopoverDivContainer } from '../Common/Popover'

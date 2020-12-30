@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from './index.module.scss'
 type Props = {
     header: React.ReactNode,
     main: React.ReactNode
