@@ -1,6 +1,8 @@
 import React from 'react'
-import { UrlImage } from '../../Common/Avatar'
-import { Duplicate, Chat, ChevronDoubleDown } from '../../Common/Icon'
+import UrlImage from '../../Common/Avatar/UrlImage'
+import ChevronDoubleDown from '../../Common/Icon/ChevronDoubleDown'
+import Chat from '../../Common/Icon/Chat'
+import Duplicate from '../../Common/Icon/Duplicate'
 import { SvgIconButton } from '../../Common/Button'
 import { copyToClipBoard } from '../../../utils'
 import { toast } from 'react-toastify';

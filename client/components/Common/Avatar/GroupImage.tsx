@@ -1,6 +1,6 @@
 import React from 'react'
 import styles from './index.module.scss'
-import { FolderOpen } from '../Icon'
+import FolderOpen from '../Icon/FolderOpen'
 
 type Props = {
     src?: string,

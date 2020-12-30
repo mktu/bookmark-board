@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { useRouter } from 'next/router'
-import Avatar from '../Common/Avatar'
+import Avatar from '../Common/Avatar/AvatarImage'
 import Bookmark from './Bookmark'
 import { numberToDateTime } from '../../utils'
 import { HeartButton, SvgIconButton, ContainedButton } from '../Common/Button'

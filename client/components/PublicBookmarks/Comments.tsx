@@ -6,7 +6,7 @@ import { SvgIconButton, HeartButton } from '../Common/Button'
 import { PopoverDivContainer } from '../Common/Popover'
 import { UserPopover } from '../PopoverMenu'
 import { useProfile } from '../../modules/profileSlice'
-import Avatar from '../Common/Avatar'
+import Avatar from '../Common/Avatar/AvatarImage'
 import FirebaseContext from '../../context/FirebaseContext'
 
 type Props = {

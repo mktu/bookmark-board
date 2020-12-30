@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { TextInput, TextArea } from '../../Common/Input'
 import { ContainedButton, OutlinedButton } from '../../Common/Button'
 import { SigninImg, LoadingImg } from '../../Common/Image'
-import Avatar from '../../Common/Avatar'
+import Avatar from '../../Common/Avatar/AvatarImage'
 import { toast } from 'react-toastify';
 import { useUpload } from '../../../hooks'
 

@@ -1,6 +1,6 @@
 import React from 'react'
 import {SvgFillIconButton} from '.'
-import {HeartFill} from '../Icon'
+import HeartFill from '../Icon/HeartFill'
 import ClassNames from 'classnames'
 
 type Props = Parameters<typeof SvgFillIconButton>[0] & {

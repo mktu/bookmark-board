@@ -1,6 +1,5 @@
 import React from 'react'
 
-import { Logo } from '../Common/Logo'
 import { ContainedButton } from '../Common/Button'
 import { BookmarksMainImg } from '../Common/Image'
 
@@ -24,7 +23,7 @@ const Presenter = ({
                     </div>
                 </div>
                 <div>
-                    <BookmarksMainImg width={450} height={400}/>
+                    <BookmarksMainImg width={'450px'} height={'400px'}/>
                 </div>
             </div>
         </div>

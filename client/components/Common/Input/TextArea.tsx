@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { ResizableTextAreaBase } from '.'
+import ResizableTextAreaBase from './ResizableTextAreaBase'
 import { Label } from '../Label'
 import { SvgIconButton } from '../Button'
 import { XFill } from '../Icon'

@@ -3,7 +3,9 @@ import classNames from 'classnames'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
 import { HeaderLogo } from '../Common/Logo'
-import { User, Login, Book } from '../Common/Icon'
+import Book from '../Common/Icon/Book'
+import Login from '../Common/Icon/Login'
+import User from '../Common/Icon/User'
 import { Popover } from '../Common/Popover'
 import { TooltipDivContainer } from '../Common/Tooltip'
 import { ProfileMenu } from '../PopoverMenu'
@@ -20,7 +22,7 @@ const Header = () => {
                 <ButtonBase onClick={() => {
                     router.push('/')
                 }}>
-                    <HeaderLogo />
+                    <HeaderLogo width='200px' height='30px'/>
                 </ButtonBase>
                 <div className="ml-auto">
                     {profile.id ? (

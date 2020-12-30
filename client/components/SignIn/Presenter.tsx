@@ -15,7 +15,7 @@ const Presenter = ({
         <div className='w-screen h-screen flex flex-row'>
             <div className='w-7/12 h-full flex flex-col items-center justify-center'>
                 <div className='mb-8'>
-                    <Logo />
+                    <Logo width='300px' height='40px'/>
                 </div>
                 <p className='w-6/12 mb-8 text-sm'>
                     OUR-BOOKMARKSでは、気に入ったWEBサイトなどのリンクを保存し、管理することができます。保存したURLは友達や仕事仲間と共有し、ブックマークリストを一緒に成長させましょう！

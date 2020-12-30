@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { TextInputBase } from '.'
+import TextInputBase from './TextInputBase'
 import { SvgIconButton } from '../Button'
 import { Label } from '../Label'
 import { XFill } from '../Icon'

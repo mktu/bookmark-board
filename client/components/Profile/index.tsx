@@ -1,7 +1,7 @@
 import React from 'react'
 import { TextInput, TextArea } from '../Common/Input'
 import { Label } from '../Common/Label'
-import Avatar from '../Common/Avatar'
+import Avatar from '../Common/Avatar/AvatarImage'
 import useProfileContainer from './useProfileContainer'
 
 type Props = {

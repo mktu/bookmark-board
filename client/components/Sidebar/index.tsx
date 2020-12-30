@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import { User, Book, Setting, Help } from '../Common/Icon'
+import { User, Book, Help } from '../Common/Icon'
 import { Popover } from '../Common/Popover'
 import { SvgIconButton } from '../Common/Button'
 import {ProfileMenu} from '../PopoverMenu'
@@ -29,9 +29,6 @@ const Sidebar = () => {
                     </SvgIconButton>
                 </div>
                 <div className='mt-auto'>
-                    <SvgIconButton colorType='none' className={styles['heroicon-button']}>
-                        <Setting />
-                    </SvgIconButton>
                     <SvgIconButton colorType='none' className={styles['heroicon-button']}>
                         <Help />
                     </SvgIconButton>

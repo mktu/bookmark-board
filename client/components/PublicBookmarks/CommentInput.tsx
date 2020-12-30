@@ -1,5 +1,5 @@
 import React, {useContext,useState} from 'react'
-import { ResizableTextAreaBase } from '../Common/Input'
+import ResizableTextAreaBase from '../Common/Input/ResizableTextAreaBase'
 import { ContainedButton } from '../Common/Button'
 import FirebaseContext from '../../context/FirebaseContext'
 

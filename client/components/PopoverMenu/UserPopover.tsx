@@ -1,4 +1,4 @@
-import Avatar from '../Common/Avatar'
+import Avatar from '../Common/Avatar/AvatarImage'
 
 type Props = {
     user : Profile

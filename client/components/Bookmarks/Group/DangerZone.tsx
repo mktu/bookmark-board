@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { OutlinedButton } from '../../Common/Button'
-import { TextInputBase } from '../../Common/Input'
+import TextInputBase from '../../Common/Input/TextInputBase'
 import classNames from 'classnames'
 
 type Props = {

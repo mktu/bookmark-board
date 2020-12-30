@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextInputBase } from '.'
+import TextInputBase from './TextInputBase'
 import { Label } from '../Label'
 import classNames from 'classnames'
 
