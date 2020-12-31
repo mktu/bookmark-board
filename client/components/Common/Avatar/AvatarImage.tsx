@@ -42,7 +42,7 @@ const Inner: React.FC<Props> = ({
         if (disableNextImage) {
             return <img alt={name} className={styles['avatar-image']} src={src} />
         } else {
-            return <Image alt={name} className={styles['avatar-image']} src={src} layout='fill' objectFit='cover' />
+            return <Image alt={name} className={styles['avatar-image']} src={src} width={width} height={height} objectFit='cover' />
         }
     }
     if (usePlaceholder) {

@@ -19,7 +19,7 @@ const UrlImage: React.FC<Props> = ({
         height
     }}>
         {src ? (
-            <img alt={name} src={src}/>
+            <img alt={name} src={src} loading='lazy'/>
         ) : (
                 <PlaceHolderImg />
             )}
