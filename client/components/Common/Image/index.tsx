@@ -18,19 +18,19 @@ const LoadingImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...pr
 }
 
 const PlaceHolderImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...props})=>{
-    return <img src={'/PlaceHolder.svg'} alt='UrlImage...' {...props}/>;
+    return <img src={'/Placeholder.svg'} alt='PlaceholderImage' {...props}/>;
 }
 
 const WelcomeImg : React.FC<{width?:string,height?:string}> = ({width,height})=>{
-    return <Image src={'/Welcoming.svg'} alt='UrlImage...' width={width} height={height}/>;
+    return <Image src={'/Welcoming.svg'} alt='Welcoming' width={width} height={height}/>;
 }
 
 const SigninImg : React.FC<{width?:string,height?:string}> = ({width,height})=>{
-    return <Image src={'/StepToTheSun.svg'} alt='UrlImage...' width={width} height={height}/>;
+    return <Image src={'/StepToTheSun.svg'} alt='StepToTheSun' width={width} height={height}/>;
 }
 
 const BookmarksMainImg : React.FC<{width?:string,height?:string}> = ({width,height})=>{
-    return <Image src={'/Bookmark.svg'} alt='UrlImage...' width={width} height={height}/>;
+    return <Image src={'/Bookmark.svg'} alt='Bookmark' width={width} height={height}/>;
 }
 
 export {
