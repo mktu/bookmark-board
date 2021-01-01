@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react'
-import FirebaseContext, { ContextType } from '../../context/FirebaseContext'
+import React, { useMemo, useEffect } from 'react'
+import FirebaseContext, { ContextType, upgradeAuthedService } from '../../context/FirebaseContext'
 import useAuth from '../../hooks/useAuth'
 import useClientService from '../../hooks/useClientService'
 
@@ -7,8 +7,21 @@ type Props = {
     children: React.ReactNode
 }
 const DefaultProvider: React.FC<Props> = ({ children }) => {
-    const clientService = useClientService()
-    useAuth(clientService)
+    const {clientService, setClientService} = useClientService()
+    
+    const uid = useAuth(clientService)
+    useEffect(()=>{
+        if(!uid){
+            return
+        }
+        const {auth} = clientService
+        if(auth){
+            return
+        }
+        upgradeAuthedService(clientService).then(upgraded=>{
+            setClientService(upgraded)
+        })
+    },[clientService,uid,setClientService])
 
     const value = useMemo<ContextType>(() => ({
         clientService,

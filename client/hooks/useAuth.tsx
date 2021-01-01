@@ -8,31 +8,35 @@ import { actions as usersActions } from '../modules/usersSlice'
 const useAuth = (clientService:FirebaseClientServiceType)=>{
     const [uid,setUid] = useState('')
     const dispatch = useDispatch()
+    const { listenAuthState, getProfile } = clientService;
     useEffect(()=>{
-        const { listenAuthState, getProfile } = clientService;
         listenAuthState((user)=>{
             setUid(user.uid)
             dispatch(authActions.authSucceeded(user.uid))
-            getProfile(user.uid, ()=>{
-                dispatch(authActions.registerSucceeded())
-            }, ()=>{
-                dispatch(authActions.registerFailed())
-            })
         }, ()=>{
             setUid('')
             dispatch(profileActions.clear())
             dispatch(authActions.authFailed())
         })
-    }, [clientService])
+    }, [listenAuthState,getProfile])
 
+    const { listenProfile, auth } = clientService
+    
     useEffect(()=>{
-        if(clientService.mock && typeof window !== 'undefined'){
-            return;
-        }
-        if(!uid){
+        if(!uid || !auth){
             return
         }
-        const { listenProfile } = clientService
+        getProfile(uid, ()=>{
+            dispatch(authActions.registerSucceeded())
+        }, ()=>{
+            dispatch(authActions.registerFailed())
+        })
+    },[uid,listenProfile,auth])
+    
+    useEffect(()=>{
+        if(!uid || !auth){
+            return
+        }
         const unsub = listenProfile(uid, (profile)=>{
             dispatch(profileActions.saveProfile({profile}))
             dispatch(usersActions.upsertUsers({users:[profile]}))
@@ -43,7 +47,7 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
             dispatch(profileActions.clear())
             dispatch(usersActions.clear())
         }
-    }, [uid])
+    }, [uid,listenProfile,auth])
 
     return uid
 }

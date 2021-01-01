@@ -1,16 +1,16 @@
 import {useEffect, useState} from 'react'
-import { createFirebaseService, initialService } from '../context/FirebaseContext'
+import { createInitialService, initialService } from '../context/FirebaseContext'
 
 const useClientService = ()=>{
     const [clientService, setClientService] = useState(initialService)
     useEffect(()=>{
         if(clientService.mock && typeof window !== 'undefined'){
-            createFirebaseService().then(services => {
+            createInitialService().then(services => {
                 setClientService(services)
             })
         }
     }, [clientService.mock])
-    return clientService
+    return {clientService,setClientService}
 }
 
 export default useClientService

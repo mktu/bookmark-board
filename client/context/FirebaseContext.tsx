@@ -1,6 +1,6 @@
 import React from 'react'
 
-export const createFirebaseService = async () => {
+const createFirebaseService = async () => {
     return {
         ...await import('../services/auth'),
         ...await import('../services/profile'),
@@ -10,10 +10,36 @@ export const createFirebaseService = async () => {
         ...await import('../services/reaction'),
         ...await import('../services/request'),
         ...await import('../services/storage'),
-        mock : false
+        mock : false,
+        auth : true
     }
 }
+
 export type FirebaseClientServiceType = ReturnType<typeof createFirebaseService> extends Promise<infer T> ? T : never;
+
+export const createInitialService : ()=> Promise<FirebaseClientServiceType> = async () => {
+    return {
+        ...initialService,
+        ...await import('../services/auth'),
+        mock : false,
+        auth : false
+    }
+}
+
+export const upgradeAuthedService = async (original : FirebaseClientServiceType) => {
+    return {
+        ...original,
+        ...await import('../services/profile'),
+        ...await import('../services/group'),
+        ...await import('../services/bookmark'),
+        ...await import('../services/comment'),
+        ...await import('../services/reaction'),
+        ...await import('../services/request'),
+        ...await import('../services/storage'),
+        mock : false,
+        auth : true
+    }
+}
 
 export type ContextType = {
     clientService : FirebaseClientServiceType,
@@ -56,7 +82,8 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         listenBookmarks : () => {func('listenBookmarks')(); return ()=>{1}},
         changeOrder : func('changeOrder'),
         uploadFile : func('uploadFile'),
-        mock:true
+        mock : true,
+        auth : false
     }
     return mock;
 }
