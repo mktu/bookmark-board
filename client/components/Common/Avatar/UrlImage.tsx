@@ -11,6 +11,11 @@ type Props = {
 }
 const UrlEndpoint = process.env.NEXT_PUBLIC_IMGKIT_ID
 
+const toNumber = (str?:string)=>{
+    if(!str) return 0
+    return Number(str.replace('px',''))
+}
+
 const UrlImage: React.FC<Props> = ({
     src,
     width,
@@ -19,15 +24,20 @@ const UrlImage: React.FC<Props> = ({
     enableEndpoint = true
 }) => {
     const [useEndpoint,setUseEndpoint] = useState(enableEndpoint)
+    const baseWidth = toNumber(width)
+    const width1 = `${UrlEndpoint}tr:w-${baseWidth}/${src} ${baseWidth}w`
+    const width2 = `${UrlEndpoint}tr:w-${baseWidth*2}/${src} ${baseWidth*2}w`
+    const width3 = `${UrlEndpoint}tr:w-${baseWidth*3}/${src} ${baseWidth*3}w`
+    const srcset = useEndpoint && baseWidth > 0 && `${width1},${width2},${width3}`
     return (
         <div className={styles['url-image-wrapper']} style={{
             width,
             height
         }}>
             {src ? (
-                <img alt={name} width={width} src={useEndpoint ? `${UrlEndpoint}tr:w-${width}/${src}` : src} loading='lazy' onError={()=>{
+                <img alt={name} width={width} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={()=>{
                     setUseEndpoint(false)
-                }}/>
+                }} srcSet={srcset}/>
             ) : (
                     <PlaceHolderImg />
                 )}
