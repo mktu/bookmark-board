@@ -27,6 +27,7 @@ export const createInitialService : ()=> Promise<FirebaseClientServiceType> = as
 }
 
 export const upgradeAuthedService = async (original : FirebaseClientServiceType) => {
+    await import('../services/importAuthedService')
     return {
         ...original,
         ...await import('../services/profile'),
