@@ -1,6 +1,7 @@
 import React from 'react';
 import classNames from 'classnames'
 import { LoadingImg } from '../../Common/Image'
+import UrlImage from '../../Common/Avatar/UrlImage'
 import useLinkPreview, { LinkData as LinkDataType } from './useLinkPreview'
 
 export type LinkData = LinkDataType
@@ -23,7 +24,7 @@ const LinkPreview: React.FC<{
         return (
             <a className={classNames('flex flex-row text-current items-center p-2 w-full',className)} href={url} target='_blank' rel="noopener noreferrer">
                 <div className='mr-2 overflow-hidden border-primary-border border'>
-                    <img className='w-16' alt='link' src={linkData.images[0]} />
+                    <UrlImage width='64px' height='64px' src={linkData.images[0]} name={linkData.title}/>
                 </div>
                 <div className='w-5/6'>
                     <div className='overflow-hidden truncate' > {linkData.title}</div>
