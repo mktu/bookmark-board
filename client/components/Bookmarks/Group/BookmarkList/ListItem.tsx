@@ -61,16 +61,20 @@ const ListItem: React.FC<Props> = ({
             }
         }
     })
-
+    const openBookmark = () => {
+        router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${bookmark.groupId}/${bookmark.id}`, { shallow: true })
+    }
     return (
         <div ref={(v) => {
             drag(v)
             drop(v)
-        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} role='button' onClick={() => {
-            router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${bookmark.groupId}/${bookmark.id}`, { shallow: true })
-        }} style={bookmark.color ?{
+        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} role='button' onKeyDown={(e)=>{
+            if (e.key === 'Enter'){
+                openBookmark()
+            }
+        }} onClick={openBookmark} style={bookmark.color ?{
             borderLeft : `5px solid ${bookmark.color}`
-        }:{}}>
+        }:{}} tabIndex={0}>
             <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
                 <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r flex items-center'>
                     <UrlImage src={bookmark.image} width='64px' height='64px' name={bookmark.title}/>

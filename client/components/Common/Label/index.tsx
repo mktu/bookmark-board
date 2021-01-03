@@ -8,9 +8,9 @@ type Color = 'text-primary-400' | 'text-primary-dark'
 export const Label: React.FC<React.LabelHTMLAttributes<HTMLLabelElement> & {
     textSize?:TextSize,
     weight?:FontWeight,
-    color?:Color
-}> = ({ className, textSize = 'text-sm', weight = 'font-bold', color = 'text-primary-400', ...props }) => {
+    color?:Color,
+}> = ({ className, textSize = 'text-sm', weight = 'font-bold', color = 'text-primary-400', htmlFor, ...props }) => {
     return (
-        <label {...props} className={classNames('block', textSize, weight, color, className)} />
+        <label htmlFor={htmlFor} {...props} className={classNames('block', textSize, weight, color, className)} />
     )
 }

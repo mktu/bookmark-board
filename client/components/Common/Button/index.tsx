@@ -4,7 +4,6 @@ import styles from './index.module.scss'
 import HeartButton from './HeartButton'
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
-type LinkProps = React.AnchorHTMLAttributes<HTMLAnchorElement>
 
 type ColorType = 'dark' | 'light' | 'none' | 'secondary'
 type SvgFillColorType = ColorType | 'dark-active' | 'secondary-active'
@@ -75,13 +74,9 @@ export const SvgFillIconButton: React.FC<ButtonProps & {colorType?:SvgFillColorT
         <ButtonBase disabled={disabled} className={classNames(className,colorClasses[colorType])} {...props} />
     )
 }
-
-export const SvgIconLink : React.FC<LinkProps> = (props)=>(
-    <a className='text-current' {...props}/>
-)
-
+    
 export const ButtonBase : React.FC<ButtonProps> = ({className, disabled, ...props})=> (
-    <button disabled={disabled} className={classNames(styles['button-base'], className, disabled ? 'cursor-default opacity-25':'', 'focus:outline-none' )} {...props} /> 
+    <button disabled={disabled} className={classNames(styles['button-base'], className, disabled ? 'cursor-default opacity-25':'')} {...props} /> 
 )
 
 export {

@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextInput, TextArea, Dropdowns, Checkbox } from '../../../Common/Input'
 import { LoadingImg } from '../../../Common/Image'
+import UrlImage from '../../../Common/Avatar/UrlImage'
 import { OutlinedButton, SvgIconButton, TextButton, HeartButton } from '../../../Common/Button'
 import { ExternalLink, Refresh } from '../../../Common/Icon'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
@@ -50,7 +51,7 @@ const Presenter: React.FC<Props> = ({
                 <div className='flex flex-col'>
                     <div className='w-32 h-32 flex items-center justify-center'>
                         {status === 'loading' ? (<LoadingImg className='w-32' />) : (
-                            <img className='w-32' src={bookmark.image} />
+                            <UrlImage width='128px' height='128px' src={bookmark.image} />
                         )}
                     </div>
                     <TooltipDivContainer disabled={inputDisabled} content='説明や画像の情報を再度取得します' placement='bottom' className='flex items-center justify-center'>

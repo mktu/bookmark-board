@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SvgIconButton, SvgFillIconButton } from '../../Common/Button'
+import { SvgIconButton, SvgFillIconButton, ButtonBase } from '../../Common/Button'
 import { FolderOpen, Share as ShareIcon, UserAddFill } from '../../Common/Icon'
 import { TooltipDivContainer } from '../../Common/Tooltip'
 import { PopoverDivContainer } from '../../Common/Popover'
@@ -27,14 +27,14 @@ const Header: React.FC<Props> = ({
     }
     return (
         <div className='h-full w-full flex flex-row items-center px-2 py-2 border-b border-primary-border' >
-            <div className='flex items-center cursor-pointer max-w-full overflow-hidden' onClick={() => {
+            <ButtonBase className='flex items-center cursor-pointer max-w-full overflow-hidden' onClick={() => {
                 setShowDetail(true)
             }}>
                 <div>
                     <FolderOpen strokeWidth={1.0} className='w-8' />
                 </div>
                 <div className='text-primary-main ml-2 mr-4 overflow-hidden truncate max-w-full'>
-                    <div className='font-semibold' >
+                    <div className='font-semibold flex justify-start' >
                         {group.name}
                     </div>
                     <div className='text-sm overflow-hidden truncate max-w-full'>
@@ -42,7 +42,7 @@ const Header: React.FC<Props> = ({
                     </div>
                 </div>
 
-            </div>
+            </ButtonBase>
 
             <div className='ml-auto flex items-center'>
                 {requests.length > 0 && (

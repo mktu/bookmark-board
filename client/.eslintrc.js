@@ -6,7 +6,8 @@ module.exports = {
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:jsx-a11y/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -19,7 +20,8 @@ module.exports = {
     "plugins": [
         "react",
         "@typescript-eslint",
-        "eslint-plugin-react"
+        "eslint-plugin-react",
+        "jsx-a11y"
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
