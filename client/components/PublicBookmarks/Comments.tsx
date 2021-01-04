@@ -35,7 +35,7 @@ const Comments: React.FC<Props> = ({
                 return (
                     <div key={c.id} className='flex items-center p-2 border-b'>
                         <PopoverDivContainer content={senders[c.sender] && <UserPopover user={senders[c.sender]} />}>
-                            <SvgIconButton>
+                            <SvgIconButton aria-label='User'>
                                 <Avatar src={senders[c.sender]?.image} width='40px' height='40px' name={senders[c.sender]?.name}/>
                             </SvgIconButton>
                         </PopoverDivContainer>
@@ -50,6 +50,7 @@ const Comments: React.FC<Props> = ({
                         <div className='ml-auto'>
                             <div className='flex justify-end p-2'>
                                 <HeartButton 
+                                    aria-label='Likes'
                                     disabled={!myProfile.id}
                                     active={Boolean(myReaction)}
                                     counter={c.reactions.length > 0 && c.reactions.length}

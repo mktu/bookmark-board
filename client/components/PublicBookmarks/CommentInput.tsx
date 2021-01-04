@@ -18,7 +18,7 @@ const CommentInput: React.FC<Props> = ({
     return (
         <div className={className}>
             <div className='relative flex border rounded items-center border-primary-border pl-2 pb-2'>
-                <ResizableTextAreaBase minRows={4} className='placeholder-primary-200 text-primary-700 bg-white text-sm resize-none' value={input} onChange={(e)=>{
+                <ResizableTextAreaBase aria-label='New Comment' minRows={4} className='placeholder-primary-200 text-primary-700 bg-white text-sm resize-none' value={input} onChange={(e)=>{
                     setInput(e.target.value)
                 }}/>
             </div>

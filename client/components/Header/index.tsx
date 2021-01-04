@@ -19,7 +19,7 @@ const Header = () => {
     return (
         <header className="text-gray-500 bg-brand body-font">
             <div className="flex pl-4 flex-wrap p-2 flex-col md:flex-row items-center h-16">
-                <ButtonBase onClick={() => {
+                <ButtonBase aria-label='Home' onClick={() => {
                     router.push('/')
                 }}>
                     <HeaderLogo width='200px' height='30px'/>
@@ -28,7 +28,7 @@ const Header = () => {
                     {profile.id ? (
                         <div className='flex flex-row items-center mr-2'>
                             <TooltipDivContainer content='Bookmarkアプリ' placement='bottom' className='mr-4'>
-                                <SvgIconButton colorType='none' className={styles['heroicon-button']} onClick={() => {
+                                <SvgIconButton aria-label='Open Bookmark' colorType='none' className={styles['heroicon-button']} onClick={() => {
                                     router.push('/bookmarks')
                                 }}>
                                     <Book />
@@ -38,7 +38,7 @@ const Header = () => {
                                 placement='bottom-end'
                                 content={<ProfileMenu />}>
                                 <div>
-                                    <SvgIconButton colorType='none' className={styles['heroicon-button']}>
+                                    <SvgIconButton aria-label='Login Menu' colorType='none' className={styles['heroicon-button']}>
                                         <User />
                                     </SvgIconButton>
                                 </div>

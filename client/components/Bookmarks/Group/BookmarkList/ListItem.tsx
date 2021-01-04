@@ -122,6 +122,7 @@ const ListItem: React.FC<Props> = ({
                     </div>
                     <div className='mt-auto flex items-center justify-end'>
                         <HeartButton
+                            aria-label='Likes'
                             size='w-4'
                             active={sentLikes}
                             onClick={(e)=>{

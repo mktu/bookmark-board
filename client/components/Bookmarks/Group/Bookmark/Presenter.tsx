@@ -69,6 +69,7 @@ const Presenter: React.FC<Props> = ({
                             <TextInput disabled={inputDisabled} id='title' value={bookmark.title} handleSubmit={updateBookmark('title')} />
                         </div>
                         <HeartButton
+                            aria-label='Likes'
                             className='mx-1'
                             onClick={handleLikes}
                             active={sentLikes}

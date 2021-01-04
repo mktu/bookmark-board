@@ -58,6 +58,7 @@ const PublicBookmarks: React.FC<Props> = ({
             </div>
             <div className='flex w-7/12 px-2 justify-end items-end'>
                 <HeartButton
+                    aria-label='Likes'
                     disabled={status === 'loading' || !profile.id}
                     active={Boolean(myReaction)}
                     counter={reactions.length > 0 && reactions.length}

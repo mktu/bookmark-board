@@ -1,6 +1,5 @@
 import React from 'react'
 import classNames from 'classnames'
-import styles from './index.module.scss'
 import HeartButton from './HeartButton'
 
 type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement>
@@ -11,8 +10,8 @@ type FontType = 'bold' | 'none'
 
 export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, disabled, colorType='dark', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
-        dark : `bg-primary-300 ${!disabled && 'hover:bg-primary-main'} text-white`,
-        secondary : `bg-secondary-300 ${!disabled && 'hover:bg-secondary-main'} text-white`,
+        dark : `bg-primary-main ${!disabled && 'hover:bg-primary-dark'} text-white`,
+        secondary : `bg-secondary-main ${!disabled && 'hover:bg-secondary-dark'} text-white`,
         light : `bg-white text-primary-main ${!disabled && 'hover:text-primary-dark'}`,
         none : ''
     }

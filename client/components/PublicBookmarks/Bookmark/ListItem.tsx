@@ -34,7 +34,7 @@ const ListItem: React.FC<Props> = ({
             </div>
             <div className='ml-2 flex flex-col justify-center items-center' style={{ minHeight: '64px' }}>
                 <TooltipDivContainer content='URLをコピー' placement='bottom' className='flex items-start'>
-                    <SvgIconButton className='block' onClick={(e) => {
+                    <SvgIconButton aria-label='Copy' className='block' onClick={(e) => {
                         copyToClipBoard(bookmark.url, () => {
                             toast.success('クリップボードにURLをコピーしました',)
                         })
@@ -46,7 +46,7 @@ const ListItem: React.FC<Props> = ({
                 </TooltipDivContainer>
                 <div className='mt-auto'>
                     <TooltipDivContainer content='詳細を表示' placement='bottom' className='flex items-start'>
-                        <SvgIconButton onClick={(e) => {
+                        <SvgIconButton aria-label='Detail' onClick={(e) => {
                             showDetail()
                             e.preventDefault()
                             e.stopPropagation()

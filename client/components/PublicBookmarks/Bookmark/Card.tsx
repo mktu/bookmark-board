@@ -40,7 +40,7 @@ const ListCard: React.FC<Props> = ({
             </div>
             <div className='flex flex-col items-end'>
                 <TooltipDivContainer className='flex items-center' content='URLをコピー' placement='bottom'>
-                    <SvgIconButton className='block ml-2' onClick={(e) => {
+                    <SvgIconButton aria-label='Copy' className='block ml-2' onClick={(e) => {
                         copyToClipBoard(bookmark.url, () => {
                             toast.success('クリップボードにURLをコピーしました',)
                         })
@@ -52,7 +52,7 @@ const ListCard: React.FC<Props> = ({
                 </TooltipDivContainer>
                 <div className='mt-auto'>
                     <TooltipDivContainer className='mt-auto' content='簡易表示' placement='bottom'>
-                        <SvgIconButton onClick={(e) => {
+                        <SvgIconButton aria-label='Detail' onClick={(e) => {
                             showSimple()
                             e.preventDefault()
                             e.stopPropagation()
