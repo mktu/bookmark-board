@@ -54,7 +54,7 @@ module.exports = {
           "800": "#ad1457",
           "900": "#880e4f",
           'light': '#fce4ec',
-          'main': '#e91e63',
+          'main': '#d81b60',
           'dark': '#ad1457',
           'border': '#f8bbd0',
           'hover': '#fce4ec'

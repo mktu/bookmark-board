@@ -19,10 +19,10 @@ const ListItem: React.FC<Props> = ({
 }) => {
     return (
         <div className='flex py-1 px-2 border rounded border-primary-border items-center'>
-            <UrlImage width='64px' height='64px' src={bookmark.image} />
-            <div className='ml-2 text-primary-main overflow-hidden w-full  h-full'>
-                <div className='text-sm overflow-hidden truncate max-w-full'>{bookmark.title}</div>
-                <div className='text-xs overflow-hidden truncate max-w-full'>{bookmark.description}</div>
+            <UrlImage width='64px' height='64px' src={bookmark.image} name={bookmark.title}/>
+            <div className='ml-2 overflow-hidden w-full  h-full'>
+                <div className='text-sm overflow-hidden truncate max-w-full text-primary-dark'>{bookmark.title}</div>
+                <div className='text-xs overflow-hidden truncate max-w-full text-primary-main'>{bookmark.description}</div>
                 {bookmark.comment && (
                     <div className='text-xs overflow-hidden truncate max-w-full flex items-center text-primary-main py-1'>
                         <div className='border-primary-200 border rounded p-1 mr-2 flex items-center'><Chat className='w-6 stroke-primary-300' /> ひとこと</div>

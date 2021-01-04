@@ -28,20 +28,20 @@ const ColorOptions: React.FC<Props> = ({
                     return (
                         <div key={c.color} className='flex items-center'>
                             {c.show ? (
-                                <SvgFillIconButton onClick={()=>{
+                                <SvgFillIconButton aria-label='Enable' onClick={()=>{
                                     updateColor(c.color, {show:false})
                                 }}>
                                     <EyeFill className='w-5 fill-primary-main' strokeWidth={1.5}/>
                                 </SvgFillIconButton>
                             ) : (
-                                <SvgFillIconButton onClick={()=>{
+                                <SvgFillIconButton aria-label='Disable' onClick={()=>{
                                     updateColor(c.color, {show:true})
                                 }}>
                                     <EyeOffFill className='w-5 fill-primary-300' strokeWidth={1.5}/>
                                 </SvgFillIconButton>
                             )}
                             <div className='flex items-center w-full mr-2'>
-                                <TextInput className='w-full' value={c.name} handleSubmit={(value)=>{
+                                <TextInput aria-label='Color Name' className='w-full' value={c.name} handleSubmit={(value)=>{
                                     updateColor(c.color,{name:value})
                                 }}/>
                             </div>

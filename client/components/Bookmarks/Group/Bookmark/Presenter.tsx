@@ -90,7 +90,7 @@ const Presenter: React.FC<Props> = ({
                 <Label htmlFor='url'>URL</Label>
                 <div className='flex items-center'>
                     <TextInput className='flex-1' id='url' value={bookmark.url} handleSubmit={updateBookmark('url')} />
-                    <SvgIconButton onClick={handleJumpLink} className='mx-1'>
+                    <SvgIconButton aria-label='Open URL in New Tab' onClick={handleJumpLink} className='mx-1'>
                         <ExternalLink className='w-6' strokeWidth={2} />
                     </SvgIconButton>
                 </div>
@@ -113,7 +113,7 @@ const Presenter: React.FC<Props> = ({
                 </div>
             </div>
             <div className='w-full overflow-hidden p-4'>
-                <Label htmlFor='comment' className='mb-4'>グループを移動</Label>
+                <Label className='mb-4'>グループを移動</Label>
                 <div className='flex items-center'>
                     <Dropdowns
                         placement='bottom'
@@ -132,11 +132,11 @@ const Presenter: React.FC<Props> = ({
             </div>
             <div className='p-2 mt-8 flex flex-col items-end justify-center'>
                 {status === 'loading' ? (
-                    <p className=' text-primary-400 text-xs'>更新中...</p>
+                    <p className=' text-primary-main text-xs'>更新中...</p>
                 ) : (
-                        <p className=' text-primary-400 text-xs'>{bookmark.lastUpdate && `更新日時   ${numberToDateTime(bookmark.lastUpdate)}`}</p>
+                        <p className=' text-primary-main text-xs'>{bookmark.lastUpdate && `更新日時   ${numberToDateTime(bookmark.lastUpdate)}`}</p>
                     )}
-                <p className=' text-primary-400 text-xs'>{`作成日時   ${numberToDateTime(bookmark.created)}`}</p>
+                <p className=' text-primary-main text-xs'>{`作成日時   ${numberToDateTime(bookmark.created)}`}</p>
             </div>
         </div>
     )

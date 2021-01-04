@@ -48,7 +48,7 @@ const Header: React.FC<Props> = ({
                 {requests.length > 0 && (
                     <PopoverDivContainer className='px-2' placement='bottom' content={<RequestUsers requests={requests} />}>
                         <div>
-                            <SvgFillIconButton colorType='secondary' className='relative'>
+                            <SvgFillIconButton aria-label='Show Requesting User' colorType='secondary' className='relative'>
                                 <UserAddFill className='w-8' />
                                 <span className='text-xs text-white bg-secondary-300 rounded-full p-1 absolute' style={{ left: '-10px', top: '-10px' }}>{requests.length}</span>
                             </SvgFillIconButton>
@@ -57,13 +57,13 @@ const Header: React.FC<Props> = ({
                 )}
                 {editors.map(e => (
                     <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='px-1 flex items-center'>
-                        <SvgIconButton>
+                        <SvgIconButton aria-label='Show User'>
                             <Avatar src={e.image} width='32px' height='32px' name={e.name}/>
                         </SvgIconButton>
                     </PopoverDivContainer>
                 ))}
                 <TooltipDivContainer className='px-2' content='共有' placement='bottom'>
-                    <SvgIconButton onClick={() => {
+                    <SvgIconButton aria-label='Share Option' onClick={() => {
                         setShowShare(true)
                     }}>
                         <ShareIcon strokeWidth={2} className='w-6' />

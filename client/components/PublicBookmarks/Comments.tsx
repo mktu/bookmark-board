@@ -40,7 +40,7 @@ const Comments: React.FC<Props> = ({
                             </SvgIconButton>
                         </PopoverDivContainer>
                         <div className='px-2 text-sm text-primary-main'>
-                            <div className='text-xs text-primary-400'>
+                            <div className='text-xs'>
                                 {senders[c.sender]?.name}
                             </div>
                             <div>
@@ -66,7 +66,7 @@ const Comments: React.FC<Props> = ({
                                     }}
                                 />
                             </div>
-                            <div className='text-xs text-primary-300'>
+                            <div className='text-xs text-primary-main'>
                                 {c.lastUpdate ? numberToDateTime(c.lastUpdate) : numberToDateTime(c.created)}
                             </div>
                         </div>

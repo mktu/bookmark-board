@@ -16,20 +16,20 @@ const Sidebar = () => {
                         placement='auto'
                     >
                         <div className='mb-8'>
-                            <SvgIconButton colorType='none' className={styles['heroicon-button']}>
+                            <SvgIconButton aria-label='Profile' colorType='none' className={styles['heroicon-button']}>
                                 <User />
                             </SvgIconButton>
                         </div>
                     </Popover>
 
-                    <SvgIconButton colorType='none' className={styles['heroicon-button']} onClick={()=>{
+                    <SvgIconButton aria-label='Bookmark' colorType='none' className={styles['heroicon-button']} onClick={()=>{
                         router.push('/bookmarks')
                     }}>
                         <Book />
                     </SvgIconButton>
                 </div>
                 <div className='mt-auto'>
-                    <SvgIconButton colorType='none' className={styles['heroicon-button']}>
+                    <SvgIconButton aria-label='Help' colorType='none' className={styles['heroicon-button']}>
                         <Help />
                     </SvgIconButton>
                 </div>

@@ -32,13 +32,13 @@ const Input: React.FC<Props> = ({
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>
                 <div className='flex flex-row items-center max-w-full overflow-hidden'>
                     <div>
-                        <SvgIconButton className='block mx-1' onClick={() => { toggle(false) }}>
+                        <SvgIconButton aria-label='Hide Input' className='block mx-1' onClick={() => { toggle(false) }}>
                             <ChevronDown strokeWidth='1.5px' className='w-8' />
                         </SvgIconButton>
                     </div>
                     <div className='w-full flex-1 overflow-hidden'>
                         <div className='bg-white rounded shadow focus:shadow-outline'>
-                            <BookmarkInputBase placeholder={'ブックマークURLを入力'} value={bookmarkInput} onKeyPress={onKeyPress} onChange={onChangeBookmarkInput} />
+                            <BookmarkInputBase aria-label='Input Bookmark URL' placeholder={'ブックマークURLを入力'} value={bookmarkInput} onKeyPress={onKeyPress} onChange={onChangeBookmarkInput} />
                         </div>
                         {status !== 'none' && (
                             <div className='bg-white mt-2 rounded shadow focus:shadow-outline' >
@@ -52,7 +52,7 @@ const Input: React.FC<Props> = ({
                         )}
                     </div>
                     <div className='ml-auto'>
-                        <SvgIconButton className='block mx-1' onClick={submit}>
+                        <SvgIconButton aria-label='Add New Bookmark' className='block mx-1' onClick={submit}>
                             <Add strokeWidth='1.5px' className='w-10  stroke-primary-main hover:stroke-primary-dark' />
                         </SvgIconButton>
                     </div>
@@ -60,7 +60,7 @@ const Input: React.FC<Props> = ({
             </div>
             {!show && (
                 <div className={styles['fab']}>
-                    <SvgIconButton colorType='none' className='p-0 w-10 h-10 bg-secondary-main hover:bg-secondary-700 rounded-full shadow-lg' onClick={() => { toggle(true) }}>
+                    <SvgIconButton aria-label='Add New' colorType='none' className='p-0 w-10 h-10 bg-secondary-main hover:bg-secondary-700 rounded-full shadow-lg' onClick={() => { toggle(true) }}>
                         <AddFill className={'inline-block w-6 h-6'} />
                     </SvgIconButton>
                 </div>

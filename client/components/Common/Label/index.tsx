@@ -9,7 +9,7 @@ export const Label: React.FC<React.LabelHTMLAttributes<HTMLLabelElement> & {
     textSize?:TextSize,
     weight?:FontWeight,
     color?:Color,
-}> = ({ className, textSize = 'text-sm', weight = 'font-bold', color = 'text-primary-400', htmlFor, ...props }) => {
+}> = ({ className, textSize = 'text-sm', weight = 'font-bold', color = 'text-primary-main', htmlFor, ...props }) => {
     return (
         <label htmlFor={htmlFor} {...props} className={classNames('block', textSize, weight, color, className)} />
     )

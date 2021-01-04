@@ -94,7 +94,7 @@ const ListItem: React.FC<Props> = ({
                 <div className='ml-auto flex flex-col justify-start'>
                     <div className='flex items-start'>
                         <TooltipDivContainer content='コピー' placement='bottom'>
-                            <SvgIconButton className='mx-1' onClick={(e) => {
+                            <SvgIconButton aria-label='Copy URL' className='mx-1' onClick={(e) => {
                                 copyToClipBoard(bookmark.url, () => {
                                     toast.success('クリップボードにURLをコピーしました',)
                                 })
@@ -104,7 +104,7 @@ const ListItem: React.FC<Props> = ({
                             </SvgIconButton>
                         </TooltipDivContainer>
                         <TooltipDivContainer content='URLを開く' placement='bottom'>
-                            <SvgIconButton className='mx-1' onClick={(e) => {
+                            <SvgIconButton aria-label='Open URL in New Tab' className='mx-1' onClick={(e) => {
                                 e.stopPropagation()
                                 handleJumpLink()
                             }}>
@@ -112,7 +112,7 @@ const ListItem: React.FC<Props> = ({
                             </SvgIconButton>
                         </TooltipDivContainer>
                         <TooltipDivContainer content='削除' placement='bottom'>
-                            <SvgIconButton className='mx-1' onClick={(e) => {
+                            <SvgIconButton aria-label='Delete Bookmark' className='mx-1' onClick={(e) => {
                                 e.stopPropagation()
                                 deleteBookmark()
                             }}>

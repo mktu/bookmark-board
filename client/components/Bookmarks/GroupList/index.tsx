@@ -21,13 +21,16 @@ const GroupList: React.FC<Props> = () => {
             <div className='border-primary-border flex flex-row justify-between p-1 items-center text-primary-main'>
                 <div className='p-2 w-full'>
                     <InputWithIcon
+                        aria-label='Input New Group'
                         value={newGroup}
                         onChange={(e) => {
                             setNewGroup(e.target.value)
                         }} placeholder='新しいグループ' icon={<Folder />} />
                 </div>
                 <div>
-                    <SvgIconButton onClick={()=>{
+                    <SvgIconButton 
+                        aria-label='Add Group'
+                        onClick={()=>{
                         if(newGroup==='' || !profile.id){
                             console.warn(`cannot add group:newGroup:${newGroup},profileId:${profile.id}`)
                             return

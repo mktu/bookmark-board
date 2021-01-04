@@ -44,13 +44,13 @@ const Share: React.FC<Props> = ({
                             <p>閲覧用リンク</p>
                             <Link href={publicPath} shallow>
                                 {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                                    (<a className='border-b text-blue-500 border-blue-300 mx-2'>{publicUrl}</a>)
+                                    (<a className='underline text-blue-700 mx-2'>{publicUrl}</a>)
                                 }
                             </Link>
 
                             <Tooltip content='URLをコピー' placement='bottom'>
                                 <div>
-                                    <SvgIconButton className='block' onClick={() => {
+                                    <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {
                                         copyToClipBoard(publicUrl, () => {
                                             toast.success('URLをクリップボードにコピーしました')
                                         })
@@ -61,7 +61,7 @@ const Share: React.FC<Props> = ({
                             </Tooltip>
                             <Tooltip content='非公開にする' placement='bottom'>
                                 <div>
-                                    <SvgIconButton className='block ml-2' onClick={() => {
+                                    <SvgIconButton aria-label='Make Private' className='block ml-2' onClick={() => {
                                         clientService.modifyGroup(id, {
                                             sharable: false
                                         })
@@ -73,7 +73,7 @@ const Share: React.FC<Props> = ({
                         </div>
                     </div>
                 ) : (
-                        <OutlinedButton className='block my-2' onClick={() => {
+                        <OutlinedButton aria-label='Publish' className='block my-2' onClick={() => {
                             clientService.modifyGroup(id, {
                                 sharable: true
                             })
@@ -99,10 +99,10 @@ const Share: React.FC<Props> = ({
                 <div className='text-sm'>
                     <div className='flex items-center my-2'>
                         <p>共同編集リンク</p>
-                        <a className='border-b text-blue-500 border-blue-300 mx-2' href={requestUrl}>{requestUrl}</a>
+                        <a className='underline text-blue-700 mx-2' href={requestUrl}>{requestUrl}</a>
                         <Tooltip content='URLをコピー' placement='bottom'>
                             <div>
-                                <SvgIconButton className='block' onClick={() => {
+                                <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {
                                     copyToClipBoard(requestUrl, () => {
                                         toast.success('URLをクリップボードにコピーしました')
                                     })
