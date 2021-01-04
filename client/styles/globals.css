@@ -2,6 +2,13 @@
 @tailwind base;
 @tailwind components;
 /* purgecss end ignore */
-
+button:focus-visible, a:focus-visible{
+    outline : none;
+    box-shadow: 0 0 0 3px rgba(66, 153, 225, 0.5);
+}
+button:focus:not(:focus-visible),a:focus:not(:focus-visible) {
+    outline : none;
+}
+  
 
 @tailwind utilities;

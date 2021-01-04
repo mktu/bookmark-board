@@ -29,7 +29,7 @@ export const Dialog: React.FC<DialogProps> = ({
     onClose
 }) => {
     return (
-        <Modal open={open} showCloseIcon={false} focusTrapped={false} onClose={onClose} center classNames={{
+        <Modal open={open} showCloseIcon={false} onClose={onClose} center classNames={{
             modal: 'w-2/3',
             overlay: 'bg-red-500'
         }}>

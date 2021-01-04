@@ -35,13 +35,13 @@ export const ColorPallet: React.FC<Props> = ({
         <div className={classNames(className, 'p-2 m-1 rounded')}>
             <div className='whitespace-pre-wrap flex items-center'>
                 {Object.keys(colors).map(c => (
-                    <ButtonBase key={c} style={c === value ? { border: `1px solid rgba(${r},${g},${b},0.5)` } : {}} className='rounded bg-white flex items-center justify-center p-1' onClick={() => {
+                    <ButtonBase key={c} style={c === value ? { border: `1px solid rgba(${r},${g},${b},0.5)`, padding:'3px' } : {}} className='rounded bg-white flex items-center justify-center mx-1' onClick={() => {
                         handleSelectColor(c)
                     }}>
                         <div className={classNames(`w-${boxSize} h-${boxSize} rounded`)} style={{ backgroundColor: c }} />
                     </ButtonBase>
                 ))}
-                <ButtonBase style={!value ? { border: `1px solid rgba(0,0,0,0.5)` } : {}} className='rounded bg-white flex items-center justify-center p-1' onClick={() => {
+                <ButtonBase style={!value ? { border: `1px solid rgba(0,0,0,0.5)`, padding:'3px' } : {}} className='rounded bg-white flex items-center justify-center mx-1' onClick={() => {
                     handleSelectColor('')
                 }}>
                     <div className={classNames(`w-${boxSize} h-${boxSize} rounded bg-white border-secondary-500 border`)} >

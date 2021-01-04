@@ -1,4 +1,5 @@
 import React from 'react'
+import 'focus-visible'
 import '../styles/globals.css'
 import 'react-responsive-modal/styles.css';
 import 'react-toastify/dist/ReactToastify.css';

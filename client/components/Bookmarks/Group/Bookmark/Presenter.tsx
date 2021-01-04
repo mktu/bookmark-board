@@ -69,6 +69,7 @@ const Presenter: React.FC<Props> = ({
                             <TextInput disabled={inputDisabled} id='title' value={bookmark.title} handleSubmit={updateBookmark('title')} />
                         </div>
                         <HeartButton
+                            className='mx-1'
                             onClick={handleLikes}
                             active={sentLikes}
                             counter={likes.length > 0 && likes.length}
@@ -88,7 +89,7 @@ const Presenter: React.FC<Props> = ({
                 <Label htmlFor='url'>URL</Label>
                 <div className='flex items-center'>
                     <TextInput className='flex-1' id='url' value={bookmark.url} handleSubmit={updateBookmark('url')} />
-                    <SvgIconButton onClick={handleJumpLink}>
+                    <SvgIconButton onClick={handleJumpLink} className='mx-1'>
                         <ExternalLink className='w-6' strokeWidth={2} />
                     </SvgIconButton>
                 </div>

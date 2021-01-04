@@ -32,7 +32,7 @@ const Input: React.FC<Props> = ({
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>
                 <div className='flex flex-row items-center max-w-full overflow-hidden'>
                     <div>
-                        <SvgIconButton className='block mr-2' onClick={() => { toggle(false) }}>
+                        <SvgIconButton className='block mx-1' onClick={() => { toggle(false) }}>
                             <ChevronDown strokeWidth='1.5px' className='w-8' />
                         </SvgIconButton>
                     </div>
@@ -52,7 +52,7 @@ const Input: React.FC<Props> = ({
                         )}
                     </div>
                     <div className='ml-auto'>
-                        <SvgIconButton className='block ml-2' onClick={submit}>
+                        <SvgIconButton className='block mx-1' onClick={submit}>
                             <Add strokeWidth='1.5px' className='w-10  stroke-primary-main hover:stroke-primary-dark' />
                         </SvgIconButton>
                     </div>

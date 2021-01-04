@@ -76,7 +76,7 @@ export const SvgFillIconButton: React.FC<ButtonProps & {colorType?:SvgFillColorT
 }
     
 export const ButtonBase : React.FC<ButtonProps> = ({className, disabled, ...props})=> (
-    <button disabled={disabled} className={classNames(styles['button-base'], className, disabled ? 'cursor-default opacity-25':'')} {...props} /> 
+    <button disabled={disabled} className={classNames(className, disabled ? 'cursor-default opacity-25':'')} {...props} /> 
 )
 
 export {
