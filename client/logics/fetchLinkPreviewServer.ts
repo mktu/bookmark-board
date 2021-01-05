@@ -1,5 +1,4 @@
-//const proxy = 'https://cors-anywhere.herokuapp.com';
-const proxy = 'https://mysterious-coast-24489.herokuapp.com';
+import { parse } from 'node-html-parser'
 
 const logic = async (url: string) => {
     const response = await fetch(url, {
@@ -8,12 +7,12 @@ const logic = async (url: string) => {
         },
     });
     const data = await response.text();
-    const htmlDoc = new DOMParser().parseFromString(data, 'text/html')
-    const baseUrl = htmlDoc.querySelector('meta[property="og:url"]')?.getAttribute('content') ||
-        htmlDoc.querySelector('meta[name="og:url"]')?.getAttribute('content')
+    const root = parse(data)
+    const baseUrl = root.querySelector('meta[property="og:url"]')?.getAttribute('content') ||
+        root.querySelector('meta[name="og:url"]')?.getAttribute('content')
     const resolver = (attr: string) => {
         // resolve relative path
-        if(attr.startsWith('/')){
+        if (attr.startsWith('/')) {
             return baseUrl && attr && baseUrl + attr
         }
     }
@@ -31,7 +30,7 @@ const logic = async (url: string) => {
         { tag: 'meta[name="twitter:image"]', attr: 'content' },
         { tag: 'meta[itemprop="image"]', attr: 'content' },
     ].map(keys => {
-        const attr = htmlDoc.querySelector(keys.tag)?.getAttribute(keys.attr)
+        const attr = root.querySelector(keys.tag)?.getAttribute(keys.attr)
         return attr && {
             attr,
             resolver: keys.resolver
@@ -48,25 +47,11 @@ const logic = async (url: string) => {
         })
         .filter(Boolean)
     return {
-        title: htmlDoc.querySelector('title')?.innerText || undefined,
-        description: htmlDoc.querySelector('meta[name="description"]')?.getAttribute('content') || undefined,
+        title: root.querySelector('title')?.innerText || undefined,
+        description: root.querySelector('meta[name="description"]')?.getAttribute('content') || undefined,
         url: baseUrl,
         images
     }
 }
 
-
-const fetchLinkPreview = async (orgUrl: string, useDefaultProxy = true) => {
-    const url = useDefaultProxy ? `${proxy}/${orgUrl}` : orgUrl
-
-    return logic(url)
-}
-
-export const fetchFromServer = async(url:string) =>{
-    const target = `/api/urls?url=${url}`
-    const response = await fetch(target);
-    const data = await response.json()
-    return data as ReturnType<typeof fetchLinkPreview>;
-}
-
-export default fetchLinkPreview
+export default logic

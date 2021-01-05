@@ -4,7 +4,7 @@ import { useBookmarkById } from '../modules/bookmarkSlice'
 import { useGroupsByUser } from '../modules/groupSlice'
 import { useProfile } from '../modules/profileSlice'
 import FirebaseContext from '../context/FirebaseContext'
-import { fetchLinkPreview } from '../logics'
+import { fetchFromServer } from '../logics/fetchLinkPreview'
 
 export const useMoveGroup = (bookmark:Bookmark)=>{
     const profile = useProfile()
@@ -51,7 +51,7 @@ export const useBookmark = (bookmarkId:string)=>{
     const sentLikes = likes.includes(profile.id)
     const handleRefetch = useCallback(() => {
         setStatus('loading')
-        fetchLinkPreview(bookmark.url).then(result => {
+        fetchFromServer(bookmark.url).then(result => {
             clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
                 title: result.title,
                 description: result.description || '',
