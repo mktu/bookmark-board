@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import { find } from 'linkifyjs';
-import {fetchLinkPreview} from '../../../logics'
+import {fetchFromServer} from '../../../logics/fetchLinkPreview'
 
 type Props = {
     text?: string
@@ -32,7 +32,7 @@ const useLinkPreview: (props: Props) => {
             }
             let cancel = false;
             setStatus('loading')
-            fetchLinkPreview(url).then((data) => {
+            fetchFromServer(url).then((data) => {
                 if(cancel){
                     return
                 }
