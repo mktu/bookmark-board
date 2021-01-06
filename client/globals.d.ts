@@ -59,6 +59,7 @@ declare type Bookmark = {
     comment?: string,
     neighbors: [],
     image?: string,
+    images?:string[],
     groupId: string,
     owner: string,
     created: number,

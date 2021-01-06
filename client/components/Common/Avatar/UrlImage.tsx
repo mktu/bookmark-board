@@ -24,6 +24,7 @@ const UrlImage: React.FC<Props> = ({
     enableEndpoint = true
 }) => {
     const [useEndpoint,setUseEndpoint] = useState(enableEndpoint)
+    const [error,setError] = useState(false)
     const baseWidth = toNumber(width)
     const width1 = `${UrlEndpoint}tr:w-${baseWidth}/${src} ${baseWidth}w`
     const width2 = `${UrlEndpoint}tr:w-${baseWidth*2}/${src} ${baseWidth*2}w`
@@ -34,9 +35,14 @@ const UrlImage: React.FC<Props> = ({
             width,
             height
         }}>
-            {src ? (
-                <img alt={name} width={width} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={()=>{
-                    setUseEndpoint(false)
+            {(src && !error) ? (
+                <img alt={name} width={width} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={(e)=>{
+                    console.error(e)
+                    if(useEndpoint){
+                        setUseEndpoint(false)
+                    }else{
+                        setError(true)
+                    }
                 }} srcSet={srcset}/>
             ) : (
                     <PlaceHolderImg />

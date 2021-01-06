@@ -55,13 +55,17 @@ export const useBookmark = (bookmarkId:string)=>{
             clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
                 title: result.title,
                 description: result.description || '',
-                image: result.images.length > 0 && result.images[0]
+                image: result.images.length > 0 && result.images[0],
+                images: result.images
             }, () => {
                 setStatus('loaded')
             }, (err) => {
                 setStatus('failed')
                 console.error(err)
             })
+        }).catch((err)=>{
+            setStatus('failed')
+            console.error(err)
         })
     },[clientService,bookmark])
     const handleLikes = useCallback(() => {

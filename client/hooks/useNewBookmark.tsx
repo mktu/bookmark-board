@@ -26,6 +26,7 @@ const useNewBookmark = (groupId:string)=>{
                 url,
                 title: linkData.title,
                 image: linkData.images.length > 0 && linkData.images[0],
+                images: linkData.images,
                 description: linkData.description || '',
                 neighbors: [],
                 groupId,
@@ -37,6 +38,7 @@ const useNewBookmark = (groupId:string)=>{
                 url,
                 neighbors: [],
                 groupId,
+                images : [],
                 reactions: {},
                 unacquired: true
             }
