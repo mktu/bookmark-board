@@ -9,7 +9,7 @@ const logicOgs = async (url: string) => {
     }
     const ret = await ogs(options)
     const endTm = Date.now()
-    console.log(`fin:${endTm-startTm2}ms`)
+    //console.log(`fin:${endTm-startTm2}ms`)
     if(ret.error){
         throw Error(ret.result.error)
     }
@@ -31,15 +31,15 @@ const logicOgs = async (url: string) => {
 
 export const originalLogic = async (url: string) => {
 
-    const startTm = Date.now()
+    //const startTm = Date.now()
     const response = await fetch(url, {
         headers: {
             'x-requested-with': '',
         },
     });
-    const fetchTm = Date.now()
+    //const fetchTm = Date.now()
     const data = await response.text();
-    const textTm = Date.now()
+    //const textTm = Date.now()
     const root = parse(data)
     const baseUrl = root.querySelector('meta[property="og:url"]')?.getAttribute('content') ||
         root.querySelector('meta[name="og:url"]')?.getAttribute('content')
@@ -79,13 +79,13 @@ export const originalLogic = async (url: string) => {
             return resolver && resolver(attr)
         })
         .filter(Boolean)
-    const parseTm = Date.now()
+    //const parseTm = Date.now()
     const exits = (await Promise.all(images.map(async v=>{
         const res = await fetch(v,{ method: 'HEAD' })
         return res.ok ? v : ''
     })) ).filter(Boolean)
-    const validateTm = Date.now()
-    console.log(`fetch:${fetchTm-startTm}ms, text:${textTm-fetchTm}ms, parse:${parseTm-textTm}ms, validate:${validateTm-parseTm}ms,sum:${validateTm-startTm}`)
+    //const validateTm = Date.now()
+    //console.log(`fetch:${fetchTm-startTm}ms, text:${textTm-fetchTm}ms, parse:${parseTm-textTm}ms, validate:${validateTm-parseTm}ms,sum:${validateTm-startTm}`)
     return {
         title: root.querySelector('title')?.innerText || undefined,
         description: root.querySelector('meta[name="description"]')?.getAttribute('content') || undefined,
