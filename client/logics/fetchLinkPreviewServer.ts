@@ -4,7 +4,8 @@ import ogs, {Options, SuccessResult} from 'open-graph-scraper'
 const logicOgs = async (url: string) => {
     const startTm2 = Date.now()
     const options : Options = {
-        url
+        url,
+        timeout : 10000
     }
     const ret = await ogs(options)
     const endTm = Date.now()
@@ -13,11 +14,17 @@ const logicOgs = async (url: string) => {
         throw Error(ret.result.error)
     }
     const successData = ret as SuccessResult
+    const images = successData.result.ogImage ? [successData.result.ogImage.url] : []
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const twData : any = successData.result 
+    if(twData.twitterImage){
+        images.push(twData.twitterImage.url as string)
+    }
     return {
         title: successData.result.ogTitle,
         description: successData.result.ogDescription,
         url: successData.result.requestUrl,
-        images : successData.result.ogImage ? [successData.result.ogImage.url] : []
+        images
     }
 }
 // Delete the library when it is no longer needed

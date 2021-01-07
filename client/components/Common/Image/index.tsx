@@ -17,8 +17,8 @@ const LoadingImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...pr
     return <img src={'/Loading.svg'} alt='Loading...' {...props}/>;
 }
 
-const PlaceHolderImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...props})=>{
-    return <img src={'/Placeholder.svg'} alt='PlaceholderImage' {...props}/>;
+const PlaceHolderImg : React.FC<{width?:string,height?:string}> = ({width,height})=>{
+    return <Image src={'/Placeholder.svg'} alt='PlaceholderImage' width={width} height={height}/>;
 }
 
 const WelcomeImg : React.FC<{width?:string,height?:string}> = ({width,height})=>{

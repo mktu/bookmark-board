@@ -20,22 +20,22 @@ export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = (
     )
 }
 
-export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, colorType='dark', ...props }) => {
+export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, disabled, colorType='dark', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
-        dark : 'text-primary-main hover:text-primary-dark border-primary-300 hover:border-primary-main',
-        secondary : 'text-secondary-main hover:text-secondary-dark border-secondary-main hover:border-secondary-dark',
-        light : 'bg-white text-primary-main hover:text-primary-dark',
+        dark : `text-primary-main border-primary-300 ${!disabled && 'hover:text-primary-dark hover:border-primary-main'}`,
+        secondary : `text-secondary-main border-secondary-main ${!disabled && 'hover:text-secondary-dark hover:border-secondary-dark'}`,
+        light : `bg-white text-primary-main ${!disabled && 'hover:text-primary-dark'}`,
         none : ''
     }
     return (
-        <ButtonBase  className={classNames(`py-2 px-4 rounded border focus:outline-none`,  colorClasses[colorType], className)} {...props} />
+        <ButtonBase disabled={disabled}  className={classNames(`py-2 px-4 rounded border focus:outline-none`,  colorClasses[colorType], className)} {...props} />
     )
 }
 
-export const TextButton: React.FC<ButtonProps & {colorType?:ColorType, fontType?:FontType}> = ({ className, colorType='dark', fontType='bold', ...props }) => {
+export const TextButton: React.FC<ButtonProps & {colorType?:ColorType, fontType?:FontType}> = ({ className,disabled, colorType='dark', fontType='bold', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
-        dark : 'text-primary-600 hover:text-primary-700',
-        secondary : 'text-secondary-600 hover:text-secondary-700',
+        dark : `text-primary-600 ${!disabled&&'hover:text-primary-700'}`,
+        secondary : `text-secondary-600 ${!disabled&&'hover:text-secondary-700'}`,
         light : 'text-white',
         none : ''
     }
@@ -44,7 +44,7 @@ export const TextButton: React.FC<ButtonProps & {colorType?:ColorType, fontType?
         none : ''
     }
     return (
-        <ButtonBase className={classNames(className,colorClasses[colorType], fontTypes[fontType], 'background-transparent uppercase')} {...props} />
+        <ButtonBase disabled={disabled} className={classNames(className,colorClasses[colorType], fontTypes[fontType], 'background-transparent uppercase')} {...props} />
     )
 }
 

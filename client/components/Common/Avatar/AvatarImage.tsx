@@ -46,7 +46,7 @@ const Inner: React.FC<Props> = ({
         }
     }
     if (usePlaceholder) {
-        return <PlaceHolderImg className={styles['avatar-image']} width={width} height={height} />
+        return <PlaceHolderImg width={width} height={height} />
     }
     const ini = initials(name)
     const colodIdx = (name.length * ini.length) % bgValues.length
