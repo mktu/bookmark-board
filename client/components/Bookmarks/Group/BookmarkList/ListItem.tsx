@@ -2,6 +2,7 @@ import React from 'react'
 import { useDrag, useDrop } from 'react-dnd'
 import { useRouter } from 'next/router'
 import { UrlImage } from '../../../Common/Avatar'
+import Link from 'next/link'
 import { ExternalLink, Duplicate, Trash, Chat, Refresh } from '../../../Common/Icon'
 import { SvgIconButton, HeartButton } from '../../../Common/Button'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
@@ -22,13 +23,13 @@ const ListItem: React.FC<Props> = ({
     idx
 }) => {
     const router = useRouter()
-    const { 
+    const {
         bookmark,
         sentLikes,
         handleLikes,
         deleteBookmark,
         handleJumpLink
-     } = useBookmark(bookmarkId)
+    } = useBookmark(bookmarkId)
     const { description } = bookmark
     const group = useGroupById(bookmark.groupId)
     const { listViewMask = [] } = group || {}
@@ -61,79 +62,82 @@ const ListItem: React.FC<Props> = ({
             }
         }
     })
-    const openBookmark = () => {
-        router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${bookmark.groupId}/${bookmark.id}`, { shallow: true })
-    }
     return (
-        <button ref={(v) => {
-            drag(v)
-            drop(v)
-        }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`}  onClick={openBookmark} style={bookmark.color ?{
-            borderLeft : `5px solid ${bookmark.color}`
-        }:{}} tabIndex={0}>
-            <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
-                <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r flex items-center'>
-                    <UrlImage src={bookmark.image} width='64px' height='64px' name={bookmark.title}/>
-                </div>
-                <div className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1'>
-                    <div className='overflow-hidden truncate max-w-full'>{bookmark.title || bookmark.url}</div>
-                    {!listViewMask.includes('description') && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
-                    {!listViewMask.includes('url') && (<div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>)}
-                    {!listViewMask.includes('comment') && bookmark.comment && (
-                        <div className='text-xs text-primary-main font-thin max-w-full flex items-center py-1' >
-                            <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2} />
-                            <div className='overflow-hidden truncate flex-1'>
-                                {bookmark.comment}
-                            </div>
+        <Link href={`/bookmarks/${bookmark.groupId}/${bookmark.id}`}>
+            <a href={`/bookmarks/${bookmark.groupId}/${bookmark.id}`} ref={(v) => {
+                drag(v)
+                drop(v)
+            }} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`} style={bookmark.color ? {
+                borderLeft: `5px solid ${bookmark.color}`
+            } : {}} tabIndex={0}>
+                <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
+                    <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r flex items-center'>
+                        <UrlImage src={bookmark.image} width='64px' height='64px' name={bookmark.title} />
+                    </div>
+                    <div className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1'>
+                        <div className='overflow-hidden truncate max-w-full'>{bookmark.title || bookmark.url}</div>
+                        {!listViewMask.includes('description') && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
+                        {!listViewMask.includes('url') && (<div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {bookmark.url}</div>)}
+                        {!listViewMask.includes('comment') && bookmark.comment && (
+                            <div className='text-xs text-primary-main font-thin max-w-full flex items-center py-1' >
+                                <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2} />
+                                <div className='overflow-hidden truncate flex-1'>
+                                    {bookmark.comment}
+                                </div>
+                            </div>)}
+                        {!listViewMask.includes('lastUpdate') && bookmark.lastUpdate && (<div className='mt-auto pt-1 overflow-hidden truncate text-xs text-primary-main font-thin max-w-full flex items-center' >
+                            <span className='mr-1'><Refresh className='w-4 stroke-primary-main' /></span>
+                            <span>{numberToDateTime(bookmark.lastUpdate)}</span>
                         </div>)}
-                    {!listViewMask.includes('lastUpdate') && bookmark.lastUpdate && (<div className='mt-auto pt-1 overflow-hidden truncate text-xs text-primary-main font-thin max-w-full flex items-center' > 
-                    <span className='mr-1'><Refresh className='w-4 stroke-primary-main'/></span>
-                    <span>{numberToDateTime(bookmark.lastUpdate)}</span>
-                    </div>)}
-                </div>
-                <div className='ml-auto flex flex-col justify-start'>
-                    <div className='flex items-start'>
-                        <TooltipDivContainer content='コピー' placement='bottom'>
-                            <SvgIconButton aria-label='Copy URL' className='mx-1' onClick={(e) => {
-                                copyToClipBoard(bookmark.url, () => {
-                                    toast.success('クリップボードにURLをコピーしました',)
-                                })
-                                e.stopPropagation()
-                            }}>
-                                <Duplicate className='w-5' strokeWidth={1.5} />
-                            </SvgIconButton>
-                        </TooltipDivContainer>
-                        <TooltipDivContainer content='URLを開く' placement='bottom'>
-                            <SvgIconButton aria-label='Open URL in New Tab' className='mx-1' onClick={(e) => {
-                                e.stopPropagation()
-                                handleJumpLink()
-                            }}>
-                                <ExternalLink className='w-5' strokeWidth={1.5} />
-                            </SvgIconButton>
-                        </TooltipDivContainer>
-                        <TooltipDivContainer content='削除' placement='bottom'>
-                            <SvgIconButton aria-label='Delete Bookmark' className='mx-1' onClick={(e) => {
-                                e.stopPropagation()
-                                deleteBookmark()
-                            }}>
-                                <Trash className='w-5' strokeWidth={1.5} />
-                            </SvgIconButton>
-                        </TooltipDivContainer>
                     </div>
-                    <div className='mt-auto flex items-center justify-end'>
-                        <HeartButton
-                            aria-label='Likes'
-                            size='w-4'
-                            active={sentLikes}
-                            onClick={(e)=>{
-                                e.stopPropagation()
-                                handleLikes()
-                            }}
-                        />
+                    <div className='ml-auto flex flex-col justify-start'>
+                        <div className='flex items-start'>
+                            <TooltipDivContainer content='コピー' placement='bottom'>
+                                <SvgIconButton aria-label='Copy URL' className='mx-1' onClick={(e) => {
+                                    copyToClipBoard(bookmark.url, () => {
+                                        toast.success('クリップボードにURLをコピーしました',)
+                                    })
+                                    e.stopPropagation()
+                                    e.preventDefault()
+                                }}>
+                                    <Duplicate className='w-5' strokeWidth={1.5} />
+                                </SvgIconButton>
+                            </TooltipDivContainer>
+                            <TooltipDivContainer content='URLを開く' placement='bottom'>
+                                <SvgIconButton aria-label='Open URL in New Tab' className='mx-1' onClick={(e) => {
+                                    e.stopPropagation()
+                                    e.preventDefault()
+                                    handleJumpLink()
+                                }}>
+                                    <ExternalLink className='w-5' strokeWidth={1.5} />
+                                </SvgIconButton>
+                            </TooltipDivContainer>
+                            <TooltipDivContainer content='削除' placement='bottom'>
+                                <SvgIconButton aria-label='Delete Bookmark' className='mx-1' onClick={(e) => {
+                                    e.stopPropagation()
+                                    e.preventDefault()
+                                    deleteBookmark()
+                                }}>
+                                    <Trash className='w-5' strokeWidth={1.5} />
+                                </SvgIconButton>
+                            </TooltipDivContainer>
+                        </div>
+                        <div className='mt-auto flex items-center justify-end'>
+                            <HeartButton
+                                aria-label='Likes'
+                                size='w-4'
+                                active={sentLikes}
+                                onClick={(e) => {
+                                    e.stopPropagation()
+                                    e.preventDefault()
+                                    handleLikes()
+                                }}
+                            />
+                        </div>
                     </div>
                 </div>
-            </div>
-        </button>
+            </a>
+        </Link>
     )
 }
 
