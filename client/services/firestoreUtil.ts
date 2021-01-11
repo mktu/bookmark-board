@@ -16,6 +16,7 @@ export function getCollectionListener<T>(
         const modified: T[] = [];
         const deleted: T[] = [];
         for (const change of querySnapshot.docChanges()) {
+            
             const data = change.doc.data() as T;
             const target = {
                 id: change.doc.id,

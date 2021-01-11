@@ -1,6 +1,5 @@
 import React from 'react'
 import { useDrag, useDrop } from 'react-dnd'
-import { useRouter } from 'next/router'
 import { UrlImage } from '../../../Common/Avatar'
 import Link from 'next/link'
 import { ExternalLink, Duplicate, Trash, Chat, Refresh } from '../../../Common/Icon'
@@ -22,7 +21,6 @@ const ListItem: React.FC<Props> = ({
     setHover,
     idx
 }) => {
-    const router = useRouter()
     const {
         bookmark,
         sentLikes,

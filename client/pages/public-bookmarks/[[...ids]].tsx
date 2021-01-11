@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import { PublicLayout } from '../../components/Layout'
@@ -10,6 +11,10 @@ const PublicBookmarksPage : React.FC<InferGetStaticPropsType<typeof getStaticPro
     profile,
     bookmarks
 } ) => {
+  const router = useRouter()
+  if (router.isFallback) {
+    return <div className='w-full p-4 flex items-center justify-center text-lg text-primary-main'>ページを準備中です...</div>
+  }
   return (
     <div>
       <Head>
@@ -87,7 +92,7 @@ export const getStaticPaths: GetStaticPaths<{ids:string[]}> = async () => {
                 params : {ids:[id]}
             }
         }),
-        fallback : false
+        fallback : true
     }
   }
 
