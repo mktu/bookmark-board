@@ -51,6 +51,11 @@ declare type BookmarkGroup = {
     colors?: BookmarkColors
 }
 
+declare type BookmarkRefinement = {
+    id:string,
+    colorMasks ?: string[]
+}
+
 declare type Bookmark = {
     id: string,
     url: string,

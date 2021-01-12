@@ -8,6 +8,7 @@ import usersSlice from '../modules/usersSlice'
 import commentSlice from '../modules/commentSlice'
 import requestSlice from '../modules/requestSlice'
 import authSlice from '../modules/authSlice'
+import groupRefinementSlice from '../modules/groupRefinementSlice'
 
 const rootReducer = combineReducers({
     profile : profileSlice,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     comments : commentSlice,
     requests : requestSlice,
     auth : authSlice,
+    groupRefinements : groupRefinementSlice
 })
 
 const store = configureStore({

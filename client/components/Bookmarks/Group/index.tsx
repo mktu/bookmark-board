@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react'
-import { useBookmarkIdsByGroupFilter } from '../../../modules/bookmarkSlice'
+import { useBookmarkIdsByRefinements } from '../../../modules/bookmarkSlice'
 import { useGroupById, useGroupStatus } from '../../../modules/groupSlice'
+import { useRefinementById } from '../../../modules/groupRefinementSlice'
 import { useRouter } from 'next/router'
 import NoItem from './NoItem'
 import Layout from './Layout'
@@ -18,7 +19,9 @@ const Group: React.FC<Props> = () => {
     const groupId = ids && ids.length > 0 ? ids[0] : ''
     const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
     const group = useGroupById(groupId)
-    const bookmarkIds = useBookmarkIdsByGroupFilter(group)
+    const refinements = useRefinementById(groupId)
+    const hasFilter = refinements?.colorMasks?.length > 0 || false
+    const bookmarkIds = useBookmarkIdsByRefinements(refinements)
     const status = useGroupStatus()
 
     useEffect(()=>{
@@ -46,7 +49,7 @@ const Group: React.FC<Props> = () => {
     if (!groupId) {
         return <div />
     }
-    if (bookmarkIds.length == 0) {
+    if (bookmarkIds.length == 0 && ! hasFilter) {
         return (
             <Layout
                 header={<Header groupId={groupId} />}

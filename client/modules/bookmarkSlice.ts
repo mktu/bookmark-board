@@ -64,18 +64,16 @@ const selectBookmarkIdsByGroup = createSelector(
     }
 )
 
-const selectBookmarksByGroupFilter = createSelector(
-    [selectAll, (_, group:BookmarkGroup)=>group],
-    (bookmarks,group)=>{
+const selectBookmarksByRefinements = createSelector(
+    [selectAll, (_, refinements:BookmarkRefinement)=>refinements],
+    (bookmarks,refinements)=>{
         return bookmarks.filter(b=>{
-            if(!group) return false
-            if(b.groupId === group.id){
-                if(!group.colors || !b.color || !group.colors[b.color]){
-                    return true
+            if(!refinements) return true
+            if(b.groupId === refinements.id){
+                if(refinements.colorMasks){
+                    return !refinements.colorMasks.includes(b.color)
                 }
-                if(group.colors[b.color].show){
-                    return true
-                }
+                return true
             }
             return false
         } ).map(b=>b.id)
@@ -89,10 +87,10 @@ export const useBookmarkIdsByGroup = (groupId:string) => {
     )
 }
 
-export const useBookmarkIdsByGroupFilter = (group:BookmarkGroup) => {
+export const useBookmarkIdsByRefinements = (refinements:BookmarkRefinement) => {
     return useSelector(
         (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
-        selectBookmarksByGroupFilter(state.bookmarks,group)
+        selectBookmarksByRefinements(state.bookmarks,refinements)
     )
 }
 

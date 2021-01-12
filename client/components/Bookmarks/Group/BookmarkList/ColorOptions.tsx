@@ -12,15 +12,15 @@ type Props = {
 const ColorOptions: React.FC<Props> = ({
     groupId
 }) => {
-    const { colors, updateColor, updateColors } = useBookmarkGroup(groupId)
+    const { colors, updateColor, filterColor, filterColors } = useBookmarkGroup(groupId)
     return (
         <div className='bg-white p-4 rounded flex flex-col justify-start align-middle overflow-scroll'>
             <p className='text-sm text-primary-main'>色名や表示有無の設定をすることができます</p>
             <div className='flex justify-end'><Checkbox label='すべて表示' checked={Object.values(colors).every(v=>v.show)} onChange={(e)=>{
                 if(e.target.checked){
-                    updateColors(colors.map(v=>({...v,show:true})))
+                    filterColors(true)
                 }else{
-                    updateColors(colors.map(v=>({...v,show:false})))
+                    filterColors(false)
                 }
             }}/></div>
             <div className=''>
@@ -29,13 +29,13 @@ const ColorOptions: React.FC<Props> = ({
                         <div key={c.color} className='flex items-center'>
                             {c.show ? (
                                 <SvgFillIconButton aria-label='Enable' onClick={()=>{
-                                    updateColor(c.color, {show:false})
+                                    filterColor(c.color, false)
                                 }}>
                                     <EyeFill className='w-5 fill-primary-main' strokeWidth={1.5}/>
                                 </SvgFillIconButton>
                             ) : (
                                 <SvgFillIconButton aria-label='Disable' onClick={()=>{
-                                    updateColor(c.color, {show:true})
+                                    filterColor(c.color, true)
                                 }}>
                                     <EyeOffFill className='w-5 fill-primary-300' strokeWidth={1.5}/>
                                 </SvgFillIconButton>
