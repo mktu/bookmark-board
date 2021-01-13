@@ -1,4 +1,5 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import Presenter from './Presenter'
 import { useBookmark, useMoveGroup } from '../../../../hooks/useBookmark'
 import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
@@ -10,6 +11,7 @@ import Color from './Color'
 import Move from './Move'
 import Date from './Date'
 import Image from './Image'
+import Trash from './Trash'
 
 type Props = {
     bookmarkId: string
@@ -18,6 +20,7 @@ type Props = {
 const Container: React.FC<Props> = ({
     bookmarkId
 }) => {
+    const router = useRouter()
     const {
         bookmark,
         likes,
@@ -27,6 +30,7 @@ const Container: React.FC<Props> = ({
         handleRefetch,
         updateBookmark,
         handleJumpLink,
+        deleteBookmark
     } = useBookmark(bookmarkId)
     const moveGroupProps = useMoveGroup(bookmark)
     const { group } = useBookmarkGroup(bookmark?.groupId)
@@ -55,6 +59,9 @@ const Container: React.FC<Props> = ({
     const move = <Move {...moveGroupProps} copy={moveGroupProps.copyGroup} disabled={moveGroupProps.moveDest.id === bookmark.groupId}/>
     const date = <Date lastUpdate={bookmark.lastUpdate} created={bookmark.created} loading={status==='loading'}/>
     const image = <Image onChangeImage={updateBookmark('image')} images={bookmark.images} image={bookmark.image} loading={status==='loading'}/>
+    const trash = <Trash handleDelete={()=>{deleteBookmark(()=>{
+        router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
+    })}}/>
     return (
         <Presenter
             {
@@ -71,7 +78,8 @@ const Container: React.FC<Props> = ({
                 color,
                 move,
                 date,
-                image
+                image,
+                trash
             }
             }
         />

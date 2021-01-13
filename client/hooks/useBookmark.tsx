@@ -44,8 +44,8 @@ export const useBookmark = (bookmarkId:string)=>{
             [key]: value
         })
     },[bookmark,clientService])
-    const deleteBookmark = useCallback(()=>{
-        clientService.deleteBookmark(bookmark.groupId, bookmark.id)
+    const deleteBookmark = useCallback((onSucceeded?: Notifier,)=>{
+        clientService.deleteBookmark(bookmark.groupId, bookmark.id, onSucceeded)
     },[bookmark,clientService])
     const likes = bookmark?.reactions['likes'] || []
     const sentLikes = likes.includes(profile.id)
