@@ -29,7 +29,6 @@ declare type ListViewMask = 'description' | 'url' | 'comment' | 'lastUpdate'
 declare type BookmarkColorDescription = {
     color :string,
     name: string,
-    show?: boolean
 }
 
 declare type BookmarkColors = {
@@ -47,13 +46,13 @@ declare type BookmarkGroup = {
     sharable?: boolean, // todo requires,
     imageUrl?: string,
     lastUpdate?: number,
-    listViewMask?: ListViewMask[],
     colors?: BookmarkColors
 }
 
 declare type BookmarkRefinement = {
     id:string,
-    colorMasks ?: string[]
+    colorMasks ?: string[],
+    listViewMask?: ListViewMask[],
 }
 
 declare type Bookmark = {

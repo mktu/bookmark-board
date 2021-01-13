@@ -5,7 +5,7 @@ import Link from 'next/link'
 import { ExternalLink, Duplicate, Trash, Chat, Refresh } from '../../../Common/Icon'
 import { SvgIconButton, HeartButton } from '../../../Common/Button'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
-import { useGroupById } from '../../../../modules/groupSlice'
+import { useRefinementById } from '../../../../modules/groupRefinementSlice'
 import { copyToClipBoard, numberToDateTime } from '../../../../utils'
 import { toast } from 'react-toastify';
 import { useBookmark } from '../../../../hooks/useBookmark'
@@ -29,8 +29,7 @@ const ListItem: React.FC<Props> = ({
         handleJumpLink
     } = useBookmark(bookmarkId)
     const { description } = bookmark
-    const group = useGroupById(bookmark.groupId)
-    const { listViewMask = [] } = group || {}
+    const { listViewMask = [] } = useRefinementById(bookmark.groupId)
     const [{ dragging }, drag] = useDrag({
         item: {
             id: bookmark.id,

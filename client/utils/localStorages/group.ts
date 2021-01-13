@@ -27,7 +27,6 @@ export const saveRefinement = (groupId: string, refinement: Partial<BookmarkRefi
         ...refinement
     }));
     if (listener[groupId]) {
-        
         listener[groupId](getRefinements(groupId))
     }
 }

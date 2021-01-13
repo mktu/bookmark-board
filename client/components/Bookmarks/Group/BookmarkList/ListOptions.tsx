@@ -1,6 +1,6 @@
-import React, { useContext } from 'react'
-import { useGroupById } from '../../../../modules/groupSlice'
-import FirebaseContext from '../../../../context/FirebaseContext'
+import React from 'react'
+import { useRefinementById } from '../../../../modules/groupRefinementSlice'
+import { saveRefinement } from '../../../../utils/localStorages/group'
 
 type Props = {
     groupId: string
@@ -9,14 +9,15 @@ type Props = {
 const ListOptions: React.FC<Props> = ({
     groupId
 }) => {
-    const { clientService } = useContext(FirebaseContext)
-    const { listViewMask = [] } = useGroupById(groupId)
+    const { listViewMask = [] } = useRefinementById(groupId)
     const maskDescription = listViewMask.includes('description')
     const maskUrl = listViewMask.includes('url')
     const maskComment = listViewMask.includes('comment')
     const createChangeEvent = (type: ListViewMask) => (e: React.ChangeEvent<HTMLInputElement>) => {
         const value: ListViewMask[] = e.target.checked ? listViewMask.filter(v => v !== type) : [...listViewMask, type]
-        clientService.modifyGroup(groupId, { listViewMask: value })
+        saveRefinement(groupId, {
+            listViewMask : value
+        })
     }
     return (
         <div className='bg-white p-4 rounded shadow-lg border border-primary-border font-semibold  flex flex-col justify-start align-middle'>
