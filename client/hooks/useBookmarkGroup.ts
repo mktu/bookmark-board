@@ -32,7 +32,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         ...base,
         colors: base.colors || defaultColors
     }
-    const colors: BookmarkColorDescription[] = useMemo(() => {
+    const colors = useMemo(() => {
         if (!group) return []
         return Object.keys(group.colors).sort().map(c => ({
             ...group.colors[c],
