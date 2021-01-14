@@ -33,6 +33,10 @@ const BookmarksMainImg : React.FC<{width?:string,height?:string}> = ({width,heig
     return <Image src={'/Bookmark.svg'} alt='Bookmark' width={width} height={height}/>;
 }
 
+const TwitterImage : React.FC<{width?:string,height?:string, variant?:'circle'|'logo'}> = ({width,height,variant='circle'})=>{
+    return <Image src={variant === 'circle' ? '/Twitter_Social_Icon_Circle_Color.svg' : '/Twitter_Logo_Blue.svg'} alt='Twitter' width={width} height={height}/>;
+}
+
 export {
     BookmarksMainImg,
     BookmarksSigninImg,
@@ -41,5 +45,6 @@ export {
     LoadingImg,
     PlaceHolderImg,
     WelcomeImg,
-    SigninImg
+    SigninImg,
+    TwitterImage
 }

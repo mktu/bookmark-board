@@ -14,7 +14,8 @@ declare type Profile = {
     comment?: string,
     id: string,
     image: string,
-    lastUpdate?: number
+    lastUpdate?: number,
+    twitter?: string,
 }
 
 declare type Reaction = {

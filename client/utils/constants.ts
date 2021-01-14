@@ -1,0 +1,1 @@
+export const TwitterUrl = 'https://twitter.com/'

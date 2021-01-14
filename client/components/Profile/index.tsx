@@ -1,8 +1,12 @@
 import React from 'react'
+import { toast } from 'react-toastify';
 import { TextInput, TextArea } from '../Common/Input'
 import { Label } from '../Common/Label'
+import { TwitterImage } from '../Common/Image'
+import { ContainedButton } from '../Common/Button'
 import Avatar from '../Common/Avatar/AvatarImage'
 import useProfileContainer from './useProfileContainer'
+import { TwitterUrl } from '../../utils/constants'
 
 type Props = {
 
@@ -15,7 +19,9 @@ const Profile: React.FC<Props> = () => {
         error,
         status,
         handleChangeFile,
-        updateProfile
+        updateProfile,
+        handleSubmit,
+        hasChange
     } = useProfileContainer()
     return (
         <div className='w-full h-full p-6'>
@@ -30,7 +36,7 @@ const Profile: React.FC<Props> = () => {
                         )}
                         {status === 'loaded' && (
                             <label className='py-2 px-4 cursor-pointer rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark' htmlFor='file-upload'>
-                                変更
+                                画像を変更
                                 <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />
                             </label>
                         )}
@@ -41,13 +47,22 @@ const Profile: React.FC<Props> = () => {
                         )}
                     </div>
                 </div>
-                <div className='p-4 w-1/3'>
-                    <Label htmlFor='name'>NAME</Label>
-                    <TextInput id='name' value={profile.name} handleSubmit={updateProfile('name')} />
-                    <Label htmlFor='comment' className='mt-4'>COMMENT</Label>
-                    <TextArea id='comment' borderType='square' value={profile.comment} minRows={4} handleSubmit={updateProfile('comment')} />
-                    <div className='flex justify-end my-2'>
-                        <p className=' text-primary-400 text-xs'>{profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`}</p>
+                <div className='p-4'>
+                    <TextInput className='my-2' label='NAME' id='name' value={profile.name} handleSubmit={updateProfile('name')} />
+                    <Label className='my-2'>SNS</Label>
+                    <div className='flex items-center'>
+                        <div><TwitterImage width='48px' height='48px' /></div>
+                        <div className='mx-2 text-primary-300'>{TwitterUrl}</div>
+                        <TextInput placeholder='@アカウント名のみ入力' className='w-full' id='twitter' value={profile.twitter} handleSubmit={updateProfile('twitter')} />
+                    </div>
+                    <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} borderType='square' minRows={4} handleSubmit={updateProfile('comment')} />
+                    <div className='flex flex-col items-end justify-cenrter my-2'>
+                        <ContainedButton disabled={!hasChange} className='my-2' onClick={()=>{
+                            handleSubmit(()=>{
+                                toast.success('プロファイルを変更しました')
+                            })
+                        }}>更新する</ContainedButton>
+                        <p className='text-primary-400 text-xs'>{profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`}</p>
                     </div>
                 </div>
 

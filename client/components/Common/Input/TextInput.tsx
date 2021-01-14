@@ -11,7 +11,7 @@ type Props = Parameters<typeof TextInputBase>[0] & {
     label?: string,
     required?: boolean,
     requiredMessage ?: string,
-    className?: string
+    className?: string,
 }
 
 
