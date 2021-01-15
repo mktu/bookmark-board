@@ -16,6 +16,8 @@ type Props = {
     idx: number
 }
 
+const ImageSize = '64px'
+
 const ListItem: React.FC<Props> = ({
     bookmarkId,
     setHover,
@@ -26,7 +28,8 @@ const ListItem: React.FC<Props> = ({
         sentLikes,
         handleLikes,
         deleteBookmark,
-        handleJumpLink
+        handleJumpLink,
+        handleLoadImageError
     } = useBookmark(bookmarkId)
     const { description } = bookmark
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
@@ -68,9 +71,10 @@ const ListItem: React.FC<Props> = ({
                 borderLeft: `5px solid ${bookmark.color}`
             } : {}} tabIndex={0}>
                 <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
-                    <div className='mr-2 pr-2 overflow-hidden border-primary-border border-r flex items-center'>
-                        <UrlImage src={bookmark.image} width='64px' height='64px' name={bookmark.title} />
+                    <div style={{minWidth:ImageSize, minHeight:ImageSize}} className='overflow-hidden flex items-center'>
+                        <UrlImage src={bookmark.image} enableEndpoint={!bookmark.disableEndpoint} width={ImageSize} height={ImageSize} name={bookmark.title} onError={handleLoadImageError}/>
                     </div>
+                    <div style={{minHeight:ImageSize}} className='mx-2 border-primary-border border-r'/>
                     <div className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1'>
                         <div className='overflow-hidden truncate max-w-full'>{bookmark.title || bookmark.url}</div>
                         {!listViewMask.includes('description') && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}

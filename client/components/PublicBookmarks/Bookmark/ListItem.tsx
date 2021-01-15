@@ -19,7 +19,7 @@ const ListItem: React.FC<Props> = ({
 }) => {
     return (
         <div className='flex py-1 px-2 border rounded border-primary-border items-center'>
-            <UrlImage width='64px' height='64px' src={bookmark.image} name={bookmark.title}/>
+            <UrlImage enableEndpoint={!bookmark.disableEndpoint} width='64px' height='64px' src={bookmark.image} name={bookmark.title}/>
             <div className='ml-2 overflow-hidden w-full  h-full flex-1'>
                 <div className='text-sm overflow-hidden truncate max-w-full text-primary-dark'>{bookmark.title}</div>
                 <div className='text-xs overflow-hidden truncate max-w-full text-primary-main'>{bookmark.description}</div>

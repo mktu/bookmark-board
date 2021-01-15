@@ -84,6 +84,22 @@ export const useBookmark = (bookmarkId:string)=>{
         );
     },[bookmark])
 
+    const handleLoadImageError = useCallback((disableEndpoint?:boolean)=>{
+        if(disableEndpoint){
+            clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
+                disableEndpoint
+            })
+            return
+        }
+        const current = bookmark.image
+        const left = bookmark.images.filter(img=>img!==current) || []
+        const next = left.length > 0 ? left[0] : ''
+        clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
+            image: next,
+            images: left
+        })
+    },[bookmark])
+
     return {
         bookmark,
         likes,
@@ -94,5 +110,6 @@ export const useBookmark = (bookmarkId:string)=>{
         updateBookmark,
         deleteBookmark,
         handleJumpLink,
+        handleLoadImageError
     }
 }

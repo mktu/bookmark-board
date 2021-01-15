@@ -8,6 +8,7 @@ type Props = {
     image?: string,
     images?: string[],
     loading: boolean,
+    disableEndpoint?:boolean,
     onChangeImage: (image: string) => void
 }
 
@@ -15,6 +16,7 @@ const Image: React.FC<Props> = ({
     image,
     images,
     loading,
+    disableEndpoint,
     onChangeImage
 }) => {
     const [currentImage, setCurrentImage] = useState(image)
@@ -42,7 +44,7 @@ const Image: React.FC<Props> = ({
                                             <ButtonBase className={`rounded block p-1 ${i === currentImage ? 'border-2 border-primary-main' : 'border border-primary-border'}`} onClick={() => {
                                                 i !== currentImage && onChangeImage(i)
                                             }}>
-                                                <UrlImage width='64px' height='64px' src={i} />
+                                                <UrlImage width='64px' height='64px' src={i} enableEndpoint={!disableEndpoint}/>
                                             </ButtonBase>
                                         </div>
                                     ))}

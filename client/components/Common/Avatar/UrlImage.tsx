@@ -11,7 +11,8 @@ type Props = {
     name?: string,
     enableEndpoint?: boolean,
     cAtMax?: boolean,
-    className?: string
+    className?: string,
+    onError?:(disableEndpoint?:boolean)=>void
 }
 const UrlEndpoint = process.env.NEXT_PUBLIC_IMGKIT_ID
 
@@ -79,8 +80,9 @@ const UrlImage: React.FC<Props> = ({
     className,
     fallback,
     cAtMax,
+    onError,
     name = 'Unknown',
-    enableEndpoint = true
+    enableEndpoint = true,
 }) => {
     const [useEndpoint, setUseEndpoint] = useState(enableEndpoint)
     const [error, setError] = useState(false)
@@ -107,8 +109,10 @@ const UrlImage: React.FC<Props> = ({
             <img alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
                 if (useEndpoint) {
                     setUseEndpoint(false)
+                    onError && onError(true)
                 } else {
                     setError(true)
+                    onError && onError()
                 }
             }} srcSet={srcset} />
         </div>

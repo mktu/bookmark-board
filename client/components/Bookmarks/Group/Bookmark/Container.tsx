@@ -58,7 +58,7 @@ const Container: React.FC<Props> = ({
     const color = <Color color={bookmark.color} handleUpdate={updateBookmark('color')} group={group}/>
     const move = <Move {...moveGroupProps} copy={moveGroupProps.copyGroup} disabled={moveGroupProps.moveDest.id === bookmark.groupId}/>
     const date = <Date lastUpdate={bookmark.lastUpdate} created={bookmark.created} loading={status==='loading'}/>
-    const image = <Image onChangeImage={updateBookmark('image')} images={bookmark.images} image={bookmark.image} loading={status==='loading'}/>
+    const image = <Image disableEndpoint={bookmark.disableEndpoint} onChangeImage={updateBookmark('image')} images={bookmark.images} image={bookmark.image} loading={status==='loading'}/>
     const trash = <Trash handleDelete={()=>{deleteBookmark(()=>{
         router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
     })}}/>

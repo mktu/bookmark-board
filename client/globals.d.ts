@@ -72,7 +72,8 @@ declare type Bookmark = {
     idx: number,
     unacquired?: boolean,
     reactions: { [key: string]: string[] },
-    color?: string
+    color?: string,
+    disableEndpoint?:boolean
 }
 
 declare type BookmarkComment = {
