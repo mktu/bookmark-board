@@ -18,7 +18,7 @@ const Header = () => {
     const profile = useProfile()
     return (
         <header className="text-gray-500 bg-brand body-font">
-            <div className="flex pl-4 flex-wrap p-2 flex-col md:flex-row items-center h-16">
+            <div className="flex flex-wrap p-2 items-center">
                 <ButtonBase aria-label='Home' onClick={() => {
                     router.push('/')
                 }}>
