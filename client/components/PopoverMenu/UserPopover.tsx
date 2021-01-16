@@ -11,7 +11,9 @@ const UserPopover: React.FC<Props> = ({
 }) => {
     return (
         <div className='bg-white opacity-80 rounded shadow-lg border border-primary-border font-semibold p-3 flex'>
-            <Avatar height='48px' width='48px' src={user.image} name={user.name} />
+            <div>
+                <Avatar height='48px' width='48px' src={user.image} name={user.name} />
+            </div>
             <div className='ml-2 w-full'>
                 <div className='text-primary-dark flex items-center w-ful'>
                     <div>

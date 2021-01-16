@@ -54,7 +54,7 @@ const Inner: React.FC<Props> = ({
         <div className={`flex items-center justify-center rounded-full text-white p-2 overflow-hidden`} style={{
             width,
             height,
-            backgroundColor:bgValues[colodIdx]
+            backgroundColor:bgValues[colodIdx],
         }}>
             {ini}
         </div>
