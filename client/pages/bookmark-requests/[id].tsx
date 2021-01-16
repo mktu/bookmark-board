@@ -2,7 +2,8 @@ import React from 'react'
 import Head from 'next/head'
 import BookmarkRequests from '../../components/BookmarkRequests'
 import { AppLayout } from '../../components/Layout'
-import Sidebar from '../../components/Sidebar'
+import Sidebar from '../../components/AppMenuBar/Sidebar'
+import Header from '../../components/Header'
 import {RequireSignedIn} from '../../components/App'
 
 export default function BookmarkRequestsPage() {
@@ -15,6 +16,7 @@ export default function BookmarkRequestsPage() {
         <AppLayout
           sidebar={<Sidebar />}
           main={<BookmarkRequests />}
+          header={<Header />}
         />
       </RequireSignedIn>
     </div>

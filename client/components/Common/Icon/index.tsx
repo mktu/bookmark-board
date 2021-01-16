@@ -27,8 +27,10 @@ import Trash from './Trash'
 import UserAddFill from './UserAddFill'
 import Refresh from './Refresh'
 import ColorSwatch from './ColorSwatch'
+import ArrowLeft from './ArrowLeft'
 
 export {
+    ArrowLeft,
     ChevronDoubleUp,
     Chat,
     Duplicate,

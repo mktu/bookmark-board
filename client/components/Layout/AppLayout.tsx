@@ -1,18 +1,21 @@
 import React from 'react'
-import styles from './index.module.scss'
+
 type Props = {
     sidebar: React.ReactNode,
-    main: React.ReactNode
+    main: React.ReactNode,
+    header: React.ReactNode,
 }
 
 const Layout = ({
     sidebar,
-    main
+    main,
+    header
 }: Props) => {
     return (
-        <div className={styles['app-layout']}>
-            <div>{sidebar}</div>
-            <div className=' overflow-hidden'>{main}</div>
+        <div className='box-border w-screen h-screen md:flex'>
+            <div className='md:hidden'>{header}</div>
+            <div className='hidden md:block'>{sidebar}</div>
+            <div className='overflow-hidden md:flex-1'>{main}</div>
         </div>
     )
 }

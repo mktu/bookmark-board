@@ -10,14 +10,14 @@ import BookmarkList from './BookmarkList'
 import Bookmark, { Dialog } from './Bookmark'
 
 type Props = {
-
+    groupId: string,
+    bookmarkId: string
 }
-const Group: React.FC<Props> = () => {
+const Group: React.FC<Props> = ({
+    groupId,
+    bookmarkId
+}) => {
     const router = useRouter()
-    
-    const { ids } = router.query
-    const groupId = ids && ids.length > 0 ? ids[0] : ''
-    const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
     const group = useGroupById(groupId)
     const refinements = useRefinementById(groupId)
     const hasFilter = refinements?.colorMasks?.length > 0 || false

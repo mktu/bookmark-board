@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
+import { useRouter } from 'next/router'
 import { SvgIconButton, SvgFillIconButton, ButtonBase } from '../../Common/Button'
-import { FolderOpen, Share as ShareIcon, UserAddFill } from '../../Common/Icon'
+import { FolderOpen, Share as ShareIcon, UserAddFill, ArrowLeft } from '../../Common/Icon'
 import { TooltipDivContainer } from '../../Common/Tooltip'
 import { PopoverDivContainer } from '../../Common/Popover'
 import { UserPopover } from '../../PopoverMenu'
@@ -18,6 +19,7 @@ type Props = {
 const Header: React.FC<Props> = ({
     groupId
 }) => {
+    const router = useRouter()
     const { group, editors } = useBookmarkGroup(groupId)
     const [showDetail, setShowDetail] = useState(false)
     const [showShare, setShowShare] = useState(false)
@@ -25,26 +27,33 @@ const Header: React.FC<Props> = ({
     if (!group) {
         return <div />
     }
+    const handleBack = () => {
+        localStorage.removeItem('groupId')
+        router.push(`/bookmarks`, `/bookmarks`, { shallow: true })
+    }
     return (
-        <div className='h-full w-full flex flex-row items-center px-2 py-2 border-b border-primary-border' >
-            <ButtonBase className='flex items-center cursor-pointer max-w-full overflow-hidden' onClick={() => {
-                setShowDetail(true)
-            }}>
-                <div>
-                    <FolderOpen strokeWidth={1.0} className='w-8' />
+        <div className='h-full w-full px-2 py-2 border-b border-primary-border md:flex md:items-center' >
+            <div className='flex items-center max-w-full overflow-hidden' >
+                <div className='flex items-center'>
+                    <FolderOpen strokeWidth={1.0} className='hidden md:inline-block md:w-8' />
+                    <SvgIconButton className='md:hidden' onClick={handleBack}>
+                        <ArrowLeft strokeWidth={1.0} className='w-6' />
+                    </SvgIconButton>
                 </div>
-                <div className='text-primary-main ml-2 mr-4 overflow-hidden truncate max-w-full'>
+                <ButtonBase className='text-primary-main ml-2 mr-4 overflow-hidden truncate max-w-full block' onClick={() => {
+                    setShowDetail(true)
+                }}>
                     <div className='font-semibold flex justify-start' >
                         {group.name}
                     </div>
                     <div className='text-sm overflow-hidden truncate max-w-full'>
                         {group.description}
                     </div>
-                </div>
+                </ButtonBase>
 
-            </ButtonBase>
+            </div>
 
-            <div className='ml-auto flex items-center'>
+            <div className='ml-auto flex items-center justify-end'>
                 {requests.length > 0 && (
                     <PopoverDivContainer className='px-2' placement='bottom' content={<RequestUsers requests={requests} />}>
                         <div>
@@ -58,7 +67,7 @@ const Header: React.FC<Props> = ({
                 {editors.map(e => (
                     <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='px-1 flex items-center'>
                         <SvgIconButton aria-label='Show User'>
-                            <Avatar src={e.image} width='32px' height='32px' name={e.name}/>
+                            <Avatar src={e.image} width='32px' height='32px' name={e.name} />
                         </SvgIconButton>
                     </PopoverDivContainer>
                 ))}

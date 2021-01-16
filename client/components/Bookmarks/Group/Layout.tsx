@@ -1,5 +1,4 @@
 import React from 'react'
-import styles from './index.module.scss'
 
 type Props = {
     header: React.ReactNode,
@@ -10,9 +9,9 @@ const Layout: React.FC<Props> = ({
     contents
 }) => {
     return (
-        <div className={styles['itemlist-layout']}>
-            <div>{header}</div>
-            <div>{contents}</div>
+        <div className='flex flex-col w-full box-border h-full'>
+            <div >{header}</div>
+            <div className='flex-1 overflow-hidden'>{contents}</div>
         </div>
     )
 }

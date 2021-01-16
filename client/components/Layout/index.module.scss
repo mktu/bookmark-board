@@ -1,11 +1,7 @@
 .app-layout{
-    display: grid;
     grid-template-columns:auto 1fr;
     grid-template-rows:100%;
     @apply w-screen;
     @apply h-screen;
     box-sizing: border-box;
-}
-
-.public-layout{
 }
