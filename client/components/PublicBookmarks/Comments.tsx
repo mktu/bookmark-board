@@ -30,13 +30,16 @@ const Comments: React.FC<Props> = ({
     const { clientService } = useContext(FirebaseContext)
     return (
         <div>
+            {comments.length > 0 && (
+                <h2 className='text-primary-main mb-2'>コメント</h2>
+            )}
             {comments.map(c => {
                 const myReaction = c.reactions.find(r => r.user === myProfile.id)
                 return (
                     <div key={c.id} className='flex items-center p-2 border-b'>
                         <PopoverDivContainer content={senders[c.sender] && <UserPopover user={senders[c.sender]} />}>
                             <SvgIconButton aria-label='User'>
-                                <Avatar src={senders[c.sender]?.image} width='40px' height='40px' name={senders[c.sender]?.name}/>
+                                <Avatar src={senders[c.sender]?.image} width='40px' height='40px' name={senders[c.sender]?.name} />
                             </SvgIconButton>
                         </PopoverDivContainer>
                         <div className='px-2 text-sm text-primary-main'>
@@ -49,7 +52,7 @@ const Comments: React.FC<Props> = ({
                         </div>
                         <div className='ml-auto'>
                             <div className='flex justify-end p-2'>
-                                <HeartButton 
+                                <HeartButton
                                     aria-label='Likes'
                                     disabled={!myProfile.id}
                                     active={Boolean(myReaction)}
