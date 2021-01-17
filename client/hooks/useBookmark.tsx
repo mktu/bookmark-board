@@ -34,7 +34,7 @@ export const useMoveGroup = (bookmark:Bookmark)=>{
     }
 }
 
-export const useBookmark = (bookmarkId:string)=>{
+export const useBookmark = (bookmarkId:string, bulkUpdate?:boolean)=>{
     const profile = useProfile()
     const bookmark = useBookmarkById(bookmarkId)
     const { clientService } = useContext(FirebaseContext)
