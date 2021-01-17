@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useRouter } from 'next/router'
 import { SvgIconButton, SvgFillIconButton, ButtonBase } from '../../Common/Button'
 import { FolderOpen, Share as ShareIcon, UserAddFill, ArrowLeft } from '../../Common/Icon'
@@ -7,22 +7,20 @@ import { PopoverDivContainer } from '../../Common/Popover'
 import { UserPopover } from '../../PopoverMenu'
 import Avatar from '../../Common/Avatar'
 import { useRequestsByGroup } from '../../../modules/requestSlice'
-import { ShareDialog, Share } from './Share'
-import { DetailDialog, Detail } from './Detail'
+
 import RequestUsers from './RequestUsers'
 import { useBookmarkGroup } from '../../../hooks/useBookmarkGroup'
 
 type Props = {
-    groupId: string
+    groupId: string,
 }
 
 const Header: React.FC<Props> = ({
-    groupId
+    groupId,
 }) => {
     const router = useRouter()
     const { group, editors } = useBookmarkGroup(groupId)
-    const [showDetail, setShowDetail] = useState(false)
-    const [showShare, setShowShare] = useState(false)
+    
     const requests = useRequestsByGroup(group?.id)
     if (!group) {
         return <div />
@@ -30,6 +28,9 @@ const Header: React.FC<Props> = ({
     const handleBack = () => {
         localStorage.removeItem('groupId')
         router.push(`/bookmarks`, `/bookmarks`, { shallow: true })
+    }
+    const jumpTo = (place:string)=>()=>{
+        router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}/${place}`)
     }
     return (
         <div className='h-full w-full px-2 py-2 border-b border-primary-border md:flex md:items-center' >
@@ -40,9 +41,7 @@ const Header: React.FC<Props> = ({
                         <ArrowLeft strokeWidth={1.0} className='w-6' />
                     </SvgIconButton>
                 </div>
-                <ButtonBase className='text-primary-main ml-2 mr-4 overflow-hidden truncate max-w-full block' onClick={() => {
-                    setShowDetail(true)
-                }}>
+                <ButtonBase className='text-primary-main ml-2 mr-4 overflow-hidden truncate max-w-full block' onClick={jumpTo('setting')}>
                     <div className='font-semibold flex justify-start' >
                         {group.name}
                     </div>
@@ -72,24 +71,13 @@ const Header: React.FC<Props> = ({
                     </PopoverDivContainer>
                 ))}
                 <TooltipDivContainer className='px-2' content='共有' placement='bottom'>
-                    <SvgIconButton aria-label='Share Option' onClick={() => {
-                        setShowShare(true)
-                    }}>
+                    <SvgIconButton aria-label='Share Option' onClick={jumpTo('share')}>
                         <ShareIcon strokeWidth={2} className='w-6' />
                     </SvgIconButton>
                 </TooltipDivContainer>
             </div>
 
-            <ShareDialog open={showShare} onClose={() => {
-                setShowShare(false)
-            }}>
-                <Share sharable={Boolean(group.sharable)} id={groupId} />
-            </ShareDialog>
-            <DetailDialog open={showDetail} onClose={() => {
-                setShowDetail(false)
-            }}>
-                <Detail group={group} />
-            </DetailDialog>
+            
         </div >
     )
 }

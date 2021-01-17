@@ -25,7 +25,7 @@ const Detail: React.FC<Props> = ({
     } = useBookmarkGroup(group.id)
 
     return (
-        <div className='w-full px-2'>
+        <div className='w-full p-2'>
             <div className='flex items-center'>
                 <div>
                     <GroupImage width='48px' height='48px' src={group.imageUrl} />

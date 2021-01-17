@@ -9,14 +9,20 @@ import Header from './Header'
 import BookmarkList from './BookmarkList'
 import Bookmark, { Dialog } from './Bookmark'
 import { DefaultSize, MobileSize } from '../../Layout/responsive'
+import { ShareDialog, Share } from './Share'
+import { DetailDialog, Detail } from './Detail'
 
 type Props = {
     groupId: string,
-    bookmarkId: string
+    bookmarkId: string,
+    settingMode?: boolean,
+    shareMode?: boolean
 }
 const Group: React.FC<Props> = ({
     groupId,
-    bookmarkId
+    bookmarkId,
+    settingMode,
+    shareMode
 }) => {
     const router = useRouter()
     const group = useGroupById(groupId)
@@ -24,7 +30,9 @@ const Group: React.FC<Props> = ({
     const hasFilter = refinements?.colorMasks?.length > 0 || false
     const bookmarkIds = useBookmarkIdsByRefinements(refinements)
     const status = useGroupStatus()
-
+    const jumpToGroupRoot = () => {
+        router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}`, { shallow: true })
+    }
     useEffect(() => {
         if (!localStorage) {
             return
@@ -64,20 +72,38 @@ const Group: React.FC<Props> = ({
             <Layout
                 header={<Header groupId={groupId} />}
                 contents={<BookmarkList bookmarkIds={bookmarkIds} groupId={groupId} />}
-                showDetail={Boolean(bookmarkId)}
-                bookmarkDetail={
+                alternative={Boolean(bookmarkId) || settingMode || shareMode}
+                alternativeContent={settingMode ?
                     <>
                         <DefaultSize>
-                            <Dialog open={Boolean(bookmarkId)} onClose={() => {
-                                router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}`, { shallow: true })
-                            }}>
-                                <Bookmark bookmarkId={bookmarkId} />
-                            </Dialog>
+                            <DetailDialog open={settingMode} onClose={jumpToGroupRoot}>
+                                <Detail group={group} />
+                            </DetailDialog>
                         </DefaultSize>
                         <MobileSize>
-                            <Bookmark bookmarkId={bookmarkId} />
+                            <Detail group={group} />
                         </MobileSize>
-                    </>
+                    </> : shareMode ?
+                        <>
+                            <DefaultSize>
+                                <ShareDialog open={shareMode} onClose={jumpToGroupRoot}>
+                                    <Share sharable={Boolean(group.sharable)} id={groupId} />
+                                </ShareDialog>
+                            </DefaultSize>
+                            <MobileSize>
+                                <Share sharable={Boolean(group.sharable)} id={groupId} />
+                            </MobileSize>
+                        </> :
+                        <>
+                            <DefaultSize>
+                                <Dialog open={Boolean(bookmarkId)} onClose={jumpToGroupRoot}>
+                                    <Bookmark bookmarkId={bookmarkId} />
+                                </Dialog>
+                            </DefaultSize>
+                            <MobileSize>
+                                <Bookmark bookmarkId={bookmarkId} />
+                            </MobileSize>
+                        </>
                 }
             />
         </>
