@@ -25,7 +25,7 @@ const Move: React.FC<Props> = ({
 }) => (
         <div>
             <Label className='mb-4'>グループを移動</Label>
-            <div className='flex items-center'>
+            <div className='md:flex items-center'>
                 <Dropdowns
                     placement='bottom'
                     options={groups.map(g => ({ label: g.name, value: g.id }))}
@@ -34,7 +34,7 @@ const Move: React.FC<Props> = ({
                 <Checkbox label='コピーを作成' className='ml-2 mt-2' id='copy' onChange={(e) => { handleCheckCopy(e.target.checked) }} />
                 <OutlinedButton
                     disabled={disabled}
-                    className='ml-auto'
+                    className='block ml-auto'
                     colorType='secondary'
                     onClick={handleMove}>
                     {copy ? 'コピーする' : '移動する'}

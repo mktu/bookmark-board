@@ -27,17 +27,17 @@ const Image: React.FC<Props> = ({
     return (
         <>
             <Label className=''>Icons</Label>
-            <div className='flex items-end max-w-full m-2 overflow-hidden'>
+            <div className='md:flex items-end max-w-full m-2 overflow-hidden'>
                 {loading ? (<LoadingImg className='w-32' />) : (
                     <>
-                        <div className='block border rounded p-1 text-xs border-primary-border overflow-hidden'>
+                        <div className='flex justify-center md:block md:border rounded p-1 text-xs border-primary-border overflow-hidden'>
                             <UrlImage enableEndpoint={false} width='256px' src={currentImage} fallback={(<div className='text-secondary-main text-xs w-full' style={{ maxWidth: '256px' }}>
                                 <NotFound width='256px' height='128px' text={`画像が見つかりません`} />
                             </div>)} />
                         </div>
                         {otherImages.length > 0 && (
                             <div className='ml-auto mr-1'>
-                                <div className='text-xs text-primary-main'>選択可能なアイコン</div>
+                                <div className='hidden md:block text-xs text-primary-main'>選択可能なアイコン</div>
                                 <div className='mt-4 flex items-end'>
                                     {otherImages.map((i) => (
                                         <div className='mx-1 flex flex-col items-center' key={i} >
