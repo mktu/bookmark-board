@@ -21,7 +21,7 @@ const Default: React.FC<Props> = ({
 }) => {
     return (
         <div className='py-2 px-2 border rounded border-primary-border'>
-            <div className='p-1 text-sm overflow-hidden overflow-ellipsis max-w-full text-primary-dark'>{title}</div>
+            <div className='p-1 text-sm overflow-hidden overflow-ellipsis max-w-full text-primary-dark'>• {title}</div>
             <div className='border-b my-2 border-primary-border' />
             <div className='flex items-center'>
                 {image}
