@@ -4,7 +4,7 @@ import { Modal } from 'react-responsive-modal';
 import { OutlinedButton, SvgIconButton } from '../../Common/Button'
 import { EditFill, ShareFill as ShareIcon, Duplicate, XFill } from '../../Common/Icon'
 import Link from 'next/link'
-import Tooltip from '../../Common/Tooltip'
+import { TooltipDivContainer } from '../../Common/Tooltip'
 import FirebaseContext from '../../../context/FirebaseContext'
 import { copyToClipBoard } from '../../../utils'
 
@@ -41,35 +41,36 @@ const Share: React.FC<Props> = ({
                     <div className='text-sm'>
 
                         <div className='flex items-center my-2'>
-                            <p>閲覧用リンク</p>
+                            <p className='hidden md:block'>閲覧用リンク</p>
                             <Link href={publicPath} shallow>
                                 {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                                    (<a className='underline text-blue-700 mx-2'>{publicUrl}</a>)
+                                    (<a className='hidden md:inline-block underline text-blue-700 mx-2'>{publicUrl}</a>)
+                                }
+                            </Link>
+                            <Link href={publicPath} shallow>
+                                {// eslint-disable-next-line jsx-a11y/anchor-is-valid
+                                    (<a className='md:hidden underline text-blue-700 mx-2'>閲覧用リンク</a>)
                                 }
                             </Link>
 
-                            <Tooltip content='URLをコピー' placement='bottom'>
-                                <div>
-                                    <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {
-                                        copyToClipBoard(publicUrl, () => {
-                                            toast.success('URLをクリップボードにコピーしました')
-                                        })
-                                    }}>
-                                        <Duplicate className='w-6' />
-                                    </SvgIconButton>
-                                </div>
-                            </Tooltip>
-                            <Tooltip content='非公開にする' placement='bottom'>
-                                <div>
-                                    <SvgIconButton aria-label='Make Private' className='block ml-2' onClick={() => {
-                                        clientService.modifyGroup(id, {
-                                            sharable: false
-                                        })
-                                    }}>
-                                        <XFill className='w-6 stroke-0 fill-primary-main hover:fill-primary-dark' />
-                                    </SvgIconButton>
-                                </div>
-                            </Tooltip>
+                            <TooltipDivContainer content='URLをコピー' placement='bottom'>
+                                <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {
+                                    copyToClipBoard(publicUrl, () => {
+                                        toast.success('URLをクリップボードにコピーしました')
+                                    })
+                                }}>
+                                    <Duplicate className='w-6' />
+                                </SvgIconButton>
+                            </TooltipDivContainer>
+                            <TooltipDivContainer content='非公開にする' placement='bottom'>
+                                <SvgIconButton aria-label='Make Private' className='block ml-2' onClick={() => {
+                                    clientService.modifyGroup(id, {
+                                        sharable: false
+                                    })
+                                }}>
+                                    <XFill className='w-6 stroke-0 fill-primary-main hover:fill-primary-dark' />
+                                </SvgIconButton>
+                            </TooltipDivContainer>
                         </div>
                     </div>
                 ) : (
@@ -98,19 +99,18 @@ const Share: React.FC<Props> = ({
             <div className='p-2 '>
                 <div className='text-sm'>
                     <div className='flex items-center my-2'>
-                        <p>共同編集リンク</p>
-                        <a className='underline text-blue-700 mx-2' href={requestUrl}>{requestUrl}</a>
-                        <Tooltip content='URLをコピー' placement='bottom'>
-                            <div>
-                                <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {
-                                    copyToClipBoard(requestUrl, () => {
-                                        toast.success('URLをクリップボードにコピーしました')
-                                    })
-                                }}>
-                                    <Duplicate className='w-6' />
-                                </SvgIconButton>
-                            </div>
-                        </Tooltip>
+                        <p className='hidden md:block'>共同編集リンク</p>
+                        <a className='hidden md:inline-block underline text-blue-700 mx-2' href={requestUrl}>{requestUrl}</a>
+                        <a className='md:hidden underline text-blue-700 mx-2' href={requestUrl}>共同編集リンク</a>
+                        <TooltipDivContainer content='URLをコピー' placement='bottom'>
+                            <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {
+                                copyToClipBoard(requestUrl, () => {
+                                    toast.success('URLをクリップボードにコピーしました')
+                                })
+                            }}>
+                                <Duplicate className='w-6' />
+                            </SvgIconButton>
+                        </TooltipDivContainer>
                     </div>
                 </div>
             </div>
@@ -131,7 +131,7 @@ const ShareDialog: React.FC<DialogProps> = ({
 }) => {
     return (
         <Modal open={open} showCloseIcon={false} focusTrapped={false} onClose={onClose} center classNames={{
-            modal: 'w-2/3',
+            modal: 'w-full md:w-2/3',
             overlay: 'bg-red-500'
         }}>
             {children}
