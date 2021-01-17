@@ -55,12 +55,12 @@ export default function Tooltip<T extends HTMLElement>({ children, content, plac
                         style={styles.popper}
                         {...attributes.popper}
                     >
-                        <div className='bg-primary-600 text-white opacity-80 p-2 rounded-lg text-sm'>
+                        <div className='hidden sm:block bg-primary-600 text-white opacity-80 p-2 rounded-lg text-sm'>
                             {content}
                         </div>
                     </div>
                 ) : (
-                    <div className='z-20'
+                    <div className='z-20 hidden sm:block'
                         ref={setPopperElement}
                         style={styles.popper}
                         {...attributes.popper}> { content}</div>
