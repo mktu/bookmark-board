@@ -7,14 +7,10 @@ import FirebaseContext from '../context/FirebaseContext'
 import { saveRefinement } from '../utils/localStorages/group'
 
 const defaultColors: BookmarkColors = [
-    ['#EF4511', 'Pomegranate'],
-    ['#EBB910', 'Gold Tips'],
-    ['#78E1A8', 'Algae Green'],
-    ['#89CFFA', 'Malibu'],
-    ['#A8AAB6', 'Spun Pearl'],
-    ['#CD0F38', 'Crimson'],
-    ['#E36E9E', 'Deep Blush'],
-    ['#8302E5', 'Electric Violet']
+    ['#EF4511', 'グループ1'],
+    ['#EBB910', 'グループ2'],
+    ['#78E1A8', 'グループ3'],
+    ['#89CFFA', 'グループ4'],
 ].reduce((acc, cur) => {
     acc[cur[0]] = {
         color: cur[0],
@@ -34,7 +30,9 @@ export const useBookmarkGroup = (groupId?: string) => {
     }
     const colors = useMemo(() => {
         if (!group) return []
-        return Object.keys(group.colors).sort().map(c => ({
+        return Object.keys(group.colors).sort((a,b)=>{
+            return group.colors[a].name < group.colors[b].name ? -1 : 1
+        }).map(c => ({
             ...group.colors[c],
             show : !colorMasks.includes(c)
         }))
