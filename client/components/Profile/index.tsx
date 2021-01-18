@@ -25,8 +25,8 @@ const Profile: React.FC<Props> = () => {
     } = useProfileContainer()
     return (
         <div className='w-full h-full p-6'>
-            <div className='w-full flex'>
-                <div>
+            <div className='w-full md:flex'>
+                <div className='flex flex-col items-center'>
                     <Avatar src={profile.image} width='192px' height='192px' name={profile.name} usePlaceholder />
                     <div className='flex items-center justify-center p-4'>
                         {status === 'loading' && (
