@@ -1,8 +1,8 @@
 import React from 'react'
 import Image from 'next/image'
 
-const BookmarksSigninImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...props})=>{
-    return <img src={'/BookmarksSignin.png'} alt='BookmarksSignin' {...props}/>;
+const BookmarksSigninImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({width,height})=>{
+    return <Image src={'/BookmarksSignin.svg'} alt='BookmarksSignin' width={width} height={height}/>;
 }
 
 const GoogleSignInImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...props})=>{
