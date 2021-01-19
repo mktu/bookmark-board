@@ -69,15 +69,15 @@ const Signup: React.FC<Props> = ({
         }, setError)
     }
     return (
-        <div className='flex w-screen h-screen justify-center'>
-            <div className='w-1/2 h-full flex flex-col justify-center'>
-                <p className='text-lg text-primary-main font-bold mb-4'>ユーザー登録</p>
+        <div className='md:flex w-screen h-screen justify-center p-4 md:p-0'>
+            <div className='w-full md:w-1/2 h-full flex flex-col md:justify-center'>
+                <p className='text-lg text-primary-main font-bold md:mb-4'>ユーザー登録</p>
                 <p className='text-base text-primary-main mb-4'>ニックネームを登録し、早速始めましょう</p>
-                <div className='flex w-full'>
+                <div className='md:flex w-full'>
                     <div className='flex flex-col items-center p-2'>
                         <Avatar width='128px' height='128px' src={fileUrl} disableNextImage usePlaceholder />
                         <label className='my-2 py-2 px-4 cursor-pointer rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark' htmlFor='file-upload'>
-                            変更
+                            画像を変更
                         <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />
                         </label>
                     </div>
@@ -102,7 +102,7 @@ const Signup: React.FC<Props> = ({
                         )}
                 </div>
             </div>
-            <div className='ml-4 flex items-end p-10'>
+            <div className='hidden ml-4 md:flex items-end p-10'>
                 <SigninImg width='256px' height='256px' />
             </div>
         </div>
