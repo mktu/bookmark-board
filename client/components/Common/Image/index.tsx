@@ -46,5 +46,5 @@ export {
     PlaceHolderImg,
     WelcomeImg,
     SigninImg,
-    TwitterImage
+    TwitterImage,
 }
