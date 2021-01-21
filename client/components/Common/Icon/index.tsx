@@ -28,6 +28,8 @@ import UserAddFill from './UserAddFill'
 import Refresh from './Refresh'
 import ColorSwatch from './ColorSwatch'
 import ArrowLeft from './ArrowLeft'
+import XCircle from './XCircle'
+
 
 export {
     ArrowLeft,
@@ -41,6 +43,7 @@ export {
     Book,
     FolderOpen,
     XFill,
+    XCircle,
     Add,
     AddFill,
     ChevronDown,

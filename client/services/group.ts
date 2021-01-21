@@ -43,10 +43,10 @@ export function modifyGroup(
     onSucceeded ?: Notifier,
     onFailed : ErrorHandler = console.error
 ){
-    db.collection('groups').doc(groupId).set({
+    db.collection('groups').doc(groupId).update({
         ...data,
         lastUpdate: Date.now()
-    }, { merge: true })
+    })
         .then(onSucceeded)
         .catch(onFailed);
 }

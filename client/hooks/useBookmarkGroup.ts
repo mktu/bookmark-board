@@ -1,5 +1,6 @@
-import { useContext, useMemo } from 'react'
+import { useContext, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify'
 import { useGroupById } from '../modules/groupSlice'
 import { useUsersByIds } from '../modules/usersSlice'
 import { useRefinementById } from '../modules/groupRefinementSlice'
@@ -15,7 +16,6 @@ const defaultColors: BookmarkColors = [
     acc[cur[0]] = {
         color: cur[0],
         name: cur[1],
-        show: true
     }
     return acc
 }, {})
@@ -24,9 +24,11 @@ export const useBookmarkGroup = (groupId?: string) => {
     const base = useGroupById(groupId)
     const refinements = useRefinementById(groupId)
     const {colorMasks = []} = refinements || {}
+    const [update, setUpdate] = useState<Partial<BookmarkGroup>>({})
     const group: BookmarkGroup = base && {
         ...base,
-        colors: base.colors || defaultColors
+        colors: base.colors || defaultColors,
+        ...update
     }
     const colors = useMemo(() => {
         if (!group) return []
@@ -60,9 +62,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         const colors = { ...group.colors }
         if (colors[color]) {
             colors[color] = { ...colors[color], ...data }
-            clientService.modifyGroup(group.id, {
-                colors
-            })
+            setUpdate({colors})
         }
     }
     const filterColor = (color: string, show: boolean) => {
@@ -83,6 +83,29 @@ export const useBookmarkGroup = (groupId?: string) => {
             saveRefinement(groupId, {colorMasks : colors.map(c=>c.color)})
         }
     }
+    const handleAddColor = (name:string,color:string)=>{
+        if(group.colors[color]){
+            toast.warn('すでにこの色は登録されています')
+            return
+        }
+        const colors : typeof group.colors = { ...group.colors, [color] : { name , color } }
+        setUpdate({colors})
+    }
+    const handleDeleteColor = (color:string)=>{
+        if(!group.colors[color]){
+            return
+        }
+        const colors : typeof group.colors = { ...group.colors }
+        delete colors[color]
+        setUpdate({colors})
+    }
+    const hasChange = Object.keys(update).length > 0 
+    const handleSubmit = (notifier?:Notifier)=>{
+        if(!hasChange){
+            return
+        }
+        clientService.modifyGroup(groupId, update, notifier)
+    }
     return {
         group,
         editors,
@@ -92,6 +115,10 @@ export const useBookmarkGroup = (groupId?: string) => {
         handleDeleteGroup,
         updateColor,
         filterColor,
-        filterColors
+        filterColors,
+        handleAddColor,
+        handleDeleteColor,
+        handleSubmit,
+        hasChange
     }
 }

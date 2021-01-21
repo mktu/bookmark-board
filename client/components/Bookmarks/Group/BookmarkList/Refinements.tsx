@@ -14,6 +14,7 @@ const Refinements: React.FC<Props> = ({
     groupId
 }) => {
     const [showColor, setShowColor] = useState(false)
+    const onCloseColorOption = () => { setShowColor(false) }
     return (
         <div className='p-1'>
             <div className='p-4 w-full bg-white flex flex-row shadow'>
@@ -39,8 +40,8 @@ const Refinements: React.FC<Props> = ({
                     </PopoverDivContainer>
                 </div>
             </div>
-            <ColorOptionDialog open={showColor} onClose={() => { setShowColor(false) }}>
-                <ColorOptions groupId={groupId} />
+            <ColorOptionDialog open={showColor} onClose={onCloseColorOption}>
+                <ColorOptions groupId={groupId} onClose={onCloseColorOption}/>
             </ColorOptionDialog>
         </div>
     )
