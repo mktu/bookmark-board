@@ -27,7 +27,7 @@ const Default: React.FC<Props> = ({
                 {image}
                 <div className='ml-2 overflow-hidden w-full  h-full flex-1'>
                     <div className='text-xs overflow-hidden overflow-ellipsis max-w-full text-primary-main'>
-                        {description.length > 100 ? description.substr(0, 100) + '...' : description}
+                        {(description && description.length > 100) ? description.substr(0, 100) + '...' : description}
                     </div>
                 </div>
                 <div className='hidden ml-2 flex-col justify-center items-center sm:flex' style={{ minHeight: '64px' }}>
