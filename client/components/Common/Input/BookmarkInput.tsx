@@ -5,7 +5,7 @@ export const BookmarkInputBase: React.FC<InputProps> = ({
     ...props
 }) => {
     return (
-        <input {...props} type="text" className="px-3 py-3 bg-transparent placeholder-primary-200 text-primary-700 relative text-sm outline-none focus:outline-none w-full" />
+        <input {...props} type="text" className="px-3 py-3 bg-transparent placeholder-primary-200 text-primary-700 relative md:text-sm outline-none focus:outline-none w-full" />
     )
 }
 
