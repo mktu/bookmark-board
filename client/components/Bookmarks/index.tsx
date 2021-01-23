@@ -9,13 +9,12 @@ const Bookmarks = ()=>{
     const { ids } = router.query
     const groupId = ids && ids.length > 0 ? ids[0] : ''
     const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
-    const settingMode = bookmarkId === 'setting'
-    const shareMode = bookmarkId === 'share'
+    
     return (
         <Layout 
             showGroup={Boolean(groupId)}
             groups={<GroupList />}
-            group={<Group {...{groupId, bookmarkId, settingMode, shareMode}}/>}
+            group={<Group {...{groupId, bookmarkId}}/>}
         />
     )
 }
