@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import TextInput from '../../../Common/Input/TextInput'
-import { ContainedButton } from '../../../Common/Button'
+import TextInput from '../../../../Common/Input/TextInput'
+import { ContainedButton } from '../../../../Common/Button'
 
 type Props = {
     handleAddColor : (name:string,color:string)=>void
@@ -14,7 +14,7 @@ const ColorInput: React.FC<Props> = ({
     return (
         <div>
             <div className='flex items-center'>
-                <TextInput placeholder='グループ名を入力'  value={name} className='w-full flex-1' handleSubmit={setName} />
+                <TextInput aria-label='New Color' placeholder='グループ名を入力'  value={name} className='w-full flex-1' handleSubmit={setName} />
                 {color ? (
                     <label htmlFor='NewColor' className='ml-auto w-5 h-5 rounded' style={{ backgroundColor: color }}>
                     </label>
@@ -31,7 +31,7 @@ const ColorInput: React.FC<Props> = ({
                     handleAddColor(name,color)
                     setName('')
                     setColor('')
-                }} disabled={!name || !color} className='ml-4'>追加</ContainedButton>
+                }} disabled={!name || !color} className='ml-4 text-xs'>追加</ContainedButton>
             </div>
             
         </div>

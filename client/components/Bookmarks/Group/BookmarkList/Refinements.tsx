@@ -4,7 +4,7 @@ import { PopoverDivContainer } from '../../../Common/Popover'
 import { TextButton } from '../../../Common/Button'
 import ListOptions from './ListOptions'
 import SortOptions from './SortOptions'
-import { ColorOptionDialog, ColorOptions } from './ColorOptions'
+import { ColorOptionDialog, ColorOptions } from './ColorOption'
 
 type Props = {
     groupId: string

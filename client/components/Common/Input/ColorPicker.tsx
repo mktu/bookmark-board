@@ -2,6 +2,7 @@ import React from 'react'
 import { ButtonBase } from '../Button'
 import { PopoverDivContainer } from '../Popover'
 import classNames from 'classnames'
+import { hex2rgb } from '../../../utils'
 
 type Props = {
     className?: string,
@@ -9,18 +10,6 @@ type Props = {
     boxSize: 5 | 6,
     handleSelectColor: (color: string) => void,
     value?: string
-}
-
-function hex2rgb(hex?: string) {
-    if (!hex) {
-        return [0, 0, 0]
-    }
-    if (hex.slice(0, 1) == "#") hex = hex.slice(1);
-    if (hex.length == 3) hex = hex.slice(0, 1) + hex.slice(0, 1) + hex.slice(1, 2) + hex.slice(1, 2) + hex.slice(2, 3) + hex.slice(2, 3);
-
-    return [hex.slice(0, 2), hex.slice(2, 4), hex.slice(4, 6)].map(function (str) {
-        return parseInt(str, 16);
-    });
 }
 
 export const ColorPallet: React.FC<Props> = ({

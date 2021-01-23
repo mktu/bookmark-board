@@ -20,7 +20,7 @@ export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = (
     )
 }
 
-export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, disabled, colorType='dark', ...props }) => {
+export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType, paddings?:string}> = ({ className, disabled, colorType='dark', paddings='py-2 px-4', ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
         dark : `text-primary-main border-primary-300 ${!disabled && 'hover:text-primary-dark hover:border-primary-main'}`,
         secondary : `text-secondary-main border-secondary-main ${!disabled && 'hover:text-secondary-dark hover:border-secondary-dark'}`,
@@ -28,7 +28,7 @@ export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({
         none : ''
     }
     return (
-        <ButtonBase disabled={disabled}  className={classNames(`py-2 px-4 rounded border focus:outline-none`,  colorClasses[colorType], className)} {...props} />
+        <ButtonBase disabled={disabled}  className={classNames(`rounded border focus:outline-none`,  colorClasses[colorType], paddings, className)} {...props} />
     )
 }
 

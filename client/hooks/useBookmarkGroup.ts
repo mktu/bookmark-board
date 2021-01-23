@@ -12,28 +12,67 @@ const defaultColors: BookmarkColors = [
     ['#EBB910', 'グループ2'],
     ['#78E1A8', 'グループ3'],
     ['#89CFFA', 'グループ4'],
-].reduce((acc, cur) => {
+].reduce((acc, cur, idx) => {
     acc[cur[0]] = {
         color: cur[0],
         name: cur[1],
+        idx
     }
     return acc
 }, {})
 
+const useRefinements = (groupId?: string)=>{
+    const base = useRefinementById(groupId)
+    const [updateRefinement, setUpdateRefinement] = useState<Partial<BookmarkRefinement>>({})
+    const refinements = {...(base || {}), ...updateRefinement}
+    const {colorMasks = []} = refinements
+    const updateColorFilters = (updateColors:{color: string, show: boolean}[]) => {
+        const unmasked = updateColors.filter(c=>c.show).map(c=>c.color)
+        const masked = updateColors.filter(c=>!c.show).map(c=>c.color)
+        if(groupId){
+            let mask = colorMasks
+            mask = mask.filter(v=>!unmasked.includes(v))
+            mask = Array.from(new Set([...mask,...masked]))
+            setUpdateRefinement({colorMasks : mask})
+        }
+    }
+    const hasChangeRefinement = Object.keys(updateRefinement).length > 0 
+    const handleSaveRefinements = ()=>{
+        hasChangeRefinement && saveRefinement(groupId, updateRefinement)
+    }
+
+    return {
+        updateColorFilters,
+        handleSaveRefinements,
+        refinements,
+        colorMasks,
+        hasChangeRefinement
+    }
+}
+
 export const useBookmarkGroup = (groupId?: string) => {
     const base = useGroupById(groupId)
-    const refinements = useRefinementById(groupId)
-    const {colorMasks = []} = refinements || {}
+    const {
+        colorMasks,
+        hasChangeRefinement,
+        handleSaveRefinements,
+        updateColorFilters
+    } = useRefinements(groupId)
     const [update, setUpdate] = useState<Partial<BookmarkGroup>>({})
+    const hydrateColor = base && base.colors || defaultColors
     const group: BookmarkGroup = base && {
         ...base,
-        colors: base.colors || defaultColors,
+        //colors: base.colors || defaultColors,
+        colors: Object.keys(hydrateColor).reduce((acc,cur,idx)=>{
+            acc[cur] = {idx,...hydrateColor[cur]}
+            return acc
+        },{} as BookmarkColors),
         ...update
     }
     const colors = useMemo(() => {
         if (!group) return []
         return Object.keys(group.colors).sort((a,b)=>{
-            return group.colors[a].name < group.colors[b].name ? -1 : 1
+            return group.colors[a].idx - group.colors[b].idx
         }).map(c => ({
             ...group.colors[c],
             show : !colorMasks.includes(c)
@@ -65,59 +104,64 @@ export const useBookmarkGroup = (groupId?: string) => {
             setUpdate({colors})
         }
     }
-    const filterColor = (color: string, show: boolean) => {
-        if(groupId){
-            let mask = colorMasks
-            if(show){
-                mask = mask.filter(v=>v!==color)
-            }else{
-                mask = Array.from(new Set([...mask,color]))
-            }
-            saveRefinement(groupId, {colorMasks : mask})
-        }
+
+    const handleChangeColorIndex = (color:string,next:number)=>{
+        const indecies = colors.map(c=>({color:c.color,remove:color===c.color}))
+        indecies.splice(next,0,{color,remove:false})
+        const newIndecies = indecies.filter(c=>!c.remove).map(c=>c.color)
+        const update = newIndecies.reduce((acc,cur,idx)=>{
+            acc[cur].idx = idx
+            return acc
+        },{...group.colors})
+        setUpdate({colors:update})
     }
-    const filterColors = (show:boolean) => {
-        if(show){
-            saveRefinement(groupId, {colorMasks : []})
-        } else {
-            saveRefinement(groupId, {colorMasks : colors.map(c=>c.color)})
-        }
-    }
+    
     const handleAddColor = (name:string,color:string)=>{
         if(group.colors[color]){
             toast.warn('すでにこの色は登録されています')
             return
         }
-        const colors : typeof group.colors = { ...group.colors, [color] : { name , color } }
+        const idx = Object.keys(group.colors).length 
+        const colors : typeof group.colors = { ...group.colors, [color] : { name , color, idx } }
         setUpdate({colors})
     }
-    const handleDeleteColor = (color:string)=>{
-        if(!group.colors[color]){
-            return
-        }
+    const handleDeleteColors = (deleteColors:string[])=>{
         const colors : typeof group.colors = { ...group.colors }
-        delete colors[color]
+        for(const c of deleteColors){
+            if(colors[c]){
+                delete colors[c]
+            }
+        }
         setUpdate({colors})
     }
-    const hasChange = Object.keys(update).length > 0 
+    const hasChangeGroup = Object.keys(update).length > 0 
+    const hasChange = hasChangeGroup || hasChangeRefinement
     const handleSubmit = (notifier?:Notifier)=>{
         if(!hasChange){
             return
         }
-        clientService.modifyGroup(groupId, update, notifier)
+        if(hasChangeGroup){
+            clientService.modifyGroup(groupId, update, ()=>{
+                handleSaveRefinements()
+                notifier()
+            })
+            return
+        }
+        handleSaveRefinements()
+        notifier()
     }
     return {
         group,
         editors,
         colors,
+        updateColorFilters,
         handleRemoveUser,
         updateGroup,
         handleDeleteGroup,
         updateColor,
-        filterColor,
-        filterColors,
         handleAddColor,
-        handleDeleteColor,
+        handleDeleteColors,
+        handleChangeColorIndex,
         handleSubmit,
         hasChange
     }

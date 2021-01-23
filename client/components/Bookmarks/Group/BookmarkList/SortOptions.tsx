@@ -1,7 +1,8 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useCallback } from 'react'
 import { ContainedButton } from '../../../Common/Button'
 import { Checkbox } from '../../../Common/Input'
 import { useBookmarksByGroup } from '../../../../modules/bookmarkSlice'
+import { useGroupById } from '../../../../modules/groupSlice'
 import FirebaseContext from '../../../../context/FirebaseContext'
 
 type Props = {
@@ -10,11 +11,7 @@ type Props = {
 
 type CompFunction = (a:Bookmark,b:Bookmark)=>number
 
-const colorSorter : CompFunction = (a,b)=>{
-    const aColor = a.color || 'none'
-    const bColor = b.color || 'none'
-    return aColor < bColor ? -1 : aColor > bColor ? 1 : 0
-}
+
 const lastUpdateSorter : CompFunction = (a,b)=>{
     const aLastUpdate = a.lastUpdate || 0
     const bLastUpdate = b.lastUpdate || 0
@@ -27,6 +24,19 @@ const SortOptions: React.FC<Props> = ({
     const { clientService } = useContext(FirebaseContext)
     const [functions, setFunctions] = useState<CompFunction[]>([])
     const bookmarks = useBookmarksByGroup(groupId)
+    const {colors} = useGroupById(groupId)
+    const colorSorter : CompFunction = useCallback((a,b)=>{
+        if(!a.color){
+            return 1
+        }
+        if(!b.color){
+            return -1
+        }
+        if(!colors || !(colors[a.color]?.idx) || !(colors[b.color]?.idx)){
+            return a.color < b.color ? -1 : 1
+        }
+        return colors[a.color].idx - colors[b.color].idx
+    },[colors])
     const sortBase = (compFunc:(a:Bookmark,b:Bookmark)=>number)=>{
         const data = bookmarks.sort(compFunc).map(v=>v.id)
         clientService.changeOrder(groupId, data)
