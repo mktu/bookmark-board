@@ -46,7 +46,7 @@ const TextArea: React.FC<Props> = ({
                     {label}
                 </Label>}
             <div className={classNames('relative flex items-center border-primary-border pl-2 pb-2', borderClasses[borderType])}>
-                <ResizableTextAreaBase id={id} {...props} className='placeholder-primary-200 text-primary-700 bg-white text-sm resize-none'
+                <ResizableTextAreaBase id={id} {...props} className='placeholder-primary-200 text-primary-700 bg-white md:text-sm resize-none'
                     value={text}
                     onChange={(e) => {
                         setText(e.target.value)

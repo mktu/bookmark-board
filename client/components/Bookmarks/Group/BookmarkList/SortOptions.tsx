@@ -32,10 +32,10 @@ const SortOptions: React.FC<Props> = ({
         if(!b.color){
             return -1
         }
-        if(!colors || !(colors[a.color]?.idx) || !(colors[b.color]?.idx)){
+        if(!colors || !(colors[a.color]) || !(colors[b.color])){
             return a.color < b.color ? -1 : 1
         }
-        return colors[a.color].idx - colors[b.color].idx
+        return (colors[a.color].idx || 0) - (colors[b.color].idx || 0)
     },[colors])
     const sortBase = (compFunc:(a:Bookmark,b:Bookmark)=>number)=>{
         const data = bookmarks.sort(compFunc).map(v=>v.id)

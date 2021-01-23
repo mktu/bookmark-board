@@ -45,7 +45,7 @@ const TextInput: React.FC<Props> = ({
                     )}
                 </Label>}
             <div className='flex items-center border-b border-primary-border relative'>
-                <TextInputBase {...props} id={id} className='block px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white text-sm'
+                <TextInputBase {...props} id={id} className='block px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white md:text-sm'
                     value={text}
                     onFocus={() => {
                         setFocus(true)
