@@ -4,7 +4,7 @@ import Presenter from './Presenter'
 import { useBookmark, useMoveGroup } from '../../../../hooks/useBookmark'
 import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
 import { TextInput, TextArea } from '../../../Common/Input'
-import { HeartButton } from '../../../Common/Button'
+import { HeartButton, ContainedButton, OutlinedButton } from '../../../Common/Button'
 import Url from './Url'
 import Refresh from './Refresh'
 import Color from './Color'
@@ -14,11 +14,13 @@ import Image from './Image'
 import Trash from './Trash'
 
 type Props = {
-    bookmarkId: string
+    bookmarkId: string,
+    onClose: () => void
 }
 
 const Container: React.FC<Props> = ({
-    bookmarkId
+    bookmarkId,
+    onClose
 }) => {
     const router = useRouter()
     const {
@@ -26,11 +28,13 @@ const Container: React.FC<Props> = ({
         likes,
         sentLikes,
         status,
+        hasChange,
         handleLikes,
         handleRefetch,
         updateBookmark,
         handleJumpLink,
-        deleteBookmark
+        deleteBookmark,
+        handleSubmit
     } = useBookmark(bookmarkId)
     const moveGroupProps = useMoveGroup(bookmark)
     const { group } = useBookmarkGroup(bookmark?.groupId)
@@ -62,6 +66,10 @@ const Container: React.FC<Props> = ({
     const trash = <Trash handleDelete={()=>{deleteBookmark(()=>{
         router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
     })}}/>
+    const submit = <ContainedButton className='text-sm' disabled={!hasChange} onClick={()=>{handleSubmit(()=>{
+        onClose()
+    })}}>更新</ContainedButton>
+    const cancel = <OutlinedButton className='text-sm' onClick={onClose}>キャンセル</OutlinedButton>
     return (
         <Presenter
             {
@@ -79,7 +87,9 @@ const Container: React.FC<Props> = ({
                 move,
                 date,
                 image,
-                trash
+                trash,
+                submit,
+                cancel
             }
             }
         />

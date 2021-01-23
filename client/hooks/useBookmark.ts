@@ -36,13 +36,16 @@ export const useMoveGroup = (bookmark:Bookmark)=>{
 
 export const useBookmark = (bookmarkId:string)=>{
     const profile = useProfile()
-    const bookmark = useBookmarkById(bookmarkId)
+    const base = useBookmarkById(bookmarkId)
+    const [update, setUpdate] = useState<Partial<Bookmark>>({})
+    const bookmark = {
+        ...base,
+        ...update
+    }
     const { clientService } = useContext(FirebaseContext)
     const [status, setStatus] = useState<LoadStatus['status']>('loaded')
     const updateBookmark = useCallback((key: keyof Bookmark) => (value: string) => {
-        clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
-            [key]: value
-        })
+        setUpdate({[key]: value})
     },[bookmark,clientService])
     const deleteBookmark = useCallback((onSucceeded?: Notifier,)=>{
         clientService.deleteBookmark(bookmark.groupId, bookmark.id, onSucceeded)
@@ -52,16 +55,12 @@ export const useBookmark = (bookmarkId:string)=>{
     const handleRefetch = useCallback(() => {
         setStatus('loading')
         fetchFromServer(bookmark.url).then(result => {
-            clientService.modifyBookmark(bookmark.groupId, bookmark.id, {
+            setStatus('loaded')
+            setUpdate({
                 title: result.title,
                 description: result.description || '',
                 image: result.images.length > 0 ? result.images[0] : '',
                 images: result.images
-            }, () => {
-                setStatus('loaded')
-            }, (err) => {
-                setStatus('failed')
-                console.error(err)
             })
         }).catch((err)=>{
             setStatus('failed')
@@ -100,16 +99,22 @@ export const useBookmark = (bookmarkId:string)=>{
         })
     },[bookmark])
 
+    const hasChange = Object.keys(update).length > 0 
+    const handleSubmit = (notify:Notifier)=>{
+        hasChange && clientService.modifyBookmark(bookmark.groupId, bookmark.id, update, notify)
+    }
     return {
         bookmark,
         likes,
         sentLikes,
         status,
+        hasChange,
         handleLikes,
         handleRefetch,
         updateBookmark,
         deleteBookmark,
         handleJumpLink,
-        handleLoadImageError
+        handleLoadImageError,
+        handleSubmit
     }
 }

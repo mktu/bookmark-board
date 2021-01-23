@@ -13,7 +13,9 @@ type Props = {
     move: React.ReactNode,
     date: React.ReactNode,
     image: React.ReactNode,
-    trash: React.ReactNode
+    trash: React.ReactNode,
+    submit: React.ReactNode,
+    cancel: React.ReactNode,
 }
 
 const Presenter: React.FC<Props> = ({
@@ -28,7 +30,9 @@ const Presenter: React.FC<Props> = ({
     move,
     date,
     image,
-    trash
+    trash,
+    submit,
+    cancel
 }) => {
     const inputDisabled = status === 'loading'
     return (
@@ -64,11 +68,15 @@ const Presenter: React.FC<Props> = ({
             <div className='w-full overflow-hidden p-4'>
                 {move}
             </div>
-            <div className='p-2 mt-8 flex'>
+            <div className='p-2 mt-8 md:flex'>
                 <div >
                     {trash}
                 </div>
-                <div className='ml-auto'>
+                <div className='ml-auto flex flex-col items-end'>
+                    <div className='flex items-center p-2'>
+                        <div className='mx-2'>{cancel}</div>
+                        <div>{submit}</div>
+                    </div>
                     {date}
                 </div>
             </div>

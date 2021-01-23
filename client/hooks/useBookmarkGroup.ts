@@ -82,7 +82,7 @@ export const useBookmarkGroup = (groupId?: string) => {
     const editors = useUsersByIds(group?.users || [])
     const { clientService } = useContext(FirebaseContext)
     const handleRemoveUser = (uid: string) => {
-        clientService.modifyGroup(group.id, {
+        setUpdate({
             users: group.users.filter(u => u !== uid)
         })
     }
@@ -92,7 +92,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         })
     }
     const updateGroup = (key: keyof BookmarkGroup) => (value: string) => {
-        clientService.modifyGroup(group.id, {
+        setUpdate({
             [key]: value
         })
     }

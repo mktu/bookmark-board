@@ -3,17 +3,19 @@ import { Modal } from 'react-responsive-modal';
 import Container from './Container'
 
 type Props = {
-    bookmarkId: string
+    bookmarkId: string,
+    onClose: () => void
 }
 
 const Bookmark: React.FC<Props> = ({
-    bookmarkId
+    bookmarkId,
+    onClose
 }) => {
     if (!bookmarkId) {
         return <div />
     }
     return (
-        <Container bookmarkId={bookmarkId} />
+        <Container bookmarkId={bookmarkId} onClose={onClose}/>
     )
 }
 

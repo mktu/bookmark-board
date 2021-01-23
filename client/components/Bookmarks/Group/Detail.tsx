@@ -10,18 +10,22 @@ import DangerZone from './DangerZone'
 import { useBookmarkGroup } from '../../../hooks/useBookmarkGroup'
 
 type Props = {
-    group: BookmarkGroup
+    group: BookmarkGroup,
+    onClose: () => void
 }
 
 const Detail: React.FC<Props> = ({
-    group
+    group,
+    onClose
 }) => {
     const profile = useProfile()
     const {
         editors,
         updateGroup,
         handleRemoveUser,
-        handleDeleteGroup
+        handleDeleteGroup,
+        handleSubmit,
+        hasChange
     } = useBookmarkGroup(group.id)
 
     return (
@@ -56,20 +60,28 @@ const Detail: React.FC<Props> = ({
                             <Avatar src={e.image} width='48px' height='48px' className='block mr-2 my-2' name={e.name}/>
                             <p className='text-primary-main text-center'>{e.name}</p>
                             {group.owner !== e.id && (profile.id === e.id ? (
-                                <ContainedButton className='ml-auto text-sm whitespace-no-wrap'>
+                                <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap'>
                                     離脱する
-                                </ContainedButton>
+                                </OutlinedButton>
                             ) : (
-                                    <ContainedButton className='ml-auto text-sm whitespace-no-wrap' onClick={()=>{handleRemoveUser(e.id)}}>
+                                    <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap' onClick={()=>{handleRemoveUser(e.id)}}>
                                         除外
-                                    </ContainedButton>
+                                    </OutlinedButton>
                                 ))}
 
                         </div>
                     ))}
                 </div>
             </div>
-            <DangerZone className='mt-6' groupName={group.name} handleDelete={handleDeleteGroup} />
+            {profile.id === group.owner && (
+                <DangerZone className='mt-6' groupName={group.name} handleDelete={handleDeleteGroup} />
+            )}
+            <div className='mt-4 flex justify-end text-primary-main'>
+                <OutlinedButton onClick={onClose} className='mx-2'>キャンセル</OutlinedButton>
+                <ContainedButton disabled={!hasChange} onClick={()=>{
+                    handleSubmit(onClose)
+                }}>更新</ContainedButton>
+            </div>
             <div className='mt-2 flex justify-end text-xs text-primary-main'>
                 <div>
                     {group.lastUpdate && `最終更新 ${numberToDateTime(group.lastUpdate)}`}

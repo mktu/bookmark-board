@@ -58,11 +58,11 @@ const Group: React.FC<Props> = ({
             <>
                 <DefaultSize>
                     <DetailDialog open onClose={jumpToGroupRoot}>
-                        <Detail group={group} />
+                        <Detail group={group} onClose={jumpToGroupRoot}/>
                     </DetailDialog>
                 </DefaultSize>
                 <MobileSize>
-                    <Detail group={group} />
+                    <Detail group={group} onClose={jumpToGroupRoot}/>
                 </MobileSize>
             </>
         ),
@@ -82,11 +82,11 @@ const Group: React.FC<Props> = ({
             <>
                 <DefaultSize>
                     <Dialog open={Boolean(bookmarkId)} onClose={jumpToGroupRoot}>
-                        <Bookmark bookmarkId={bookmarkId} />
+                        <Bookmark bookmarkId={bookmarkId} onClose={jumpToGroupRoot}/>
                     </Dialog>
                 </DefaultSize>
                 <MobileSize>
-                    <Bookmark bookmarkId={bookmarkId} />
+                    <Bookmark bookmarkId={bookmarkId} onClose={jumpToGroupRoot}/>
                 </MobileSize>
             </>
         ),
