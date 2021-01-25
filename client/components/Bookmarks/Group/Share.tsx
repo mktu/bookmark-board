@@ -100,8 +100,8 @@ const Share: React.FC<Props> = ({
                 <div className='text-sm'>
                     <div className='flex items-center my-2'>
                         <p className='hidden md:block'>共同編集リンク</p>
-                        <a className='hidden md:inline-block underline text-blue-700 mx-2' href={requestUrl}>{requestUrl}</a>
-                        <a className='md:hidden underline text-blue-700 mx-2' href={requestUrl}>共同編集リンク</a>
+                        <div className='hidden md:inline-block bg-primary-dark text-white rounded p-2 mx-2' >{requestUrl}</div>
+                        <div className='md:hidden text-primary-500 mx-2' >共同編集リンク</div>
                         <TooltipDivContainer content='URLをコピー' placement='bottom'>
                             <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {
                                 copyToClipBoard(requestUrl, () => {

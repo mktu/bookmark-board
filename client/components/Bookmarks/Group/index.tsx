@@ -44,25 +44,18 @@ const Group: React.FC<Props> = ({
     if (!groupId) {
         return <div />
     }
-    if (bookmarkIds.length == 0 && !hasFilter) {
-        return (
-            <Layout
-                header={<Header groupId={groupId} />}
-                contents={<NoItem groupId={groupId} />}
-            />
-        )
-    }
+
     // can use react-responsive because these component never rendered in server side
     const alternatives = {
         setting: (
             <>
                 <DefaultSize>
                     <DetailDialog open onClose={jumpToGroupRoot}>
-                        <Detail group={group} onClose={jumpToGroupRoot}/>
+                        <Detail group={group} onClose={jumpToGroupRoot} />
                     </DetailDialog>
                 </DefaultSize>
                 <MobileSize>
-                    <Detail group={group} onClose={jumpToGroupRoot}/>
+                    <Detail group={group} onClose={jumpToGroupRoot} />
                 </MobileSize>
             </>
         ),
@@ -70,11 +63,11 @@ const Group: React.FC<Props> = ({
             <>
                 <DefaultSize>
                     <ShareDialog open onClose={jumpToGroupRoot}>
-                        <Share sharable={Boolean(group.sharable)} id={groupId} />
+                        <Share sharable={Boolean(group?.sharable)} id={groupId} />
                     </ShareDialog>
                 </DefaultSize>
                 <MobileSize>
-                    <Share sharable={Boolean(group.sharable)} id={groupId} />
+                    <Share sharable={Boolean(group?.sharable)} id={groupId} />
                 </MobileSize>
             </>
         ),
@@ -82,11 +75,11 @@ const Group: React.FC<Props> = ({
             <>
                 <DefaultSize>
                     <Dialog open={Boolean(bookmarkId)} onClose={jumpToGroupRoot}>
-                        <Bookmark bookmarkId={bookmarkId} onClose={jumpToGroupRoot}/>
+                        <Bookmark bookmarkId={bookmarkId} onClose={jumpToGroupRoot} />
                     </Dialog>
                 </DefaultSize>
                 <MobileSize>
-                    <Bookmark bookmarkId={bookmarkId} onClose={jumpToGroupRoot}/>
+                    <Bookmark bookmarkId={bookmarkId} onClose={jumpToGroupRoot} />
                 </MobileSize>
             </>
         ),
@@ -101,6 +94,16 @@ const Group: React.FC<Props> = ({
                     <ColorOptions groupId={groupId} onClose={jumpToGroupRoot} />
                 </MobileSize>
             </>
+        )
+    }
+    if (bookmarkIds.length == 0 && !hasFilter) {
+        return (
+            <Layout
+                header={<Header groupId={groupId} />}
+                contents={<NoItem groupId={groupId} />}
+                alternative={Boolean(alternativeMode)}
+                alternativeContent={alternatives[alternativeMode]}
+            />
         )
     }
     return (
