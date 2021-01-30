@@ -26,12 +26,12 @@ const SideBySide: React.FC<Props> = ({
             <div className='mb-4'>{description}</div>
             <div className='md:flex justify-between'>
                 {topics.map((v, i) => (
-                    <div key={i} className='flex flex-col md:rounded-lg bg-primary-light max-w-screen-md p-4 text-primary-main w-full md:mx-4'>
-                        <div className='flex items-center md:rounded-lg bg-white text-primary-700 p-2'>
+                    <div key={i} className='shadow-lg flex flex-col md:rounded-lg bg-primary-light max-w-screen-md p-4 w-full md:mx-4'>
+                        <div className='flex items-center md:rounded-lg bg-white md:text-primary-700 text-primary-dark p-2'>
                             <div className='mx-2'>{v.icon}</div>
                             <div>{v.name}</div>
                         </div>
-                        <div className='my-2 p-4 md:rounded-lg bg-white h-full flex-1'>
+                        <div className='my-2 p-4 md:rounded-lg bg-white h-full flex-1 text-primary-dark md:text-primary-main'>
                             {v.content}
                         </div>
                     </div>

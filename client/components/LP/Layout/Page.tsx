@@ -14,10 +14,7 @@ const Page : React.FC<Props> = ({
     siginin
 }) => {
     return (
-        <article className='w-screen flex flex-col py-12' style={{
-            backgroundImage: `url('/untitled.svg')`,
-            backgroundRepeat: 'repeat',
-        }}>
+        <article className='w-screen flex flex-col py-12'>
             {top}
             {topics}
             {publish}
