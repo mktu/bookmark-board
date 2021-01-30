@@ -1,5 +1,5 @@
 import React from 'react'
-import { LpPubApp } from '../../Common/Image'
+import { LpPubApp } from '../../Common/Image/Lp'
 
 export const Title = 'ブックマークグループを公開する'
 

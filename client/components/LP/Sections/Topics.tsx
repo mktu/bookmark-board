@@ -1,7 +1,7 @@
 import React from 'react'
 import FolderOpen from '../../Common/Icon/FolderOpen'
 import Share from '../../Common/Icon/Share'
-import { LpComment, LpShare, LpGroup } from '../../Common/Image'
+import { LpComment, LpShare, LpGroup } from '../../Common/Image/Lp'
 import Template from '../../Common/Icon/Template'
 
 export const Title = 'FEATURES'
