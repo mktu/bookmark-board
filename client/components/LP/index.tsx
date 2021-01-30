@@ -1,13 +1,3 @@
-import React from 'react'
-import { useRouter } from 'next/router'
-import Presenter from './Presenter'
+import Container from './Container'
 
-const LP = ()=>{
-    const router = useRouter();
-
-    return <Presenter handleLogin={()=>{
-        router.push('/signin')
-    }}/>
-}
-
-export default LP;
+export default Container;

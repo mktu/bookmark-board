@@ -20,7 +20,7 @@ const ColorInput: React.FC<Props> = ({
                     </label>
                 ) : (
                         <label htmlFor='NewColor' className='ml-2 text-xs text-primary-main border border-primary-border rounded p-2' >
-                            色を入力
+                            色を選択
                         </label>
                     )}
 
