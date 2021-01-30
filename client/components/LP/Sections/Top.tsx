@@ -1,5 +1,5 @@
 import React from 'react'
-import UrlImage from '../../Common/Avatar/UrlImage'
+import { LpApp } from '../../Common/Image/Lp'
 
 export const Title = 'ブックマークを親しい人と共有したい'
 
@@ -10,4 +10,4 @@ export const Content : React.ReactNode = (
     </p>
 )
 
-export const Image = <UrlImage src='/App.png' width='800px' height='438px' />
+export const Image = <LpApp width={720} height={405} /> // 16:9

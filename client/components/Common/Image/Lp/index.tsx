@@ -6,15 +6,15 @@ const LpBubble : React.FC<{width?:string,height?:string, variant?:'circle'|'logo
     return <Image src={'/LpBubble.svg'} alt='Bubble' width={width} height={height}/>;
 }
 
-const LpApp : React.FC<{width?:string,height?:string}> = ({width,height})=>{
-    return <Image layout='fill' objectFit='contain' src={'/App.png'} alt='App' />;
+const LpApp : React.FC<{width?:number,height?:number}> = ({width,height})=>{
+    return <Image src={'/App.png'} alt='App' width={width} height={height}/>;
 }
 
-const LpPubApp : React.FC<{width?:string,height?:string}> = ({width,height})=>{
+const LpPubApp : React.FC<{width?:number,height?:number}> = ({width,height})=>{
     return <Image src={'/PublicApp.png'} alt='PublicApp' width={width} height={height}/>;
 }
 
-const LpGroup : React.FC<{width?:string,height?:string}> = ()=>{
+const LpGroup : React.FC<{width?:number,height?:number}> = ()=>{
     return <Image layout='fill' objectFit='contain'src={'/LpGroup.png'} alt='LpGroup' objectPosition='left top'/>;
 }
 

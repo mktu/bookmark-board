@@ -10,4 +10,4 @@ export const Content : React.ReactNode = (
     </p>
 )
 
-export const Image = <LpPubApp width='457px' height='544px' />
+export const Image = <LpPubApp width={457} height={544} />
