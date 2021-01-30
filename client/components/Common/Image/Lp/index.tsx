@@ -9,7 +9,6 @@ const LpBubble : React.FC<{width?:string,height?:string, variant?:'circle'|'logo
 const LpApp : React.FC<{width?:number,height?:number}> = ({width,height})=>{
     return <Image src={'/App.png'} alt='App' width={width} height={height}/>;
 }
-
 const LpPubApp : React.FC<{width?:number,height?:number}> = ({width,height})=>{
     return <Image src={'/PublicApp.png'} alt='PublicApp' width={width} height={height}/>;
 }
