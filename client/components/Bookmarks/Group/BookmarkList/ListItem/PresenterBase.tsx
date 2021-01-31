@@ -6,6 +6,7 @@ import { BookmarkListImageSize } from '../../../../../utils/constants'
 
 type Props = {
     image: React.ReactNode,
+    attachDnDRef?: (el: HTMLElement) => void,
     title?: string,
     url?: string,
     maskUrl?: boolean,
@@ -21,6 +22,7 @@ type Props = {
 const PresenterBase: React.FC<Props> = ({
     image,
     title,
+    attachDnDRef,
     url,
     description,
     comment,
@@ -33,7 +35,7 @@ const PresenterBase: React.FC<Props> = ({
 
     return (
         <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
-            <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
+            <div ref={attachDnDRef} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
                 {image}
             </div>
             <div style={{ minHeight: BookmarkListImageSize }} className='mx-2 border-primary-border border-r' />

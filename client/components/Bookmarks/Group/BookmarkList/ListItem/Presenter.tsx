@@ -39,12 +39,13 @@ const ListItem: React.FC<Props> = ({
     deleteIcon,
     heartButton
 }) => {
-
+    const isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0))
     return (
         <Link href={detailLink}>
-            <a href={detailLink} ref={attachDnDRef} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`}
+            <a href={detailLink} ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`}
                 style={color ? { borderLeft: `5px solid ${color}`, opacity } : { opacity }} tabIndex={0}>
                 <Base {...{
+                    attachDnDRef : isTouch ? attachDnDRef : undefined,
                     image,
                     title,
                     url,
