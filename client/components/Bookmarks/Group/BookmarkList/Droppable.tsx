@@ -3,8 +3,8 @@ import { useDrop } from 'react-dnd'
 
 type Props = {
     onChangeOrder: (target: string) => void,
-    open : boolean,
-    droppable:boolean
+    open: boolean,
+    droppable: boolean
 }
 
 const Droppable: React.FC<Props> = ({
@@ -19,6 +19,7 @@ const Droppable: React.FC<Props> = ({
             onChangeOrder(i.id)
         }
     })
+
     return (
         <div ref={drop} className={`w-full`}>
             <div className='py-1' >

@@ -27,6 +27,7 @@ const BookmarkDndProvider: React.FC<Props> = ({ children }) => {
     // use custom function only if elementsFromPoint is not supported
     const backendOptions = {
         getDropTargetElementsAtPoint: !hasNative && getDropTargetElementsAtPoint,
+        delayTouchStart : 500
     }
 
     const CustomPreview = () => {

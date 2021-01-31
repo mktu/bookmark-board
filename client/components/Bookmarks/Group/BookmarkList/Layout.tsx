@@ -6,7 +6,6 @@ type Props = {
     renderBookmark: (bookmarkId: string, idx: number) => React.ReactNode,
     input: React.ReactNode,
 }
-
 const Layout: React.FC<Props> = ({
     bookmarkIds,
     refinements,
