@@ -8,12 +8,6 @@ import store from '../reducers'
 import AppProvider from '../components/Provider'
 
 function MyApp({ Component, pageProps }) {
-  if (typeof window !== 'undefined') {
-    console.log(window)
-  }
-  else {
-    console.log('server')
-  }
   return (
     <Provider store={store}>
       <AppProvider>

@@ -31,7 +31,7 @@ const ListItem: React.FC<Props> = ({
         handleLoadImageError
     } = useBookmark(bookmarkId)
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
-    const { dragging, attachDnDRef } = useHoverable(bookmark, idx, setHover)
+    const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover)
 
     const handleCopyUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
         copyToClipBoard(bookmark.url, () => {
@@ -91,6 +91,7 @@ const ListItem: React.FC<Props> = ({
                 attachDnDRef,
                 dragging,
                 image,
+                opacity,
                 detailLink : `/bookmarks/${bookmark.groupId}/${bookmark.id}`,
                 title: bookmark.title,
                 description: !listViewMask.includes('description') && bookmark.description,

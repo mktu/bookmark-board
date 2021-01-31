@@ -1,6 +1,4 @@
 import React from 'react'
-import { HTML5Backend } from 'react-dnd-html5-backend'
-import { DndProvider } from 'react-dnd'
 import FirebaseProvider from './FirebaseProvider'
 import ToastContainer from './ToastProvider'
 import BookmarkProvider from './BookmarkProvider'
@@ -15,10 +13,8 @@ const Provider: React.FC<Props> = ({
     return (
         <FirebaseProvider>
             <BookmarkProvider>
-                <DndProvider backend={HTML5Backend}>
-                    <ToastContainer />
-                    {children}
-                </DndProvider>
+                <ToastContainer />
+                {children}
             </BookmarkProvider>
         </FirebaseProvider>
     )

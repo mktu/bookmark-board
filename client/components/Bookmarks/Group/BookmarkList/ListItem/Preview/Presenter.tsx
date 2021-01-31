@@ -1,14 +1,8 @@
 import React from 'react'
-import Link from 'next/link'
-import Base from './PresenterBase'
-
+import Base from '../PresenterBase'
 
 type Props = {
-    detailLink: string,
-    attachDnDRef: (el: HTMLElement) => void,
-    dragging: boolean,
     color?: string,
-    opacity: number,
     image: React.ReactNode,
     title?: string,
     url?: string,
@@ -20,14 +14,11 @@ type Props = {
     openIcon: React.ReactNode,
     deleteIcon: React.ReactNode,
     heartButton: React.ReactNode,
+    style: React.CSSProperties
 }
 
 const ListItem: React.FC<Props> = ({
-    detailLink,
-    attachDnDRef,
-    dragging,
     color,
-    opacity,
     image,
     title,
     url,
@@ -37,13 +28,13 @@ const ListItem: React.FC<Props> = ({
     copyIcon,
     openIcon,
     deleteIcon,
-    heartButton
+    heartButton,
+    style
 }) => {
 
     return (
-        <Link href={detailLink}>
-            <a href={detailLink} ref={attachDnDRef} className={`w-full ${dragging && 'hidden'} flex items-center cursor-pointer`}
-                style={color ? { borderLeft: `5px solid ${color}`, opacity } : { opacity }} tabIndex={0}>
+        <div className={`w-full flex items-center cursor-pointer opacity-50`} style={color ? { borderLeft: `5px solid ${color}`, ...style } : { ...style }} >
+            <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
                 <Base {...{
                     image,
                     title,
@@ -54,10 +45,10 @@ const ListItem: React.FC<Props> = ({
                     copyIcon,
                     openIcon,
                     deleteIcon,
-                    heartButton
+                    heartButton,
                 }} />
-            </a>
-        </Link>
+            </div>
+        </div>
     )
 }
 

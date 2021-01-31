@@ -1,16 +1,16 @@
+import { useEffect } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { getEmptyImage } from 'react-dnd-html5-backend'
 
-export const useHoverable = (bookmark:Bookmark, listIndex:number, onHover:(index:number)=>void)=>{
-    const [{ dragging }, drag] = useDrag({
+export const useHoverable = (bookmark: Bookmark, listIndex: number, onHover: (index: number) => void) => {
+    const [{ dragging, opacity }, drag] = useDrag({
         item: {
-            id: bookmark.id,
-            name: bookmark.title,
-            idx: bookmark.idx,
-            groupId: bookmark.groupId,
+            ...bookmark,
             type: 'LIST'
         },
         collect: (monitor) => ({
             dragging: monitor.isDragging(),
+            opacity: monitor.isDragging() ? 0.1 : 1,
         }),
         begin: () => {
             onHover(listIndex)
@@ -31,13 +31,15 @@ export const useHoverable = (bookmark:Bookmark, listIndex:number, onHover:(index
         }
     })
 
-    const attachDnDRef = (v:HTMLElement)=>{
+    const attachDnDRef = (v: HTMLElement) => {
         drag(v)
         drop(v)
     }
 
     return {
         dragging,
-        attachDnDRef
+        attachDnDRef,
+        opacity,
+
     }
 }
