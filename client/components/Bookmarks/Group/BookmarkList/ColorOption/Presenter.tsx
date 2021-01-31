@@ -20,7 +20,7 @@ const Presenter: React.FC<Props> = ({
 
     return (
         <div className='bg-white p-4 rounded flex flex-col justify-start align-middle overflow-scroll'>
-            <p className='text-sm text-primary-main'>色名や表示有無の設定をすることができます</p>
+            <p className='text-sm text-primary-main'>色名や順序の設定をすることができます</p>
             <div className='flex justify-end'>
                 {showAll}
             </div>

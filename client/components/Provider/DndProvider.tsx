@@ -4,6 +4,7 @@ import { TouchBackend } from 'react-dnd-touch-backend'
 import { DndProvider } from 'react-dnd'
 import { usePreview } from 'react-dnd-preview'
 import BookmarkPreview from '../Bookmarks/Group/BookmarkList/ListItem/Preview'
+import ColorPreview from '../Bookmarks/Group/BookmarkList/ColorOption/ListItem/Preview'
 
 type Props = {
     children: React.ReactNode
@@ -27,7 +28,6 @@ const BookmarkDndProvider: React.FC<Props> = ({ children }) => {
     // use custom function only if elementsFromPoint is not supported
     const backendOptions = {
         getDropTargetElementsAtPoint: !hasNative && getDropTargetElementsAtPoint,
-        delayTouchStart : 500
     }
 
     const CustomPreview = () => {
@@ -35,9 +35,13 @@ const BookmarkDndProvider: React.FC<Props> = ({ children }) => {
         if (!display || !isTouch) {
             return null
         }
+        if (itemType === 'COLOR') {
+            const description = item as BookmarkColorDescription
+            return <ColorPreview description={description} style={style} />
+        }
         const bookmark = item as Bookmark
         return itemType === 'LIST' && (
-            <BookmarkPreview bookmarkId={bookmark.id} style={style}/>
+            <BookmarkPreview bookmarkId={bookmark.id} style={style} />
         )
     }
     return (

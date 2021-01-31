@@ -1,9 +1,9 @@
-import React from 'react'
+import React, {useState} from 'react'
 import { Checkbox } from '../../../../Common/Input'
 import { ContainedButton, OutlinedButton } from '../../../../Common/Button'
 import { useBookmarkGroup } from '../../../../../hooks/useBookmarkGroup'
 import ColorInput from './ColorInput'
-import ColorItem from './ColorItem'
+import ColorItem from './ListItem'
 import Presenter from './Presenter'
 
 type Props = {
@@ -31,23 +31,20 @@ const Container: React.FC<Props> = ({
             updateColorFilters(colors.map(v => ({ color: v.color, show: false })))
         }
     }
+    const [hover,setHover] = useState(-1)
     const isVisibleAll = Object.values(colors).every(v => v.show)
     const showAll = <Checkbox id='AllCheck' label='すべて表示' checked={isVisibleAll} onChange={changeAllVisibility} />
     const renameColor = (color: string, name: string) => { updateColor(color, { name }) }
-    const colorList = colors.map(c => <ColorItem
+    const colorList = colors.map((c,idx) => <ColorItem
         key={c.color}
         {...{
-            ...c,
-            filterColor: (filter) => { updateColorFilters([filter]) },
+            description : c,
+            show : c.show,
             renameColor,
-            changeOrder: (color, up) => {
-                if (up) {
-                    c.idx > 0 && handleChangeColorIndex(color, c.idx - 1)
-                }
-                else{
-                    colors.length - 1 > c.idx && handleChangeColorIndex(color, c.idx + 2)
-                }
-            },
+            listIndex : idx,
+            hover,
+            onHover:setHover,
+            changeOrder: handleChangeColorIndex,
             handleDelete : (color)=>{handleDeleteColors([color])}
         }}
     />)

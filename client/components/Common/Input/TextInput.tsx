@@ -6,7 +6,7 @@ import XFill from '../Icon/XFill'
 import styles from './index.module.scss'
 
 type Props = Parameters<typeof TextInputBase>[0] & {
-    handleSubmit: (value: string) => void,
+    handleSubmit?: (value: string) => void,
     clearButton?: boolean,
     label?: string,
     required?: boolean,
@@ -55,7 +55,7 @@ const TextInput: React.FC<Props> = ({
                     }}
                     onBlur={(e) => {
                         setFocus(false)
-                        if (text !== value) {
+                        if (text !== value && handleSubmit) {
                             handleSubmit('' + text)
                         }
                         if(required){
@@ -71,7 +71,7 @@ const TextInput: React.FC<Props> = ({
                     <div className='ml-auto px-2'>
                         <SvgIconButton onClick={() => {
                             setText('')
-                            handleSubmit('')
+                            handleSubmit && handleSubmit('')
                         }}>
                             <XFill className='w-6 fill-primary-100  hover:fill-primary-300' strokeWidth={0} />
                         </SvgIconButton>
