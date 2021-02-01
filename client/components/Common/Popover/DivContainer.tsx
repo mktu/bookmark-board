@@ -1,11 +1,12 @@
 import {Popover, Props as P} from './V2Popper'
 
-type Props = P<HTMLDivElement> & {
-    className?: string
+type Props = Omit<P<HTMLDivElement>,'children'> & {
+    className?: string,
+    children : React.ReactNode
 }
-const DivContainer: React.FC<Props> = ({ children, className, ...other }) => {
+const DivContainer: React.FC<Props> = ({ children, className, content, render, ...other }) => {
     return (
-        <Popover {...other}>
+        <Popover {...other} content={content} render={render}>
             <div className={className}>
                 {children}
             </div>
