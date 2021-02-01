@@ -8,11 +8,17 @@ type Children<T extends HTMLElement> = React.ReactElement & {
 
 export type Props<T extends HTMLElement> = {
     children: Children<T>,
+    render: (toggle:()=>void)=>React.ReactNode,
+    content?: React.ReactNode,
+    placement?: PopperChildrenProps['placement']
+} | {
+    children: Children<T>,
+    render?: (toggle:()=>void)=>React.ReactNode,
     content: React.ReactNode,
     placement?: PopperChildrenProps['placement']
 }
 
-export function Popover<T extends HTMLElement>({ children, content, placement = 'auto' }: Props<T>) {
+export function Popover<T extends HTMLElement>({ children, content, render, placement = 'auto' }: Props<T>) {
     const [popoverShow, setPopoverShow] = useState(false);
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
@@ -50,7 +56,7 @@ export function Popover<T extends HTMLElement>({ children, content, placement = 
                     setPopoverShow(false)
                 }}>
                     <div className={'z-20'} ref={setPopperElement} style={styles.popper} {...attributes.popper}>
-                        {content}
+                        {render ? render(toggle) : content}
                     </div>
                 </Clickaway>
             )}

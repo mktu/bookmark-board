@@ -18,22 +18,12 @@ const Container: React.FC<Props> = ({
     const {
         colors,
         updateColor,
-        updateColorFilters,
         hasChange,
         handleAddColor,
         handleChangeColorIndex,
         handleDeleteColors,
         handleSubmit } = useBookmarkGroup(groupId)
-    const changeAllVisibility = (e: React.ChangeEvent<HTMLInputElement>) => {
-        if (e.target.checked) {
-            updateColorFilters(colors.map(v => ({ color: v.color, show: true })))
-        } else {
-            updateColorFilters(colors.map(v => ({ color: v.color, show: false })))
-        }
-    }
     const [hover,setHover] = useState(-1)
-    const isVisibleAll = Object.values(colors).every(v => v.show)
-    const showAll = <Checkbox id='AllCheck' label='すべて表示' checked={isVisibleAll} onChange={changeAllVisibility} />
     const renameColor = (color: string, name: string) => { updateColor(color, { name }) }
     const colorList = colors.map((c,idx) => <ColorItem
         key={c.color}
@@ -61,7 +51,6 @@ const Container: React.FC<Props> = ({
     return (
         <Presenter
             {...{
-                showAll,
                 colorList,
                 input,
                 submit,

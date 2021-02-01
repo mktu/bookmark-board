@@ -6,7 +6,8 @@ import { useGroupById } from '../../../../modules/groupSlice'
 import FirebaseContext from '../../../../context/FirebaseContext'
 
 type Props = {
-    groupId: string
+    groupId: string,
+    onSortSucceeded : ()=>void
 }
 
 type CompFunction = (a:Bookmark,b:Bookmark)=>number
@@ -19,7 +20,8 @@ const lastUpdateSorter : CompFunction = (a,b)=>{
 }
 
 const SortOptions: React.FC<Props> = ({
-    groupId
+    groupId,
+    onSortSucceeded
 }) => {
     const { clientService } = useContext(FirebaseContext)
     const [functions, setFunctions] = useState<CompFunction[]>([])
@@ -39,7 +41,7 @@ const SortOptions: React.FC<Props> = ({
     },[colors])
     const sortBase = (compFunc:(a:Bookmark,b:Bookmark)=>number)=>{
         const data = bookmarks.sort(compFunc).map(v=>v.id)
-        clientService.changeOrder(groupId, data)
+        clientService.changeOrder(groupId, data, onSortSucceeded)
     }
     const sort = ()=>{
         if(functions.length > 0){

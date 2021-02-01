@@ -1,6 +1,7 @@
 import React from 'react'
 import { Sort, Template, ColorSwatch } from '../../../Common/Icon'
 import { PopoverDivContainer } from '../../../Common/Popover'
+import { toast } from 'react-toastify';
 import { TextButton } from '../../../Common/Button'
 import ListOptions from './ListOptions'
 import SortOptions from './SortOptions'
@@ -14,6 +15,10 @@ const Refinements: React.FC<Props> = ({
     groupId
 }) => {
     const router = useRouter()
+    const sortSucceeded = (hidePopover:()=>void)=>()=>{
+        toast.success('並び替えが完了しました！')
+        hidePopover()
+    }
     return (
         <div className='p-1'>
             <div className='p-4 w-full bg-white flex flex-row shadow'>
@@ -27,7 +32,7 @@ const Refinements: React.FC<Props> = ({
                             <div className=' text-sm'>色設定</div>
                         </TextButton>
                     </div>
-                    <PopoverDivContainer placement='left-start' content={<SortOptions groupId={groupId} />}>
+                    <PopoverDivContainer placement='left-start' render={(toggle)=><SortOptions groupId={groupId} onSortSucceeded={sortSucceeded(toggle)}/>}>
                         <TextButton className='flex items-center stroke-primary-main hover:stroke-primary-dark ml-4'>
                             <Sort className='w-6' />
                             <div className=' text-sm'>並び替え</div>

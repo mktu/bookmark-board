@@ -1,7 +1,6 @@
 import React from 'react'
 
 type Props = {
-    showAll: React.ReactNode,
     colorList: React.ReactNode,
     input: React.ReactNode,
     submit: React.ReactNode,
@@ -10,7 +9,6 @@ type Props = {
 }
 
 const Presenter: React.FC<Props> = ({
-    showAll,
     colorList,
     input,
     submit,
@@ -21,9 +19,6 @@ const Presenter: React.FC<Props> = ({
     return (
         <div className='bg-white p-4 rounded flex flex-col justify-start align-middle overflow-scroll'>
             <p className='text-sm text-primary-main'>色名や順序の設定をすることができます</p>
-            <div className='flex justify-end'>
-                {showAll}
-            </div>
             <div>
                 {colorList}
             </div>
