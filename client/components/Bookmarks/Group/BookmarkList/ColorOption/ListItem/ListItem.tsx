@@ -19,10 +19,13 @@ const ListItem: React.FC<Props> = ({
     onHover
 }) => {
     const { color, name } = description
-    const { dragging, attachDnDRef } = useHoverable(description, listIndex, onHover)
+    const { dragging, attachDragRef, attachDropRef, attachPreviewRef } = useHoverable(description, listIndex, onHover)
     return (
-        <div className={`flex items-center ${dragging ? 'hidden' : ''}`} ref={attachDnDRef}>
-            <div className='mx-2'>
+        <div className={`flex items-center ${dragging ? 'hidden' : ''}`} ref={(v)=>{
+            attachDropRef(v)
+            attachPreviewRef(v)
+        }}>
+            <div className='mx-2 cursor-move' ref={attachDragRef}>
                 <div className='w-5 h-5 rounded' style={{ backgroundColor: color }} />
             </div>
             <div className='flex items-center w-full'>
