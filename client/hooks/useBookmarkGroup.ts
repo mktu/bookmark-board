@@ -21,10 +21,8 @@ const defaultColors: BookmarkColors = [
     return acc
 }, {})
 
-const useRefinements = (groupId?: string)=>{
-    const base = useRefinementById(groupId)
-    const [updateRefinement, setUpdateRefinement] = useState<Partial<BookmarkRefinement>>({})
-    const refinements = {...(base || {}), ...updateRefinement}
+export const useRefinements = (groupId?: string)=>{
+    const refinements = useRefinementById(groupId)
     const {colorMasks = []} = refinements
     const updateColorFilters = (updateColors:{color: string, show: boolean}[]) => {
         const unmasked = updateColors.filter(c=>c.show).map(c=>c.color)
@@ -33,31 +31,19 @@ const useRefinements = (groupId?: string)=>{
             let mask = colorMasks
             mask = mask.filter(v=>!unmasked.includes(v))
             mask = Array.from(new Set([...mask,...masked]))
-            setUpdateRefinement({colorMasks : mask})
+            saveRefinement(groupId, {colorMasks : mask})
         }
-    }
-    const hasChangeRefinement = Object.keys(updateRefinement).length > 0 
-    const handleSaveRefinements = ()=>{
-        hasChangeRefinement && saveRefinement(groupId, updateRefinement)
     }
 
     return {
         updateColorFilters,
-        handleSaveRefinements,
         refinements,
         colorMasks,
-        hasChangeRefinement
     }
 }
 
 export const useBookmarkGroup = (groupId?: string) => {
     const base = useGroupById(groupId)
-    const {
-        colorMasks,
-        hasChangeRefinement,
-        handleSaveRefinements,
-        updateColorFilters
-    } = useRefinements(groupId)
     const [update, setUpdate] = useState<Partial<BookmarkGroup>>({})
     const hydrateColor = base && base.colors || defaultColors
     const group: BookmarkGroup = base && {
@@ -75,9 +61,8 @@ export const useBookmarkGroup = (groupId?: string) => {
             return group.colors[a].idx - group.colors[b].idx
         }).map(c => ({
             ...group.colors[c],
-            show : !colorMasks.includes(c)
         }))
-    }, [group?.colors,colorMasks])
+    }, [group?.colors])
     const router = useRouter()
     const editors = useUsersByIds(group?.users || [])
     const { clientService } = useContext(FirebaseContext)
@@ -135,26 +120,23 @@ export const useBookmarkGroup = (groupId?: string) => {
         setUpdate({colors})
     }
     const hasChangeGroup = Object.keys(update).length > 0 
-    const hasChange = hasChangeGroup || hasChangeRefinement
+    const hasChange = hasChangeGroup
     const handleSubmit = (notifier?:Notifier)=>{
         if(!hasChange){
             return
         }
         if(hasChangeGroup){
             clientService.modifyGroup(groupId, update, ()=>{
-                handleSaveRefinements()
                 notifier()
             })
             return
         }
-        handleSaveRefinements()
         notifier()
     }
     return {
         group,
         editors,
         colors,
-        updateColorFilters,
         handleRemoveUser,
         updateGroup,
         handleDeleteGroup,

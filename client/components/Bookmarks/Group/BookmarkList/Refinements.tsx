@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { TextButton } from '../../../Common/Button'
 import ListOptions from './ListOptions'
 import SortOptions from './SortOptions'
-import { useRouter } from 'next/router'
+import ColorOption from './ColorOption/Popover'
 
 type Props = {
     groupId: string
@@ -14,7 +14,6 @@ type Props = {
 const Refinements: React.FC<Props> = ({
     groupId
 }) => {
-    const router = useRouter()
     const sortSucceeded = (hidePopover:()=>void)=>()=>{
         toast.success('並び替えが完了しました！')
         hidePopover()
@@ -24,14 +23,12 @@ const Refinements: React.FC<Props> = ({
             <div className='p-4 w-full bg-white flex flex-row shadow'>
                 <div></div>
                 <div className='ml-auto flex items-center'>
-                    <div>
-                        <TextButton className='flex items-center stroke-primary-main hover:stroke-primary-dark' onClick={() => { 
-                            router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}/colors`)
-                         }}>
+                    <PopoverDivContainer placement='left-start' content={<ColorOption groupId={groupId} />}>
+                        <TextButton className='flex items-center stroke-primary-main hover:stroke-primary-dark' >
                             <ColorSwatch className='w-6' />
-                            <div className=' text-sm'>色設定</div>
+                            <div className='text-sm'>色設定</div>
                         </TextButton>
-                    </div>
+                    </PopoverDivContainer>
                     <PopoverDivContainer placement='left-start' render={(toggle)=><SortOptions groupId={groupId} onSortSucceeded={sortSucceeded(toggle)}/>}>
                         <TextButton className='flex items-center stroke-primary-main hover:stroke-primary-dark ml-4'>
                             <Sort className='w-6' />

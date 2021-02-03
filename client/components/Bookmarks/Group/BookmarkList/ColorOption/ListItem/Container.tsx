@@ -3,7 +3,6 @@ import ListItem from './ListItem'
 import Droppable from './Droppable'
 
 type Props = {
-    show: boolean,
     listIndex: number,
     description: BookmarkColorDescription,
     renameColor: (color: string, name: string) => void,
@@ -15,7 +14,6 @@ type Props = {
 
 const ColorItem: React.FC<Props> = ({
     description,
-    show,
     listIndex,
     renameColor,
     changeOrder,
@@ -30,7 +28,6 @@ const ColorItem: React.FC<Props> = ({
                 changeOrder(target,0)
             }} open={hover === 0} />)}
             <ListItem {...{
-                show,
                 listIndex,
                 description,
                 renameColor,

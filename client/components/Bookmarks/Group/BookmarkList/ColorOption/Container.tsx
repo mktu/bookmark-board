@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import { Checkbox } from '../../../../Common/Input'
 import { ContainedButton, OutlinedButton } from '../../../../Common/Button'
 import { useBookmarkGroup } from '../../../../../hooks/useBookmarkGroup'
 import ColorInput from './ColorInput'
@@ -29,7 +28,6 @@ const Container: React.FC<Props> = ({
         key={c.color}
         {...{
             description : c,
-            show : c.show,
             renameColor,
             listIndex : idx,
             hover,

@@ -5,7 +5,6 @@ import { useHoverable } from '../../../../../../hooks/useBookmarkColorDnd'
 
 type Props = {
     description: BookmarkColorDescription,
-    show: boolean,
     listIndex:number,
     renameColor: (color: string, name: string) => void,
     handleDelete: (color: string) => void,
@@ -14,7 +13,6 @@ type Props = {
 
 const ListItem: React.FC<Props> = ({
     description,
-    show,
     listIndex,
     renameColor,
     handleDelete,
@@ -28,7 +26,7 @@ const ListItem: React.FC<Props> = ({
                 <div className='w-5 h-5 rounded' style={{ backgroundColor: color }} />
             </div>
             <div className='flex items-center w-full'>
-                <TextInput aria-label='Color Name' className={`w-full ${!show && 'opacity-75'}`} value={name} handleSubmit={(value) => {
+                <TextInput aria-label='Color Name' className={`w-full`} value={name} handleSubmit={(value) => {
                     renameColor(color, value)
                 }} />
             </div>

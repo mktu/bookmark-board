@@ -25,6 +25,10 @@ module.exports = {
       }),
       colors: {
         brand: '#293239',
+        link: {
+          'main' : '#1D4ED8',
+          'hover' : '#1F40AF'
+        },
         primary: {
           '50': '#eceff1',
           '100': '#cfd8dc',
