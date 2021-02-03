@@ -44,7 +44,7 @@ const GroupList: React.FC<Props> = () => {
                     </SvgIconButton>
                 </div>
             </div>
-            <div className='scrolling-auto h-full'>
+            <div className='overflow-scroll h-full'>
                 {groups.map(group=>(
                     <ListItem key={group.id} bookmarkGroup={group}/>
                 ))}

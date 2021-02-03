@@ -10,7 +10,7 @@ import DangerZone from './DangerZone'
 import { useBookmarkGroup } from '../../../hooks/useBookmarkGroup'
 
 type Props = {
-    group: BookmarkGroup,
+    group?: BookmarkGroup,
     onClose: () => void
 }
 
@@ -26,7 +26,11 @@ const Detail: React.FC<Props> = ({
         handleDeleteGroup,
         handleSubmit,
         hasChange
-    } = useBookmarkGroup(group.id)
+    } = useBookmarkGroup(group?.id)
+
+    if (!group) {
+        return null
+    }
 
     return (
         <div className='w-full p-2'>
@@ -57,14 +61,14 @@ const Detail: React.FC<Props> = ({
                 <div className='p-2 w-full'>
                     {editors.map(e => (
                         <div key={e.id} className='flex items-center'>
-                            <Avatar src={e.image} width='48px' height='48px' className='block mr-2 my-2' name={e.name}/>
+                            <Avatar src={e.image} width='48px' height='48px' className='block mr-2 my-2' name={e.name} />
                             <p className='text-primary-main text-center'>{e.name}</p>
                             {group.owner !== e.id && (profile.id === e.id ? (
                                 <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap'>
                                     離脱する
                                 </OutlinedButton>
                             ) : (
-                                    <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap' onClick={()=>{handleRemoveUser(e.id)}}>
+                                    <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap' onClick={() => { handleRemoveUser(e.id) }}>
                                         除外
                                     </OutlinedButton>
                                 ))}
@@ -78,7 +82,7 @@ const Detail: React.FC<Props> = ({
             )}
             <div className='mt-4 flex justify-end text-primary-main'>
                 <OutlinedButton onClick={onClose} className='mx-2'>キャンセル</OutlinedButton>
-                <ContainedButton disabled={!hasChange} onClick={()=>{
+                <ContainedButton disabled={!hasChange} onClick={() => {
                     handleSubmit(onClose)
                 }}>更新</ContainedButton>
             </div>
