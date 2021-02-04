@@ -1,6 +1,6 @@
 import React from 'react'
 import { AddFill, Add, ChevronDown } from '../../../Common/Icon'
-import { SvgIconButton } from '../../../Common/Button'
+import { SvgIconButton, SvgFillIconButton } from '../../../Common/Button'
 import { BookmarkInputBase } from '../../../Common/Input'
 import { LinkPreview } from '../../../Common/LinkPreview'
 import styles from './index.module.scss'
@@ -60,9 +60,9 @@ const Input: React.FC<Props> = ({
             </div>
             {!show && (
                 <div className={styles['fab']}>
-                    <SvgIconButton aria-label='Add New' colorType='none' className='p-0 w-10 h-10 bg-secondary-main hover:bg-secondary-700 rounded-full shadow-lg' onClick={() => { toggle(true) }}>
-                        <AddFill className={'inline-block w-6 h-6'} />
-                    </SvgIconButton>
+                    <SvgFillIconButton aria-label='Add New' colorType='none' className='fill-secondary-500 hover:fill-secondary-main w-12 h-12 rounded-full' onClick={() => { toggle(true) }}>
+                        <AddFill  />
+                    </SvgFillIconButton>
                 </div>
             )}
         </div>
