@@ -60,7 +60,8 @@ export const useBookmark = (bookmarkId:string)=>{
                 title: result.title,
                 description: result.description || '',
                 image: result.images.length > 0 ? result.images[0] : '',
-                images: result.images
+                images: result.images,
+                disableEndpoint : false
             })
         }).catch((err)=>{
             setStatus('failed')
