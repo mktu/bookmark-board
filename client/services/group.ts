@@ -107,3 +107,22 @@ export function getGroup(
     })
     .catch(onFailed)
 }
+
+export function changeGroupOrder(
+    sortedIds: string[],
+    onSucceeded?: Notifier,
+    onFailed: ErrorHandler = console.error
+) {
+    const batch = db.batch();
+    sortedIds.forEach((id, idx) => {
+        const docRef = db
+            .collection('groups')
+            .doc(id)
+        batch.update(docRef, {
+            idx
+        })
+    })
+    batch.commit()
+        .then(onSucceeded)
+        .catch(onFailed)
+}

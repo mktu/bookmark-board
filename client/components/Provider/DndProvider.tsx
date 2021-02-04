@@ -4,6 +4,7 @@ import { TouchBackend } from 'react-dnd-touch-backend'
 import { DndProvider } from 'react-dnd'
 import { usePreview } from 'react-dnd-preview'
 import BookmarkPreview from '../Bookmarks/Group/BookmarkList/ListItem/Preview'
+import BookmarkGroupPreview from '../Bookmarks/GroupList/Preview'
 import ColorPreview from '../Bookmarks/Group/BookmarkList/ColorOption/ListItem/Preview'
 
 type Props = {
@@ -38,6 +39,10 @@ const BookmarkDndProvider: React.FC<Props> = ({ children }) => {
         if (itemType === 'COLOR') {
             const description = item as BookmarkColorDescription
             return <ColorPreview description={description} style={style} />
+        }
+        if(itemType === 'GROUP'){
+            const bookmarkGroup =item as BookmarkGroup
+            return <BookmarkGroupPreview bookmarkGroup={bookmarkGroup} style={style}/>
         }
         const bookmark = item as Bookmark
         return itemType === 'LIST' && (

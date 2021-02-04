@@ -65,6 +65,7 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         getGroup : func('getGroup'),
         deleteGroup : func('deleteGroup'),
         modifyGroup : func('modifyGroup'),
+        changeGroupOrder : func('changeGroupOrder'),
         listenGroups : () => {func('listenGroups')(); return ()=>{1}},
         addReaction : func('addReaction'),
         deleteReaction : func('deleteReaction'),
