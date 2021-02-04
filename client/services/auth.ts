@@ -9,13 +9,16 @@ const convertUser = (user: firebase.User): User => {
     }
 }
 
-export const listenAuthState = (onLogin: Transfer<firebase.User>, onLogout: () => void) => {
+export const listenAuthState = (onLogin: Transfer<firebase.User>, onLogout: () => void, onError?: ()=>void) => {
     return firebase.auth().onIdTokenChanged(function (user) {
         if (user) {
             onLogin(user)
         } else {
             onLogout();
         }
+    }, (error)=>{
+        console.error(error)
+        onError && onError()
     });
 }
 

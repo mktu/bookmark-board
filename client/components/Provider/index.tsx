@@ -11,12 +11,14 @@ const Provider: React.FC<Props> = ({
     children
 }) => {
     return (
-        <FirebaseProvider>
-            <BookmarkProvider>
-                <ToastContainer />
-                {children}
-            </BookmarkProvider>
-        </FirebaseProvider>
+        <>
+            <ToastContainer />
+            <FirebaseProvider>
+                <BookmarkProvider>
+                    {children}
+                </BookmarkProvider>
+            </FirebaseProvider>
+        </>
     )
 }
 

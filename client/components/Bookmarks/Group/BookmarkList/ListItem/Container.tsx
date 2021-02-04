@@ -28,7 +28,6 @@ const ListItem: React.FC<Props> = ({
         handleLikes,
         deleteBookmark,
         handleJumpLink,
-        handleLoadImageError
     } = useBookmark(bookmarkId)
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
     const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover)
@@ -61,8 +60,7 @@ const ListItem: React.FC<Props> = ({
             enableEndpoint={!bookmark.disableEndpoint}
             width={BookmarkListImageSize}
             height={BookmarkListImageSize}
-            name={bookmark.title}
-            onError={handleLoadImageError} />
+            name={bookmark.title} />
     )
     const copyButton = (
         <SvgIconButton aria-label='Copy URL' onClick={handleCopyUrl}>

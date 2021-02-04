@@ -1,4 +1,5 @@
 import {useEffect, useState} from 'react'
+import { toast } from 'react-toastify';
 import { FirebaseClientServiceType } from '../context/FirebaseContext'
 import { useDispatch } from "react-redux";
 import { actions as profileActions } from '../modules/profileSlice'
@@ -10,13 +11,17 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
     const dispatch = useDispatch()
     const { listenAuthState, getProfile } = clientService;
     useEffect(()=>{
-        listenAuthState((user)=>{
-            setUid(user.uid)
-            dispatch(authActions.authSucceeded(user.uid))
-        }, ()=>{
+        const onFailed = ()=>{
             setUid('')
             dispatch(profileActions.clear())
             dispatch(authActions.authFailed())
+        }
+        listenAuthState((user)=>{
+            setUid(user.uid)
+            dispatch(authActions.authSucceeded(user.uid))
+        }, onFailed, ()=>{
+            toast.error('ログイン中にエラーが発生しました')
+            onFailed()
         })
     }, [listenAuthState,getProfile])
 
@@ -29,6 +34,9 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
         getProfile(uid, ()=>{
             dispatch(authActions.registerSucceeded())
         }, ()=>{
+            dispatch(authActions.registerFailed())
+        }, ()=>{
+            toast.error('プロフィール取得中にエラーが発生しました')
             dispatch(authActions.registerFailed())
         })
     },[uid,listenProfile,auth])
