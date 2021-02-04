@@ -29,8 +29,8 @@ const NoItem: React.FC<Props> = ({
             <div className='bg-white rounded-full p-12 flex items-center justify-center'>
                 <NoItemImg width={200} />
             </div>
-            <div className='w-6/12 mt-4'>
-                <div className='flex flex-row items-center'>
+            <div className='w-full md:w-6/12 mt-4'>
+                <div className='flex items-center'>
                     <BookmarkInput 
                         placeholder={'ブックマークURLを入力'} 
                         value={bookmarkInput} 
