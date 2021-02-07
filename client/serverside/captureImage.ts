@@ -1,4 +1,5 @@
-import puppeteer from 'puppeteer'
+import { firebaseAdmin } from '../services/firebaseServer'
+/* import puppeteer from 'puppeteer'
 import chromium from 'chrome-aws-lambda'
 import crypto from 'crypto'
 import { v5 as uuidv5 } from 'uuid';
@@ -40,4 +41,4 @@ const capture = async (url: string) => {
     return downloadUrl
 }
 
-export default capture
+export default capture */
