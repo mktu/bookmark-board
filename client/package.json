@@ -9,6 +9,9 @@
     "test": "jest",
     "lint": "eslint components/** --ext .ts,.tsx"
   },
+  "config": {
+    "puppeteer_download_path": "./node_modules/puppeteer/.local-chromium"
+  },
   "dependencies": {
     "@next/bundle-analyzer": "^9.5.5",
     "@popperjs/core": "^2.5.4",
