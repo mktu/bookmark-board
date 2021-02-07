@@ -1,4 +1,4 @@
-import { parse } from 'node-html-parser'
+//import { parse } from 'node-html-parser'
 import ogs, { Options, SuccessResult } from 'open-graph-scraper'
 
 const logicOgs = async (url: string, validate?: boolean) => {
@@ -32,7 +32,7 @@ const logicOgs = async (url: string, validate?: boolean) => {
     }
 }
 // Delete the library when it is no longer needed
-export const originalLogic = async (url: string) => {
+/* export const originalLogic = async (url: string) => {
 
     //const startTm = Date.now()
     const response = await fetch(url, {
@@ -95,7 +95,7 @@ export const originalLogic = async (url: string) => {
         url: baseUrl,
         images: exits
     }
-}
+} */
 
 export const validateImages = async (imageUrls: string[]) => {
     const exits = (await Promise.all(imageUrls.map(async v => {
