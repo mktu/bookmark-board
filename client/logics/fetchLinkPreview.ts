@@ -62,9 +62,12 @@ const fetchLinkPreview = async (orgUrl: string, useDefaultProxy = true) => {
     return logic(url)
 }
 
-export const fetchFromServer = async(url:string) =>{
-    const target = `/api/urls?url=${url}`
+export const fetchFromServer = async(url:string,useValidate:boolean,useCapture:boolean) =>{
+    const target = `/api/urls?url=${url}&useValidate=${useValidate}&useCapture=${useCapture}`
     const response = await fetch(target);
+    if(!response.ok){
+        throw Error(response.statusText)
+    }
     const data = await response.json()
     return data as ReturnType<typeof fetchLinkPreview>;
 }

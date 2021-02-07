@@ -50,11 +50,11 @@ export const useBookmark = (bookmarkId:string)=>{
     const deleteBookmark = useCallback((onSucceeded?: Notifier,)=>{
         clientService.deleteBookmark(bookmark.groupId, bookmark.id, onSucceeded)
     },[bookmark,clientService])
-    const likes = bookmark?.reactions['likes'] || []
+    const likes = bookmark?.reactions?.likes || []
     const sentLikes = likes.includes(profile.id)
     const handleRefetch = useCallback(() => {
         setStatus('loading')
-        fetchFromServer(bookmark.url).then(result => {
+        fetchFromServer(bookmark.url,true,true).then(result => {
             setStatus('loaded')
             setUpdate({
                 title: result.title,

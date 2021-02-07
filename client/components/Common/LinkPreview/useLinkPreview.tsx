@@ -32,7 +32,7 @@ const useLinkPreview: (props: Props) => {
             }
             let cancel = false;
             setStatus('loading')
-            fetchFromServer(url).then((data) => {
+            fetchFromServer(url,false,false).then((data) => {
                 if(cancel){
                     return
                 }

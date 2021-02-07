@@ -12,7 +12,7 @@ type Props = {
     enableEndpoint?: boolean,
     cAtMax?: boolean,
     className?: string,
-    onError?:(disableEndpoint?:boolean)=>void
+    onError?: (disableEndpoint?: boolean) => void
 }
 const UrlEndpoint = process.env.NEXT_PUBLIC_IMGKIT_ID
 
@@ -54,9 +54,9 @@ const makeCAtMaxSrcSet = (useEndpoint: boolean, width?: string, height?: string,
 }
 
 export const NotFound: React.FC<{
-    width ?: string,
-    height ?: string,
-    text ?: string
+    width?: string,
+    height?: string,
+    text?: string
 }> = ({
     width,
     height,
@@ -67,7 +67,7 @@ export const NotFound: React.FC<{
             height,
             backgroundImage: `url('/Placeholder.svg')`,
             backgroundRepeat: 'no-repeat',
-            backgroundSize:'cover'
+            backgroundSize: 'cover'
         }}>
             {text}
         </div>

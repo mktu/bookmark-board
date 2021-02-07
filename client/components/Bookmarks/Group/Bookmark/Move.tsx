@@ -5,7 +5,7 @@ import Checkbox from '../../../Common/Input/Checkbox'
 import { OutlinedButton } from '../../../Common/Button'
 
 type Props = {
-    moveDest : BookmarkGroup,
+    moveDest ?: BookmarkGroup,
     copy : boolean,
     groups : BookmarkGroup[]
     disabled : boolean,
@@ -29,7 +29,7 @@ const Move: React.FC<Props> = ({
                 <Dropdowns
                     placement='bottom'
                     options={groups.map(g => ({ label: g.name, value: g.id }))}
-                    selected={moveDest.id}
+                    selected={moveDest?.id}
                     onSelect={handleSelectMoveDest} />
                 <Checkbox label='コピーを作成' className='ml-2 mt-2' id='copy' onChange={(e) => { handleCheckCopy(e.target.checked) }} />
                 <OutlinedButton

@@ -38,7 +38,7 @@ const Container: React.FC<Props> = ({
     } = useBookmark(bookmarkId)
     const moveGroupProps = useMoveGroup(bookmark)
     const { group } = useBookmarkGroup(bookmark?.groupId)
-    if (!bookmark) {
+    if (!bookmark || !bookmark.id || !group) {
         return <div />
     }
     const inputDisabled = status === 'loading'
@@ -60,7 +60,7 @@ const Container: React.FC<Props> = ({
     const url = <Url url={bookmark.url} updateBookmark={updateBookmark} handleJumpLink={handleJumpLink}/>
     const refresh = <Refresh disabled={inputDisabled} handleRefetch={handleRefetch}/>
     const color = <Color color={bookmark.color} handleUpdate={updateBookmark('color')} group={group}/>
-    const move = <Move {...moveGroupProps} copy={moveGroupProps.copyGroup} disabled={moveGroupProps.moveDest.id === bookmark.groupId}/>
+    const move = <Move {...moveGroupProps} copy={moveGroupProps.copyGroup} disabled={moveGroupProps.moveDest?.id === bookmark.groupId}/>
     const date = <Date lastUpdate={bookmark.lastUpdate} created={bookmark.created} loading={status==='loading'}/>
     const image = <Image disableEndpoint={bookmark.disableEndpoint} onChangeImage={updateBookmark('image')} images={bookmark.images} image={bookmark.image} loading={status==='loading'}/>
     const trash = <Trash handleDelete={()=>{deleteBookmark(()=>{

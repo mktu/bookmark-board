@@ -1,25 +1,29 @@
 import { parse } from 'node-html-parser'
-import ogs, {Options, SuccessResult} from 'open-graph-scraper'
+import ogs, { Options, SuccessResult } from 'open-graph-scraper'
 
-const logicOgs = async (url: string) => {
-    const startTm2 = Date.now()
-    const options : Options = {
+const logicOgs = async (url: string, validate?: boolean) => {
+    //const startTm2 = Date.now()
+    const options: Options = {
         url,
-        timeout : 10000
+        timeout: 10000
     }
     const ret = await ogs(options)
-    const endTm = Date.now()
-    //console.log(`fin:${endTm-startTm2}ms`)
-    if(ret.error){
+
+    if (ret.error) {
         throw Error(ret.result.error)
     }
     const successData = ret as SuccessResult
-    const images = successData.result.ogImage ? [successData.result.ogImage.url] : []
+    let images = successData.result.ogImage ? [successData.result.ogImage.url] : []
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const twData : any = successData.result 
-    if(twData.twitterImage){
+    const twData: any = successData.result
+    if (twData.twitterImage) {
         images.push(twData.twitterImage.url as string)
     }
+    if (validate) {
+        images = await validateImages(images)
+    }
+    //const endTm = Date.now()
+    //console.log(`fin:${endTm-startTm2}ms`)
     return {
         title: successData.result.ogTitle,
         description: successData.result.ogDescription,
@@ -28,7 +32,6 @@ const logicOgs = async (url: string) => {
     }
 }
 // Delete the library when it is no longer needed
-
 export const originalLogic = async (url: string) => {
 
     //const startTm = Date.now()
@@ -80,18 +83,31 @@ export const originalLogic = async (url: string) => {
         })
         .filter(Boolean)
     //const parseTm = Date.now()
-    const exits = (await Promise.all(images.map(async v=>{
-        const res = await fetch(v,{ method: 'HEAD' })
+    const exits = (await Promise.all(images.map(async v => {
+        const res = await fetch(v, { method: 'HEAD' })
         return res.ok ? v : ''
-    })) ).filter(Boolean)
+    }))).filter(Boolean)
     //const validateTm = Date.now()
     //console.log(`fetch:${fetchTm-startTm}ms, text:${textTm-fetchTm}ms, parse:${parseTm-textTm}ms, validate:${validateTm-parseTm}ms,sum:${validateTm-startTm}`)
     return {
         title: root.querySelector('title')?.innerText || undefined,
         description: root.querySelector('meta[name="description"]')?.getAttribute('content') || undefined,
         url: baseUrl,
-        images : exits
+        images: exits
     }
+}
+
+export const validateImages = async (imageUrls: string[]) => {
+    const exits = (await Promise.all(imageUrls.map(async v => {
+        try {
+            const res = await fetch(v, { method: 'HEAD' })
+            return res.ok ? v : ''
+        } catch (e) {
+            console.error(e)
+            return ''
+        }
+    }))).filter(Boolean)
+    return exits
 }
 
 export default logicOgs

@@ -10,6 +10,7 @@ if (!firebaseAdmin.apps.length) {
       clientEmail: process.env.FIREBASE_CLIENT_EMAIL,
       projectId: process.env.FIREBASE_PROJECT_ID,
     }),
+    storageBucket: process.env.NEXT_PUBLIC_FIRESTORE_STORAGE_BUCKET,
     databaseURL: 'https://YOUR_PROJECT_ID.firebaseio.com',
   });
 }
