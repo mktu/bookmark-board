@@ -9,8 +9,9 @@ const md5FromUrl = (url: string) => {
 }
 
 const capture = async (url: string) => {
-    console.log(url)
-    const browser = await puppeteer.launch();
+    const browser = await puppeteer.launch({
+        product : 'chrome'
+    });
     const page = await browser.newPage();
     await page.goto(url, {
         waitUntil: ['load', 'networkidle0']
