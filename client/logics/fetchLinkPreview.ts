@@ -63,8 +63,9 @@ const fetchLinkPreview = async (orgUrl: string, useDefaultProxy = true) => {
 }
 
 export const fetchFromServer = async(url:string,useValidate:boolean,useCapture:boolean) =>{
+    const cloudFunctionUrl = `${process.env.NEXT_PUBLIC_FIREBASE_FUNCTION_ROOT}/urls?url=${url}`
     const target = `/api/urls?url=${url}&useValidate=${useValidate}&useCapture=${useCapture}`
-    const response = await fetch(target);
+    const response = await fetch(cloudFunctionUrl);
     if(!response.ok){
         throw Error(response.statusText)
     }

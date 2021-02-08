@@ -10,6 +10,7 @@ const createFirebaseService = async () => {
         ...await import('../services/reaction'),
         ...await import('../services/request'),
         ...await import('../services/storage'),
+        ...await import('../services/callable'),
         mock : false,
         auth : true
     }
@@ -37,6 +38,7 @@ export const upgradeAuthedService = async (original : FirebaseClientServiceType)
         ...await import('../services/reaction'),
         ...await import('../services/request'),
         ...await import('../services/storage'),
+        ...await import('../services/callable'),
         mock : false,
         auth : true
     }
@@ -84,6 +86,7 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         listenBookmarks : () => {func('listenBookmarks')(); return ()=>{1}},
         changeOrder : func('changeOrder'),
         uploadFile : func('uploadFile'),
+        scrapeUrl : async ()=>{func('scrapeUrl'); return {url:'', images:[]}},
         mock : true,
         auth : false
     }
