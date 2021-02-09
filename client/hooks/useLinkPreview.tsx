@@ -23,21 +23,39 @@ const useLinkPreview: (props: Props) => {
 }) => {
         const { clientService } = useContext(FirebaseContext)
         const [linkData, setLinkData] = useState<LinkData>()
+        const [scrapeUrl,setScrapeUrl] = useState<string>()
         const [status, setStatus] = useState<'none' | 'loading' | 'loaded' | 'failed'>('none')
         const inputUrls = find(text)
         const url = inputUrls.length > 0 && inputUrls[0].value
 
+        useEffect(()=>{
+            let cancel = false
+            if(status !== 'loading'){
+                if(status !== 'none'){
+                    setTimeout(() => {
+                        ! cancel && setScrapeUrl(url)
+                    }, 1000);
+                } else {
+                    setScrapeUrl(url)
+                }
+            }
+            return ()=>{
+                cancel = true
+            }
+        },[url, status])
+
         useEffect(() => {
-            if (!url) {
+            if (!scrapeUrl) {
                 return
             }
             let cancel = false;
             setStatus('loading')
-            clientService.scrapeUrl(url,false,false).then(data=>{
+            clientService.scrapeUrl(scrapeUrl,false,false).then(data=>{
                 if(cancel){
                     return
                 }
                 setLinkData(data)
+                setStatus('loaded')
             })
             .catch((e) => {
                 if(cancel){
@@ -52,7 +70,7 @@ const useLinkPreview: (props: Props) => {
                 setLinkData(undefined)
                 cancel = true;
             }
-        }, [url]);
+        }, [scrapeUrl]);
 
         return {
             linkData,

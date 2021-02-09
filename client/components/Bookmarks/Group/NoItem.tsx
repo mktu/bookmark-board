@@ -19,8 +19,25 @@ const NoItem: React.FC<Props> = ({
         onChangeBookmarkInput,
         submit,
         url,
-        linkData
+        linkData,
+        invalidUrl,
+        status
     } = useNewBookmark(groupId)
+
+    let preview = null
+    if (invalidUrl || status === 'failed') {
+        preview = (
+            <div className=' text-secondary-main text-sm p-2' >
+                無効なURLです
+            </div>
+        )
+    }
+    else if (status !== 'none') {
+        preview = (
+            <LinkPreview url={url} linkData={linkData} />
+        )
+    }
+
     return (
         <div className='flex flex-col items-center justify-center p-4 w-full h-full bg-primary-light'>
             <p className='mb-4 text-primary-main'>
@@ -31,20 +48,17 @@ const NoItem: React.FC<Props> = ({
             </div>
             <div className='w-full md:w-6/12 mt-4'>
                 <div className='flex items-center'>
-                    <BookmarkInput 
-                        placeholder={'ブックマークURLを入力'} 
-                        value={bookmarkInput} 
-                        onChange={onChangeBookmarkInput} 
+                    <BookmarkInput
+                        placeholder={'ブックマークURLを入力'}
+                        value={bookmarkInput}
+                        onChange={onChangeBookmarkInput}
                         onKeyPress={onKeyPress}
-                        />
+                    />
                     <SvgIconButton className='block ml-2' onClick={submit}>
                         <Add strokeWidth='1.5px' className='w-10' />
                     </SvgIconButton>
                 </div>
-                <LinkPreview url={url} linkData={linkData} />
-                {status==='failed' && (
-                    <div>無効なURLです</div>
-                )}
+                {preview}
             </div>
         </div>
     )

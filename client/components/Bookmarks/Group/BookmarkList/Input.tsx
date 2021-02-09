@@ -27,6 +27,22 @@ const Input: React.FC<Props> = ({
         submit,
         onKeyPress
     } = useNewBookmark(groupId)
+
+    let preview = null
+    if (invalidUrl || status === 'failed') {
+        preview = (
+            <div className=' text-secondary-main text-sm p-2' >
+                無効なURLです
+            </div>
+        )
+    }
+    else if (status !== 'none') {
+        preview = (
+            <div className='bg-white mt-2 rounded shadow focus:shadow-outline' >
+                <LinkPreview url={url} linkData={linkData} />
+            </div>
+        )
+    }
     return (
         <div className='w-full relative bg-white border-t border-primary-border'>
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>
@@ -40,16 +56,7 @@ const Input: React.FC<Props> = ({
                         <div className='bg-white rounded shadow focus:shadow-outline'>
                             <BookmarkInputBase aria-label='Input Bookmark URL' placeholder={'ブックマークURLを入力'} value={bookmarkInput} onKeyPress={onKeyPress} onChange={onChangeBookmarkInput} />
                         </div>
-                        {status !== 'none' && (
-                            <div className='bg-white mt-2 rounded shadow focus:shadow-outline' >
-                                <LinkPreview url={url} linkData={linkData} />
-                            </div>
-                        )}
-                        {invalidUrl && (
-                            <div className=' text-secondary-main text-sm p-2' >
-                                無効なURLです
-                            </div>
-                        )}
+                        {preview}
                     </div>
                     <div className='ml-auto'>
                         <SvgIconButton aria-label='Add New Bookmark' className='block mx-1' onClick={submit}>
@@ -61,7 +68,7 @@ const Input: React.FC<Props> = ({
             {!show && (
                 <div className={styles['fab']}>
                     <SvgFillIconButton aria-label='Add New' colorType='none' className='fill-secondary-500 hover:fill-secondary-main w-12 h-12 rounded-full' onClick={() => { toggle(true) }}>
-                        <AddFill  />
+                        <AddFill />
                     </SvgFillIconButton>
                 </div>
             )}

@@ -1,14 +1,24 @@
 import ogs, { Options, SuccessResult } from 'open-graph-scraper'
+import {https} from "firebase-functions";
 
-const scrape = async (url: string, validate?: boolean) => {
+const doScrape = async (url:string) => {
     const options: Options = {
         url,
         timeout: 10000
     }
-    const ret = await ogs(options)
+    try{
+        return await ogs(options)
+    }catch(e){
+        console.error(e)
+        throw new https.HttpsError('invalid-argument', 'scraping error')
+    }
+}
 
+const scrape = async (url: string, validate?: boolean) => {
+    const ret = await doScrape(url)
     if (ret.error) {
-        throw Error(ret.result.error)
+        console.error(ret.result.error)
+        throw new https.HttpsError('invalid-argument', ret.result.error)
     }
     const successData = ret as SuccessResult
     let images = successData.result.ogImage ? [successData.result.ogImage.url] : []
