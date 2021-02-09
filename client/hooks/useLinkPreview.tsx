@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, useContext } from 'react'
 import { find } from 'linkifyjs';
-import {fetchFromServer} from '../../../logics/fetchLinkPreview'
+import FirebaseContext from '../context/FirebaseContext'
 
 type Props = {
     text?: string
@@ -21,6 +21,7 @@ const useLinkPreview: (props: Props) => {
 } = ({
     text
 }) => {
+        const { clientService } = useContext(FirebaseContext)
         const [linkData, setLinkData] = useState<LinkData>()
         const [status, setStatus] = useState<'none' | 'loading' | 'loaded' | 'failed'>('none')
         const inputUrls = find(text)
@@ -32,19 +33,19 @@ const useLinkPreview: (props: Props) => {
             }
             let cancel = false;
             setStatus('loading')
-            fetchFromServer(url,false,false).then((data) => {
+            clientService.scrapeUrl(url,false,false).then(data=>{
                 if(cancel){
                     return
                 }
                 setLinkData(data)
-                setStatus('loaded')
-            }).catch((e) => {
+            })
+            .catch((e) => {
                 if(cancel){
                     return
                 }
                 setStatus('failed')
                 console.error(e)
-            });
+            })
 
             return () => {
                 setStatus('none')

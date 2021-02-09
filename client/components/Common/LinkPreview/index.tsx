@@ -2,7 +2,7 @@ import React from 'react';
 import classNames from 'classnames'
 import { LoadingImg } from '../../Common/Image'
 import UrlImage from '../../Common/Avatar/UrlImage'
-import useLinkPreview, { LinkData as LinkDataType } from './useLinkPreview'
+import useLinkPreview, { LinkData as LinkDataType } from '../../../hooks/useLinkPreview'
 
 export type LinkData = LinkDataType
 

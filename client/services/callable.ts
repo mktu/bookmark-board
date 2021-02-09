@@ -12,3 +12,13 @@ export const scrapeUrl = async (url:string, capture?:boolean, validate?:boolean)
         images : string[]
     }
 }
+
+export const completeBookmark = async (url:string, groupId:string, bookmarkId:string, scrape?:boolean)=>{
+    const callable = asiaFunction.httpsCallable('completeBookmark')
+    await callable({
+        url,
+        groupId, 
+        bookmarkId,
+        scrape
+    })
+}

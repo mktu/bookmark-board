@@ -87,6 +87,7 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         changeOrder : func('changeOrder'),
         uploadFile : func('uploadFile'),
         scrapeUrl : async ()=>{func('scrapeUrl'); return {url:'', images:[]}},
+        completeBookmark : async ()=>{func('completeBookmark'); },
         mock : true,
         auth : false
     }

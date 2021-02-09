@@ -1,6 +1,7 @@
 import {useState,useContext,useCallback,useRef,useEffect} from 'react'
 import FirebaseContext from '../context/FirebaseContext'
 import { useLinkPreview } from '../components/Common/LinkPreview'
+import { toast } from 'react-toastify';
 
 const useNewBookmark = (groupId:string)=>{
     const unmounted = useRef(false)
@@ -43,8 +44,17 @@ const useNewBookmark = (groupId:string)=>{
                 unacquired: true
             }
         }
-        !invalidUrl && clientService.addBookmark(data, () => {
+        !invalidUrl && clientService.addBookmark(data, (bookmarkId) => {
             !unmounted.current && setBookmarkInput('')
+            if(!data.title){
+                clientService.completeBookmark(url, groupId, bookmarkId, true).catch(()=>{
+                    toast.error('Bookmark情報の自動付与に失敗しました')
+                })
+            } else if(!data.image){
+                clientService.completeBookmark(url, groupId, bookmarkId).catch(()=>{
+                    toast.error('Bookmark画像の取得に失敗しました')
+                })
+            }
         })
     },[invalidUrl,clientService,url,linkData])
     
