@@ -7,6 +7,17 @@ const bookmarkAdapter = createEntityAdapter<Bookmark>({
     }
 })
 
+export const initialBookmark = {
+    id: '',
+    url: '',
+    neighbors: [],
+    groupId: '',
+    owner: '',
+    created: 0,
+    idx: 999999,
+    reactions: {  },
+}
+
 const initialState = bookmarkAdapter.getInitialState<{
     status : LoadStatus['status']
 }>({

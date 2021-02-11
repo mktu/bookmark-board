@@ -9,7 +9,6 @@ const Bookmarks = ()=>{
     const { ids } = router.query
     const groupId = ids && ids.length > 0 ? ids[0] : ''
     const bookmarkId = ids && ids.length > 1 ? ids[1] : ''
-    
     return (
         <Layout 
             showGroup={Boolean(groupId)}

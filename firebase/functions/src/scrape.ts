@@ -1,5 +1,6 @@
 import ogs, { Options, SuccessResult } from 'open-graph-scraper'
-import {https} from "firebase-functions";
+import {https, logger} from "firebase-functions";
+import fetch from 'node-fetch'
 
 const doScrape = async (url:string) => {
     const options: Options = {
@@ -9,7 +10,7 @@ const doScrape = async (url:string) => {
     try{
         return await ogs(options)
     }catch(e){
-        console.error(e)
+        logger.error(e)
         throw new https.HttpsError('invalid-argument', 'scraping error')
     }
 }
@@ -17,7 +18,7 @@ const doScrape = async (url:string) => {
 const scrape = async (url: string, validate?: boolean) => {
     const ret = await doScrape(url)
     if (ret.error) {
-        console.error(ret.result.error)
+        logger.error(ret.result.error)
         throw new https.HttpsError('invalid-argument', ret.result.error)
     }
     const successData = ret as SuccessResult
@@ -46,7 +47,7 @@ export const validateImages = async (imageUrls: string[]) => {
             const res = await fetch(v, { method: 'HEAD' })
             return res.ok ? v : ''
         } catch (e) {
-            console.error(e)
+            logger.error(e)
             return ''
         }
     }))).filter(Boolean)

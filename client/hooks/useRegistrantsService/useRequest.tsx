@@ -1,4 +1,4 @@
-import {useEffect,useRef, useCallback, useContext} from 'react'
+import {useEffect,useRef, useCallback, useContext, useMemo} from 'react'
 import { useDispatch } from "react-redux";
 import FirebaseContext from '../../context/FirebaseContext'
 import { actions } from '../../modules/requestSlice'
@@ -24,7 +24,7 @@ const useRequests = ()=>{
             status : 'requesting'
         })
         unsubscribes.current[groupId] = unsub
-    },[clientService])
+    },[clientService,dispatch])
     const onUnload = useCallback((groupId, owner)=>{
         if(!owner) return
         unsubscribes.current[groupId] && 
@@ -37,7 +37,7 @@ const useRequests = ()=>{
             delete unsubscribes.current[unsubscribe]
         }
         dispatch(actions.clear())
-    },[])
+    },[dispatch])
     useEffect(()=>{
         return ()=>{
             for(const unsub of Object.values(unsubscribes.current)){
@@ -46,11 +46,11 @@ const useRequests = ()=>{
             unsubscribes.current = {}
         }
     },[])
-    return {
+    return useMemo(()=>({
         onLoad,
         onUnload,
         clearAll
-    }
+    }),[onLoad,onUnload,clearAll])
 }
 
 export default useRequests

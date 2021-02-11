@@ -23,7 +23,7 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
             toast.error('ログイン中にエラーが発生しました')
             onFailed()
         })
-    }, [listenAuthState,getProfile])
+    }, [listenAuthState,getProfile,dispatch])
 
     const { listenProfile, auth } = clientService
     
@@ -39,7 +39,7 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
             toast.error('プロフィール取得中にエラーが発生しました')
             dispatch(authActions.registerFailed())
         })
-    },[uid,listenProfile,auth])
+    },[uid,listenProfile,auth,dispatch,getProfile])
     
     useEffect(()=>{
         if(!uid || !auth){
@@ -55,7 +55,7 @@ const useAuth = (clientService:FirebaseClientServiceType)=>{
             dispatch(profileActions.clear())
             dispatch(usersActions.clear())
         }
-    }, [uid,listenProfile,auth])
+    }, [uid,listenProfile,auth,dispatch])
 
     return uid
 }

@@ -19,6 +19,7 @@ module.exports = {
     },
     "plugins": [
         "react",
+        "react-hooks",
         "@typescript-eslint",
         "eslint-plugin-react",
         "jsx-a11y"
@@ -26,6 +27,8 @@ module.exports = {
     "rules": {
         "react/react-in-jsx-scope": "off",
         "react/prop-types":"off",
+        "react-hooks/rules-of-hooks": "error",
+        "react-hooks/exhaustive-deps": "warn",
         "@typescript-eslint/explicit-module-boundary-types": "off"
     }
 };

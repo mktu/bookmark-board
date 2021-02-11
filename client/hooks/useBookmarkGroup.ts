@@ -1,7 +1,7 @@
-import { useContext, useMemo, useState } from 'react'
+import { useContext, useMemo, useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify'
-import { useGroupById } from '../modules/groupSlice'
+import { useGroupById, initialGroup } from '../modules/groupSlice'
 import { useUsersByIds } from '../modules/usersSlice'
 import { useRefinementById } from '../modules/groupRefinementSlice'
 import FirebaseContext from '../context/FirebaseContext'
@@ -21,17 +21,17 @@ const defaultColors: BookmarkColors = [
     return acc
 }, {})
 
-export const useRefinements = (groupId?: string)=>{
+export const useRefinements = (groupId?: string) => {
     const refinements = useRefinementById(groupId)
-    const {colorMasks = []} = refinements
-    const updateColorFilters = (updateColors:{color: string, show: boolean}[]) => {
-        const unmasked = updateColors.filter(c=>c.show).map(c=>c.color)
-        const masked = updateColors.filter(c=>!c.show).map(c=>c.color)
-        if(groupId){
+    const { colorMasks = [] } = refinements
+    const updateColorFilters = (updateColors: { color: string, show: boolean }[]) => {
+        const unmasked = updateColors.filter(c => c.show).map(c => c.color)
+        const masked = updateColors.filter(c => !c.show).map(c => c.color)
+        if (groupId) {
             let mask = colorMasks
-            mask = mask.filter(v=>!unmasked.includes(v))
-            mask = Array.from(new Set([...mask,...masked]))
-            saveRefinement(groupId, {colorMasks : mask})
+            mask = mask.filter(v => !unmasked.includes(v))
+            mask = Array.from(new Set([...mask, ...masked]))
+            saveRefinement(groupId, { colorMasks: mask })
         }
     }
 
@@ -45,19 +45,31 @@ export const useRefinements = (groupId?: string)=>{
 export const useBookmarkGroup = (groupId?: string) => {
     const base = useGroupById(groupId)
     const [update, setUpdate] = useState<Partial<BookmarkGroup>>({})
+    const merge = useCallback((val: Partial<BookmarkGroup>) => {
+        setUpdate(before => ({
+            ...before,
+            ...val
+        }))
+    }, [])
     const hydrateColor = base && base.colors || defaultColors
-    const group: BookmarkGroup = base && {
-        ...base,
-        //colors: base.colors || defaultColors,
-        colors: Object.keys(hydrateColor).reduce((acc,cur,idx)=>{
-            acc[cur] = {idx,...hydrateColor[cur]}
+
+    const bookmarkColors = useMemo(() => {
+        return Object.keys(hydrateColor).reduce((acc, cur, idx) => {
+            acc[cur] = { idx, ...hydrateColor[cur] }
             return acc
-        },{} as BookmarkColors),
+        }, {} as BookmarkColors)
+    }, [hydrateColor])
+
+    const group: BookmarkGroup = useMemo(() => ({
+        ...initialGroup,
+        ...base,
+        colors: bookmarkColors,
         ...update
-    }
+    }), [base, update, bookmarkColors])
+
     const colors = useMemo(() => {
-        if (!group) return []
-        return Object.keys(group.colors).sort((a,b)=>{
+        if (!group?.colors) return []
+        return Object.keys(group.colors).sort((a, b) => {
             return group.colors[a].idx - group.colors[b].idx
         }).map(c => ({
             ...group.colors[c],
@@ -66,73 +78,69 @@ export const useBookmarkGroup = (groupId?: string) => {
     const router = useRouter()
     const editors = useUsersByIds(group?.users || [])
     const { clientService } = useContext(FirebaseContext)
-    const handleRemoveUser = (uid: string) => {
-        setUpdate({
-            users: group.users.filter(u => u !== uid)
-        })
-    }
+
+    const handleRemoveUser = useCallback((uid: string) => {
+        merge({ users: group.users.filter(u => u !== uid) })
+    }, [group?.users, merge])
+
     const handleDeleteGroup = () => {
         clientService.deleteGroup(group.id, () => {
             router.push('/bookmarks')
         })
     }
-    const updateGroup = (key: keyof BookmarkGroup) => (value: string) => {
-        setUpdate({
-            [key]: value
-        })
-    }
+    const updateGroup = useCallback((key: keyof BookmarkGroup) => (value: string) => {
+        merge({ [key]: value })
+    }, [merge])
 
-    const updateColor = (color: string, data: Partial<BookmarkColorDescription>) => {
+    const updateColor = useCallback((color: string, data: Partial<BookmarkColorDescription>) => {
         const colors = { ...group.colors }
         if (colors[color]) {
             colors[color] = { ...colors[color], ...data }
-            setUpdate({colors})
+            merge({colors})
         }
-    }
+    },[group?.colors,merge])
 
-    const handleChangeColorIndex = (color:string,next:number)=>{
-        const indecies = colors.map(c=>({color:c.color,remove:color===c.color}))
-        indecies.splice(next,0,{color,remove:false})
-        const newIndecies = indecies.filter(c=>!c.remove).map(c=>c.color)
-        const update = newIndecies.reduce((acc,cur,idx)=>{
+    const handleChangeColorIndex = useCallback((color: string, next: number) => {
+        const indecies = colors.map(c => ({ color: c.color, remove: color === c.color }))
+        indecies.splice(next, 0, { color, remove: false })
+        const newIndecies = indecies.filter(c => !c.remove).map(c => c.color)
+        const update = newIndecies.reduce((acc, cur, idx) => {
             acc[cur].idx = idx
             return acc
-        },{...group.colors})
-        setUpdate({colors:update})
-    }
-    
-    const handleAddColor = (name:string,color:string)=>{
-        if(group.colors[color]){
+        }, { ...group.colors })
+        merge({colors: update})
+    },[colors,group?.colors,merge])
+
+    const handleAddColor = useCallback((name: string, color: string) => {
+        if (group?.colors[color]) {
             toast.warn('すでにこの色は登録されています')
             return
         }
-        const idx = Object.keys(group.colors).length 
-        const colors : typeof group.colors = { ...group.colors, [color] : { name , color, idx } }
-        setUpdate({colors})
-    }
-    const handleDeleteColors = (deleteColors:string[])=>{
-        const colors : typeof group.colors = { ...group.colors }
-        for(const c of deleteColors){
-            if(colors[c]){
+        const idx = Object.keys(group?.colors).length
+        const colors = { ...group?.colors, [color]: { name, color, idx } }
+        merge({ colors })
+    },[group?.colors, merge])
+
+    const handleDeleteColors = useCallback((deleteColors: string[]) => {
+        const colors = { ...group.colors }
+        for (const c of deleteColors) {
+            if (colors[c]) {
                 delete colors[c]
             }
         }
-        setUpdate({colors})
-    }
-    const hasChangeGroup = Object.keys(update).length > 0 
-    const hasChange = hasChangeGroup
-    const handleSubmit = (notifier?:Notifier)=>{
-        if(!hasChange){
+        merge({ colors })
+    },[group?.colors,merge])
+
+    const hasChange = useMemo(()=>Object.keys(update).length > 0,[update])
+    const handleSubmit = useCallback((notifier?: Notifier) => {
+        if (!hasChange) {
             return
         }
-        if(hasChangeGroup){
-            clientService.modifyGroup(groupId, update, ()=>{
-                notifier()
-            })
-            return
-        }
-        notifier()
-    }
+        clientService.modifyGroup(groupId, update, () => {
+            notifier()
+        })
+    },[clientService,update,hasChange,groupId])
+
     return {
         group,
         editors,

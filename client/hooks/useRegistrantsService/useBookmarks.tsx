@@ -1,4 +1,4 @@
-import {useEffect,useRef, useCallback, useContext} from 'react'
+import {useEffect,useRef, useCallback, useContext, useMemo} from 'react'
 import { useDispatch } from "react-redux";
 import FirebaseContext from '../../context/FirebaseContext'
 import { actions } from '../../modules/bookmarkSlice'
@@ -17,20 +17,20 @@ const useBookmarks = ()=>{
             dispatch(actions.delete(bookmarks))
         ])
         unsubscribes.current[groupId] = unsub
-    },[clientService])
+    },[clientService,dispatch])
     const onUnload = useCallback((groupId)=>{
         unsubscribes.current[groupId] && 
         unsubscribes.current[groupId]()
         delete unsubscribes.current[groupId]
         dispatch(actions.removeGroup(groupId))
-    },[])
+    },[dispatch])
     const clearAll = useCallback(()=>{
         for(const unsubscribe in unsubscribes.current){
             unsubscribes.current[unsubscribe]()
             delete unsubscribes.current[unsubscribe]
         }
         dispatch(actions.clear())
-    },[])
+    },[dispatch])
     useEffect(()=>{
         return ()=>{
             for(const unsub of Object.values(unsubscribes.current)){
@@ -39,11 +39,11 @@ const useBookmarks = ()=>{
             unsubscribes.current = {}
         }
     },[])
-    return {
+    return useMemo(()=>({
         onLoad,
         onUnload,
         clearAll
-    }
+    }),[onLoad,onUnload,clearAll])
 }
 
 export default useBookmarks

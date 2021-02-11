@@ -56,7 +56,7 @@ const useNewBookmark = (groupId:string)=>{
                 })
             }
         })
-    },[invalidUrl,clientService,url,linkData])
+    },[invalidUrl,clientService,url,linkData,groupId])
     
     const onKeyPress = useCallback((e:React.KeyboardEvent<HTMLInputElement>)=>{
         if (e.key == 'Enter') {

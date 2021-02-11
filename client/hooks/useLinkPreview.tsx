@@ -70,7 +70,7 @@ const useLinkPreview: (props: Props) => {
                 setLinkData(undefined)
                 cancel = true;
             }
-        }, [scrapeUrl]);
+        }, [scrapeUrl,clientService]);
 
         return {
             linkData,

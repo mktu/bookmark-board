@@ -9,11 +9,12 @@ import styles from './index.module.scss'
 type BorderType = 'square' | 'underline' | 'none'
 
 type Props = Parameters<typeof ResizableTextAreaBase>[0] & {
-    handleSubmit: (value: string) => void,
+    handleSubmit?: (value: string) => void,
+    onClear ?: ()=>void,
     clearButton?: boolean,
     borderType?: BorderType
-    label?:string,
-    className?:string
+    label?: string,
+    className?: string
 }
 
 const TextArea: React.FC<Props> = ({
@@ -24,14 +25,19 @@ const TextArea: React.FC<Props> = ({
     label,
     borderType = 'underline',
     className,
+    onChange,
+    onClear,
+    onFocus,
+    onBlur,
     ...props
 }) => {
 
+    const controlled = Boolean(onChange)
     const [text, setText] = useState(value)
     const [focus, setFocus] = useState(false)
     useEffect(() => {
-        setText(value)
-    }, [value])
+        !controlled && setText(value)
+    }, [value, controlled])
 
     const borderClasses: { [key in BorderType]: string } = {
         square: 'border rounded',
@@ -39,38 +45,51 @@ const TextArea: React.FC<Props> = ({
         none: ''
     }
 
+    const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setText(e.target.value)
+    }
+
+    const handleBlur = (e:React.FocusEvent<HTMLTextAreaElement>) => {
+        setFocus(false)
+        if (text !== value) {
+            handleSubmit && handleSubmit('' + text)
+        }
+        onBlur && onBlur(e)
+    }
+
+    const handleClear = () => {
+        if (onClear) {
+            onClear()
+        } else {
+            setText('')
+            handleSubmit('')
+        }
+    }
+
+    const handleFocus = (e:React.FocusEvent<HTMLTextAreaElement>) => {
+        setFocus(true)
+        onFocus && onFocus(e)
+    }
+
     return (
-        <div className={classNames('w-full',className)}>
+        <div className={classNames('w-full', className)}>
             {label &&
                 <Label htmlFor={id} className='mb-2'>
                     {label}
                 </Label>}
             <div className={classNames('relative flex items-center border-primary-border pl-2 pb-2', borderClasses[borderType])}>
                 <ResizableTextAreaBase id={id} {...props} className='placeholder-primary-200 text-primary-700 bg-white md:text-sm resize-none'
-                    value={text}
-                    onChange={(e) => {
-                        setText(e.target.value)
-                    }}
-                    onFocus={() => {
-                        setFocus(true)
-                    }}
-                    onBlur={() => {
-                        setFocus(false)
-                        if (text !== value) {
-                            handleSubmit('' + text)
-                        }
-                    }} />
+                    value={controlled ? value || '' : text}
+                    onChange={controlled ? onChange : handleChange}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur} />
                 {clearButton && (
                     <div className='ml-auto px-2'>
-                        <SvgIconButton onClick={() => {
-                            setText('')
-                            handleSubmit('')
-                        }}>
+                        <SvgIconButton onClick={handleClear}>
                             <XFill className='w-6 fill-primary-100  hover:fill-primary-300' strokeWidth={0} />
                         </SvgIconButton>
                     </div>
                 )}
-
             </div>
             {borderType === 'underline' && (
                 <div className={`${focus ? styles['input-border-focus'] : styles['input-border']}`}></div>

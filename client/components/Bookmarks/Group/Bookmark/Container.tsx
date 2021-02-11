@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { useRouter } from 'next/router'
 import Presenter from './Presenter'
 import { useBookmark, useMoveGroup } from '../../../../hooks/useBookmark'
@@ -38,38 +38,80 @@ const Container: React.FC<Props> = ({
     } = useBookmark(bookmarkId)
     const moveGroupProps = useMoveGroup(bookmark)
     const { group } = useBookmarkGroup(bookmark?.groupId)
-    if (!bookmark || !bookmark.id || !group) {
-        return <div />
-    }
     const inputDisabled = status === 'loading'
-    const title = <TextInput label='Title' disabled={inputDisabled} id='title' value={bookmark.title} handleSubmit={updateBookmark('title')} />
-    const heart = <HeartButton
+
+    const title = useMemo(() => (
+        <TextInput label='Title' disabled={inputDisabled} id='title' value={bookmark.title} onChange={(e)=>{updateBookmark('title')(e.target.value)}} />
+    ), [inputDisabled, bookmark.title, updateBookmark])
+
+    const heart = useMemo(() => (<HeartButton
         aria-label='Likes'
         onClick={handleLikes}
         active={sentLikes}
         counter={likes.length > 0 && likes.length}
-    />
-    const description = <TextArea
-        label='Description'
-        id='description'
-        disabled={inputDisabled}
-        maxRows={4}
-        value={bookmark.description}
-        handleSubmit={updateBookmark('description')} />
-    const comment = <TextArea label='ひとこと' id='comment' value={bookmark.comment} handleSubmit={updateBookmark('comment')} />
-    const url = <Url url={bookmark.url} updateBookmark={updateBookmark} handleJumpLink={handleJumpLink}/>
-    const refresh = <Refresh disabled={inputDisabled} handleRefetch={handleRefetch}/>
-    const color = <Color color={bookmark.color} handleUpdate={updateBookmark('color')} group={group}/>
-    const move = <Move {...moveGroupProps} copy={moveGroupProps.copyGroup} disabled={moveGroupProps.moveDest?.id === bookmark.groupId}/>
-    const date = <Date lastUpdate={bookmark.lastUpdate} created={bookmark.created} loading={status==='loading'}/>
-    const image = <Image disableEndpoint={bookmark.disableEndpoint} onChangeImage={updateBookmark('image')} images={bookmark.images} image={bookmark.image} loading={status==='loading'}/>
-    const trash = <Trash handleDelete={()=>{deleteBookmark(()=>{
-        router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
-    })}}/>
-    const submit = <ContainedButton className='text-sm' disabled={!hasChange} onClick={()=>{handleSubmit(()=>{
-        onClose()
-    })}}>更新</ContainedButton>
-    const cancel = <OutlinedButton className='text-sm' onClick={onClose}>キャンセル</OutlinedButton>
+    />), [handleLikes, sentLikes, likes.length])
+
+    const description = useMemo(() => (
+        <TextArea
+            label='Description'
+            id='description'
+            disabled={inputDisabled}
+            maxRows={4}
+            value={bookmark.description}
+            onChange={(e) => { updateBookmark('description')(e.target.value) }} />
+    ), [inputDisabled, bookmark.description, updateBookmark])
+
+    const comment = useMemo(() => (
+        <TextArea label='ひとこと' id='comment' value={bookmark.comment} onChange={(e) => { updateBookmark('comment')(e.target.value) }} />
+    ), [bookmark.comment, updateBookmark])
+
+    const url = useMemo(() => (
+        <Url url={bookmark.url} updateBookmark={updateBookmark} handleJumpLink={handleJumpLink} />
+    ), [bookmark.url, updateBookmark, handleJumpLink])
+
+    const refresh = useMemo(() => (
+        <Refresh disabled={inputDisabled} handleRefetch={handleRefetch} />
+    ), [inputDisabled, handleRefetch])
+
+    const color = useMemo(() => (
+        <Color color={bookmark.color} handleUpdate={updateBookmark('color')} group={group} />
+    ), [bookmark.color, updateBookmark, group])
+
+    const move = useMemo(() => (
+        <Move {...moveGroupProps} copy={moveGroupProps.copyGroup} disabled={moveGroupProps.moveDest?.id === bookmark.groupId} />
+    ), [moveGroupProps, bookmark.groupId])
+
+    const date = useMemo(() => (
+        <Date lastUpdate={bookmark.lastUpdate} created={bookmark.created} loading={status === 'loading'} />
+    ), [bookmark.lastUpdate, bookmark.created, status])
+
+    const image = useMemo(() => (
+        <Image disableEndpoint={bookmark.disableEndpoint} onChangeImage={updateBookmark('image')} images={bookmark.images} image={bookmark.image} loading={status === 'loading'} />
+    ), [bookmark.disableEndpoint, updateBookmark, bookmark.images, bookmark.image, status])
+
+    const trash = useMemo(() => (
+        <Trash handleDelete={() => {
+            deleteBookmark(() => {
+                router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
+            })
+        }} />
+    ), [router, group.id, deleteBookmark])
+
+    const submit = useMemo(() => (
+        <ContainedButton className='text-sm' disabled={!hasChange} onClick={() => {
+            handleSubmit(() => {
+                onClose()
+            })
+        }}>更新</ContainedButton>
+    ), [hasChange, handleSubmit, onClose])
+
+    const cancel = useMemo(() => (
+        <OutlinedButton className='text-sm' onClick={onClose}>キャンセル</OutlinedButton>
+    ), [onClose])
+
+    if (!bookmark?.id || !group?.id) {
+        return <div />
+    }
     return (
         <Presenter
             {

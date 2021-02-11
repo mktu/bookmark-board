@@ -1,6 +1,5 @@
 import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
-import thunkMiddleware from 'redux-thunk'
 import profileSlice from '../modules/profileSlice'
 import groupSlice from '../modules/groupSlice'
 import bookmarkSlice from '../modules/bookmarkSlice'
@@ -22,8 +21,7 @@ const rootReducer = combineReducers({
 })
 
 const store = configureStore({
-    reducer: rootReducer,
-    middleware : (getDefaultMiddleware)=>getDefaultMiddleware().concat(thunkMiddleware)
+    reducer: rootReducer
 })
 
 export type RootReducer = ReturnType<typeof rootReducer>

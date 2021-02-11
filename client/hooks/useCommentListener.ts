@@ -17,7 +17,7 @@ const useCommentListener = (groupId:string, limit:number) => {
         return ()=>{
             unsubscribe()
         }
-    },[groupId,limit,clientService])
+    },[groupId,limit,clientService,dispatch])
 }
 
 export default useCommentListener

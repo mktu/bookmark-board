@@ -7,6 +7,15 @@ const groupAdapter = createEntityAdapter<BookmarkGroup>({
     }
 })
 
+export const initialGroup = {
+    users: [],
+    owner: '',
+    name: '',
+    actions: [],
+    id: '',
+    idx: 999999,
+}
+
 const initialState = groupAdapter.getInitialState<{
     status : LoadStatus['status']
 }>({

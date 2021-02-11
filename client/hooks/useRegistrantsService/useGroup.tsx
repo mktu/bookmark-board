@@ -44,7 +44,7 @@ const useGroup = (groupMonitors : GroupMonitor[]) => {
                 monitor.clearAll()
             }
         }
-    }, [clientService, id])
+    }, [clientService, id, dispatch, groupMonitors])
 }
 
 export default useGroup

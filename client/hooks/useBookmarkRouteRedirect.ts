@@ -25,7 +25,7 @@ const useBookmarkRouteRedirect = (groupRouteId?:string, group?:BookmarkGroup)=>{
             return
         }
         localStorage.setItem('groupId', group.id)
-    }, [group, status, groupRouteId])
+    }, [group, status, groupRouteId,router])
 }
 
 export default useBookmarkRouteRedirect

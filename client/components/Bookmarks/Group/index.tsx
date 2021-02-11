@@ -41,10 +41,9 @@ const Group: React.FC<Props> = ({
     if (bookmarkId === 'colors') {
         alternativeMode = 'colors'
     }
-    if (!groupId) {
+    if (!groupId || !group) {
         return <div />
     }
-
     // can use react-responsive because these component never rendered in server side
     const alternatives = {
         setting: (

@@ -16,10 +16,10 @@ const ListItem: React.FC<Props> = ({
     listIndex
 }) => {
     const { attachDnDRef, isBookmarkOver, dragging } = useHoverable(bookmarkGroup, onHover, listIndex)
+    const router = useRouter()
     if (!bookmarkGroup || !bookmarkGroup.id) {
         return <div />
     }
-    const router = useRouter()
     const { ids } = router.query
     const selected = Boolean(ids) && ids[0] === bookmarkGroup.id
     return (

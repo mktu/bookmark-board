@@ -29,8 +29,8 @@ const ListItem: React.FC<Props> = ({
                 <div className='w-5 h-5 rounded' style={{ backgroundColor: color }} />
             </div>
             <div className='flex items-center w-full'>
-                <TextInput aria-label='Color Name' className={`w-full`} value={name} handleSubmit={(value) => {
-                    renameColor(color, value)
+                <TextInput aria-label='Color Name' className={`w-full`} value={name} onChange={(e)=>{
+                    renameColor(color, e.target.value)
                 }} />
             </div>
             <OutlinedButton onClick={() => {

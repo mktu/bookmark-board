@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useCallback, useMemo} from 'react'
 import { ContainedButton, OutlinedButton } from '../../../../Common/Button'
 import { useBookmarkGroup } from '../../../../../hooks/useBookmarkGroup'
 import ColorInput from './ColorInput'
@@ -23,8 +23,8 @@ const Container: React.FC<Props> = ({
         handleDeleteColors,
         handleSubmit } = useBookmarkGroup(groupId)
     const [hover,setHover] = useState(-1)
-    const renameColor = (color: string, name: string) => { updateColor(color, { name }) }
-    const colorList = colors.map((c,idx) => <ColorItem
+    const renameColor = useCallback((color: string, name: string) => { updateColor(color, { name }) },[updateColor])
+    const colorList = useMemo(()=>colors.map((c,idx) => <ColorItem
         key={c.color}
         {...{
             description : c,
@@ -35,13 +35,13 @@ const Container: React.FC<Props> = ({
             changeOrder: handleChangeColorIndex,
             handleDelete : (color)=>{handleDeleteColors([color])}
         }}
-    />)
-    const input = <ColorInput handleAddColor={handleAddColor} />
-    const submit = (<ContainedButton disabled={!hasChange} onClick={() => {
+    />), [colors, handleDeleteColors, handleChangeColorIndex,hover,renameColor])
+    const input = useMemo(()=><ColorInput handleAddColor={handleAddColor} />,[handleAddColor])
+    const submit = useMemo(()=>(<ContainedButton disabled={!hasChange} onClick={() => {
         handleSubmit(() => {
             onClose()
         })
-    }} >変更を保存</ContainedButton>)
+    }} >変更を保存</ContainedButton>),[handleSubmit,onClose,hasChange])
     const cancel = (<OutlinedButton onClick={() => {
         onClose()
     }} >キャンセル</OutlinedButton>)

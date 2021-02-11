@@ -1,4 +1,4 @@
-import {useEffect,useRef, useCallback} from 'react'
+import {useEffect,useRef, useCallback, useMemo} from 'react'
 import { useDispatch } from "react-redux";
 import { actions } from '../../modules/groupRefinementSlice'
 import { registListener } from '../../utils/localStorages/group' 
@@ -12,7 +12,7 @@ const useRefinements = ()=>{
             dispatch(actions.addRefinements({refinements:[newValue]}))
         })
         unsubscribes.current[groupId] = unsub
-    },[])
+    },[dispatch])
     const onUnload = useCallback((groupId)=>{
         unsubscribes.current[groupId] && 
         unsubscribes.current[groupId]()
@@ -24,7 +24,7 @@ const useRefinements = ()=>{
             delete unsubscribes.current[unsubscribe]
         }
         dispatch(actions.clear())
-    },[])
+    },[dispatch])
     useEffect(()=>{
         return ()=>{
             for(const unsub of Object.values(unsubscribes.current)){
@@ -33,11 +33,11 @@ const useRefinements = ()=>{
             unsubscribes.current = {}
         }
     },[])
-    return {
+    return useMemo(()=>({
         onLoad,
         onUnload,
         clearAll
-    }
+    }),[onLoad,onUnload,clearAll])
 }
 
 export default useRefinements
