@@ -48,14 +48,14 @@ const Profile: React.FC<Props> = () => {
                     </div>
                 </div>
                 <div className='p-4'>
-                    <TextInput className='my-2' label='NAME' id='name' value={profile.name} handleSubmit={updateProfile('name')} />
+                    <TextInput className='my-2' label='NAME' id='name' value={profile.name} onChange={(e)=>{updateProfile('name')(e.target.value)}} />
                     <Label className='my-2'>SNS</Label>
                     <div className='flex items-center'>
                         <div><TwitterImage width='48px' height='48px' /></div>
                         <div className='mx-2 text-primary-300'>{TwitterUrl}</div>
-                        <TextInput placeholder='@アカウント名のみ入力' className='w-full' id='twitter' value={profile.twitter} handleSubmit={updateProfile('twitter')} />
+                        <TextInput placeholder='@アカウント名のみ入力' className='w-full' id='twitter' value={profile.twitter} onChange={(e)=>{updateProfile('twitter')(e.target.value)}} />
                     </div>
-                    <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} borderType='square' minRows={4} handleSubmit={updateProfile('comment')} />
+                    <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} borderType='square' minRows={4} onChange={(e)=>{updateProfile('comment')(e.target.value)}} />
                     <div className='flex flex-col items-end justify-cenrter my-2'>
                         <ContainedButton disabled={!hasChange} className='my-2' onClick={()=>{
                             handleSubmit(()=>{
