@@ -7956,6 +7956,11 @@ react-responsive@^8.2.0:
     prop-types "^15.6.1"
     shallow-equal "^1.1.0"
 
+react-simple-infinite-scroller@^0.0.8:
+  version "0.0.8"
+  resolved "https://registry.yarnpkg.com/react-simple-infinite-scroller/-/react-simple-infinite-scroller-0.0.8.tgz#0750c593b99d5d8bf4325e4fd8023bc1bf209b9b"
+  integrity sha512-mjrXxGw7RO+/Dmm4It7t2yLICYMaqiV0/zxV+xyKSBLXFkyOn6qq4NxbvFoKaQ+p2AuHTkEKGCo+x4Ugwhr7Mg==
+
 react-textarea-autosize@^8.3.0:
   version "8.3.0"
   resolved "https://registry.yarnpkg.com/react-textarea-autosize/-/react-textarea-autosize-8.3.0.tgz#e6e2fd186d9f61bb80ac6e2dcb4c55504f93c2fa"

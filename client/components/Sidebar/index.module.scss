@@ -15,6 +15,7 @@
 }
 .heroicon-button{
     display : block;
+    @apply mb-6;
     &:focus {
         @apply outline-none;
     }

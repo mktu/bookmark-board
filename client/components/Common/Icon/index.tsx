@@ -29,6 +29,7 @@ import Refresh from './Refresh'
 import ColorSwatch from './ColorSwatch'
 import ArrowLeft from './ArrowLeft'
 import XCircle from './XCircle'
+import Search from './Search'
 
 
 export {
@@ -62,5 +63,6 @@ export {
     Trash,
     UserAddFill,
     Refresh,
-    ColorSwatch
+    ColorSwatch,
+    Search
 }

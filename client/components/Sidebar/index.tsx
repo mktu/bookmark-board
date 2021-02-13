@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import { User, Book, Help } from '../Common/Icon'
+import { User, Book, Help, Search } from '../Common/Icon'
 import { Popover } from '../Common/Popover'
 import { SvgIconButton } from '../Common/Button'
 import {ProfileMenu} from '../PopoverMenu'
@@ -15,17 +15,21 @@ const Sidebar = () => {
                         content={<ProfileMenu />}
                         placement='auto'
                     >
-                        <div className='mb-8'>
+                        <div>
                             <SvgIconButton aria-label='Profile' colorType='none' className={styles['heroicon-button']}>
                                 <User />
                             </SvgIconButton>
                         </div>
                     </Popover>
-
                     <SvgIconButton aria-label='Bookmark' colorType='none' className={styles['heroicon-button']} onClick={()=>{
                         router.push('/bookmarks')
                     }}>
                         <Book />
+                    </SvgIconButton>
+                    <SvgIconButton aria-label='Search' colorType='none' className={styles['heroicon-button']} onClick={()=>{
+                        router.push('/search')
+                    }}>
+                        <Search />
                     </SvgIconButton>
                 </div>
                 <div className='mt-auto'>

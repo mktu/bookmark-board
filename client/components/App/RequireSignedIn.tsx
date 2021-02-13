@@ -15,7 +15,7 @@ const RequireSigned = ({ children }: Props) => {
         if (authState === 'failed' || profileState === 'failed') {
             router.push('/signin')
         }
-    }, [authState, profileState])
+    }, [authState, profileState, router])
 
     if (profileState === 'loaded') {
         return (
