@@ -1,75 +1,51 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import TextInputBase from './TextInputBase'
-import { SvgIconButton } from '../Button'
 import { Label } from '../Label'
-import XFill from '../Icon/XFill'
 import styles from './index.module.scss'
+import classNames from 'classnames'
 
-type Props = Parameters<typeof TextInputBase>[0] & {
-    handleSubmit?: (value: string) => void,
-    onClear ?: ()=>void,
-    clearButton?: boolean,
-    label?: string,
-    required?: boolean,
-    requiredMessage?: string,
-    className?: string,
+const borderVariants = {
+    'underline': 'border-b',
+    'outlined': 'rounded border overflow-hidden mt-1'
 }
 
+type Props = Parameters<typeof TextInputBase>[0] & {
+    clear?: React.ReactNode,
+    warning?: React.ReactNode,
+    icon?: React.ReactNode,
+    label?: string,
+    required?: boolean,
+    className?: string,
+    border?: keyof typeof borderVariants
+}
+
+export const Warning: React.FC<{ text: string }> = ({ text }) => (
+    <span className='text-secondary-main font-normal text-sm ml-1'>{text}</span>
+)
 
 const TextInput: React.FC<Props> = ({
     id,
-    value,
-    handleSubmit,
-    onChange,
+    clear,
+    required,
+    icon,
+    label,
+    warning,
     onFocus,
     onBlur,
-    onClear,
-    clearButton,
-    required,
-    requiredMessage,
-    label,
+    border = 'underline',
     className,
     ...props
 }) => {
-    const controlled = Boolean(onChange)
-    const [text, setText] = useState(value)
     const [focus, setFocus] = useState(false)
-    const [showWran, setShowWarn] = useState('')
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setText(e.target.value)
-    }
-    const handleBlur = (e : React.FocusEvent<HTMLInputElement>) => {
+    const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         setFocus(false)
-        if (text !== value && handleSubmit && !controlled) {
-            handleSubmit('' + text)
-        }
-        if (required) {
-            if (!text) {
-                setShowWarn(requiredMessage || '必須フィールドです')
-                e.target.focus()
-            } else {
-                setShowWarn('')
-            }
-        }
         onBlur && onBlur(e)
     }
-    const handleFocus = (e : React.FocusEvent<HTMLInputElement>) => {
+    const handleFocus = (e: React.FocusEvent<HTMLInputElement>) => {
         setFocus(true)
         onFocus && onFocus(e)
     }
-    const handleClear = () => {
-        if(controlled && onClear){
-            onClear()
-        }
-        else if(handleSubmit){
-            setText('')
-            handleSubmit('')
-        }
-    }
-    useEffect(() => {
-        !controlled && setText(value)
-    }, [value,controlled])
-
+    const borderClass = borderVariants[border]
     return (
         <div className={className}>
             {label &&
@@ -78,28 +54,31 @@ const TextInput: React.FC<Props> = ({
                     {required && (
                         <span className='ml-1'>*</span>
                     )}
-                    {showWran && (
-                        <span className='text-secondary-main font-normal text-sm ml-1'>{showWran}</span>
-                    )}
+                    {warning}
                 </Label>}
-            <div className='flex items-center border-b border-primary-border relative'>
-                <TextInputBase {...props} id={id} className='block px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white md:text-sm'
-                    value={controlled ? value || '' : text}
-                    onFocus={handleFocus}
-                    onChange={controlled ? onChange : handleChange}
-                    onBlur={handleBlur} />
-                {clearButton && (
-                    <div className='ml-auto px-2'>
-                        <SvgIconButton onClick={handleClear}>
-                            <XFill className='w-6 fill-primary-100  hover:fill-primary-300' strokeWidth={0} />
-                        </SvgIconButton>
+            <div className={classNames('flex items-center border-primary-border relative',
+                borderClass)}>
+                {icon && (
+                    <div className='px-2'>
+                        {icon}
                     </div>
                 )}
-
+                <TextInputBase {...props}
+                    onFocus={handleFocus}
+                    onBlur={handleBlur}
+                    id={id}
+                    className='block px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white md:text-sm'
+                />
+                {clear && (
+                    <div className='ml-auto px-2'>
+                        {clear}
+                    </div>
+                )}
             </div>
-            <div className={`${focus ? styles['input-border-focus'] : styles['input-border']}`}></div>
+            {border === 'underline' && (
+                <div className={`${focus ? styles['input-border-focus'] : styles['input-border']}`}></div>
+            )}
         </div>
-
     )
 }
 

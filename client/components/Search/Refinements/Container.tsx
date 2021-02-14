@@ -1,5 +1,5 @@
 import React from 'react'
-import TextInput from '../../Common/Input/TextInputP'
+import TextInput from '../../Common/Input/TextInput'
 import Search from '../../Common/Icon/Search'
 import Presenter from './Presenter'
 import useBookmarkSearch from '../../../hooks/useBookmarkSearch'

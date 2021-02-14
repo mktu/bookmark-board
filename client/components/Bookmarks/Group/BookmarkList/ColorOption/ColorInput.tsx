@@ -14,7 +14,7 @@ const ColorInput: React.FC<Props> = ({
     return (
         <div>
             <div className='flex items-center'>
-                <TextInput aria-label='New Color' placeholder='グループ名を入力'  value={name} className='w-full flex-1' handleSubmit={setName} />
+                <TextInput aria-label='New Color' placeholder='グループ名を入力'  value={name} className='w-full flex-1' onChange={(e)=>{setName(e.target.value)}} />
                 {color ? (
                     <label htmlFor='NewColor' className='ml-auto w-5 h-5 rounded' style={{ backgroundColor: color }}>
                     </label>

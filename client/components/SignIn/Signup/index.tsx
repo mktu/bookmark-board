@@ -82,12 +82,12 @@ const Signup: React.FC<Props> = ({
                         </label>
                     </div>
                     <div className='p-4 w-full'>
-                        <TextInput label='NAME' required id='name' value={name} handleSubmit={setName} />
-                        <TextArea className='mt-4' label='COMMENT' id='comment' borderType='square' value={comment} minRows={4} handleSubmit={setComment} />
+                        <TextInput label='NAME' required id='name' value={name} onChange={(e)=>{setName(e.target.value)}} />
+                        <TextArea className='mt-4' label='COMMENT' id='comment' border='outlined' value={comment} minRows={4} onChange={(e)=>{setComment(e.target.value)}} />
                     </div>
                 </div>
                 <div>
-                    <TextInput label='デフォルトグループ名' id='group' value={group} handleSubmit={setGroup} />
+                    <TextInput label='デフォルトグループ名' id='group' value={group} onChange={(e)=>{setGroup(e.target.value)}} />
                 </div>
                 <div className='flex justify-end p-4'>
                     {state === 'loading' ? (

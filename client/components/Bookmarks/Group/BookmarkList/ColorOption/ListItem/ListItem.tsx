@@ -1,5 +1,5 @@
 import React from 'react'
-import { TextInput } from '../../../../../Common/Input'
+import TextInput from '../../../../../Common/Input/TextInput'
 import { OutlinedButton } from '../../../../../Common/Button'
 import { useHoverable } from '../../../../../../hooks/useBookmarkColorDnd'
 

@@ -1,6 +1,7 @@
 import React from 'react'
 import { toast } from 'react-toastify';
-import { TextInput, TextArea } from '../Common/Input'
+import TextInput from '../Common/Input/TextInput'
+import TextArea from '../Common/Input/TextArea'
 import { Label } from '../Common/Label'
 import { TwitterImage } from '../Common/Image'
 import { ContainedButton } from '../Common/Button'
@@ -55,7 +56,7 @@ const Profile: React.FC<Props> = () => {
                         <div className='mx-2 text-primary-300'>{TwitterUrl}</div>
                         <TextInput placeholder='@アカウント名のみ入力' className='w-full' id='twitter' value={profile.twitter} onChange={(e)=>{updateProfile('twitter')(e.target.value)}} />
                     </div>
-                    <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} borderType='square' minRows={4} onChange={(e)=>{updateProfile('comment')(e.target.value)}} />
+                    <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} border='outlined' minRows={4} onChange={(e)=>{updateProfile('comment')(e.target.value)}} />
                     <div className='flex flex-col items-end justify-cenrter my-2'>
                         <ContainedButton disabled={!hasChange} className='my-2' onClick={()=>{
                             handleSubmit(()=>{

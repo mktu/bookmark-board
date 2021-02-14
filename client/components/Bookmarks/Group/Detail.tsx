@@ -3,7 +3,8 @@ import { Modal } from 'react-responsive-modal'
 import Avatar, { GroupImage } from '../../Common/Avatar'
 import { Label } from '../../Common/Label'
 import { OutlinedButton, ContainedButton } from '../../Common/Button'
-import { TextInput, TextArea } from '../../Common/Input'
+import TextInput from '../../Common/Input/TextInput'
+import TextArea from '../../Common/Input/TextArea'
 import { useProfile } from '../../../modules/profileSlice'
 import { numberToDateTime } from '../../../utils'
 import DangerZone from './DangerZone'
@@ -61,7 +62,7 @@ const Detail: React.FC<Props> = ({
     ), [editGroup.name, updateGroup])
 
     const description = useMemo(() => (
-        <TextArea label='説明' id='description' value={editGroup.description || ''} minRows={4} borderType='square' onChange={(e) => {
+        <TextArea label='説明' id='description' value={editGroup.description || ''} minRows={4} border='outlined' onChange={(e) => {
             updateGroup('description')(e.target.value)
         }} />
     ), [editGroup.description, updateGroup])
