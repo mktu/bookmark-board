@@ -2,6 +2,7 @@ import React, { useContext } from 'react'
 import { toast } from 'react-toastify';
 import { Modal } from 'react-responsive-modal';
 import { OutlinedButton, SvgIconButton } from '../../Common/Button'
+import TextInputBase from '../../Common/Input/TextInputBase'
 import { EditFill, ShareFill as ShareIcon, Duplicate, XFill } from '../../Common/Icon'
 import Link from 'next/link'
 import { TooltipDivContainer } from '../../Common/Tooltip'
@@ -96,11 +97,11 @@ const Share: React.FC<Props> = ({
             <p className='px-2 text-sm text-secondary-main'>
                 ※ 共同編集者はアカウント登録している必要があります
             </p>
-            <div className='p-2 '>
+            <div className='p-2 w-full'>
                 <div className='text-sm'>
                     <div className='flex items-center my-2'>
                         <p className='hidden md:block'>共同編集リンク</p>
-                        <div className='hidden md:inline-block bg-primary-dark text-white rounded p-2 mx-2' >{requestUrl}</div>
+                        <TextInputBase value={`${requestUrl}`} className='flex-1 w-full hidden md:inline-block border border-primary-border rounded p-2 mx-2' ></TextInputBase>
                         <div className='md:hidden text-primary-500 mx-2' >共同編集リンク</div>
                         <TooltipDivContainer content='URLをコピー' placement='bottom'>
                             <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {

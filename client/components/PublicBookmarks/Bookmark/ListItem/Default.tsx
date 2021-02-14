@@ -4,11 +4,11 @@ import { TooltipDivContainer } from '../../../Common/Tooltip'
 
 type Props = {
     title: string,
-    description:string,
-    comment?:string,
-    image : React.ReactNode,
-    copyButton : React.ReactNode,
-    detailButton : React.ReactNode,
+    description: string,
+    comment?: string,
+    image: React.ReactNode,
+    copyButton: React.ReactNode,
+    detailButton: React.ReactNode,
 }
 
 const Default: React.FC<Props> = ({
@@ -28,10 +28,12 @@ const Default: React.FC<Props> = ({
                 {comment && (
                     <div className='text-xs overflow-hidden truncate max-w-full flex items-center text-primary-main py-1'>
                         <div className='border-primary-200 border rounded p-1 mr-2 flex items-center'>
-                            <Chat className='w-6 stroke-primary-300' /> ひとこと</div>
-                        <div className='overflow-hidden truncate flex-1 text-sm'>
-                            {comment}
+                            <Chat className='w-6 stroke-primary-300' />
+                            <div className='overflow-hidden truncate mx-2'>
+                                {comment}
+                            </div>
                         </div>
+
                     </div>
                 )}
             </div>
