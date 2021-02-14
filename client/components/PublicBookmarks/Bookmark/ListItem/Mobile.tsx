@@ -1,6 +1,7 @@
 import React from 'react'
 import Chat from '../../../Common/Icon/Chat'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
+import { hex2rgb } from '../../../../utils/rgb'
 
 type Props = {
     title: string,
@@ -9,6 +10,7 @@ type Props = {
     image: React.ReactNode,
     copyButton: React.ReactNode,
     detailButton: React.ReactNode,
+    color ?: string
 }
 
 const Default: React.FC<Props> = ({
@@ -17,15 +19,18 @@ const Default: React.FC<Props> = ({
     comment,
     image,
     copyButton,
-    detailButton
+    detailButton,
+    color
 }) => {
+    const [r,g,b] = hex2rgb(color)
     return (
         <div className='py-2 px-2 border rounded border-primary-border'>
-            <div className='p-1 text-sm overflow-hidden overflow-ellipsis max-w-full text-primary-dark'>• {title}</div>
-            <div className='border-b my-2 border-primary-border' />
+            <div className='p-1 text-sm overflow-hidden overflow-ellipsis max-w-full text-primary-dark'>{title}</div>
+            <div className='border-b-2  my-2 border-primary-border' style={{borderColor:`rgba(${r},${g},${b},0.5)`}}/>
             <div className='flex items-center'>
                 {image}
-                <div className='ml-2 overflow-hidden w-full  h-full flex-1'>
+                <div className='border-l  h-16 mx-2 border-primary-border overflow-hidden'/>
+                <div className='ml-2 overflow-hidden w-full  h-full flex-1' >
                     <div className='text-xs overflow-hidden overflow-ellipsis max-w-full text-primary-main'>
                         {(description && description.length > 100) ? description.substr(0, 100) + '...' : description}
                     </div>

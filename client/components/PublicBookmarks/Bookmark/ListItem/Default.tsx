@@ -17,12 +17,13 @@ const Default: React.FC<Props> = ({
     comment,
     image,
     copyButton,
-    detailButton
+    detailButton,
 }) => {
     return (
         <div className='flex py-1 px-2 border rounded border-primary-border items-center'>
             {image}
-            <div className='ml-2 overflow-hidden w-full  h-full flex-1'>
+            <div className='border-l h-16 mx-2 border-primary-border overflow-hidden'/>
+            <div className='overflow-hidden w-full  h-full flex-1 '>
                 <div className='text-sm overflow-hidden truncate max-w-full text-primary-dark'>{title}</div>
                 <div className='text-xs overflow-hidden truncate max-w-full text-primary-main'>{description}</div>
                 {comment && (

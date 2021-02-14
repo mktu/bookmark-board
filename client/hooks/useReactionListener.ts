@@ -18,7 +18,7 @@ const useReactionListener = (groupId:string, type:Reaction['type']) => {
         return ()=>{
             unsubscribe()
         }
-    },[groupId,clientService])
+    },[groupId,clientService,type])
     const reactions = useMemo(()=>Object.values(reactionState.entities),[reactionState])
     const getReactionByUid = useCallback((uid:string)=>{
         return reactions.find(v=>v.user===uid)

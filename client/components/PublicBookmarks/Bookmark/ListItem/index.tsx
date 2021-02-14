@@ -45,7 +45,7 @@ const ListItem: React.FC<Props> = ({
                         comment: bookmark.comment,
                         copyButton,
                         detailButton,
-                        image
+                        image,
                     }}
                 />
             </div>
@@ -57,7 +57,8 @@ const ListItem: React.FC<Props> = ({
                         comment: bookmark.comment,
                         copyButton,
                         detailButton,
-                        image
+                        image,
+                        color: bookmark.color
                     }}
                 />
             </div>
