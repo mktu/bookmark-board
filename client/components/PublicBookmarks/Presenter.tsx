@@ -54,7 +54,7 @@ const Default: React.FC<Props> = ({
                         </div>
                     </div>
                 </div>
-                <div className='flex p-4 mt-2 text-primary-main text-md whitespace-pre-wrap'>
+                <div className='flex px-4 py-2 mt-2 text-primary-main text-md whitespace-pre-wrap'>
                     {description}
                 </div>
                 <div className='flex px-2 justify-end items-end'>

@@ -1,6 +1,6 @@
 import React from 'react'
 import Chat from '../../../Common/Icon/Chat'
-import { TooltipDivContainer } from '../../../Common/Tooltip'
+import Link from '../../../Common/Icon/Link'
 import { hex2rgb } from '../../../../utils/rgb'
 
 type Props = {
@@ -8,9 +8,9 @@ type Props = {
     description: string,
     comment?: string,
     image: React.ReactNode,
-    copyButton: React.ReactNode,
-    detailButton: React.ReactNode,
-    color ?: string
+    color?: string,
+    host?: string,
+    url: string
 }
 
 const Default: React.FC<Props> = ({
@@ -18,36 +18,31 @@ const Default: React.FC<Props> = ({
     description,
     comment,
     image,
-    copyButton,
-    detailButton,
-    color
+    color,
+    host,
+    url
 }) => {
-    const [r,g,b] = hex2rgb(color)
+    const [r, g, b] = hex2rgb(color)
     return (
         <div className='py-2 px-2 border rounded border-primary-border'>
-            <div className='p-1 text-sm overflow-hidden overflow-ellipsis max-w-full text-primary-dark'>{title}</div>
-            <div className='border-b-2  my-2 border-primary-border' style={{borderColor:`rgba(${r},${g},${b},0.5)`}}/>
-            <div className='flex items-center'>
-                {image}
-                <div className='border-l  h-16 mx-2 border-primary-border overflow-hidden'/>
-                <div className='ml-2 overflow-hidden w-full  h-full flex-1' >
+            <a target='_blank' rel='noopener noreferrer' href={url} className='block p-1 text-sm overflow-hidden overflow-ellipsis max-w-full text-primary-dark underline'>{title}</a>
+            <div className='border-b-2 my-2 border-primary-border' style={{ borderColor: color && `rgba(${r},${g},${b},0.5)` }} />
+            <div className='flex py-2'>
+                <div className='flex items-center justify-center'>
+                    {image}
+                </div>
+                <div className='ml-2 overflow-hidden w-full flex-1 flex flex-col border-l border-primary-border pl-2' >
                     <div className='text-xs overflow-hidden overflow-ellipsis max-w-full text-primary-main'>
                         {(description && description.length > 100) ? description.substr(0, 100) + '...' : description}
                     </div>
-                </div>
-                <div className='hidden ml-2 flex-col justify-center items-center sm:flex' style={{ minHeight: '64px' }}>
-                    <TooltipDivContainer content='URLをコピー' placement='bottom' className='flex items-start'>
-                        {copyButton}
-                    </TooltipDivContainer>
-                    <div className='mt-auto'>
-                        <TooltipDivContainer content='詳細を表示' placement='bottom' className='flex items-start'>
-                            {detailButton}
-                        </TooltipDivContainer>
-                    </div>
+                    <a target='_blank' rel='noopener noreferrer' href={host} className='mt-auto flex justify-end items-center text-xs overflow-hidden overflow-ellipsis max-w-full text-primary-main'>
+                        <Link className='w-4 stroke-primary-main mr-1'/>
+                        <span>{host}</span>
+                    </a>
                 </div>
             </div>
             {comment && (
-                <div className='text-xs overflow-hidden truncate max-w-full flex items-center text-primary-main py-1'>
+                <div className='text-xs overflow-hidden truncate max-w-full flex items-center text-primary-main p-1 border rounded'>
                     <div><Chat className='w-6 stroke-primary-300 mr-2' /></div>
                     <div className='overflow-hidden truncate flex-1 text-xs'>
                         {comment}

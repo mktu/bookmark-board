@@ -8,6 +8,7 @@ import { SvgIconButton } from '../../Common/Button'
 import { copyToClipBoard } from '../../../utils'
 import { toast } from 'react-toastify';
 import { TooltipDivContainer } from '../../Common/Tooltip'
+import { hex2rgb } from '../../../utils/rgb'
 
 type Props = {
     bookmark: Bookmark,
@@ -18,16 +19,19 @@ const ListCard: React.FC<Props> = ({
     bookmark,
     showSimple
 }) => {
+    const [r, g, b] = hex2rgb(bookmark.color)
     return (
         <div className='flex py-1 px-2 border rounded border-primary-border'>
-            <UrlImage width='64px' height='64px' src={bookmark.image} />
-            <div className='ml-2 text-primary-main overflow-hidden w-full px-1'>
+            <div style={{ minWidth: '64px' }}>
+                <UrlImage width='64px' height='64px' src={bookmark.image} />
+            </div>
+            <div className='ml-2 text-primary-main overflow-hidden w-full px-1 border-l-2  border-primary-border pl-2' style={{ borderColor: bookmark.color && `rgba(${r},${g},${b},0.5)` }}>
                 <Label htmlFor='title' textSize='text-xs'>タイトル</Label>
                 <div id='title' className='text-sm break-words max-w-full p-1'>{bookmark.title}</div>
                 <Label htmlFor='description' textSize='text-xs'>説明</Label>
                 <div id='description' className='text-xs break-words max-w-full p-1'>{bookmark.description}</div>
                 <Label htmlFor='url' textSize='text-xs'>URL</Label>
-                <div id='url' className='text-sm break-words max-w-full p-1'>{bookmark.url}</div>
+                <a target='_blank' rel='noopener noreferrer' href={bookmark.url} id='url' className='block text-sm break-words max-w-full p-1 underline'>{bookmark.url}</a>
                 {bookmark.comment && (
                     <div className='text-xs overflow-hidden max-w-full flex items-center text-primary-main py-1'>
                         <div className='border-primary-200 border rounded p-1 mr-2 flex items-center'><Chat className='w-6 stroke-primary-300' /> ひとこと</div>

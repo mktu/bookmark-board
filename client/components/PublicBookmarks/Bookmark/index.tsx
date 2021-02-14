@@ -11,7 +11,7 @@ const Bookmark : React.FC<Props> = ({
 })=>{
     const [cardView, setCardView] = useState(false)
     return (
-        <a className='my-2 md:my-1 cursor-pointer block' target='_blank' rel='noopener noreferrer' href={bookmark.url} >
+        <div className='my-2 md:my-1'>
             {cardView ? (
                 <Card bookmark={bookmark} showSimple={()=>{
                     setCardView(false)
@@ -21,7 +21,7 @@ const Bookmark : React.FC<Props> = ({
                     setCardView(true)
                 }}/>
             )}
-        </a>
+        </div>
     )
 }
 

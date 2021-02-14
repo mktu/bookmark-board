@@ -1,6 +1,8 @@
 import React from 'react'
 import Chat from '../../../Common/Icon/Chat'
+import Link from '../../../Common/Icon/Link'
 import { TooltipDivContainer } from '../../../Common/Tooltip'
+import { hex2rgb } from '../../../../utils/rgb'
 
 type Props = {
     title: string,
@@ -9,6 +11,9 @@ type Props = {
     image: React.ReactNode,
     copyButton: React.ReactNode,
     detailButton: React.ReactNode,
+    color?: string,
+    url: string,
+    host?: string
 }
 
 const Default: React.FC<Props> = ({
@@ -18,14 +23,23 @@ const Default: React.FC<Props> = ({
     image,
     copyButton,
     detailButton,
+    color,
+    host,
+    url
 }) => {
+    const [r, g, b] = hex2rgb(color)
     return (
-        <div className='flex py-1 px-2 border rounded border-primary-border items-center'>
-            {image}
-            <div className='border-l h-16 mx-2 border-primary-border overflow-hidden'/>
-            <div className='overflow-hidden w-full  h-full flex-1 '>
-                <div className='text-sm overflow-hidden truncate max-w-full text-primary-dark'>{title}</div>
+        <div className='flex py-1 px-2 border rounded border-primary-border'>
+            <div className='flex justify-center items-center'>
+                {image}
+            </div>
+            <div className='overflow-hidden w-full flex-1 flex flex-col border-l-2 pl-2 ml-2' style={{ borderColor: color && `rgba(${r},${g},${b},0.5)` }}>
+                <a target='_blank' rel='noopener noreferrer' href={url} className='block text-sm overflow-hidden truncate max-w-full text-primary-dark underline mb-1'>{title}</a>
                 <div className='text-xs overflow-hidden truncate max-w-full text-primary-main'>{description}</div>
+                <a target='_blank' rel='noopener noreferrer' href={host} className='mt-auto text-xs overflow-hidden truncate max-w-full text-primary-main flex items-center'>
+                    <Link className='w-3 stroke-primary-main mr-1' />
+                    <span>{host}</span>
+                </a>
                 {comment && (
                     <div className='text-xs overflow-hidden truncate max-w-full flex items-center text-primary-main py-1'>
                         <div className='border-primary-200 border rounded p-1 mr-2 flex items-center'>
@@ -38,7 +52,7 @@ const Default: React.FC<Props> = ({
                     </div>
                 )}
             </div>
-            <div className='ml-2 flex flex-col justify-center items-center' style={{ minHeight: '64px' }}>
+            <div className='ml-2 flex flex-col items-center' style={{ minHeight: '64px' }}>
                 <TooltipDivContainer content='URLをコピー' placement='bottom' className='flex items-start'>
                     {copyButton}
                 </TooltipDivContainer>

@@ -34,6 +34,7 @@ const ListItem: React.FC<Props> = ({
             e.stopPropagation()
         }}><ChevronDoubleDown className='w-4' strokeWidth={2} /></SvgIconButton>
     )
+    const origin = new URL(bookmark.url)
     const image = <UrlImage enableEndpoint={!bookmark.disableEndpoint} width='64px' height='64px' src={bookmark.image} name={bookmark.title} />
     return (
         <>
@@ -46,6 +47,9 @@ const ListItem: React.FC<Props> = ({
                         copyButton,
                         detailButton,
                         image,
+                        color: bookmark.color,
+                        host: origin.host,
+                        url : bookmark.url
                     }}
                 />
             </div>
@@ -55,10 +59,10 @@ const ListItem: React.FC<Props> = ({
                         title: bookmark.title,
                         description: bookmark.description,
                         comment: bookmark.comment,
-                        copyButton,
-                        detailButton,
                         image,
-                        color: bookmark.color
+                        color: bookmark.color,
+                        host: origin.host,
+                        url : bookmark.url
                     }}
                 />
             </div>
