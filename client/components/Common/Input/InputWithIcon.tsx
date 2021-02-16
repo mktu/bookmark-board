@@ -8,7 +8,7 @@ const InputWithIcon: React.FC<InputProps & {
     ...props
 }) => {
         return (
-            <div className="relative flex w-full flex-wrap items-stretch mb-3">
+            <div className="relative flex w-full flex-wrap items-stretch">
                 <span className="z-10 h-full leading-snug font-normal text-center text-primary-700 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
                     {icon}
                 </span>

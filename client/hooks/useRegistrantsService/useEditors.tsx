@@ -20,7 +20,7 @@ const useEditors = () => {
         return ()=>{
             profiles.length > 0 && dispatch(actions.removeUsers({ users:profiles }))
         }
-    },[profiles])
+    },[profiles,dispatch])
 }
 
 export default useEditors

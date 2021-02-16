@@ -20,15 +20,15 @@ const NoItem: React.FC<Props> = ({
         submit,
         url,
         linkData,
-        invalidUrl,
+        error,
         status
     } = useNewBookmark(groupId)
 
     let preview = null
-    if (invalidUrl || status === 'failed') {
+    if (error) {
         preview = (
             <div className=' text-secondary-main text-sm p-2' >
-                無効なURLです
+                {error}
             </div>
         )
     }
@@ -54,7 +54,7 @@ const NoItem: React.FC<Props> = ({
                         onChange={onChangeBookmarkInput}
                         onKeyPress={onKeyPress}
                     />
-                    <SvgIconButton className='block ml-2' onClick={submit}>
+                    <SvgIconButton className='block ml-2' onClick={submit} disabled={Boolean(error) || !url}>
                         <Add strokeWidth='1.5px' className='w-10' />
                     </SvgIconButton>
                 </div>

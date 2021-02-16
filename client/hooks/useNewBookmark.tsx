@@ -1,25 +1,38 @@
-import {useState,useContext,useCallback,useRef,useEffect} from 'react'
+import { useState, useContext, useCallback, useRef, useEffect, useMemo } from 'react'
 import FirebaseContext from '../context/FirebaseContext'
+import { MaxBookmarkNumber } from '../utils/constants'
+import { useBookmarksByGroup } from '../modules/bookmarkSlice'
 import { useLinkPreview } from '../components/Common/LinkPreview'
 import { toast } from 'react-toastify';
 
-const useNewBookmark = (groupId:string)=>{
+const useNewBookmark = (groupId: string) => {
     const unmounted = useRef(false)
+    const bookmarks = useBookmarksByGroup(groupId)
     const [bookmarkInput, setBookmarkInput] = useState('')
     const { linkData, url, status } = useLinkPreview({ text: bookmarkInput })
+    const reachedLimit = useMemo(() => MaxBookmarkNumber <= bookmarks.length, [bookmarks.length])
     const invalidUrl = status === 'none' && Boolean(bookmarkInput)
+    const error = useMemo(() => {
+        if (reachedLimit) {
+            return `1グループに登録できるブックマークの上限(${MaxBookmarkNumber})を超えています.`
+        }
+        if (status === 'failed' || invalidUrl) {
+            return '無効なURLです'
+        }
+        return ''
+    }, [status, invalidUrl, reachedLimit])
     const { clientService } = useContext(FirebaseContext)
-    useEffect(()=>{
+    useEffect(() => {
         unmounted.current = false
-        return ()=>{
+        return () => {
             unmounted.current = true
         }
-    },[])
-    const onChangeBookmarkInput = useCallback((e:React.ChangeEvent<HTMLInputElement>)=>{
+    }, [])
+    const onChangeBookmarkInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setBookmarkInput(e.target.value)
-    },[])
+    }, [])
     const submit = useCallback(() => {
-        if (invalidUrl) return
+        if (error || !url) return
         const hasLinkData = Boolean(linkData)
         let data;
         if (hasLinkData) {
@@ -37,40 +50,41 @@ const useNewBookmark = (groupId:string)=>{
         else {
             data = {
                 url,
+                title : url,
                 neighbors: [],
                 groupId,
-                images : [],
+                images: [],
                 reactions: {},
                 unacquired: true
             }
         }
-        !invalidUrl && clientService.addBookmark(data, (bookmarkId) => {
+        clientService.addBookmark(data, (bookmarkId) => {
             !unmounted.current && setBookmarkInput('')
-            if(!data.title){
-                clientService.completeBookmark(url, groupId, bookmarkId, true).catch(()=>{
+            if (!hasLinkData) {
+                clientService.completeBookmark(url, groupId, bookmarkId, true).catch(() => {
                     toast.error('Bookmark情報の自動付与に失敗しました')
                 })
-            } else if(!data.image){
-                clientService.completeBookmark(url, groupId, bookmarkId).catch(()=>{
+            } else if (!data.image) {
+                clientService.completeBookmark(url, groupId, bookmarkId).catch(() => {
                     toast.error('Bookmark画像の取得に失敗しました')
                 })
             }
         })
-    },[invalidUrl,clientService,url,linkData,groupId])
-    
-    const onKeyPress = useCallback((e:React.KeyboardEvent<HTMLInputElement>)=>{
+    }, [clientService, url, linkData, groupId, error])
+
+    const onKeyPress = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key == 'Enter') {
             submit()
             e.preventDefault()
         }
-    },[submit])
+    }, [submit])
 
     return {
         status,
         url,
         linkData,
-        invalidUrl,
         bookmarkInput,
+        error,
         submit,
         setBookmarkInput,
         onChangeBookmarkInput,

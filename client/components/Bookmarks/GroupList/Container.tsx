@@ -5,17 +5,18 @@ import { Add, Folder } from '../../Common/Icon'
 import FirebaseContext from '../../../context/FirebaseContext'
 import { useProfile } from '../../../modules/profileSlice'
 import { useGroupsByUser } from '../../../modules/groupSlice'
+import useNewBookmarkGroup from '../../../hooks/useNewBookmarkGroup'
 import { spliceAndInsert } from '../../../logics'
 import ListItem from './ListItem'
 import Presenter from './Presenter'
 import Droppable from './Droppable'
 
 const Container: React.FC = () => {
-    const [newGroup, setNewGroup] = useState('')
     const [hover, setHover] = useState(-1)
     const { clientService } = useContext(FirebaseContext)
     const profile = useProfile()
     const groups = useGroupsByUser(profile.id)
+    const { newGroup, setNewGroup, submit, error } = useNewBookmarkGroup()
 
     const onChangeOrder = (next: number) => (id: string) => {
         const ordered = spliceAndInsert(groups.map(g => g.id), next, id)
@@ -32,17 +33,9 @@ const Container: React.FC = () => {
 
     const addButton = (
         <SvgIconButton
+            disabled={Boolean(error) || !newGroup}
             aria-label='Add Group'
-            onClick={() => {
-                if (newGroup === '' || !profile.id) {
-                    console.warn(`cannot add group:newGroup:${newGroup},profileId:${profile.id}`)
-                    return
-                }
-                clientService.addGroup(newGroup, profile.id, (id) => {
-                    console.log(`created ${id}.`)
-                    setNewGroup('')
-                })
-            }}>
+            onClick={submit}>
             <Add strokeWidth={1.5} className='w-10' />
         </SvgIconButton>
     )
@@ -60,6 +53,7 @@ const Container: React.FC = () => {
     return (
         <Presenter
             {...{
+                error,
                 input,
                 addButton,
                 groupList

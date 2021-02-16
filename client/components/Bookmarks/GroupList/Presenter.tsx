@@ -1,19 +1,24 @@
 import React from 'react'
+import classNames from 'classnames'
 
 type Props = {
     input: React.ReactNode,
     addButton: React.ReactNode,
     groupList: React.ReactNode,
+    error?: string
 }
 
 const Presenter: React.FC<Props> = ({
     input,
     addButton,
-    groupList
+    groupList,
+    error
 }) => {
     return (
         <div className='bg-white w-full h-full flex flex-col border-primary-border border-r'>
-            <div className='border-primary-border flex flex-row justify-between p-1 items-center text-primary-main'>
+            <div className={classNames('border-primary-border flex flex-row justify-between p-1 items-center text-primary-main',
+                !error && 'mb-3'
+            )}>
                 <div className='p-2 w-full'>
                     {input}
                 </div>
@@ -21,6 +26,9 @@ const Presenter: React.FC<Props> = ({
                     {addButton}
                 </div>
             </div>
+            {error && (
+                <div className='text-secondary-main text-xs px-4 py-2'>{error}</div>
+            )}
             <div className='overflow-scroll h-full'>
                 {groupList}
             </div>

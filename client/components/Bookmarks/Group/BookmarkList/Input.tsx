@@ -20,19 +20,19 @@ const Input: React.FC<Props> = ({
     const {
         url,
         status,
-        invalidUrl,
         linkData,
         bookmarkInput,
+        error,
         onChangeBookmarkInput,
         submit,
         onKeyPress
     } = useNewBookmark(groupId)
 
     let preview = null
-    if (invalidUrl || status === 'failed') {
+    if (error) {
         preview = (
-            <div className=' text-secondary-main text-sm p-2' >
-                無効なURLです
+            <div className='text-secondary-main text-sm p-2' >
+                {error}
             </div>
         )
     }
@@ -59,7 +59,7 @@ const Input: React.FC<Props> = ({
                         {preview}
                     </div>
                     <div className='ml-auto'>
-                        <SvgIconButton aria-label='Add New Bookmark' className='block mx-1' onClick={submit}>
+                        <SvgIconButton disabled={Boolean(error) || !url} aria-label='Add New Bookmark' className='block mx-1' onClick={submit}>
                             <Add strokeWidth='1.5px' className='w-10  stroke-primary-main hover:stroke-primary-dark' />
                         </SvgIconButton>
                     </div>
@@ -67,7 +67,11 @@ const Input: React.FC<Props> = ({
             </div>
             {!show && (
                 <div className={styles['fab']}>
-                    <SvgFillIconButton aria-label='Add New' colorType='none' className='fill-secondary-500 hover:fill-secondary-main w-12 h-12 rounded-full' onClick={() => { toggle(true) }}>
+                    <SvgFillIconButton
+                        aria-label='Add New'
+                        colorType='none'
+                        className='fill-secondary-500 hover:fill-secondary-main w-12 h-12 rounded-full'
+                        onClick={() => { toggle(true) }}>
                         <AddFill />
                     </SvgFillIconButton>
                 </div>
