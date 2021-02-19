@@ -6,7 +6,7 @@ type Props = {
     groupId: string
 }
 
-const Popover: React.FC<Props> = ({
+const VisibilityOption: React.FC<Props> = ({
     groupId
 }) => {
     const { colors } = useBookmarkGroup(groupId)
@@ -54,4 +54,4 @@ const Popover: React.FC<Props> = ({
     )
 }
 
-export default Popover
+export default VisibilityOption

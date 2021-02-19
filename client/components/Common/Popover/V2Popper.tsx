@@ -10,15 +10,17 @@ export type Props<T extends HTMLElement> = {
     children: Children<T>,
     render: (toggle:()=>void)=>React.ReactNode,
     content?: React.ReactNode,
-    placement?: PopperChildrenProps['placement']
+    placement?: PopperChildrenProps['placement'],
+    zIndex?:number
 } | {
     children: Children<T>,
     render?: (toggle:()=>void)=>React.ReactNode,
     content: React.ReactNode,
-    placement?: PopperChildrenProps['placement']
+    placement?: PopperChildrenProps['placement'],
+    zIndex?:number
 }
 
-export function Popover<T extends HTMLElement>({ children, content, render, placement = 'auto' }: Props<T>) {
+export function Popover<T extends HTMLElement>({ children, content, render, placement = 'auto', zIndex=20 }: Props<T>) {
     const [popoverShow, setPopoverShow] = useState(false);
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
@@ -47,7 +49,11 @@ export function Popover<T extends HTMLElement>({ children, content, render, plac
                         }
                         setReferenceElement(value)
                     },
-                    onClick: toggle,
+                    onClick: (e:React.MouseEvent<T>)=>{
+                        e.stopPropagation && e.stopPropagation()
+                        e.preventDefault && e.preventDefault()
+                        toggle()
+                    },
                 }
                 return React.cloneElement(children, childProps)
             }, [children, toggle])}
@@ -55,7 +61,7 @@ export function Popover<T extends HTMLElement>({ children, content, render, plac
                 <Clickaway onClickAway={() => {
                     setPopoverShow(false)
                 }}>
-                    <div className={'z-20'} ref={setPopperElement} style={styles.popper} {...attributes.popper}>
+                    <div ref={setPopperElement} style={{...styles.popper, zIndex}} {...attributes.popper}>
                         {render ? render(toggle) : content}
                     </div>
                 </Clickaway>

@@ -1,7 +1,9 @@
 import React from 'react'
 import { UrlImage } from '../../../../Common/Avatar'
 import { ExternalLink, Duplicate, Trash } from '../../../../Common/Icon'
-import { SvgIconButton, HeartButton } from '../../../../Common/Button'
+import { SvgIconButton, HeartButton, ButtonBase } from '../../../../Common/Button'
+import { PopoverDivContainer } from '../../../../Common/Popover'
+import ColorSelector from '../ColorOption/Selector'
 import { useRefinementById } from '../../../../../modules/groupRefinementSlice'
 import { copyToClipBoard, numberToDateTime } from '../../../../../utils'
 import { BookmarkListImageSize } from '../../../../../utils/constants'
@@ -28,6 +30,7 @@ const ListItem: React.FC<Props> = ({
         handleLikes,
         deleteBookmark,
         handleJumpLink,
+        updateBookmarkImmediately
     } = useBookmark(bookmarkId)
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
     const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover)
@@ -83,6 +86,18 @@ const ListItem: React.FC<Props> = ({
             active={sentLikes}
             onClick={handleClickLikes}
         />)
+
+    const colorButton = (
+        <PopoverDivContainer render={(toggle) => (
+            <ColorSelector groupId={bookmark.groupId} handleSelectColor={(color) => {
+                updateBookmarkImmediately('color')(color, () => {
+                    toggle()
+                })
+            }} />
+        )}>
+            <ButtonBase className='text-xs text-primary-main underline' >色選択</ButtonBase>
+        </PopoverDivContainer>
+    )
     return (
         <Presenter
             {...{
@@ -90,7 +105,7 @@ const ListItem: React.FC<Props> = ({
                 dragging,
                 image,
                 opacity,
-                detailLink : `/bookmarks/${bookmark.groupId}/${bookmark.id}`,
+                detailLink: `/bookmarks/${bookmark.groupId}/${bookmark.id}`,
                 title: bookmark.title,
                 description: !listViewMask.includes('description') && bookmark.description,
                 url: !listViewMask.includes('url') && bookmark.url,
@@ -100,7 +115,8 @@ const ListItem: React.FC<Props> = ({
                 openIcon: openButton,
                 deleteIcon: deleteButton,
                 heartButton: heartButton,
-                color: bookmark.color
+                color: bookmark.color,
+                colorButton
             }}
         />
     )

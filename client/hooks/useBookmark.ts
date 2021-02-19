@@ -47,6 +47,11 @@ export const useBookmark = (bookmarkId: string) => {
     const updateBookmark = useCallback((key: keyof Bookmark) => (value: string) => {
         setUpdate(before => ({ ...before, ...{ [key]: value } }))
     }, [])
+    const updateBookmarkImmediately = useCallback((key: keyof Bookmark) => (value: string, notify: Notifier) => {
+        clientService.modifyBookmark(base.groupId, base.id, {
+            [key]:value
+        }, notify)
+    }, [clientService,base])
     const deleteBookmark = useCallback((onSucceeded?: Notifier,) => {
         clientService.deleteBookmark(bookmark.groupId, bookmark.id, onSucceeded)
     }, [bookmark, clientService])
@@ -116,6 +121,7 @@ export const useBookmark = (bookmarkId: string) => {
         handleLikes,
         handleRefetch,
         updateBookmark,
+        updateBookmarkImmediately,
         deleteBookmark,
         handleJumpLink,
         handleLoadImageError,

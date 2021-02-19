@@ -1,7 +1,7 @@
 import React from 'react'
 import { UrlImage } from '../../../../../Common/Avatar'
 import { ExternalLink, Duplicate, Trash } from '../../../../../Common/Icon'
-import { HeartButton } from '../../../../../Common/Button'
+import { HeartButton, ButtonBase } from '../../../../../Common/Button'
 import { useRefinementById } from '../../../../../../modules/groupRefinementSlice'
 import { numberToDateTime } from '../../../../../../utils'
 import { BookmarkListImageSize } from '../../../../../../utils/constants'
@@ -11,7 +11,7 @@ import Presenter from './Presenter'
 
 type Props = {
     bookmarkId: string,
-    style : React.CSSProperties
+    style: React.CSSProperties
 }
 
 const ListItem: React.FC<Props> = ({
@@ -23,7 +23,7 @@ const ListItem: React.FC<Props> = ({
         sentLikes,
     } = useBookmark(bookmarkId)
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
-    
+
     const image = (
         <UrlImage
             src={bookmark.image}
@@ -40,15 +40,16 @@ const ListItem: React.FC<Props> = ({
             aria-label='Likes'
             size='w-4'
             active={sentLikes}
-            onClick={()=>{
+            onClick={() => {
                 //
             }}
         />)
+    const colorButton = <ButtonBase className='text-xs text-primary-main underline' >色設定</ButtonBase>
     return (
         <Presenter
             {...{
                 image,
-                detailLink : `/bookmarks/${bookmark.groupId}/${bookmark.id}`,
+                detailLink: `/bookmarks/${bookmark.groupId}/${bookmark.id}`,
                 title: bookmark.title,
                 description: !listViewMask.includes('description') && bookmark.description,
                 url: !listViewMask.includes('url') && bookmark.url,
@@ -59,6 +60,7 @@ const ListItem: React.FC<Props> = ({
                 deleteIcon: deleteButton,
                 heartButton: heartButton,
                 color: bookmark.color,
+                colorButton,
                 style
             }}
         />

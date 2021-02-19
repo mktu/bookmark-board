@@ -9,10 +9,11 @@ export type Props<T extends HTMLElement> = {
     children: Children<T>,
     content: React.ReactNode | string,
     placement?: PopperChildrenProps['placement'],
-    disabled?:boolean
+    disabled?:boolean,
+    zIndex?:number
 }
 
-export default function Tooltip<T extends HTMLElement>({ children, content, placement = 'auto', disabled }: Props<T>) {
+export default function Tooltip<T extends HTMLElement>({ children, content, placement = 'auto', disabled, zIndex=20 }: Props<T>) {
     const [tooltipShow, setTooltipShow] = useState(false);
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
@@ -62,7 +63,7 @@ export default function Tooltip<T extends HTMLElement>({ children, content, plac
                 ) : (
                     <div className='z-20 hidden sm:block'
                         ref={setPopperElement}
-                        style={styles.popper}
+                        style={{...styles.popper, zIndex}}
                         {...attributes.popper}> { content}</div>
                 ))}
         </>

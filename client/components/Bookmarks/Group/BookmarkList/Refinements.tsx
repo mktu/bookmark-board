@@ -5,7 +5,7 @@ import { toast } from 'react-toastify';
 import { TextButton } from '../../../Common/Button'
 import ListOptions from './ListOptions'
 import SortOptions from './SortOptions'
-import ColorOption from './ColorOption/Popover'
+import ColorOption from './ColorOption/VisibilityOption'
 
 type Props = {
     groupId: string
@@ -26,7 +26,7 @@ const Refinements: React.FC<Props> = ({
                     <PopoverDivContainer placement='left-start' content={<ColorOption groupId={groupId} />}>
                         <TextButton className='flex items-center stroke-primary-main hover:stroke-primary-dark' >
                             <ColorSwatch className='w-6' />
-                            <div className='text-sm'>色設定</div>
+                            <div className='text-sm'>色フィルタ</div>
                         </TextButton>
                     </PopoverDivContainer>
                     <PopoverDivContainer placement='left-start' render={(toggle)=><SortOptions groupId={groupId} onSortSucceeded={sortSucceeded(toggle)}/>}>
