@@ -9,6 +9,7 @@ import { copyToClipBoard, numberToDateTime } from '../../../../../utils'
 import { BookmarkListImageSize } from '../../../../../utils/constants'
 import { toast } from 'react-toastify';
 import { useBookmark } from '../../../../../hooks/useBookmark'
+import { useBookmarkGroup } from '../../../../../hooks/useBookmarkGroup'
 import { useHoverable } from '../../../../../hooks/useBookmarkDnd'
 import Presenter from './Presenter'
 
@@ -32,9 +33,10 @@ const ListItem: React.FC<Props> = ({
         handleJumpLink,
         updateBookmarkImmediately
     } = useBookmark(bookmarkId)
+    const { group } = useBookmarkGroup(bookmark.groupId)
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
     const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover)
-
+    const colors = group?.colors || {}
     const handleCopyUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
         copyToClipBoard(bookmark.url, () => {
             toast.success('クリップボードにURLをコピーしました',)
@@ -115,7 +117,7 @@ const ListItem: React.FC<Props> = ({
                 openIcon: openButton,
                 deleteIcon: deleteButton,
                 heartButton: heartButton,
-                color: bookmark.color,
+                color: colors[bookmark.color]?.color,
                 colorButton
             }}
         />

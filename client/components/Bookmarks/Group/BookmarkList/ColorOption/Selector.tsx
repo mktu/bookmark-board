@@ -32,8 +32,8 @@ const Selector: React.FC<Props> = ({
                                         <div className='w-4 h-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b})`, border: `1px solid ${c.color}` }} />
                                     )}
                             </div>
-                            <TextButton className='mr-2' id={c.color}
-                                onClick={() => { handleSelectColor(c.color) }}
+                            <TextButton className='mr-2' id={c.id}
+                                onClick={() => { handleSelectColor(c.id) }}
                             >{c.name}</TextButton>
                         </label>
                     </div>

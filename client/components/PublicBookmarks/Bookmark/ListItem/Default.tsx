@@ -30,7 +30,7 @@ const Default: React.FC<Props> = ({
     const [r, g, b] = hex2rgb(color)
     return (
         <div className='flex py-1 px-2 border rounded border-primary-border'>
-            <div className='flex justify-center items-center'>
+            <div className='flex justify-center items-center' style={{minWidth:'64px'}}>
                 {image}
             </div>
             <div className='overflow-hidden w-full flex-1 flex flex-col border-l-2 pl-2 ml-2' style={{ borderColor: color && `rgba(${r},${g},${b},0.5)` }}>

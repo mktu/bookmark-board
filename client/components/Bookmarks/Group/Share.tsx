@@ -101,7 +101,7 @@ const Share: React.FC<Props> = ({
                 <div className='text-sm'>
                     <div className='flex items-center my-2'>
                         <p className='hidden md:block'>共同編集リンク</p>
-                        <TextInputBase value={`${requestUrl}`} className='flex-1 w-full hidden md:inline-block border border-primary-border rounded p-2 mx-2' ></TextInputBase>
+                        <TextInputBase value={`${requestUrl}`} readOnly className='flex-1 w-full hidden md:inline-block border border-primary-border rounded p-2 mx-2' ></TextInputBase>
                         <div className='md:hidden text-primary-500 mx-2' >共同編集リンク</div>
                         <TooltipDivContainer content='URLをコピー' placement='bottom'>
                             <SvgIconButton aria-label='Copy URL' className='block' onClick={() => {

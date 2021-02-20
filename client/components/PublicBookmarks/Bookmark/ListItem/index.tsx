@@ -10,11 +10,13 @@ import MobilePresenter from './Mobile'
 
 type Props = {
     bookmark: Bookmark,
+    color?: BookmarkColorDescription,
     showDetail: () => void
 }
 
 const ListItem: React.FC<Props> = ({
     bookmark,
+    color,
     showDetail
 }) => {
     const copyButton = (
@@ -47,7 +49,7 @@ const ListItem: React.FC<Props> = ({
                         copyButton,
                         detailButton,
                         image,
-                        color: bookmark.color,
+                        color: color?.color,
                         host: origin.host,
                         url : bookmark.url
                     }}

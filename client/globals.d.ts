@@ -30,7 +30,7 @@ declare type ListViewMask = 'description' | 'url' | 'comment' | 'lastUpdate'
 declare type BookmarkColorDescription = {
     color :string,
     name: string,
-    idx: number
+    idx: number,
 }
 
 declare type BookmarkColors = {

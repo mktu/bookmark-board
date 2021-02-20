@@ -4,8 +4,9 @@ import Droppable from './Droppable'
 
 type Props = {
     listIndex: number,
+    id:string,
     description: BookmarkColorDescription,
-    renameColor: (color: string, name: string) => void,
+    updateColor: Parameters<typeof ListItem>[0]['updateColor']
     changeOrder: (color: string, idxTo: number) => void,
     handleDelete: (color: string) => void,
     onHover: (idx: number) => void,
@@ -15,7 +16,8 @@ type Props = {
 const ColorItem: React.FC<Props> = ({
     description,
     listIndex,
-    renameColor,
+    id,
+    updateColor,
     changeOrder,
     handleDelete,
     onHover,
@@ -23,17 +25,18 @@ const ColorItem: React.FC<Props> = ({
 }) => {
     const listItem = useMemo(() => (
         <ListItem {...{
+            updateColor,
             listIndex,
+            id,
             description : {
                 name : description.name,
                 idx : description.idx,
                 color : description.color
             },
-            renameColor,
             handleDelete,
             onHover
         }} />
-    ), [listIndex, description.name,description.idx,description.color, renameColor, handleDelete, onHover])
+    ), [listIndex, description.name,description.idx,description.color, updateColor, handleDelete, onHover, id])
     return (
         <>
             { listIndex === 0 && (<Droppable droppable={hover != -1} onChangeOrder={(target) => {

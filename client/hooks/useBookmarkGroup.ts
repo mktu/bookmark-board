@@ -7,13 +7,16 @@ import { useRefinementById } from '../modules/groupRefinementSlice'
 import FirebaseContext from '../context/FirebaseContext'
 import { saveRefinement } from '../utils/localStorages/group'
 
+const createKey = ()=>Math.random().toString(32).substring(2)
+
 const defaultColors: BookmarkColors = [
     ['#EF4511', 'グループ1'],
     ['#EBB910', 'グループ2'],
     ['#78E1A8', 'グループ3'],
     ['#89CFFA', 'グループ4'],
 ].reduce((acc, cur, idx) => {
-    acc[cur[0]] = {
+    const key = createKey()
+    acc[key] = {
         color: cur[0],
         name: cur[1],
         idx
@@ -72,6 +75,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         return Object.keys(group.colors).sort((a, b) => {
             return group.colors[a].idx - group.colors[b].idx
         }).map(c => ({
+            id:c,
             ...group.colors[c],
         }))
     }, [group?.colors])
@@ -92,18 +96,18 @@ export const useBookmarkGroup = (groupId?: string) => {
         merge({ [key]: value })
     }, [merge])
 
-    const updateColor = useCallback((color: string, data: Partial<BookmarkColorDescription>) => {
+    const updateColor = useCallback((id: string, data: Partial<BookmarkColorDescription>) => {
         const colors = { ...group.colors }
-        if (colors[color]) {
-            colors[color] = { ...colors[color], ...data }
+        if (colors[id]) {
+            colors[id] = { ...colors[id], ...data }
             merge({colors})
         }
     },[group?.colors,merge])
 
-    const handleChangeColorIndex = useCallback((color: string, next: number) => {
-        const indecies = colors.map(c => ({ color: c.color, remove: color === c.color }))
-        indecies.splice(next, 0, { color, remove: false })
-        const newIndecies = indecies.filter(c => !c.remove).map(c => c.color)
+    const handleChangeColorIndex = useCallback((id: string, next: number) => {
+        const indecies = colors.map(c => ({ id: c.id, remove: id === c.id }))
+        indecies.splice(next, 0, { id, remove: false })
+        const newIndecies = indecies.filter(c => !c.remove).map(c => c.id)
         const update = newIndecies.reduce((acc, cur, idx) => {
             acc[cur].idx = idx
             return acc
@@ -112,12 +116,12 @@ export const useBookmarkGroup = (groupId?: string) => {
     },[colors,group?.colors,merge])
 
     const handleAddColor = useCallback((name: string, color: string) => {
-        if (group?.colors[color]) {
+        if (group.colors && Object.keys(group.colors).find(v=>group.colors[v].color===color) ) {
             toast.warn('すでにこの色は登録されています')
             return
         }
         const idx = Object.keys(group?.colors).length
-        const colors = { ...group?.colors, [color]: { name, color, idx } }
+        const colors = { ...group?.colors, [createKey()]: { name, color, idx } }
         merge({ colors })
     },[group?.colors, merge])
 

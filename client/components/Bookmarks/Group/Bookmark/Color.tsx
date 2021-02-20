@@ -21,7 +21,7 @@ const Color: React.FC<Props> = ({
                 <Dropdowns
                     allowEmpty
                     placement='bottom'
-                    options={Object.values(group.colors).map(g => ({ label: g.name, value: g.color }))}
+                    options={Object.keys(group.colors).map(v=>({ label: group.colors[v].name, value : v }))}
                     selected={color}
                     onSelect={handleUpdate} />
             </div>

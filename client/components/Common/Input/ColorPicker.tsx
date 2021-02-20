@@ -19,23 +19,25 @@ export const ColorPallet: React.FC<Props> = ({
     handleSelectColor,
     value
 }) => {
-    const [r, g, b] = hex2rgb(value)
+    const [r, g, b] = hex2rgb(colors[value]?.color)
     return (
         <div className={classNames(className, 'p-2 m-1 rounded')}>
             <div className='whitespace-pre-wrap flex items-center'>
                 {Object.keys(colors).map(c => (
-                    <ButtonBase aria-label={c} key={c} style={c === value ? { border: `1px solid rgba(${r},${g},${b},0.5)`, padding:'3px' } : {}} className='rounded bg-white flex items-center justify-center mx-1' onClick={() => {
-                        handleSelectColor(c)
-                    }}>
-                        <div className={classNames(`w-${boxSize} h-${boxSize} rounded`)} style={{ backgroundColor: c }} />
+                    <ButtonBase aria-label={c} key={c}
+                        style={c === value ? { border: `1px solid rgba(${r},${g},${b},0.5)`, padding: '3px' } : {}}
+                        className='rounded bg-white flex items-center justify-center mx-1' onClick={() => {
+                            handleSelectColor(c)
+                        }}>
+                        <div className={classNames(`w-${boxSize} h-${boxSize} rounded`)} style={{ backgroundColor: colors[c].color }} />
                     </ButtonBase>
                 ))}
-                <ButtonBase aria-label='None' style={!value ? { border: `1px solid rgba(0,0,0,0.5)`, padding:'3px' } : {}} className='rounded bg-white flex items-center justify-center mx-1' onClick={() => {
+                <ButtonBase aria-label='None' style={!value ? { border: `1px solid rgba(0,0,0,0.5)`, padding: '3px' } : {}} className='rounded bg-white flex items-center justify-center mx-1' onClick={() => {
                     handleSelectColor('')
                 }}>
                     <div className={classNames(`w-${boxSize} h-${boxSize} rounded bg-white border-secondary-500 border`)} >
                         <svg className='w-full h-full stroke-secondary-500'>
-                            <line stroke="5, 5" x1="0" y1="100%" x2="100%" y2="0" strokeWidth={1}/>
+                            <line stroke="5, 5" x1="0" y1="100%" x2="100%" y2="0" strokeWidth={1} />
                         </svg>
                     </div>
                 </ButtonBase>

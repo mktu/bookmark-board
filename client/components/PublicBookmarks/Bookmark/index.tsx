@@ -3,11 +3,13 @@ import Card from './Card'
 import ListItem from './ListItem'
 
 type Props = {
-    bookmark : Bookmark
+    bookmark : Bookmark,
+    color ?: BookmarkColorDescription
 }
 
 const Bookmark : React.FC<Props> = ({
-    bookmark
+    bookmark,
+    color
 })=>{
     const [cardView, setCardView] = useState(false)
     return (
@@ -17,7 +19,7 @@ const Bookmark : React.FC<Props> = ({
                     setCardView(false)
                 }}/> 
             ) : (
-                <ListItem bookmark={bookmark} showDetail={()=>{
+                <ListItem bookmark={bookmark} color={color} showDetail={()=>{
                     setCardView(true)
                 }}/>
             )}
