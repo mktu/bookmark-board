@@ -95,12 +95,14 @@ const UrlImage: React.FC<Props> = ({
                 <>{fallback}</>
             )
         }
+        const w = toNumber(width)
+        const h = toNumber(height)
         return (
             <div className={classNames(styles['url-image-wrapper'], className)} style={{
                 width,
                 height
             }}>
-                <PlaceHolderImg width={width} height={height} />
+                <PlaceHolderImg width={w} height={h} />
             </div>
         )
     }

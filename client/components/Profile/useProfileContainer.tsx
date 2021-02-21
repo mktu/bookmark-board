@@ -53,7 +53,7 @@ const useProfileContainer = () => {
                 toast.error(e.name)
             })
         }
-    },[file])
+    },[file,clientService,profile.id,upload])
     return {
         profile,
         progress,

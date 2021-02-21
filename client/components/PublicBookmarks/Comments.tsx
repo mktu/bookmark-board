@@ -7,7 +7,8 @@ import { SvgIconButton, HeartButton } from '../Common/Button'
 import { PopoverDivContainer } from '../Common/Popover'
 import { UserPopover } from '../PopoverMenu'
 import { useProfile } from '../../modules/profileSlice'
-import Avatar from '../Common/Avatar/AvatarImage'
+import Avatar from '../Common/Avatar/NextImage'
+import Initial from '../Common/Avatar/Initial'
 import FirebaseContext from '../../context/FirebaseContext'
 
 type Props = {
@@ -39,7 +40,17 @@ const Comments: React.FC<Props> = ({
                     <div key={c.id} className='flex items-center p-2 border-b'>
                         <PopoverDivContainer content={senders[c.sender] && <UserPopover user={senders[c.sender]} />}>
                             <SvgIconButton aria-label='User'>
-                                <Avatar src={senders[c.sender]?.image} width='40px' height='40px' name={senders[c.sender]?.name} />
+                                <Avatar
+                                    src={senders[c.sender]?.image}
+                                    width={40}
+                                    height={40}
+                                    name={senders[c.sender]?.name}
+                                    fallback={<Initial
+                                        width={40}
+                                        height={40}
+                                        name={senders[c.sender]?.name}
+                                    />}
+                                />
                             </SvgIconButton>
                         </PopoverDivContainer>
                         <div className='px-2 text-sm text-primary-main'>

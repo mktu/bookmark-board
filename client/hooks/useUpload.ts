@@ -3,7 +3,7 @@ import FirebaseContext from '../context/FirebaseContext'
 import { toast } from 'react-toastify';
 import Compressor from 'compressorjs';
 
-const useUpload = ()=>{
+const useUpload = (quality=0.3)=>{
     const { clientService } = useContext(FirebaseContext)
     const [file,setFile] = useState<Blob>()
     const fileUrl = (file && URL.createObjectURL(file))
@@ -21,7 +21,7 @@ const useUpload = ()=>{
     },[])
     const upload = useCallback((path:string, onSuccess:(url:string)=>void, onError?:(error:Error)=>void) => {
         new Compressor(file, {
-            quality: 0.3,
+            quality,
             success: (result) => {
                 setProgress(0)
                 clientService.uploadFile(
@@ -38,7 +38,31 @@ const useUpload = ()=>{
                 )
             }
         })
-    },[file,clientService])
+    },[file,clientService,quality])
+
+    const uploadP = useCallback((path:string) => 
+    new Promise<string>((resolve,reject)=>{
+        new Compressor(file, {
+            quality,
+            success: (result) => {
+                setProgress(0)
+                clientService.uploadFile(
+                    path,
+                    result,
+                    (url)=>{
+                        resolve(url)
+                    },
+                    (progress) => {
+                        setProgress(Math.round(progress))
+                    },
+                    (e) => {
+                        setError(e)
+                        reject(e)
+                    }
+                )
+            }
+        })
+    }),[file,clientService,quality])
 
     return {
         file,
@@ -46,7 +70,8 @@ const useUpload = ()=>{
         progress,
         handleChangeFile,
         error,
-        upload
+        upload,
+        uploadP
     }
 }
 

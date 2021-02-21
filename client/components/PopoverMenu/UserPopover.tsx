@@ -1,4 +1,5 @@
-import Avatar from '../Common/Avatar/AvatarImage'
+import Avatar from '../Common/Avatar/NextImage'
+import Initial from '../Common/Avatar/Initial'
 import { TwitterUrl } from '../../utils/constants'
 import { TwitterImage } from '../Common/Image'
 
@@ -12,7 +13,17 @@ const UserPopover: React.FC<Props> = ({
     return (
         <div className='bg-white opacity-80 rounded shadow-lg border border-primary-border font-semibold p-3 flex'>
             <div>
-                <Avatar height='48px' width='48px' src={user.image} name={user.name} />
+                <Avatar
+                    height={48}
+                    width={48}
+                    src={user.image}
+                    name={user.name}
+                    fallback={<Initial
+                        height={48}
+                        width={48}
+                        name={user.name}
+                    />}
+                />
             </div>
             <div className='ml-2 w-full'>
                 <div className='text-primary-dark flex items-center w-ful'>

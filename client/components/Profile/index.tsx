@@ -5,15 +5,11 @@ import TextArea from '../Common/Input/TextArea'
 import { Label } from '../Common/Label'
 import { TwitterImage } from '../Common/Image'
 import { ContainedButton } from '../Common/Button'
-import Avatar from '../Common/Avatar/AvatarImage'
+import Avatar from '../Common/Avatar/NextImage'
 import useProfileContainer from './useProfileContainer'
 import { TwitterUrl } from '../../utils/constants'
 
-type Props = {
-
-}
-
-const Profile: React.FC<Props> = () => {
+const Profile: React.FC = () => {
     const {
         profile,
         progress,
@@ -28,7 +24,11 @@ const Profile: React.FC<Props> = () => {
         <div className='w-full h-full p-6'>
             <div className='w-full md:flex'>
                 <div className='flex flex-col items-center'>
-                    <Avatar src={profile.image} width='192px' height='192px' name={profile.name} usePlaceholder />
+                    <Avatar 
+                        src={profile.image} 
+                        width={192} 
+                        height={192} 
+                        name={profile.name} />
                     <div className='flex items-center justify-center p-4'>
                         {status === 'loading' && (
                             <label className='py-2 px-4 text-primary-300 rounded border'>

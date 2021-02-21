@@ -1,11 +1,12 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { SvgIconButton, SvgFillIconButton, ButtonBase } from '../../Common/Button'
-import { FolderOpen, Share as ShareIcon, UserAddFill, ArrowLeft } from '../../Common/Icon'
+import { Share as ShareIcon, UserAddFill, ArrowLeft } from '../../Common/Icon'
 import { TooltipDivContainer } from '../../Common/Tooltip'
 import { PopoverDivContainer } from '../../Common/Popover'
 import { UserPopover } from '../../PopoverMenu'
-import Avatar from '../../Common/Avatar'
+import Avatar from '../../Common/Avatar/NextImage'
+import Initial from '../../Common/Avatar/Initial'
 import { useRequestsByGroup } from '../../../modules/requestSlice'
 
 import RequestUsers from './RequestUsers'
@@ -20,7 +21,7 @@ const Header: React.FC<Props> = ({
 }) => {
     const router = useRouter()
     const { group, editors } = useBookmarkGroup(groupId)
-    
+
     const requests = useRequestsByGroup(group?.id)
     if (!group) {
         return <div />
@@ -29,14 +30,14 @@ const Header: React.FC<Props> = ({
         localStorage.removeItem('groupId')
         router.push(`/bookmarks`, `/bookmarks`, { shallow: true })
     }
-    const jumpTo = (place:string)=>()=>{
+    const jumpTo = (place: string) => () => {
         router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}/${place}`)
     }
+
     return (
         <div className='h-full w-full px-2 py-2 border-b border-primary-border md:flex md:items-center' >
             <div className='flex items-center max-w-full overflow-hidden' >
                 <div className='flex items-center'>
-                    <FolderOpen strokeWidth={1.0} className='hidden md:inline-block md:w-8' />
                     <SvgIconButton className='md:hidden' onClick={handleBack}>
                         <ArrowLeft strokeWidth={1.0} className='w-6' />
                     </SvgIconButton>
@@ -49,7 +50,6 @@ const Header: React.FC<Props> = ({
                         {group.description}
                     </div>
                 </ButtonBase>
-
             </div>
 
             <div className='ml-auto flex items-center justify-end'>
@@ -66,7 +66,17 @@ const Header: React.FC<Props> = ({
                 {editors.map(e => (
                     <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='px-1 flex items-center'>
                         <SvgIconButton aria-label='Show User'>
-                            <Avatar src={e.image} width='32px' height='32px' name={e.name} />
+                            <Avatar
+                                src={e.image}
+                                width={32}
+                                height={32}
+                                name={e.name}
+                                fallback={<Initial
+                                    width={32}
+                                    height={32}
+                                    name={e.name}
+                                />}
+                            />
                         </SvgIconButton>
                     </PopoverDivContainer>
                 ))}
@@ -77,7 +87,7 @@ const Header: React.FC<Props> = ({
                 </TooltipDivContainer>
             </div>
 
-            
+
         </div >
     )
 }

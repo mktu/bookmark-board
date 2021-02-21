@@ -7,7 +7,7 @@ import { useRefinementById } from '../modules/groupRefinementSlice'
 import FirebaseContext from '../context/FirebaseContext'
 import { saveRefinement } from '../utils/localStorages/group'
 
-const createKey = ()=>Math.random().toString(32).substring(2)
+const createKey = () => Math.random().toString(32).substring(2)
 
 const defaultColors: BookmarkColors = [
     ['#EF4511', 'グループ1'],
@@ -75,7 +75,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         return Object.keys(group.colors).sort((a, b) => {
             return group.colors[a].idx - group.colors[b].idx
         }).map(c => ({
-            id:c,
+            id: c,
             ...group.colors[c],
         }))
     }, [group?.colors])
@@ -100,9 +100,9 @@ export const useBookmarkGroup = (groupId?: string) => {
         const colors = { ...group.colors }
         if (colors[id]) {
             colors[id] = { ...colors[id], ...data }
-            merge({colors})
+            merge({ colors })
         }
-    },[group?.colors,merge])
+    }, [group?.colors, merge])
 
     const handleChangeColorIndex = useCallback((id: string, next: number) => {
         const indecies = colors.map(c => ({ id: c.id, remove: id === c.id }))
@@ -112,18 +112,18 @@ export const useBookmarkGroup = (groupId?: string) => {
             acc[cur].idx = idx
             return acc
         }, { ...group.colors })
-        merge({colors: update})
-    },[colors,group?.colors,merge])
+        merge({ colors: update })
+    }, [colors, group?.colors, merge])
 
     const handleAddColor = useCallback((name: string, color: string) => {
-        if (group.colors && Object.keys(group.colors).find(v=>group.colors[v].color===color) ) {
+        if (group.colors && Object.keys(group.colors).find(v => group.colors[v].color === color)) {
             toast.warn('すでにこの色は登録されています')
             return
         }
         const idx = Object.keys(group?.colors).length
         const colors = { ...group?.colors, [createKey()]: { name, color, idx } }
         merge({ colors })
-    },[group?.colors, merge])
+    }, [group?.colors, merge])
 
     const handleDeleteColors = useCallback((deleteColors: string[]) => {
         const colors = { ...group.colors }
@@ -133,9 +133,9 @@ export const useBookmarkGroup = (groupId?: string) => {
             }
         }
         merge({ colors })
-    },[group?.colors,merge])
+    }, [group?.colors, merge])
 
-    const hasChange = useMemo(()=>Object.keys(update).length > 0,[update])
+    const hasChange = useMemo(() => Object.keys(update).length > 0, [update])
     const handleSubmit = useCallback((notifier?: Notifier) => {
         if (!hasChange) {
             return
@@ -143,7 +143,18 @@ export const useBookmarkGroup = (groupId?: string) => {
         clientService.modifyGroup(groupId, update, () => {
             notifier()
         })
-    },[clientService,update,hasChange,groupId])
+    }, [clientService, update, hasChange, groupId])
+    const handleSubmitP = useCallback((partial?:Partial<BookmarkGroup>) =>
+        new Promise<void>((resolve,reject) => {
+            if (!hasChange && !partial) {
+                return
+            }
+            const data = partial ? {...update,...partial} : update
+            clientService.modifyGroup(groupId, data, () => {
+                resolve()
+            }, reject)
+        })
+        , [clientService, update, hasChange, groupId])
 
     return {
         group,
@@ -157,6 +168,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         handleDeleteColors,
         handleChangeColorIndex,
         handleSubmit,
+        handleSubmitP,
         hasChange
     }
 }

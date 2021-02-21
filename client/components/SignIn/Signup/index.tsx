@@ -5,7 +5,7 @@ import TextArea from '../../Common/Input/TextArea'
 import TextInput from '../../Common/Input/TextInput'
 import { ContainedButton, OutlinedButton } from '../../Common/Button'
 import { SigninImg, LoadingImg } from '../../Common/Image'
-import Avatar from '../../Common/Avatar/AvatarImage'
+import Avatar from '../../Common/Avatar/NextImage'
 import { toast } from 'react-toastify';
 import useUpload from '../../../hooks/useUpload'
 
@@ -75,7 +75,7 @@ const Signup: React.FC<Props> = ({
                 <p className='text-base text-primary-main mb-4'>ニックネームを登録し、早速始めましょう</p>
                 <div className='md:flex w-full'>
                     <div className='flex flex-col items-center p-2'>
-                        <Avatar width='128px' height='128px' src={fileUrl} disableNextImage usePlaceholder />
+                        <Avatar width={128} height={128} src={fileUrl} disableNextImage />
                         <label className='my-2 py-2 px-4 cursor-pointer rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark' htmlFor='file-upload'>
                             画像を変更
                         <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />

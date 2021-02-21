@@ -1,11 +1,9 @@
 import UrlImage from './UrlImage'
-import GroupImage from './GroupImage'
-import AvatarImage from './AvatarImage'
+import NextImage from './NextImage'
 
-export default AvatarImage
+export default NextImage
 
 export {
     UrlImage,
-    GroupImage,
-    AvatarImage
+    NextImage
 }
