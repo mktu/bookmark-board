@@ -18,14 +18,14 @@ const VisibilityOption: React.FC<Props> = ({
             
             {colors.map(c => {
                 const [r, g, b] = hex2rgb(c.color)
-                const show = !colorMasks.includes(c.color)
+                const show = !colorMasks.includes(c.id)
                 return (
                     <div key={c.color}>
                         <label className='flex cursor-pointer items-center mt-2 text-sm font-semibold' htmlFor={c.color}>
                             <input id={c.color} type='checkbox' className='block mr-2 hover:bg-primary-50'
                                 checked={show}
                                 onChange={(e) => {
-                                    updateColorFilters([{ color: c.color, show: e.target.checked }])
+                                    updateColorFilters([{ color: c.id, show: e.target.checked }])
                                 }} />
                             <span className='mr-2'>{c.name}</span>
                             <div className='ml-auto'>

@@ -108,7 +108,7 @@ const UrlImage: React.FC<Props> = ({
     }
     return (
         <div className={styles['url-image-wrapper']} style={style}>
-            <img alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
+            <img width={width} alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
                 if (useEndpoint) {
                     setUseEndpoint(false)
                     onError && onError(true)
