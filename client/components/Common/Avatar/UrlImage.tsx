@@ -1,7 +1,5 @@
 import React, { useState } from 'react'
-import styles from './index.module.scss'
 import { PlaceHolderImg } from '../Image'
-import classNames from 'classnames'
 
 type Props = {
     src?: string,
@@ -98,7 +96,7 @@ const UrlImage: React.FC<Props> = ({
         const w = toNumber(width)
         const h = toNumber(height)
         return (
-            <div className={classNames(styles['url-image-wrapper'], className)} style={{
+            <div className={className} style={{
                 width,
                 height
             }}>
@@ -107,8 +105,8 @@ const UrlImage: React.FC<Props> = ({
         )
     }
     return (
-        <div className={styles['url-image-wrapper']} style={style}>
-            <img width={width} alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
+        <div className={className} style={style}>
+            <img width={width} height={height} alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
                 if (useEndpoint) {
                     setUseEndpoint(false)
                     onError && onError(true)
