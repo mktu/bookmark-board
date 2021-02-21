@@ -1,7 +1,8 @@
 import React, { useContext } from 'react'
 import { useUserById } from '../../../modules/usersSlice'
 import { useGroupById } from '../../../modules/groupSlice'
-import Avatar from '../../Common/Avatar'
+import Avatar from '../../Common/Avatar/NextImage'
+import Initial from '../../Common/Avatar/Initial'
 import { TextButton, ContainedButton } from '../../Common/Button'
 import FirebaseContext from '../../../context/FirebaseContext'
 
@@ -17,7 +18,17 @@ const ListItem: React.FC<{ request: BookmarkRequest }> = ({
     const group = useGroupById(request.groupId)
     return (
         <div className='flex items-center'>
-            <Avatar src={user.image} width='32px' height='32px' name={user.name}/>
+            <Avatar
+                src={user.image}
+                width={32}
+                height={32}
+                name={user.name}
+                fallback={<Initial
+                    width={32}
+                    height={32}
+                    name={user.name}
+                />}
+            />
             <div className='mx-2 text-primary-main'>
                 {user.name}
             </div>
