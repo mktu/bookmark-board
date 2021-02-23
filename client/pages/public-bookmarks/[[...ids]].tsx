@@ -24,6 +24,8 @@ const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProp
       <Head>
         <title>{group.name} - {AppName}</title>
         <meta property="og:title" content={group.name} />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content={`https://our-bookmarks.vercel.app/public-bookmarks/${group.id}`} />
         <meta property="og:description" content={group.description || ''} />
         <meta property="og:image" content={`https://og-image-lilac-kappa.vercel.app/${group.name}%20@${profile.name}`} />
         <meta property="og:site_name" content={group.name} />
