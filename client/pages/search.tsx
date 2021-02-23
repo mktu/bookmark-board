@@ -10,7 +10,7 @@ export default function BookmarksPage() {
     return (
         <div>
             <Head>
-                <title>Create Next App</title>
+                <title>Bookmark 検索</title>
             </Head>
             <RequireSignedIn>
                 <AppLayout

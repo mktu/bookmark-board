@@ -7,7 +7,7 @@ export default function Signin() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Signin</title>
       </Head>
       <RequireNotSigned>
         <SignIn />

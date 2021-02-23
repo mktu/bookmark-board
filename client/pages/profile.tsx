@@ -10,7 +10,7 @@ export default function ProfilePage() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>プロファイル</title>
       </Head>
       <RequireSignedIn>
         <AppLayout

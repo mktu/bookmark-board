@@ -11,7 +11,7 @@ export default function BookmarksPage() {
   return (
     <div>
       <Head>
-        <title>Create Next App</title>
+        <title>Bookmarkの編集</title>
       </Head>
       <RequireSignedIn>
         <DndProvider>
