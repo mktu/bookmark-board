@@ -29,7 +29,7 @@ const Presenter: React.FC<Props> = ({
             {error && (
                 <div className='text-secondary-main text-xs px-4 py-2'>{error}</div>
             )}
-            <div className='overflow-scroll h-full'>
+            <div className='overflow-y-auto h-full'>
                 {groupList}
             </div>
         </div>
