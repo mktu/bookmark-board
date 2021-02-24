@@ -27,13 +27,13 @@ const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProp
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`https://our-bookmarks.vercel.app/public-bookmarks/${group.id}`} />
         <meta property="og:description" content={group.description || ''} />
-        <meta property="og:image" content={`https://og-image-lilac-kappa.vercel.app/<h3>${group.name}</h3>%40${profile.name}?md=1`} />
+        <meta property="og:image" content={`https://og-image-lilac-kappa.vercel.app/<h3>${group.name}</h3>%40${profile.name}.png?md=1`} />
         <meta property="og:site_name" content={group.name} />
         <meta name="twitter:title" content={group.name} />
         <meta name="twitter:site" content='' />
         <meta name="twitter:card" content='summary_large_image' />
         <meta name="twitter:description" content={group.description || ''} />
-        <meta name="twitter:image" content={`https://og-image-lilac-kappa.vercel.app/<h3>${group.name}</h3>%40${profile.name}?md=1`} />
+        <meta name="twitter:image" content={`https://og-image-lilac-kappa.vercel.app/<h3>${group.name}</h3>%40${profile.name}.png?md=1`} />
       </Head>
       <PublicLayout
         header={<Header />}
