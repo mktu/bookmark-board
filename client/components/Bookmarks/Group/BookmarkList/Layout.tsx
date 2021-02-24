@@ -18,7 +18,7 @@ const Layout: React.FC<Props> = ({
                 <div className='w-full'>
                     {refinements}
                 </div>
-                <div className='overflow-scroll w-full px-2 flex-1'>
+                <div className='overflow-y-auto w-full px-2 flex-1'>
                     {bookmarkIds.map((id, idx) => (
                         <div key={id}>
                             {renderBookmark(id, idx)}

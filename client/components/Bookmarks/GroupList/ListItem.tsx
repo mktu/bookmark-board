@@ -25,14 +25,14 @@ const ListItem: React.FC<Props> = ({
     return (
         <button ref={attachDnDRef} onClick={() => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${bookmarkGroup.id}`, { shallow: true })
-        }} className={classNames(`w-full flex text-primary-main items-center p-2 cursor-pointer hover:text-primary-dark hover:bg-primary-hover focus:outline-none ${selected && 'bg-primary-hover'}`,
+        }} className={classNames(`w-full overflow-hidden flex text-primary-main items-center p-2 cursor-pointer hover:text-primary-dark hover:bg-primary-hover focus:outline-none ${selected && 'bg-primary-hover'}`,
             isBookmarkOver && 'border-dotted border-primary-main border-2',
             dragging && 'hidden'
         )}>
             <div>
                 <FolderOpen className='w-8 stroke-primary-main' strokeWidth={1} />
             </div>
-            <div className='ml-2'>{bookmarkGroup.name}</div>
+            <div className='ml-2  truncate'>{bookmarkGroup.name}</div>
         </button>
     )
 }
