@@ -96,10 +96,13 @@ const selectBookmarksByKeyword = createSelector(
     (bookmarks, keyword) => {
         return bookmarks.filter(b => {
             if (!keyword) return true
-
-            return b.title?.includes(keyword)
-                || b.description?.includes(keyword)
-                || b.comment?.includes(keyword)
+            const lowercaseKeyword = keyword.toLocaleLowerCase()
+            const matchTitle = b.title && b.title.toLocaleLowerCase().includes(lowercaseKeyword)
+            const matchDescription = b.description && b.description.toLocaleLowerCase().includes(lowercaseKeyword)
+            const matchComment = b.comment && b.comment.toLocaleLowerCase().includes(lowercaseKeyword)
+            return matchTitle
+                || matchDescription
+                || matchComment
 
         })
     }
