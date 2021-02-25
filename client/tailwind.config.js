@@ -21,7 +21,8 @@ module.exports = {
       }),
       fill: theme => ({
         primary: theme('colors.primary'),
-        secondary: theme('colors.secondary')
+        secondary: theme('colors.secondary'),
+        white: theme('colors.white'),
       }),
       colors: {
         brand: '#293239',

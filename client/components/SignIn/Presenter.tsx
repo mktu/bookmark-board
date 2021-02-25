@@ -1,6 +1,7 @@
 import React from 'react'
 import { BookmarksSigninImg, GoogleSignInImg } from '../Common/Image'
-import { Logo } from '../Common/Logo'
+import Logo from '../Common/Logo/Logo'
+import { AppName } from '../../utils/constants'
 
 type Props = {
     handleSignin : ()=>void,
@@ -15,10 +16,10 @@ const Presenter = ({
         <div className='w-screen h-screen flex flex-col md:flex-row'>
             <div className='w-full md:w-7/12 h-full flex flex-col items-center justify-center p-4'>
                 <div>
-                    <Logo width='300px' height='40px'/>
+                    <Logo theme='dark' size='lg'/>
                 </div>
                 <p className='p-4 md:w-6/12 text-sm my-8'>
-                    OUR-BOOKMARKSでは、気に入ったWEBサイトなどのリンクを保存し、管理することができます。保存したURLは友達や仕事仲間と共有し、ブックマークリストを一緒に成長させましょう！
+                    {AppName}では、気に入ったWEBサイトなどのリンクを保存し、管理することができます。保存したURLは友達や仕事仲間と共有し、ブックマークリストを一緒に成長させましょう！
                 </p>
                 <button className='md:hidden mb-16 flex items-center shadow bg-white p-1 rounded' onClick={handleSignin}>
                     <GoogleSignInImg className='inline-block'/> 

@@ -2,7 +2,7 @@ import React from 'react'
 import classNames from 'classnames'
 import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import { HeaderLogo } from '../Common/Logo'
+import HeaderLogo from '../Common/Logo/Logo'
 import Book from '../Common/Icon/Book'
 import Login from '../Common/Icon/Login'
 import User from '../Common/Icon/User'
@@ -22,7 +22,7 @@ const Header = () => {
                 <ButtonBase aria-label='Home' onClick={() => {
                     router.push('/')
                 }}>
-                    <HeaderLogo width='200px' height='30px'/>
+                    <HeaderLogo theme='light' size='sm'/>
                 </ButtonBase>
                 <div className="ml-auto">
                     {profile.id ? (
