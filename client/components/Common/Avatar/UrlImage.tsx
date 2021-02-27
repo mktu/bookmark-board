@@ -104,6 +104,8 @@ const UrlImage: React.FC<Props> = ({
             </div>
         )
     }
+    //width: 100%; height: auto
+    // https://parashuto.com/rriver/development/img-size-attributes-are-back
     return (
         <div className={className} style={style}>
             <img width={width} height={height} alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
@@ -114,7 +116,7 @@ const UrlImage: React.FC<Props> = ({
                     setError(true)
                     onError && onError()
                 }
-            }} srcSet={srcset} />
+            }} srcSet={srcset} className='w-full h-auto'/>
         </div>
     )
 }
