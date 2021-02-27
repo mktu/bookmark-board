@@ -18,13 +18,13 @@ const PublickBookmarkMeta : React.FC<Props> = ({
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${getOrigin()}/public-bookmarks/${group.id}`} />
         <meta property="og:description" content={group.description || ''} />
-        <meta property="og:image" content={`https://og-image-lilac-kappa.vercel.app/${group.name}.png?author=${profile.name}`} />
+        <meta property="og:image" content={`https://og-image-lilac-kappa.vercel.app/${group.name}.png?author=${profile.name}&theme=dark`} />
         <meta property="og:site_name" content={AppName} />
         <meta name="twitter:title" content={`${group.name} | ${AppName}`} />
         <meta name="twitter:site" content='' />
         <meta name="twitter:card" content='summary_large_image' />
         <meta name="twitter:description" content={group.description || ''} />
-        <meta name="twitter:image" content={`https://og-image-lilac-kappa.vercel.app/${group.name}.png?author=${profile.name}`} />
+        <meta name="twitter:image" content={`https://og-image-lilac-kappa.vercel.app/${group.name}.png?author=${profile.name}&theme=dark`} />
       </Head>
 )
 
