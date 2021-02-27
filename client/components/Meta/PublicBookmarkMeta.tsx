@@ -14,6 +14,7 @@ const PublickBookmarkMeta : React.FC<Props> = ({
 }) =>(
     <Head>
         <title>{group.name} | {AppName}</title>
+        <meta name='description' content={group.description || ''} />
         <meta property="og:title" content={`${group.name} | ${AppName}`} />
         <meta property="og:type" content="website" />
         <meta property="og:url" content={`${getOrigin()}/public-bookmarks/${group.id}`} />
