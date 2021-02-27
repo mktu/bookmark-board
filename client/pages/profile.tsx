@@ -1,17 +1,15 @@
 import React from 'react'
-import Head from 'next/head'
 import Profile from '../components/Profile'
 import { AppLayout } from '../components/Layout'
 import Sidebar from '../components/Sidebar'
 import Header from '../components/Header'
+import AppMeta from '../components/Meta/AppMeta'
 import {RequireSignedIn} from '../components/App'
 
 export default function ProfilePage() {
   return (
     <div>
-      <Head>
-        <title>プロファイル</title>
-      </Head>
+      <AppMeta title='プロファイル' path='profile'/>
       <RequireSignedIn>
         <AppLayout
           sidebar={<Sidebar />}

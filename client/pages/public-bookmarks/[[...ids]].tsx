@@ -1,11 +1,10 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import Head from 'next/head'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import { PublicLayout } from '../../components/Layout'
 import Header from '../../components/Header'
 import PublicBookmarks from '../../components/PublicBookmarks'
-import { AppName } from '../../utils/constants'
+import PublicBookmarkMeta from '../../components/Meta/PublicBookmarkMeta'
 
 const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   group,
@@ -21,20 +20,7 @@ const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProp
   }
   return (
     <div>
-      <Head>
-        <title>{group.name} - {AppName}</title>
-        <meta property="og:title" content={group.name} />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content={`https://our-bookmarks.vercel.app/public-bookmarks/${group.id}`} />
-        <meta property="og:description" content={group.description || ''} />
-        <meta property="og:image" content={`https://og-image-lilac-kappa.vercel.app/${group.name}.png?author=${profile.name}`} />
-        <meta property="og:site_name" content={group.name} />
-        <meta name="twitter:title" content={group.name} />
-        <meta name="twitter:site" content='' />
-        <meta name="twitter:card" content='summary_large_image' />
-        <meta name="twitter:description" content={group.description || ''} />
-        <meta name="twitter:image" content={`https://og-image-lilac-kappa.vercel.app/${group.name}.png?author=${profile.name}`} />
-      </Head>
+      <PublicBookmarkMeta {...{group,profile}}/>
       <PublicLayout
         header={<Header />}
         main={<PublicBookmarks group={group} bookmarks={bookmarks} editor={profile} />}

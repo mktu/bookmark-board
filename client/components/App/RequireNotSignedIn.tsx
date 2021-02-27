@@ -16,7 +16,7 @@ const RequireNotSignedIn = ({ children }: Props) => {
         if (profileState === 'loaded') {
             router.push('/bookmarks')
         }
-    }, [profileState])
+    }, [profileState,router])
 
     if (authState === 'failed' || authState === 'loaded') {
         return (

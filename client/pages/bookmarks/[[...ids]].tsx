@@ -1,18 +1,16 @@
 import React from 'react'
-import Head from 'next/head'
 import Bookmarks from '../../components/Bookmarks'
 import DndProvider from '../../components/Provider/DndProvider'
 import { AppLayout } from '../../components/Layout'
 import Sidebar from '../../components/Sidebar'
 import Header from '../../components/Header'
+import AppMeta from '../../components/Meta/AppMeta'
 import { RequireSignedIn } from '../../components/App'
 
 export default function BookmarksPage() {
   return (
     <div>
-      <Head>
-        <title>Bookmarkの編集</title>
-      </Head>
+      <AppMeta title='編集' path='bookmarks'/>
       <RequireSignedIn>
         <DndProvider>
           <AppLayout

@@ -21,6 +21,9 @@ export const removeUndefined = (obj: { [key: string]: unknown }) => {
     }, {})
 }
 
+export const getProtocol = (host:string) => /^localhost(:\d+)?$/.test(host) ? 'http:' : 'https:'
+export const getOrigin = ()=> `${getProtocol(process.env.NEXT_PUBLIC_VERCEL_URL)}//${process.env.NEXT_PUBLIC_VERCEL_URL}`
+
 export {
     hex2rgb
 }
