@@ -1,6 +1,7 @@
 import React from 'react'
 import { TextButton } from '../../../../Common/Button/index'
-import { useBookmarkGroup, useRefinements } from '../../../../../hooks/useBookmarkGroup'
+import { useBookmarkColor } from '../../../../../hooks/useBookmarkColor'
+import { useRefinements } from '../../../../../hooks/useBookmarkRefinement'
 import { hex2rgb } from '../../../../../utils'
 type Props = {
     groupId: string,
@@ -11,7 +12,7 @@ const Selector: React.FC<Props> = ({
     groupId,
     handleSelectColor
 }) => {
-    const { colors } = useBookmarkGroup(groupId)
+    const { colors } = useBookmarkColor(groupId)
     const { colorMasks } = useRefinements(groupId)
     return (
         <div className='bg-white p-4 rounded shadow-lg border border-primary-border flex flex-col justify-start align-middle'>

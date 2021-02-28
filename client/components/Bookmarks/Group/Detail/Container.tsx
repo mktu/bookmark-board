@@ -12,12 +12,12 @@ import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
 import Presenter from './Presenter'
 
 type Props = {
-    group?: BookmarkGroup,
+    groupId: string,
     onClose: () => void
 }
 
 const Container: React.FC<Props> = ({
-    group,
+    groupId,
     onClose
 }) => {
     const profile = useProfile()
@@ -26,10 +26,10 @@ const Container: React.FC<Props> = ({
         updateGroup,
         handleRemoveUser,
         handleDeleteGroup,
-        handleSubmitP,
+        handleSubmit,
         hasChange,
-        group: editGroup
-    } = useBookmarkGroup(group?.id)
+        group
+    } = useBookmarkGroup(groupId)
 
 
     const editorComponents = useMemo(() => {
@@ -65,19 +65,19 @@ const Container: React.FC<Props> = ({
     ), [profile.id, group.owner, group.name, handleDeleteGroup])
 
     const title = useMemo(() => (
-        <TextInput label='グループ名' id='groupName' value={editGroup.name} onChange={(e) => { updateGroup('name')(e.target.value) }} />
-    ), [editGroup.name, updateGroup])
+        <TextInput label='グループ名' id='groupName' value={group.name} onChange={(e) => { updateGroup('name')(e.target.value) }} />
+    ), [group.name, updateGroup])
 
     const description = useMemo(() => (
-        <TextArea label='説明' id='description' value={editGroup.description || ''} minRows={4} border='outlined' onChange={(e) => {
+        <TextArea label='説明' id='description' value={group.description || ''} minRows={4} border='outlined' onChange={(e) => {
             updateGroup('description')(e.target.value)
         }} />
-    ), [editGroup.description, updateGroup])
+    ), [group.description, updateGroup])
 
     const update = (
         <ContainedButton disabled={!hasChange} onClick={async () => {
             try {
-                await handleSubmitP()
+                await handleSubmit()
                 onClose()
             } catch (error) {
                 console.error(error)

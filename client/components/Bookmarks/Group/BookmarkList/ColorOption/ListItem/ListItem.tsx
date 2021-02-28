@@ -2,14 +2,14 @@ import React from 'react'
 import TextInput from '../../../../../Common/Input/TextInput'
 import { OutlinedButton } from '../../../../../Common/Button'
 import { useHoverable } from '../../../../../../hooks/useBookmarkColorDnd'
-import { useBookmarkGroup } from '../../../../../../hooks/useBookmarkGroup'
+import { useBookmarkColor } from '../../../../../../hooks/useBookmarkColor'
 
 
 type Props = {
     description: BookmarkColorDescription,
     listIndex: number,
     id: string,
-    updateColor: ReturnType<typeof useBookmarkGroup>['updateColor']
+    updateColor: ReturnType<typeof useBookmarkColor>['updateColor']
     handleDelete: (color: string) => void,
     onHover: (idx: number) => void
 }

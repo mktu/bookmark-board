@@ -50,11 +50,11 @@ const Group: React.FC<Props> = ({
             <>
                 <DefaultSize>
                     <DetailDialog open onClose={jumpToGroupRoot}>
-                        <Detail group={group} onClose={jumpToGroupRoot} />
+                        <Detail groupId={groupId} onClose={jumpToGroupRoot} />
                     </DetailDialog>
                 </DefaultSize>
                 <MobileSize>
-                    <Detail group={group} onClose={jumpToGroupRoot} />
+                    <Detail groupId={groupId} onClose={jumpToGroupRoot} />
                 </MobileSize>
             </>
         ),
@@ -62,11 +62,11 @@ const Group: React.FC<Props> = ({
             <>
                 <DefaultSize>
                     <ShareDialog open onClose={jumpToGroupRoot}>
-                        <Share sharable={Boolean(group?.sharable)} id={groupId} />
+                        <Share groupId={groupId} onClose={jumpToGroupRoot}/>
                     </ShareDialog>
                 </DefaultSize>
                 <MobileSize>
-                    <Share sharable={Boolean(group?.sharable)} id={groupId} />
+                    <Share groupId={groupId} onClose={jumpToGroupRoot}/>
                 </MobileSize>
             </>
         ),

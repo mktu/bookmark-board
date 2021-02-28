@@ -1,6 +1,6 @@
 import React, {useState, useMemo} from 'react'
 import { ContainedButton, OutlinedButton } from '../../../../Common/Button'
-import { useBookmarkGroup } from '../../../../../hooks/useBookmarkGroup'
+import { useBookmarkColor } from '../../../../../hooks/useBookmarkColor'
 import ColorInput from './ColorInput'
 import ColorItem from './ListItem'
 import Presenter from './Presenter'
@@ -21,7 +21,7 @@ const Container: React.FC<Props> = ({
         handleAddColor,
         handleChangeColorIndex,
         handleDeleteColors,
-        handleSubmit } = useBookmarkGroup(groupId)
+        handleSubmit } = useBookmarkColor(groupId)
     const [hover,setHover] = useState(-1)
     const colorList = useMemo(()=>colors.map((c,idx) => <ColorItem
         key={c.id}
@@ -38,9 +38,7 @@ const Container: React.FC<Props> = ({
     />), [colors, handleDeleteColors, handleChangeColorIndex,hover,updateColor])
     const input = useMemo(()=><ColorInput handleAddColor={handleAddColor} />,[handleAddColor])
     const submit = useMemo(()=>(<ContainedButton disabled={!hasChange} onClick={() => {
-        handleSubmit(() => {
-            onClose()
-        })
+        handleSubmit().then(onClose)
     }} >変更を保存</ContainedButton>),[handleSubmit,onClose,hasChange])
     const cancel = (<OutlinedButton onClick={() => {
         onClose()

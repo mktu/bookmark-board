@@ -46,6 +46,7 @@ declare type BookmarkGroup = {
     id: string,
     idx: number,
     sharable?: boolean, // todo requires,
+    searchable?:boolean,
     imageUrl?: string,
     lastUpdate?: number,
     colors?: BookmarkColors

@@ -116,7 +116,7 @@ const UrlImage: React.FC<Props> = ({
                     setError(true)
                     onError && onError()
                 }
-            }} srcSet={srcset} className='w-full h-auto'/>
+            }} srcSet={srcset} style={{width:'100%', height:'auto'}}/>
         </div>
     )
 }

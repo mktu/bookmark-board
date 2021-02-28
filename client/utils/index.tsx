@@ -1,12 +1,5 @@
 import { hex2rgb } from './rgb'
-
-export const copyToClipBoard = (value: string, onSucceeded: Notifier) => {
-    if (navigator && navigator.clipboard) {
-        navigator.clipboard.writeText(value).then(() => {
-            onSucceeded()
-        });
-    }
-}
+import { copyToClipBoard } from './clipboard'
 
 export const numberToDateTime = (time?: number) => {
     if (!time) return ''
@@ -25,5 +18,6 @@ export const getProtocol = (host:string) => /^localhost(:\d+)?$/.test(host) ? 'h
 export const getOrigin = ()=> `${getProtocol(process.env.NEXT_PUBLIC_VERCEL_URL)}//${process.env.NEXT_PUBLIC_VERCEL_URL}`
 
 export {
-    hex2rgb
+    hex2rgb,
+    copyToClipBoard
 }

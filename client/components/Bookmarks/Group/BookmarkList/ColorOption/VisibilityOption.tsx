@@ -1,5 +1,6 @@
 import React from 'react'
-import { useBookmarkGroup, useRefinements } from '../../../../../hooks/useBookmarkGroup'
+import { useBookmarkColor } from '../../../../../hooks/useBookmarkColor'
+import { useRefinements } from '../../../../../hooks/useBookmarkRefinement'
 import Link from 'next/link'
 import { hex2rgb } from '../../../../../utils'
 type Props = {
@@ -9,7 +10,7 @@ type Props = {
 const VisibilityOption: React.FC<Props> = ({
     groupId
 }) => {
-    const { colors } = useBookmarkGroup(groupId)
+    const { colors } = useBookmarkColor(groupId)
     const { colorMasks, updateColorFilters } = useRefinements(groupId)
     const colorSettingPath = `/bookmarks/${groupId}/colors`
     return (
