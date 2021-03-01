@@ -9,6 +9,7 @@ import { useProfile } from '../../../../modules/profileSlice'
 import { numberToDateTime } from '../../../../utils'
 import DangerZone from '../DangerZone'
 import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
+import { useAlgoliaRegister } from '../../../../hooks/useAlgoliaRegister'
 import Presenter from './Presenter'
 
 type Props = {
@@ -30,22 +31,23 @@ const Container: React.FC<Props> = ({
         hasChange,
         group
     } = useBookmarkGroup(groupId)
+    const { handleUpdateAlgolia } = useAlgoliaRegister(groupId,group?.searchable)
 
 
     const editorComponents = useMemo(() => {
         return editors.map(e => (
             <div key={e.id} className='flex items-center'>
-                <WithFrame 
-                    src={e.image} 
-                    width={48} 
-                    height={48} 
-                    className='block mr-2 my-2' 
+                <WithFrame
+                    src={e.image}
+                    width={48}
+                    height={48}
+                    className='block mr-2 my-2'
                     name={e.name}
-                    fallback={<Initial 
-                        width={48} 
-                        height={48} 
-                        name={e.name}/>}
-                    />
+                    fallback={<Initial
+                        width={48}
+                        height={48}
+                        name={e.name} />}
+                />
                 <p className='text-primary-main text-center'>{e.name}</p>
                 {group.owner !== e.id && (profile.id === e.id ? (
                     <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap'>
@@ -77,7 +79,8 @@ const Container: React.FC<Props> = ({
     const update = (
         <ContainedButton disabled={!hasChange} onClick={async () => {
             try {
-                await handleSubmit()
+                const { after, before } = await handleSubmit()
+                handleUpdateAlgolia(after, before).catch(console.error)
                 onClose()
             } catch (error) {
                 console.error(error)

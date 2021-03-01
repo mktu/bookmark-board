@@ -88,6 +88,9 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         uploadFile : func('uploadFile'),
         scrapeUrl : async ()=>{func('scrapeUrl'); return {url:'', images:[]}},
         completeBookmark : async ()=>{func('completeBookmark'); },
+        createAlgoliaIndex : async ()=>{func('createAlgoliaIndex'); },
+        updateAlgoliaIndex : async ()=>{func('updateAlgoliaIndex'); },
+        deleteAlgoliaIndex : async ()=>{func('deleteAlgoliaIndex'); },
         mock : true,
         auth : false
     }

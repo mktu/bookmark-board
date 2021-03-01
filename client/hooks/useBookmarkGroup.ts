@@ -64,18 +64,30 @@ export const useBookmarkGroup = (groupId?: string) => {
     }, [updatePartial])
 
 
-    const hasChange = useMemo(() => Object.keys(update).length > 0, [update])
+    const hasChange = useMemo(() => Object.keys(update).length > 0 &&
+        Object.keys(update).some(key => update[key] !== base[key])
+        , [update, base])
+
     const handleSubmit = useCallback((partial?: Partial<BookmarkGroup>) =>
-        new Promise<void>((resolve, reject) => {
+        new Promise<{ after: Partial<BookmarkGroup>, before: Partial<BookmarkGroup> }>((resolve, reject) => {
             if (!hasChange && !partial) {
                 return
             }
             const data = partial ? { ...update, ...partial } : update
-            clientService.modifyGroup(groupId, data, () => {
-                resolve()
+            // searchable will be modified by cloud function 
+            const saveFirestore = Object.keys(data).filter(key => key !== 'searchable').reduce((acc, cur) => {
+                acc[cur] = data[cur]
+                return acc
+            }, {})
+            clientService.modifyGroup(groupId, saveFirestore, () => {
+                resolve({
+                    after: data,
+                    before: base
+                })
             }, reject)
         })
-        , [clientService, update, hasChange, groupId])
+        , [clientService, update, hasChange, groupId, base])
+
 
     return {
         group,

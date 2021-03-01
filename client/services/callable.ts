@@ -22,3 +22,25 @@ export const completeBookmark = async (url:string, groupId:string, bookmarkId:st
         scrape
     })
 }
+
+export const createAlgoliaIndex = async (groupId:string)=>{
+    const callable = asiaFunction.httpsCallable('createAlgoliaIndex')
+    await callable({
+        groupId
+    })
+}
+
+export const updateAlgoliaIndex = async (groupId:string, data: Partial<Pick<BookmarkGroup, 'name' | 'description'>>)=>{
+    const callable = asiaFunction.httpsCallable('createAlgoliaIndex')
+    await callable({
+        groupId,
+        ...data
+    })
+}
+
+export const deleteAlgoliaIndex = async (groupId:string)=>{
+    const callable = asiaFunction.httpsCallable('deleteAlgoliaIndex')
+    await callable({
+        groupId
+    })
+}
