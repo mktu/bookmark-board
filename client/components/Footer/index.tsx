@@ -1,10 +1,7 @@
 import React from 'react'
-import { useRouter } from 'next/router'
-import Link from 'next/link'
 
 
 const Footer = () => {
-    const router = useRouter()
     return (
         <footer className="text-gray-500 bg-brand body-font">
             <div className="flex flex-wrap p-6 items-center justify-end text-white">

@@ -1,10 +1,11 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
-import { PublicLayout } from '../../components/Layout'
-import Header from '../../components/Header'
-import PublicBookmarks from '../../components/PublicBookmarks'
-import PublicBookmarkMeta from '../../components/Meta/PublicBookmarkMeta'
+import { PublicLayout } from '@components/Layout'
+import Header from '@components/Header'
+import Footer from '@components/Footer'
+import PublicBookmarks from '@components/PublicBookmarks'
+import PublicBookmarkMeta from '@components/Meta/PublicBookmarkMeta'
 
 const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   group,
@@ -24,6 +25,7 @@ const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProp
       <PublicLayout
         header={<Header />}
         main={<PublicBookmarks group={group} bookmarks={bookmarks} editor={profile} />}
+        footer={<Footer />}
       />
     </div>
   )
