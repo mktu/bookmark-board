@@ -22,6 +22,7 @@ const createIndex = async (groupId: string) => {
         objectID: groupId,
         owner: owner.name || '',
         ownerId: group.owner,
+        ownerImage: owner.image,
         name: group.name,
         description: group.description,
         imageUrl: group.imageUrl,

@@ -21,7 +21,8 @@ export type BookmarkGroupIndex = {
     description?: string,
     imageUrl?: string,
     lastUpdate?: number,
-
+    ownerImage?: string,
+    
     objectID: string,
     ownerId: string,
     created: number

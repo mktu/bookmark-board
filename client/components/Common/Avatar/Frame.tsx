@@ -5,7 +5,7 @@ type Props = {
     width?: number,
     height?: number,
     className?: string,
-    frame?:'square'|'rounded' | 'none',
+    frame?:'square'|'rounded' | 'none' | 'circle',
     children: React.ReactNode
 }
 

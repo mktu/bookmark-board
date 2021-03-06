@@ -5,6 +5,7 @@ import { useRouter } from 'next/router'
 import HeaderLogo from '../Common/Logo/Logo'
 import Book from '../Common/Icon/Book'
 import Login from '../Common/Icon/Login'
+import Search from '../Common/Icon/Search'
 import User from '../Common/Icon/User'
 import { Popover } from '../Common/Popover'
 import { TooltipDivContainer } from '../Common/Tooltip'
@@ -22,11 +23,18 @@ const Header = () => {
                 <ButtonBase aria-label='Home' onClick={() => {
                     router.push('/')
                 }}>
-                    <HeaderLogo theme='light' size='sm'/>
+                    <HeaderLogo theme='light' size='sm' />
                 </ButtonBase>
                 <div className="ml-auto">
                     {profile.id ? (
                         <div className='flex flex-row items-center mr-2'>
+                            <TooltipDivContainer content='検索' placement='bottom' className='mr-4'>
+                                <SvgIconButton aria-label='Open Search' colorType='none' className={styles['heroicon-button']} onClick={() => {
+                                    router.push('/public-search')
+                                }}>
+                                    <Search />
+                                </SvgIconButton>
+                            </TooltipDivContainer>
                             <TooltipDivContainer content='Bookmarkアプリ' placement='bottom' className='mr-4'>
                                 <SvgIconButton aria-label='Open Bookmark' colorType='none' className={styles['heroicon-button']} onClick={() => {
                                     router.push('/bookmarks')

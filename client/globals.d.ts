@@ -37,6 +37,18 @@ declare type BookmarkColors = {
     [key: string]:BookmarkColorDescription
 }
 
+declare type BookmarkGroupIndex = {
+    owner: string,
+    name: string,
+    description?: string,
+    imageUrl?: string,
+    lastUpdate?: number,
+    ownerImage?: string,
+    objectID: string,
+    ownerId: string,
+    created: number
+}
+
 declare type BookmarkGroup = {
     users: string[],
     owner: string,
