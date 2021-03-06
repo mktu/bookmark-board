@@ -13,6 +13,7 @@ const SearchBox: React.FC<Props> = ({
 }) => {
     return (
         <TextInput
+            id='bookmark-search'
             className='w-full'
             label='ブックマークを検索'
             value={currentRefinement}
