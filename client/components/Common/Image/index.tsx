@@ -37,6 +37,10 @@ const TwitterImage : React.FC<{width?:string,height?:string, variant?:'circle'|'
     return <Image src={variant === 'circle' ? '/Twitter_Social_Icon_Circle_Color.svg' : '/Twitter_Logo_Blue.svg'} alt='Twitter' width={width} height={height}/>;
 }
 
+const SearchByAlgolia : React.FC<{width?:number,height?:number}> = ({width,height})=>{
+    return <Image src={'/search-by-algolia-light-background.svg'} alt='Search by algolia' width={width} height={height}/>;
+}
+
 
 export {
     BookmarksMainImg,
@@ -48,4 +52,5 @@ export {
     WelcomeImg,
     SigninImg,
     TwitterImage,
+    SearchByAlgolia
 }
