@@ -1,7 +1,7 @@
 import * as functions from "firebase-functions";
 import scrape from './scrape'
 import capture from './capture'
-import { createIndex, updateIndex, deleteIndex } from './algolia'
+import { createIndex, updateIndex, deleteIndex, updateLikes } from './algolia'
 import firebaseAdmin from './admin'
 
 type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never;
@@ -88,9 +88,9 @@ export const updateAlgoliaIndex = functions
     if (!groupId) {
       throw new functions.https.HttpsError('invalid-argument', 'groupId parameter is undefined.')
     }
-    const updated : Parameters<typeof updateIndex>[1] = {
-      name : data.name,
-      description : data.description
+    const updated: Parameters<typeof updateIndex>[1] = {
+      name: data.name,
+      description: data.description
     }
     await updateIndex(groupId, updated)
   });
@@ -105,3 +105,27 @@ export const deleteAlgoliaIndex = functions
     }
     await deleteIndex(groupId)
   });
+
+export const onWriteReactions =
+  functions.firestore.document('groups/{groupId}/reactions/{reactionId}')
+    .onWrite(async (change, context) => {
+
+      if (change.before.exists && change.after.exists) {
+        return
+      }
+      const groupId = context.params.groupId
+      const groupDoc = firebaseAdmin.firestore()
+        .collection('groups')
+        .doc(groupId)
+
+      if (!change.before.exists) {
+        // New document Created : add one to count
+        await groupDoc.update({ numberOfLikes: firebaseAdmin.firestore.FieldValue.increment(1) });
+      } else if (!change.after.exists) {
+        // Deleting document : subtract one from count
+        await groupDoc.update({ numberOfLikes: firebaseAdmin.firestore.FieldValue.increment(-1) });
+      }
+      await updateLikes(groupId)
+
+      return
+    });

@@ -6,6 +6,7 @@ export type BookmarkGroup = {
     searchable?:boolean,
     imageUrl?: string,
     lastUpdate?: number,
+    numberOfLikes?: number
 }
 
 export type Profile = {
@@ -22,7 +23,8 @@ export type BookmarkGroupIndex = {
     imageUrl?: string,
     lastUpdate?: number,
     ownerImage?: string,
-    
+    numberOfLikes?:number,
+
     objectID: string,
     ownerId: string,
     created: number

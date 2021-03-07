@@ -59,8 +59,21 @@ const updateIndex = async (groupId: string, group: Partial<BookmarkGroup>) => {
     await index.partialUpdateObject(data)
 }
 
+const updateLikes = async (groupId: string) => {
+    const groupDoc = firebaseAdmin.firestore()
+        .collection('groups')
+        .doc(groupId)
+    const group = (await groupDoc.get()).data() as BookmarkGroup
+    const data: Partial<BookmarkGroupIndex> = {
+        objectID: groupId,
+        lastUpdate: Date.now(),
+        numberOfLikes: group?.numberOfLikes
+    }
+    await index.partialUpdateObject(data)
+}
 export {
     createIndex,
     deleteIndex,
-    updateIndex
+    updateIndex,
+    updateLikes
 }

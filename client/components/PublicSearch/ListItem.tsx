@@ -1,5 +1,6 @@
 import { Hit } from 'react-instantsearch-core';
 import NextImage from '@components/Common/Avatar/NextImage'
+import HeartFill from '@components/Common/Icon/HeartFill'
 import Link from 'next/link'
 import HighlightBase from './Highlight'
 import { connectHighlight } from 'react-instantsearch-dom'
@@ -35,6 +36,15 @@ const ListItem: React.FC<Props> = ({
                     作成：{numberToDateTime(hit.created)}
                 </div>
             </div>
+            {(hit.numberOfLikes && hit.numberOfLikes > 0) ? (
+                <div className='ml-auto flex items-start'>
+                    <div className='flex items-end'>
+                        <HeartFill className='w-6 fill-primary-400' />
+                        <span className='ml-1 text-xs text-primary-main'>{hit.numberOfLikes}</span>
+                    </div>
+                </div>
+            ) : null}
+
         </div>
     )
 }

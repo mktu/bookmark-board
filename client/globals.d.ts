@@ -46,7 +46,8 @@ declare type BookmarkGroupIndex = {
     ownerImage?: string,
     objectID: string,
     ownerId: string,
-    created: number
+    created: number,
+    numberOfLikes?:number,
 }
 
 declare type BookmarkGroup = {
