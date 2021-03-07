@@ -1,10 +1,11 @@
 import React from 'react'
-import { NoItemImg } from '../../Common/Image'
-import { BookmarkInput } from '../../Common/Input'
-import { SvgIconButton } from '../../Common/Button'
-import { Add } from '../../Common/Icon'
-import { LinkPreview } from '../../Common/LinkPreview'
-import useNewBookmark from '../../../hooks/useNewBookmark'
+import { NoItemImg } from '@components/Common/Image'
+import BookmarkInput from '@components/Common/Input/BookmarkInput'
+import { SvgIconButton } from '@components/Common/Button'
+import Add from '@components/Common/Icon/Add'
+import Share from '@components/Common/Icon/Share'
+import { LinkPreview } from '@components/Common/LinkPreview'
+import useNewBookmark from '@hooks/useNewBookmark'
 
 type Props = {
     groupId: string
@@ -39,14 +40,25 @@ const NoItem: React.FC<Props> = ({
     }
 
     return (
-        <div className='flex flex-col items-center justify-center p-4 w-full h-full bg-primary-light'>
-            <p className='mb-4 text-primary-main'>
-                ブックマークはまだ登録されていません
+        <div className='flex flex-col md:items-center justify-center p-4 w-full h-full bg-primary-light'>
+            <p className='text-primary-main text-lg font-semibold'>
+                ブックマークを追加しましょう！
             </p>
-            <div className='bg-white rounded-full p-12 flex items-center justify-center'>
-                <NoItemImg width={200} />
+            <ul className='text-primary-dark my-4 text-sm'>
+                <li>
+                    <span>・タイトルをクリクすることで、グループの名前を変更することができます</span>
+                </li>
+                <li className='text-sm'>
+                    <span>・共有設定</span>
+                    <span><Share className='w-4 stroke-primary-dark inline-block' strokeWidth={1.5} /></span>
+                    <span className='ml-1'>でこのグループの公開設定や共同編集設定を行うことができます</span>
+                </li>
+            </ul>
+
+            <div className='my-4 bg-white rounded-full p-12 flex items-center justify-center'>
+                <NoItemImg width={200} height={200} />
             </div>
-            <div className='w-full md:w-6/12 mt-4'>
+            <div className='w-full md:w-6/12'>
                 <div className='flex items-center'>
                     <BookmarkInput
                         placeholder={'ブックマークURLを入力'}

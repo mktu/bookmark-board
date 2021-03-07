@@ -9,8 +9,8 @@ const GoogleSignInImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({
     return <img src={'/GoogleSignin.svg'} alt='BookmarksSignin' {...props}/>;
 }
 
-const NoItemImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...props})=>{
-    return <img src={'/NoItem.svg'} alt='NoItem' {...props}/>;
+const NoItemImg : React.FC<{width?:number,height?:number}> = ({width,height})=>{
+    return <Image width={width} height={height} src={'/NoItem.svg'} alt='NoItem' />;
 }
 
 const LoadingImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({...props})=>{
