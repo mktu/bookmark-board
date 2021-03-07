@@ -108,6 +108,13 @@ const selectBookmarksByKeyword = createSelector(
     }
 )
 
+export const useBookmarks = () => {
+    return useSelector(
+        (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
+        selectAll(state.bookmarks)
+    )
+}
+
 export const useBookmarkIdsByGroup = (groupId: string) => {
     return useSelector(
         (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>

@@ -1,8 +1,9 @@
 import * as functions from "firebase-functions";
 import scrape from './scrape'
 import capture from './capture'
-import { createIndex, updateIndex, deleteIndex, updateLikes } from './algolia'
+import { createIndex, updateIndex, deleteIndex } from './algolia'
 import firebaseAdmin from './admin'
+import { onWriteReactions } from './triggers'
 
 type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never;
 
@@ -106,26 +107,6 @@ export const deleteAlgoliaIndex = functions
     await deleteIndex(groupId)
   });
 
-export const onWriteReactions =
-  functions.firestore.document('groups/{groupId}/reactions/{reactionId}')
-    .onWrite(async (change, context) => {
-
-      if (change.before.exists && change.after.exists) {
-        return
-      }
-      const groupId = context.params.groupId
-      const groupDoc = firebaseAdmin.firestore()
-        .collection('groups')
-        .doc(groupId)
-
-      if (!change.before.exists) {
-        // New document Created : add one to count
-        await groupDoc.update({ numberOfLikes: firebaseAdmin.firestore.FieldValue.increment(1) });
-      } else if (!change.after.exists) {
-        // Deleting document : subtract one from count
-        await groupDoc.update({ numberOfLikes: firebaseAdmin.firestore.FieldValue.increment(-1) });
-      }
-      await updateLikes(groupId)
-
-      return
-    });
+export {
+  onWriteReactions
+}

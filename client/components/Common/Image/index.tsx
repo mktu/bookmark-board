@@ -21,6 +21,10 @@ const PlaceHolderImg : React.FC<{width?:number,height?:number}> = ({width,height
     return <Image src={'/Placeholder.svg'} alt='PlaceholderImage' width={width} height={height}/>;
 }
 
+const BookmarkHome : React.FC<{width?:number,height?:number}> = ({width,height})=>{
+    return <Image src={'/undraw_creative_team_r90h.svg'} alt='BookmarkHome' width={width} height={height}/>;
+}
+
 const WelcomeImg : React.FC<{width?:string,height?:string}> = ({width,height})=>{
     return <Image src={'/Welcoming.svg'} alt='Welcoming' width={width} height={height}/>;
 }
@@ -52,5 +56,6 @@ export {
     WelcomeImg,
     SigninImg,
     TwitterImage,
-    SearchByAlgolia
+    SearchByAlgolia,
+    BookmarkHome
 }

@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction, createEntityAdapter, createSelector } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction, createEntityAdapter } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 
 const groupRefinementAdapter = createEntityAdapter<BookmarkRefinement>()
