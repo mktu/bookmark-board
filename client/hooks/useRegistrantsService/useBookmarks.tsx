@@ -8,16 +8,20 @@ const useBookmarks = ()=>{
     const {clientService} = useContext(FirebaseContext)
     type Unsubscribe = ReturnType<typeof clientService.listenBookmarks>
     const unsubscribes = useRef<{[key:string]:Unsubscribe}>({})
-    const onLoad = useCallback((groupId)=>{
+    const onLoad = useCallback((groupId)=>new Promise<void>((resolve)=>{
         const unsub = clientService.listenBookmarks(groupId, (bookmarks)=>{
             dispatch(actions.add(bookmarks))
+            resolve()
         }, (bookmarks)=>{
             dispatch(actions.modify(bookmarks))
         }, (bookmarks)=>[
             dispatch(actions.delete(bookmarks))
         ])
         unsubscribes.current[groupId] = unsub
-    },[clientService,dispatch])
+    }),[clientService,dispatch])
+    const onLoaded = useCallback(()=>{
+        dispatch(actions.loaded())
+    },[dispatch])
     const onUnload = useCallback((groupId)=>{
         unsubscribes.current[groupId] && 
         unsubscribes.current[groupId]()
@@ -41,9 +45,10 @@ const useBookmarks = ()=>{
     },[])
     return useMemo(()=>({
         onLoad,
+        onLoaded,
         onUnload,
         clearAll
-    }),[onLoad,onUnload,clearAll])
+    }),[onLoad,onUnload,clearAll,onLoaded])
 }
 
 export default useBookmarks

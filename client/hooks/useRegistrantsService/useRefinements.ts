@@ -7,16 +7,20 @@ const useRefinements = ()=>{
     const dispatch = useDispatch()
     type Unsubscribe = ReturnType<typeof registListener>
     const unsubscribes = useRef<{[key:string]:Unsubscribe}>({})
-    const onLoad = useCallback((groupId)=>{
+    const onLoad = useCallback((groupId)=>new Promise<void>((resolve)=>{
         const unsub = registListener(groupId, (newValue)=>{
             dispatch(actions.addRefinements({refinements:[newValue]}))
+            resolve()
         })
         unsubscribes.current[groupId] = unsub
-    },[dispatch])
+    }),[dispatch])
     const onUnload = useCallback((groupId)=>{
         unsubscribes.current[groupId] && 
         unsubscribes.current[groupId]()
         delete unsubscribes.current[groupId]
+    },[])
+    const onLoaded = useCallback(()=>{
+        console.debug('initial refinements loaded')
     },[])
     const clearAll = useCallback(()=>{
         for(const unsubscribe in unsubscribes.current){
@@ -35,9 +39,10 @@ const useRefinements = ()=>{
     },[])
     return useMemo(()=>({
         onLoad,
+        onLoaded,
         onUnload,
         clearAll
-    }),[onLoad,onUnload,clearAll])
+    }),[onLoad,onUnload,clearAll,onLoaded])
 }
 
 export default useRefinements

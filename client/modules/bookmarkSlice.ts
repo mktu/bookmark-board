@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction, createEntityAdapter, createSelector } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 
-const bookmarkAdapter = createEntityAdapter<Bookmark>({
-    sortComparer: (a, b) => {
-        return a.idx - b.idx
-    }
-})
+const sorter = (a:Bookmark, b:Bookmark) => {
+    return a.idx - b.idx
+}
+
+const bookmarkAdapter = createEntityAdapter<Bookmark>()
 
 export const initialBookmark = {
     id: '',
@@ -23,13 +23,11 @@ const initialState = bookmarkAdapter.getInitialState<{
 }>({
     status: 'loading'
 })
-
 const bookmarkSlice = createSlice({
     name: 'bookmarks',
     initialState,
     reducers: {
         add(state, action: PayloadAction<Bookmark[]>) {
-            state.status = 'loaded'
             bookmarkAdapter.upsertMany(state, action.payload)
         },
         modify(state, action: PayloadAction<Bookmark[]>) {
@@ -41,6 +39,9 @@ const bookmarkSlice = createSlice({
         removeGroup(state, action: PayloadAction<string>) {
             const ids = selectBookmarkIdsByGroup(state, action.payload)
             bookmarkAdapter.removeMany(state, ids)
+        },
+        loaded(state) {
+            state.status = 'loaded'
         },
         clear(state) {
             bookmarkAdapter.removeAll(state)
@@ -71,7 +72,7 @@ const selectBookmarksByGroup = createSelector(
 const selectBookmarkIdsByGroup = createSelector(
     [selectAll, (_, groupId: string) => groupId],
     (bookmarks, groupId) => {
-        return bookmarks.filter(b => b.groupId === groupId).map(b => b.id)
+        return bookmarks.filter(b => b.groupId === groupId).sort(sorter).map(b => b.id)
     }
 )
 
@@ -87,7 +88,7 @@ const selectBookmarksByRefinements = createSelector(
                 return true
             }
             return false
-        }).map(b => b.id)
+        }).sort(sorter).map(b => b.id)
     }
 )
 

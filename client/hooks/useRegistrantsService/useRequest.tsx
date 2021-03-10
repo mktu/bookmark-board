@@ -8,11 +8,12 @@ const useRequests = ()=>{
     const {clientService} = useContext(FirebaseContext)
     type Unsubscribe = ReturnType<typeof clientService.listenRequest>
     const unsubscribes = useRef<{[key:string]:Unsubscribe}>({})
-    const onLoad = useCallback((groupId, owner)=>{
+    const onLoad = useCallback((groupId, owner)=>new Promise<void>((resolve)=>{
         if(!owner) return
         const unsub = clientService.listenRequest({
             groupId,
             onAdded: (requests)=>{
+                resolve()
                 dispatch(actions.upsert(requests))
             }, 
             onModified: (requests)=>{
@@ -24,7 +25,10 @@ const useRequests = ()=>{
             status : 'requesting'
         })
         unsubscribes.current[groupId] = unsub
-    },[clientService,dispatch])
+    }),[clientService,dispatch])
+    const onLoaded = useCallback(()=>{
+        console.debug('initial requests loaded')
+    },[])
     const onUnload = useCallback((groupId, owner)=>{
         if(!owner) return
         unsubscribes.current[groupId] && 
@@ -49,8 +53,9 @@ const useRequests = ()=>{
     return useMemo(()=>({
         onLoad,
         onUnload,
+        onLoaded,
         clearAll
-    }),[onLoad,onUnload,clearAll])
+    }),[onLoad,onUnload,clearAll,onLoaded])
 }
 
 export default useRequests

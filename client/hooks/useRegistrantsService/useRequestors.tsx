@@ -17,7 +17,7 @@ const useRequestors = () => {
     
     useEffect(() => {
         dispatch(actions.upsertUsers({ users: profiles }))
-    }, [profiles])
+    }, [profiles,dispatch])
 }
 
 export default useRequestors
