@@ -17,7 +17,7 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <div className='w-full h-full flex items-center justify-center'>
-            <div className='text-primary-main p-4'>
+            <div className='text-primary-main p-4 w-full lg:w-4/5'>
                 <div className='flex items-center justify-center flex-col'>
                     <div className='text-xl text-primary-main  mb-12'>
                         <span className='mx-1'>{userName}</span>

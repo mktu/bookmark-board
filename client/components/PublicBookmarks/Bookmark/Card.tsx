@@ -34,9 +34,11 @@ const ListCard: React.FC<Props> = ({
                 <a target='_blank' rel='noopener noreferrer' href={bookmark.url} id='url' className='block text-sm break-words max-w-full p-1 underline'>{bookmark.url}</a>
                 {bookmark.comment && (
                     <div className='text-xs overflow-hidden max-w-full flex items-center text-primary-main py-1'>
-                        <div className='border-primary-200 border rounded p-1 mr-2 flex items-center'><Chat className='w-6 stroke-primary-300' /> ひとこと</div>
-                        <div className='break-words flex-1 text-sm'>
-                            {bookmark.comment}
+                        <div className='border-primary-200 border rounded p-1 mr-2 flex items-center'>
+                            <Chat className='w-6 stroke-primary-300' />
+                            <div className='mx-2 whitespace-pre-wrap flex-1'>
+                                {bookmark.comment}
+                            </div>
                         </div>
                     </div>
                 )}

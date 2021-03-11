@@ -21,7 +21,7 @@ const Url: React.FC<Props> = ({
     handleJumpLink
 }) => (
     <div className={classNames('flex items-center', className)}>
-        <TextInput label='URL' className='flex-1' id='url' value={url} onChange={(e) => {
+        <TextInput readOnly label='URL 🔒' className='flex-1' id='url' value={url} onChange={(e) => {
             updateBookmark('url')(e.target.value)
         }} />
         <TooltipDivContainer className='mx-1' placement='bottom' content='URLをコピー'>

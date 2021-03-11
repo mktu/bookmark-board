@@ -13,7 +13,7 @@ const BookmarkListItem: React.FC<Props> = ({
     const path = `/bookmarks/${bookmark.groupId}/${bookmark.id}`
     const { group } = useBookmarkGroup(bookmark.groupId)
     return (
-        <div className='w-full flex items-end'>
+        <div className='w-full flex items-end overflow-hidden'>
             <Link href={path}>
                 <a href={path} className='text-sm overflow-hidden truncate max-w-full flex-1'>
                     <span className='underline mr-2'>{bookmark.title}</span>
