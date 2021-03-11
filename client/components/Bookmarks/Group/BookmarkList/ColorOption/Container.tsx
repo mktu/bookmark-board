@@ -18,6 +18,7 @@ const Container: React.FC<Props> = ({
         colors,
         updateColor,
         hasChange,
+        reachedLimit,
         handleAddColor,
         handleChangeColorIndex,
         handleDeleteColors,
@@ -36,7 +37,7 @@ const Container: React.FC<Props> = ({
             handleDelete : (color)=>{handleDeleteColors([color])}
         }}
     />), [colors, handleDeleteColors, handleChangeColorIndex,hover,updateColor])
-    const input = useMemo(()=><ColorInput handleAddColor={handleAddColor} />,[handleAddColor])
+    const input = useMemo(()=><ColorInput reachedLimit={reachedLimit} handleAddColor={handleAddColor} />,[reachedLimit,handleAddColor])
     const submit = useMemo(()=>(<ContainedButton disabled={!hasChange} onClick={() => {
         handleSubmit().then(onClose)
     }} >変更を保存</ContainedButton>),[handleSubmit,onClose,hasChange])

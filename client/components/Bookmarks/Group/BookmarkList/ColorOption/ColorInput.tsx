@@ -3,11 +3,13 @@ import TextInput from '../../../../Common/Input/TextInput'
 import { ContainedButton } from '../../../../Common/Button'
 
 type Props = {
-    handleAddColor : (name:string,color:string)=>void
+    handleAddColor : (name:string,color:string)=>void,
+    reachedLimit:boolean
 }
 
 const ColorInput: React.FC<Props> = ({
-    handleAddColor
+    handleAddColor,
+    reachedLimit
 }) => {
     const [name, setName] = useState('')
     const [color, setColor] = useState('')
@@ -31,9 +33,11 @@ const ColorInput: React.FC<Props> = ({
                     handleAddColor(name,color)
                     setName('')
                     setColor('')
-                }} disabled={!name || !color} className='ml-4 text-xs'>追加</ContainedButton>
+                }} disabled={!name || !color || reachedLimit} className='ml-4 text-xs'>追加</ContainedButton>
             </div>
-            
+            {reachedLimit && (
+                <div className='text-xs text-secondary-main p-2'>登録できる色数が上限に達しています</div>
+            )}
         </div>
     )
 }

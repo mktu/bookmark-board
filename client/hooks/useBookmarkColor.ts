@@ -1,6 +1,7 @@
 import { useMemo, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { useBookmarkGroup, createKey } from './useBookmarkGroup'
+import { MaxColorNumber } from '@utils/constants'
 
 export const useBookmarkColor = (groupId?: string) => {
     const { group, updatePartial, handleSubmit, hasChange } = useBookmarkGroup(groupId)
@@ -14,6 +15,8 @@ export const useBookmarkColor = (groupId?: string) => {
             ...group.colors[c],
         }))
     }, [group?.colors])
+    
+    const reachedLimit = colors.length >= MaxColorNumber 
 
     const updateGroup = useCallback((key: keyof BookmarkGroup) => (value: string) => {
         updatePartial({ [key]: value })
@@ -43,10 +46,14 @@ export const useBookmarkColor = (groupId?: string) => {
             toast.warn('すでにこの色は登録されています')
             return
         }
+        if(reachedLimit){
+            toast.warn('これ以上色を追加することはできません')
+            return
+        }
         const idx = Object.keys(group?.colors).length
         const colors = { ...group?.colors, [createKey()]: { name, color, idx } }
         updatePartial({ colors })
-    }, [group?.colors, updatePartial])
+    }, [group?.colors, updatePartial, reachedLimit])
 
     const handleDeleteColors = useCallback((deleteColors: string[]) => {
         const colors = { ...group.colors }
@@ -58,7 +65,6 @@ export const useBookmarkColor = (groupId?: string) => {
         updatePartial({ colors })
     }, [group?.colors, updatePartial])
 
-
     return {
         colors,
         updateGroup,
@@ -68,6 +74,7 @@ export const useBookmarkColor = (groupId?: string) => {
         handleDeleteColors,
         handleChangeColorIndex,
         handleSubmit,
-        hasChange
+        hasChange,
+        reachedLimit
     }
 }
