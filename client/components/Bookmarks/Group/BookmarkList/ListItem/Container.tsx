@@ -52,7 +52,9 @@ const ListItem: React.FC<Props> = ({
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
         e.preventDefault()
-        deleteBookmark()
+        deleteBookmark().then(()=>{
+            toast.success('ブックマークを削除しました')
+        })
     }
     const handleClickLikes = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()

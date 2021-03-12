@@ -1,5 +1,6 @@
 import React, { useMemo } from 'react'
 import { useRouter } from 'next/router'
+import { toast } from 'react-toastify';
 import Presenter from './Presenter'
 import { useBookmark, useMoveGroup } from '../../../../hooks/useBookmark'
 import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
@@ -92,8 +93,9 @@ const Container: React.FC<Props> = ({
 
     const trash = useMemo(() => (
         <Trash handleDelete={() => {
-            deleteBookmark(() => {
+            deleteBookmark().then(()=>{
                 router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
+                toast.success('ブックマークを削除しました')
             })
         }} />
     ), [router, group.id, deleteBookmark])
