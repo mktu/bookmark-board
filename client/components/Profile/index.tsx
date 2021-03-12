@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import TextInput from '../Common/Input/TextInput'
 import TextArea from '../Common/Input/TextArea'
 import { Label } from '../Common/Label'
-import { TwitterImage } from '../Common/Image'
+import TwitterIcon from '../Common/Icon/Twitter'
 import { ContainedButton } from '../Common/Button'
 import Avatar from '../Common/Avatar/NextImage'
 import useProfileContainer from './useProfileContainer'
@@ -52,7 +52,7 @@ const Profile: React.FC = () => {
                     <TextInput className='my-2' label='NAME' id='name' value={profile.name} onChange={(e)=>{updateProfile('name')(e.target.value)}} />
                     <Label className='my-2'>SNS</Label>
                     <div className='flex items-center'>
-                        <div><TwitterImage width='48px' height='48px' /></div>
+                        <div><TwitterIcon width='48px' height='48px' /></div>
                         <div className='mx-2 text-primary-300'>{TwitterUrl}</div>
                         <TextInput placeholder='@アカウント名のみ入力' className='w-full' id='twitter' value={profile.twitter} onChange={(e)=>{updateProfile('twitter')(e.target.value)}} />
                     </div>

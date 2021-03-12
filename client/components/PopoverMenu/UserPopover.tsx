@@ -1,7 +1,7 @@
 import Avatar from '../Common/Avatar/NextImage'
 import Initial from '../Common/Avatar/Initial'
-import { TwitterUrl } from '../../utils/constants'
-import { TwitterImage } from '../Common/Image'
+import { TwitterUrl } from '@utils/constants'
+import TwitterIcon from '../Common/Icon/Twitter'
 
 type Props = {
     user: Profile
@@ -32,7 +32,7 @@ const UserPopover: React.FC<Props> = ({
                     </div>
                     {user.twitter && (
                         <a className='p-1 flex items-center' href={`${TwitterUrl}${user.twitter}`} target='_blank' rel='noopener noreferrer' >
-                            <TwitterImage width='32px' height='32px' variant='logo' />
+                            <TwitterIcon width='32px' height='32px' />
                         </a>
                     )}
                 </div>

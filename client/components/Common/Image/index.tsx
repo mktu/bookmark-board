@@ -37,10 +37,6 @@ const BookmarksMainImg : React.FC<{width?:string,height?:string}> = ({width,heig
     return <Image src={'/Bookmark.svg'} alt='Bookmark' width={width} height={height}/>;
 }
 
-const TwitterImage : React.FC<{width?:string,height?:string, variant?:'circle'|'logo'}> = ({width,height,variant='circle'})=>{
-    return <Image src={variant === 'circle' ? '/Twitter_Social_Icon_Circle_Color.svg' : '/Twitter_Logo_Blue.svg'} alt='Twitter' width={width} height={height}/>;
-}
-
 const SearchByAlgolia : React.FC<{width?:number,height?:number}> = ({width,height})=>{
     return <Image src={'/search-by-algolia-light-background.svg'} alt='Search by algolia' width={width} height={height}/>;
 }
@@ -55,7 +51,6 @@ export {
     PlaceHolderImg,
     WelcomeImg,
     SigninImg,
-    TwitterImage,
     SearchByAlgolia,
     BookmarkHome
 }
