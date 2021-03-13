@@ -102,6 +102,7 @@ const ListItem: React.FC<Props> = ({
             <ButtonBase className='text-xs text-primary-main underline' >色選択</ButtonBase>
         </PopoverDivContainer>
     )
+    const origin = new URL(bookmark.url)
     return (
         <Presenter
             {...{
@@ -112,7 +113,7 @@ const ListItem: React.FC<Props> = ({
                 detailLink: `/bookmarks/${bookmark.groupId}/${bookmark.id}`,
                 title: bookmark.title,
                 description: !listViewMask.includes('description') && bookmark.description,
-                url: !listViewMask.includes('url') && bookmark.url,
+                url: !listViewMask.includes('url') && origin.host,
                 comment: !listViewMask.includes('comment') && bookmark.comment,
                 lastUpdate: !listViewMask.includes('lastUpdate') && numberToDateTime(bookmark.lastUpdate),
                 copyIcon: copyButton,
