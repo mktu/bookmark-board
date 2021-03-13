@@ -1,5 +1,6 @@
 {
   "projects": {
-    "default": "our-bookmarks-18a31"
+    "default": "our-bookmarks-18a31",
+    "prod": "bookmarkboard"
   }
 }
