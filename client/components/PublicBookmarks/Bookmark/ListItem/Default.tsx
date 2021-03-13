@@ -36,10 +36,10 @@ const Default: React.FC<Props> = ({
             <div className='overflow-hidden w-full flex-1 flex flex-col border-l-2 pl-2 ml-2' style={{ borderColor: color && `rgba(${r},${g},${b},0.5)` }}>
                 <a target='_blank' rel='noopener noreferrer' href={url} className='block text-sm overflow-hidden truncate max-w-full text-primary-dark underline mb-1'>{title}</a>
                 <div className='text-xs overflow-hidden truncate max-w-full text-primary-main'>{description}</div>
-                <a target='_blank' rel='noopener noreferrer' href={host} className='mt-auto text-xs overflow-hidden truncate max-w-full text-primary-main flex items-center'>
+                <div className='mt-auto text-xs overflow-hidden truncate max-w-full text-primary-main flex items-center'>
                     <Link className='w-3 stroke-primary-main mr-1' />
                     <span>{host}</span>
-                </a>
+                </div>
                 {comment && (
                     <div className='text-xs overflow-hidden truncate max-w-full flex items-center text-primary-main py-1'>
                         <div className='border-primary-200 border rounded p-1 mr-2 flex items-center max-w-full'>

@@ -35,10 +35,10 @@ const Default: React.FC<Props> = ({
                     <div className='text-xs overflow-hidden overflow-ellipsis max-w-full text-primary-main'>
                         {(description && description.length > 100) ? description.substr(0, 100) + '...' : description}
                     </div>
-                    <a target='_blank' rel='noopener noreferrer' href={host} className='mt-auto flex justify-end items-center text-xs overflow-hidden overflow-ellipsis max-w-full text-primary-main'>
+                    <div  className='mt-auto flex justify-end items-center text-xs overflow-hidden overflow-ellipsis max-w-full text-primary-main'>
                         <Link className='w-4 stroke-primary-main mr-1'/>
                         <span>{host}</span>
-                    </a>
+                    </div>
                 </div>
             </div>
             {comment && (
