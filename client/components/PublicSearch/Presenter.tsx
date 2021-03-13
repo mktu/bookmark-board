@@ -1,4 +1,5 @@
 import React from 'react'
+import { SearchByAlgolia } from '@components/Common/Image'
 
 type Props = {
     searchBox: React.ReactNode,
@@ -16,6 +17,9 @@ const Presenter: React.FC<Props> = ({
                     {searchBox}
                 </div>
                 {hits}
+                <div className='flex justify-end items-center mt-4'>
+                    <SearchByAlgolia width={168} height={24} />
+                </div>
             </div>
         </div>
     )
