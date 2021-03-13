@@ -52,9 +52,9 @@ export const useBookmark = (bookmarkId: string) => {
             [key]:value
         }, notify)
     }, [clientService,base])
-    const deleteBookmark = useCallback((onSucceeded?: Notifier,) => {
-        clientService.deleteBookmark(bookmark.groupId, bookmark.id, onSucceeded)
-    }, [bookmark, clientService])
+    const deleteBookmark = useCallback(() => new Promise<void>((resolve)=>{
+        clientService.deleteBookmark(bookmark.groupId, bookmark.id, resolve)
+    }), [bookmark, clientService])
     const likes = useMemo(()=>bookmark?.reactions?.likes || [],[bookmark?.reactions?.likes])
     const sentLikes = likes.includes(profile.id)
     const handleRefetch = useCallback(() => {
