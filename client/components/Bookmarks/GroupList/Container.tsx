@@ -29,7 +29,14 @@ const Container: React.FC = () => {
             value={newGroup}
             onChange={(e) => {
                 setNewGroup(e.target.value)
-            }} placeholder='新しいグループ' icon={<Folder />} />)
+            }} 
+            onKeyPress={(e)=>{
+                if (e.key == 'Enter') {
+                    submit()
+                    e.preventDefault()
+                }
+            }}
+            placeholder='新しいグループ' icon={<Folder />} />)
 
     const addButton = (
         <SvgIconButton
