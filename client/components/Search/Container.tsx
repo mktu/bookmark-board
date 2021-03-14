@@ -11,8 +11,10 @@ type Props = {
 
 const Container: React.FC<Props> = () => {
     const { bookmarks, hasMore, loadMore, keyword, setKeyword } = useBookmarkSearch()
+    const globalLink = '/public-search'
     return (
         <Presenter
+            globalLink={globalLink}
             searchRefinements={
                 <Refinements
                     keyword={keyword}
