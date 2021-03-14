@@ -7,6 +7,7 @@ import Signup from './Signup'
 const Signin = () => {
     const { clientService } = useContext(FirebaseContext)
     const [needSignup, setNeedSignup] = useState(false)
+    const [signining, setSignining] = useState(false)
     const router = useRouter();
     if (needSignup) {
         return <Signup handleCancelSignup={() => {
@@ -15,8 +16,9 @@ const Signin = () => {
     }
 
     const handleTransition = () => {
+        setSignining(true)
         clientService.getMyProfile(() => {
-            console.log('success')
+            setSignining(false)
             // login flow
             const fromPath = sessionStorage.getItem('fromPath')
             // tbd check if profile exists
@@ -27,6 +29,7 @@ const Signin = () => {
                 router.push('/bookmarks')
             }
         }, () => {
+            setSignining(false)
             // signup flow
             setNeedSignup(true)
         })
@@ -41,6 +44,7 @@ const Signin = () => {
 
     return (
         <Presenter
+            signining={signining}
             handleSignin={handleSignin}
             handleAnonymous={handleAnonymous}
         />
