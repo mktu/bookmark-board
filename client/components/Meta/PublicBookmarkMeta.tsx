@@ -1,17 +1,18 @@
 import React from 'react'
 import Head from 'next/head'
-import { AppName } from '../../utils/constants'
-import { getOrigin } from '../../utils'
+import { AppName } from '@utils/constants'
+import { getOrigin } from '@utils/index'
+import Favicon from './Favicon'
 
 type Props = {
-    group : BookmarkGroup,
-    profile : Profile
+    group: BookmarkGroup,
+    profile: Profile
 }
 
-const PublickBookmarkMeta : React.FC<Props> = ({
+const PublickBookmarkMeta: React.FC<Props> = ({
     group,
     profile
-}) =>(
+}) => (
     <Head>
         <title>{group.name} | {AppName}</title>
         <meta name='description' content={group.description || ''} />
@@ -26,7 +27,8 @@ const PublickBookmarkMeta : React.FC<Props> = ({
         <meta name="twitter:card" content='summary_large_image' />
         <meta name="twitter:description" content={group.description || ''} />
         <meta name="twitter:image" content={`https://og-image-lilac-kappa.vercel.app/${group.name}.png?author=${profile.name}&theme=dark`} />
-      </Head>
+        <Favicon />
+    </Head>
 )
 
 export default PublickBookmarkMeta
