@@ -51,14 +51,17 @@ const NoItem: React.FC<Props> = ({
                 </li>
                 <li className='text-sm'>
                     <Link href={settingLink}>
-                        <a href={settingLink} className='underline inline-flex'>共有設定<Share className='w-4 stroke-primary-dark inline-block' strokeWidth={1.5} /></a>
+                        <a href={settingLink} className='underline inline-flex'>共有設定<Share className='w-4 stroke-primary-dark hidden md:inline-block' strokeWidth={1.5} /></a>
                     </Link>
                     <span className='ml-1'>でこのグループの公開設定や共同編集設定を行うことができます</span>
                 </li>
             </ul>
-
-            <div className='my-4 bg-white rounded-full p-12 flex items-center justify-center'>
-                <NoItemImg width={200} height={200} />
+            <div className='my-4 flex items-center justify-center w-full'>
+                <div className='bg-white rounded-full flex items-center justify-center' style={{
+                    width: 300, height: 300
+                }}>
+                    <NoItemImg width={200} height={200} />
+                </div>
             </div>
             <div className='w-full md:w-6/12'>
                 <div className='flex items-center'>
