@@ -14,7 +14,6 @@ const Presenter : React.FC<Props> = ({
 }) => {
     return (
         <div className='w-full h-full p-4 flex flex-col'>
-            <h3 className='text-primary-main font-semibold'>グループ内 ブックマーク検索</h3>
             <div className='p-2 text-sm text-primary-main inline-flex items-center'>
                 <span className='mr-1'>▶︎</span>
                 <span>グローバル検索は</span>
