@@ -1,6 +1,5 @@
 import Document, { Html, Head, Main, NextScript } from 'next/document';
 import { GA_TRACKING_ID } from '@utils/gtag'
-console.log(GA_TRACKING_ID)
 export default class CustomDocument extends Document {
   render() {
     return (

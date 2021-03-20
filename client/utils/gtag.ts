@@ -17,7 +17,6 @@ export const pageview = (url:string) => {
     (window as ExtendedWindow).gtag('config', GA_TRACKING_ID, {
         page_path: url,
     })
-    console.log('pageview')
 }
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
@@ -32,5 +31,4 @@ export const event = ({ action, category, label, value }:{
         event_label: label || '',
         value: value || '',
     })
-    console.log('event')
 }
