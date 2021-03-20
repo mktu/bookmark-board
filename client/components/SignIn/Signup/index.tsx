@@ -1,13 +1,14 @@
 import React, { useState, useContext, useRef, useEffect } from 'react'
-import FirebaseContext from '../../../context/FirebaseContext'
+import FirebaseContext from '@context/FirebaseContext'
 import { useRouter } from 'next/router'
-import TextArea from '../../Common/Input/TextArea'
-import TextInput from '../../Common/Input/TextInput'
-import { ContainedButton, OutlinedButton } from '../../Common/Button'
-import { SigninImg, LoadingImg } from '../../Common/Image'
-import Avatar from '../../Common/Avatar/NextImage'
+import TextArea from '@components/Common/Input/TextArea'
+import TextInput from '@components/Common/Input/TextInput'
+import { ContainedButton, OutlinedButton } from '@components/Common/Button'
+import { SigninImg, LoadingImg } from '@components/Common/Image'
+import Avatar from '@components/Common/Avatar/NextImage'
 import { toast } from 'react-toastify';
-import useUpload from '../../../hooks/useUpload'
+import useUpload from '@hooks/useUpload'
+import { event } from '@utils/gtag'
 
 type Props = {
     handleCancelSignup: () => void
@@ -22,14 +23,14 @@ const Signup: React.FC<Props> = ({
     const { clientService } = useContext(FirebaseContext)
     const [state, setState] = useState<LoadStatus['status']>('loaded')
     const unmount = useRef(false)
-    useEffect(()=>{
+    useEffect(() => {
         unmount.current = false
-        return ()=>{
+        return () => {
             unmount.current = true
         }
-    },[])
+    }, [])
     const setError = (error: Error) => {
-        if(unmount.current) return
+        if (unmount.current) return
         toast.error(error.name)
         setState('failed')
     }
@@ -43,8 +44,11 @@ const Signup: React.FC<Props> = ({
         clientService.logout(handleCancelSignup)
     }
     const handleSubmit = () => {
-        if(unmount.current) return
+        if (unmount.current) return
         setState('loading')
+        event({
+            action : 'submit', category : 'signin'
+        })
         if (!name) {
             toast.error('必要な項目が入力されていません')
             return
@@ -82,12 +86,12 @@ const Signup: React.FC<Props> = ({
                         </label>
                     </div>
                     <div className='p-4 w-full'>
-                        <TextInput label='NAME' required id='name' value={name} onChange={(e)=>{setName(e.target.value)}} />
-                        <TextArea className='mt-4' label='COMMENT' id='comment' border='outlined' value={comment} minRows={4} onChange={(e)=>{setComment(e.target.value)}} />
+                        <TextInput label='NAME' required id='name' value={name} onChange={(e) => { setName(e.target.value) }} />
+                        <TextArea className='mt-4' label='COMMENT' id='comment' border='outlined' value={comment} minRows={4} onChange={(e) => { setComment(e.target.value) }} />
                     </div>
                 </div>
                 <div>
-                    <TextInput label='デフォルトグループ名' id='group' value={group} onChange={(e)=>{setGroup(e.target.value)}} />
+                    <TextInput label='デフォルトグループ名' id='group' value={group} onChange={(e) => { setGroup(e.target.value) }} />
                 </div>
                 <div className='flex justify-end p-4'>
                     {state === 'loading' ? (
@@ -95,11 +99,11 @@ const Signup: React.FC<Props> = ({
                             <LoadingImg width='32px' /> <span className='inline-block text-primary-main font-semibold'>作成中...</span>
                         </div>
                     ) : (
-                            <>
-                                <OutlinedButton className='mx-2' onClick={handleCancel}>キャンセル</OutlinedButton>
-                                <ContainedButton disabled={!name} onClick={handleSubmit}>作成する</ContainedButton>
-                            </>
-                        )}
+                        <>
+                            <OutlinedButton className='mx-2' onClick={handleCancel}>キャンセル</OutlinedButton>
+                            <ContainedButton disabled={!name} onClick={handleSubmit}>作成する</ContainedButton>
+                        </>
+                    )}
                 </div>
             </div>
             <div className='hidden ml-4 md:flex items-end p-10'>
