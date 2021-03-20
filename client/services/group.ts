@@ -3,17 +3,13 @@ import {getCollectionListener} from './firestoreUtil'
 const db = firebase.firestore();
 
 export function addGroup(
-    name: string,
-    uid: string,
+    group: Partial<BookmarkGroup>,
     onSucceeded : (id:string)=>void,
     onFailed: ErrorHandler = console.error
 ) {
     const time = Date.now()
     db.collection('groups').add({
-        name : name,
-        owner : uid,
-        users : [uid],
-        actions : [],
+        ...group,
         idx: time,
         created : time,
     })

@@ -6,7 +6,7 @@ import FirebaseContext from '../context/FirebaseContext'
 
 export const createKey = () => Math.random().toString(32).substring(2)
 
-const defaultColors: BookmarkColors = [
+export const defaultColors: BookmarkColors = [
     ['#EF4511', 'グループ1'],
     ['#EBB910', 'グループ2'],
     ['#78E1A8', 'グループ3'],
