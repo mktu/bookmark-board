@@ -1,8 +1,8 @@
 import { useContext, useState, useEffect } from 'react'
 import { toast } from 'react-toastify';
-import { useProfile } from '../../modules/profileSlice'
-import { useUpload } from '../../hooks'
-import FirebaseContext from '../../context/FirebaseContext'
+import { useProfile } from '@modules/profileSlice'
+import useUpload from './useUpload'
+import FirebaseContext from '@context/FirebaseContext'
 
 const useProfileContainer = () => {
     const original = useProfile()
