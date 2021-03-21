@@ -1,6 +1,7 @@
 import { useMemo, useCallback } from 'react'
 import { toast } from 'react-toastify'
-import { useBookmarkGroup, createKey } from './useBookmarkGroup'
+import { useBookmarkGroup } from './useBookmarkGroup'
+import { createKey } from '@utils/color'
 import { MaxColorNumber } from '@utils/constants'
 
 export const useBookmarkColor = (groupId?: string) => {

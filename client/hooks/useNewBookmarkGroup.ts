@@ -2,7 +2,7 @@ import { useState, useContext, useCallback, useMemo } from 'react'
 import { useProfile } from '@modules/profileSlice'
 import { useGroupsByUser } from '@modules/groupSlice'
 import { MaxGroupNumber } from '@utils/constants'
-import { defaultColors } from './useBookmarkGroup'
+import { defaultColors } from '@utils/color'
 import FirebaseContext from '@context/FirebaseContext'
 
 export const useNewBookmarkGroup = ()=>{
