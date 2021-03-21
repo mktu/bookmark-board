@@ -41,4 +41,8 @@ export const useRefinementById = (groupId:string) => {
     )
 }
 
+export const hasListFilter = (refinements:BookmarkRefinement)=>{
+    return Boolean(refinements?.colorMasks?.length > 0 || refinements?.likeMask)
+}
+
 export default groupRefinementSlice.reducer

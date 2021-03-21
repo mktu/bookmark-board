@@ -2,7 +2,7 @@ import { useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useGroupStatus, useGroupById } from '@modules/groupSlice'
 import { useBookmarkIdsByRefinements, useBookmarkStatus } from '@modules/bookmarkSlice'
-import { useRefinementById } from '@modules/groupRefinementSlice'
+import { useRefinementById, hasListFilter } from '@modules/groupRefinementSlice'
 
 const useBookmarkGroupRoot = (groupId?: string, bookmarkId?: string) => {
     const router = useRouter()
@@ -11,7 +11,7 @@ const useBookmarkGroupRoot = (groupId?: string, bookmarkId?: string) => {
     const group = useGroupById(groupId)
     const refinements = useRefinementById(groupId)
     
-    const hasFilter = refinements?.colorMasks?.length > 0 || false
+    const hasFilter = hasListFilter(refinements)
     // bookmarkIds may change every time new bookmark group has loaded
     const bookmarkIds = useBookmarkIdsByRefinements(refinements)
     const jumpToGroupRoot = useCallback(() => {

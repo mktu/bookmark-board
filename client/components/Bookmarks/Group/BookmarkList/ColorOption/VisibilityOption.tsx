@@ -1,8 +1,8 @@
 import React from 'react'
-import { useBookmarkColor } from '../../../../../hooks/useBookmarkColor'
-import { useRefinements } from '../../../../../hooks/useBookmarkRefinement'
+import { useBookmarkColor } from '@hooks/useBookmarkColor'
+import { useRefinements } from '@hooks/useBookmarkRefinement'
 import Link from 'next/link'
-import { hex2rgb } from '../../../../../utils'
+import { hex2rgb } from '@utils/rgb'
 type Props = {
     groupId: string
 }
