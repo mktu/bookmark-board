@@ -1,9 +1,10 @@
 import React, { useContext, useState, useCallback } from 'react'
-import { ContainedButton } from '../../../Common/Button'
-import { Checkbox } from '../../../Common/Input'
-import { useBookmarksByGroup } from '../../../../modules/bookmarkSlice'
-import { useGroupById } from '../../../../modules/groupSlice'
-import FirebaseContext from '../../../../context/FirebaseContext'
+import { ContainedButton } from '@components/Common/Button'
+import { Checkbox } from '@components/Common/Input'
+import { useBookmarksByGroup } from '@modules/bookmarkSlice'
+import { useGroupById } from '@modules/groupSlice'
+import FirebaseContext from '@context/FirebaseContext'
+import {MaxBookmarkNumber} from '@utils/constants'
 
 type Props = {
     groupId: string,
@@ -28,16 +29,12 @@ const SortOptions: React.FC<Props> = ({
     const bookmarks = useBookmarksByGroup(groupId)
     const {colors} = useGroupById(groupId)
     const colorSorter : CompFunction = useCallback((a,b)=>{
-        if(!a.color){
-            return 1
+        if(!colors){
+            return 0
         }
-        if(!b.color){
-            return -1
-        }
-        if(!colors || !(colors[a.color]) || !(colors[b.color])){
-            return a.color < b.color ? -1 : 1
-        }
-        return (colors[a.color].idx || 0) - (colors[b.color].idx || 0)
+        const aIndx = a.color && colors[a.color]? colors[a.color].idx : MaxBookmarkNumber
+        const bIndx = b.color && colors[b.color]? colors[b.color].idx : MaxBookmarkNumber
+        return aIndx-bIndx
     },[colors])
     const sortBase = (compFunc:(a:Bookmark,b:Bookmark)=>number)=>{
         const data = bookmarks.sort(compFunc).map(v=>v.id)

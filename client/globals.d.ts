@@ -67,6 +67,7 @@ declare type BookmarkGroup = {
 
 declare type BookmarkRefinement = {
     id:string,
+    likeMask?:string,
     colorMasks ?: string[],
     listViewMask?: ListViewMask[],
 }

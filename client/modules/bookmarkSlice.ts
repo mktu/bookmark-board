@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, createEntityAdapter, createSelector } from '@reduxjs/toolkit'
 import { useSelector } from 'react-redux'
 
-const sorter = (a:Bookmark, b:Bookmark) => {
+const sorter = (a: Bookmark, b: Bookmark) => {
     return a.idx - b.idx
 }
 
@@ -82,8 +82,17 @@ const selectBookmarksByRefinements = createSelector(
         return bookmarks.filter(b => {
             if (!refinements) return true
             if (b.groupId === refinements.id) {
-                if (refinements.colorMasks) {
-                    return !refinements.colorMasks.includes(b.color)
+                if (refinements.colorMasks &&
+                    refinements.colorMasks.includes(b.color)) {
+                    return false
+                }
+                if (refinements.likeMask) {
+                    if(!(b.reactions?.likes?.length > 0)){
+                        return false
+                    }
+                    if(!b.reactions.likes.includes(refinements.likeMask)){
+                        return false
+                    }
                 }
                 return true
             }
@@ -112,7 +121,7 @@ const selectBookmarksByKeyword = createSelector(
 export const useBookmarks = () => {
     return useSelector(
         (state: { bookmarks: ReturnType<typeof bookmarkSlice.reducer> }) =>
-        selectAll(state.bookmarks)
+            selectAll(state.bookmarks)
     )
 }
 

@@ -3,7 +3,7 @@ import { saveRefinement } from '../utils/localStorages/group'
 
 export const useRefinements = (groupId?: string) => {
     const refinements = useRefinementById(groupId)
-    const { colorMasks = [] } = refinements
+    const { colorMasks = [], likeMask = false } = refinements
     const updateColorFilters = (updateColors: { color: string, show: boolean }[]) => {
         const unmasked = updateColors.filter(c => c.show).map(c => c.color)
         const masked = updateColors.filter(c => !c.show).map(c => c.color)
@@ -15,10 +15,16 @@ export const useRefinements = (groupId?: string) => {
         }
     }
 
+    const updateLikeFilter = (uid:string)=>{
+        saveRefinement(groupId, {likeMask:uid})
+    }
+
     return {
         updateColorFilters,
+        updateLikeFilter,
         refinements,
         colorMasks,
+        likeMask
     }
 }
 
