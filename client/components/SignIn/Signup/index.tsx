@@ -1,14 +1,11 @@
-import React, { useState, useContext, useRef, useEffect } from 'react'
-import FirebaseContext from '@context/FirebaseContext'
+import React from 'react'
 import { useRouter } from 'next/router'
 import TextArea from '@components/Common/Input/TextArea'
 import TextInput from '@components/Common/Input/TextInput'
 import { ContainedButton, OutlinedButton } from '@components/Common/Button'
 import { SigninImg, LoadingImg } from '@components/Common/Image'
 import Avatar from '@components/Common/Avatar/NextImage'
-import { toast } from 'react-toastify';
-import useUpload from '@hooks/useUpload'
-import { event } from '@utils/gtag'
+import useNewProfile from '@hooks/useNewProfile'
 
 type Props = {
     handleCancelSignup: () => void
@@ -17,60 +14,30 @@ type Props = {
 const Signup: React.FC<Props> = ({
     handleCancelSignup
 }) => {
-    const [name, setName] = useState('')
-    const [group, setGroup] = useState('Default')
-    const [comment, setComment] = useState('')
-    const { clientService } = useContext(FirebaseContext)
-    const [state, setState] = useState<LoadStatus['status']>('loaded')
-    const unmount = useRef(false)
-    useEffect(() => {
-        unmount.current = false
-        return () => {
-            unmount.current = true
-        }
-    }, [])
-    const setError = (error: Error) => {
-        if (unmount.current) return
-        toast.error(error.name)
-        setState('failed')
-    }
     const router = useRouter()
     const {
-        handleChangeFile,
-        upload,
+        name,
+        setName,
+        group,
+        setGroup,
+        comment,
+        setComment,
+        state,
         fileUrl,
-    } = useUpload()
-    const handleCancel = () => {
-        clientService.logout(handleCancelSignup)
+        handleChangeFile,
+        handleCancel,
+        handleSubmit,
+        valid
+    } = useNewProfile()
+    const onCancel = async () => {
+        await handleCancel()
+        handleCancelSignup()
     }
-    const handleSubmit = () => {
-        if (unmount.current) return
-        setState('loading')
-        event({
-            action : 'submit', category : 'signin'
-        })
-        if (!name) {
-            toast.error('必要な項目が入力されていません')
-            return
+    const onCreate = async () => {
+        const gid = await handleSubmit()
+        if (gid) {
+            router.push(`bookmarks/${gid}`)
         }
-        clientService.addProfile({
-            name,
-            comment
-        }, (uid) => {
-            clientService.addGroup(group, uid, (gid) => {
-                if (!fileUrl) {
-                    router.push(`bookmarks/${gid}`)
-                    return
-                }
-                upload(`profiles/${uid}`, (url) => {
-                    clientService.updateProfile(uid, {
-                        image: url
-                    }, () => {
-                        router.push(`bookmarks/${gid}`)
-                    }, setError)
-                })
-            }, setError)
-        }, setError)
     }
     return (
         <div className='md:flex w-screen h-screen justify-center p-4 md:p-0'>
@@ -100,8 +67,8 @@ const Signup: React.FC<Props> = ({
                         </div>
                     ) : (
                         <>
-                            <OutlinedButton className='mx-2' onClick={handleCancel}>キャンセル</OutlinedButton>
-                            <ContainedButton disabled={!name} onClick={handleSubmit}>作成する</ContainedButton>
+                            <OutlinedButton className='mx-2' onClick={onCancel}>キャンセル</OutlinedButton>
+                            <ContainedButton disabled={!valid} onClick={onCreate}>作成する</ContainedButton>
                         </>
                     )}
                 </div>

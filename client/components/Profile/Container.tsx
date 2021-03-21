@@ -45,7 +45,7 @@ const Container: React.FC = () => {
 
     const name = <TextInput className='my-2' label='NAME' id='name' value={profile.name} onChange={(e) => { updateProfile('name')(e.target.value) }} />
 
-    const twitterInput = <TextInput placeholder='@アカウント名のみ入力' className='w-full' id='twitter' value={profile.twitter} onChange={(e) => { updateProfile('twitter')(e.target.value) }} />
+    const twitterInput = <TextInput placeholder='@アカウント名' className='w-full' id='twitter' value={profile.twitter} onChange={(e) => { updateProfile('twitter')(e.target.value) }} />
 
     const commentInput = <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} border='outlined' minRows={4} onChange={(e) => { updateProfile('comment')(e.target.value) }} />
 
