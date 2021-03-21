@@ -1,8 +1,10 @@
 import React from 'react'
-import { TextButton } from '../../../../Common/Button/index'
-import { useBookmarkColor } from '../../../../../hooks/useBookmarkColor'
-import { useRefinements } from '../../../../../hooks/useBookmarkRefinement'
-import { hex2rgb } from '../../../../../utils'
+import Link from 'next/link'
+import { TextButton } from '@components/Common/Button/index'
+import { useBookmarkColor } from '@hooks/useBookmarkColor'
+import { useRefinements } from '@hooks/useBookmarkRefinement'
+import { hex2rgb } from '@utils/rgb'
+
 type Props = {
     groupId: string,
     handleSelectColor: (color: string) => void
@@ -14,6 +16,7 @@ const Selector: React.FC<Props> = ({
 }) => {
     const { colors } = useBookmarkColor(groupId)
     const { colorMasks } = useRefinements(groupId)
+    const colorSettingPath = `/bookmarks/${groupId}/colors`
     return (
         <div className='bg-white p-4 rounded shadow-lg border border-primary-border flex flex-col justify-start align-middle'>
             {colors.map(c => {
@@ -40,6 +43,12 @@ const Selector: React.FC<Props> = ({
                     </div>
                 )
             })}
+            <div>
+                <Link href={colorSettingPath}>
+                    <a href={colorSettingPath} className='text-sm underline text-link-main hover:text-link-hover'>色設定へ</a>
+                </Link>
+               
+            </div>
         </div>
     )
 }

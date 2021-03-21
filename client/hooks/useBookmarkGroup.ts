@@ -4,23 +4,6 @@ import { useGroupById, initialGroup } from '../modules/groupSlice'
 import { useUsersByIds } from '../modules/usersSlice'
 import FirebaseContext from '../context/FirebaseContext'
 
-export const createKey = () => Math.random().toString(32).substring(2)
-
-export const defaultColors: BookmarkColors = [
-    ['#EF4511', 'グループ1'],
-    ['#EBB910', 'グループ2'],
-    ['#78E1A8', 'グループ3'],
-    ['#89CFFA', 'グループ4'],
-].reduce((acc, cur, idx) => {
-    const key = createKey()
-    acc[key] = {
-        color: cur[0],
-        name: cur[1],
-        idx
-    }
-    return acc
-}, {})
-
 export const useBookmarkGroup = (groupId?: string) => {
     const base = useGroupById(groupId)
     const [update, setUpdate] = useState<Partial<BookmarkGroup>>({})
@@ -30,7 +13,8 @@ export const useBookmarkGroup = (groupId?: string) => {
             ...val
         }))
     }, [])
-    const hydrateColor = base && base.colors || defaultColors
+
+    const hydrateColor = useMemo(()=>base?.colors || {},[base])
 
     const bookmarkColors = useMemo(() => {
         return Object.keys(hydrateColor).reduce((acc, cur, idx) => {
