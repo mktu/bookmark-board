@@ -21,11 +21,20 @@ const Header = () => {
 
     const search = (
         <TooltipDivContainer content='検索' placement='bottom' className='mr-4 flex items-center'>
-            <SvgIconButton aria-label='Open Search' colorType='none' className={styles['heroicon-button']} onClick={() => {
-                router.push('/public-search')
-            }}>
-                <Search />
-            </SvgIconButton>
+            <>
+                <SvgIconButton aria-label='Open Search' colorType='none' className={
+                    classNames(styles['heroicon-button'], 'hidden md:block')} onClick={() => {
+                        router.push('/public-search')
+                    }}>
+                    <Search />
+                </SvgIconButton>
+                <SvgIconButton aria-label='Open Search' colorType='none' className={
+                    classNames(styles['heroicon-button'], 'md:hidden')} onClick={() => {
+                        router.push('/search')
+                    }}>
+                    <Search />
+                </SvgIconButton>
+            </>
         </TooltipDivContainer>
     )
 
