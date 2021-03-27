@@ -109,7 +109,7 @@ const Container: React.FC<Props> = ({
     ), [hasChange, handleSubmit, onClose])
 
     const cancel = useMemo(() => (
-        <OutlinedButton className='text-sm' onClick={onClose}>キャンセル</OutlinedButton>
+        <OutlinedButton className='text-sm' onClick={onClose}>戻る</OutlinedButton>
     ), [onClose])
 
     if (!bookmark?.id || !group?.id) {
