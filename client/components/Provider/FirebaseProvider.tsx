@@ -25,7 +25,8 @@ const DefaultProvider: React.FC<Props> = ({ children }) => {
 
     const value = useMemo<ContextType>(() => ({
         clientService,
-    }), [clientService])
+        uid
+    }), [clientService, uid])
 
     return (
         <FirebaseContext.Provider value={value}>

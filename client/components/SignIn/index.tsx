@@ -1,18 +1,17 @@
 import React, { useContext, useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
-import FirebaseContext from '../../context/FirebaseContext'
+import FirebaseContext from '@context/FirebaseContext'
 import Presenter from './Presenter'
 import Signup from './Signup'
 
 const Signin = () => {
-    const { clientService } = useContext(FirebaseContext)
-    const { auth, getMyProfile, loginByGoogle, loginWithAnonymous } = clientService
+    const { clientService, uid } = useContext(FirebaseContext)
+    const { auth : authModuleImported, getMyProfile, loginByGoogle, loginWithAnonymous, loginByGoogleWithRedirect } = clientService
     const [needSignup, setNeedSignup] = useState(false)
     const [signining, setSignining] = useState(false)
-    const router = useRouter();
-
+    const router = useRouter()
     useEffect(()=>{
-        if(signining && auth){
+        if(authModuleImported && uid){
             getMyProfile(() => {
                 setSignining(false)
                 // login flow
@@ -30,7 +29,7 @@ const Signin = () => {
                 setNeedSignup(true)
             })
         }
-    },[signining,auth,getMyProfile,router])
+    },[authModuleImported,uid,getMyProfile,router])
 
     if (needSignup) {
         return <Signup handleCancelSignup={() => {
@@ -38,20 +37,25 @@ const Signin = () => {
         }} />
     }
 
-    const handleTransition = () => {
-        setSignining(true)
-    }
     const handleSignin = () => {
-        loginByGoogle(handleTransition)
+        setSignining(true)
+        loginByGoogle()
+    }
+
+    const handleMobileSignin = () => {
+        setSignining(true)
+        loginByGoogleWithRedirect()
     }
 
     const handleAnonymous = () => {
-        loginWithAnonymous(handleTransition)
+        setSignining(true)
+        loginWithAnonymous()
     }
 
     return (
         <Presenter
             signining={signining}
+            handleMobileSignin={handleMobileSignin}
             handleSignin={handleSignin}
             handleAnonymous={handleAnonymous}
         />

@@ -46,12 +46,14 @@ export const upgradeAuthedService = async (original : FirebaseClientServiceType)
 
 export type ContextType = {
     clientService : FirebaseClientServiceType,
+    uid?:string
 }
 
 export const createMock = (func: (name: string) => (...args: []) => void) => {
     const mock: FirebaseClientServiceType = {
         logout : func('logout'),
         loginByGoogle : func('loginByGoogle'),
+        loginByGoogleWithRedirect : func('loginByGoogleWithRedirect'),
         loginWithAnonymous : func('loginWithAnonymous'),
         listenAuthState : () => {func('listenAuthState')(); return ()=>{1}},
         linkWithGoogle : func('linkWithGoogle'),
