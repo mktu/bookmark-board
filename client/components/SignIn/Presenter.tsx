@@ -6,12 +6,14 @@ import { AppName } from '@utils/constants'
 
 type Props = {
     handleSignin: () => void,
+    handleMobileSignin : () => void,
     handleAnonymous: () => void,
     signining: boolean
 }
 
 const Presenter = ({
     handleSignin,
+    handleMobileSignin,
     handleAnonymous,
     signining
 }: Props) => {
@@ -30,7 +32,7 @@ const Presenter = ({
                             <LoadingImg />
                         </div>
                     ) : (
-                        <button className='md:hidden mb-16 flex items-center shadow bg-white p-1 rounded' onClick={handleSignin}>
+                        <button className='md:hidden mb-16 flex items-center shadow bg-white p-1 rounded' onClick={handleMobileSignin}>
                             <GoogleSignInImg className='inline-block' />
                             <div className='pl-4 pr-4 inline-block text-primary-main'>Sign in with Google</div>
                         </button>
