@@ -3,15 +3,16 @@ import { useRouter } from 'next/router'
 import FirebaseContext from '@context/FirebaseContext'
 import Presenter from './Presenter'
 import Signup from './Signup'
+import { TermLink } from '@utils/constants'
 
 const Signin = () => {
     const { clientService, uid } = useContext(FirebaseContext)
-    const { auth : authModuleImported, getMyProfile, loginByGoogle, loginWithAnonymous, loginByGoogleWithRedirect } = clientService
+    const { auth: authModuleImported, getMyProfile, loginByGoogle, loginWithAnonymous, loginByGoogleWithRedirect } = clientService
     const [needSignup, setNeedSignup] = useState(false)
     const [signining, setSignining] = useState(false)
     const router = useRouter()
-    useEffect(()=>{
-        if(authModuleImported && uid){
+    useEffect(() => {
+        if (authModuleImported && uid) {
             getMyProfile(() => {
                 setSignining(false)
                 // login flow
@@ -29,7 +30,7 @@ const Signin = () => {
                 setNeedSignup(true)
             })
         }
-    },[authModuleImported,uid,getMyProfile,router])
+    }, [authModuleImported, uid, getMyProfile, router])
 
     if (needSignup) {
         return <Signup handleCancelSignup={() => {
@@ -54,6 +55,7 @@ const Signin = () => {
 
     return (
         <Presenter
+            termLink={TermLink}
             signining={signining}
             handleMobileSignin={handleMobileSignin}
             handleSignin={handleSignin}
