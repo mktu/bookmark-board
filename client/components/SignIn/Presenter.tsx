@@ -6,16 +6,18 @@ import { AppName } from '@utils/constants'
 
 type Props = {
     handleSignin: () => void,
-    handleMobileSignin : () => void,
+    handleMobileSignin: () => void,
     handleAnonymous: () => void,
-    signining: boolean
+    signining: boolean,
+    termLink: string
 }
 
 const Presenter = ({
     handleSignin,
     handleMobileSignin,
     handleAnonymous,
-    signining
+    signining,
+    termLink
 }: Props) => {
     return (
         <div className='w-screen h-screen flex flex-col md:flex-row'>
@@ -24,7 +26,13 @@ const Presenter = ({
                     <Logo theme='dark' size='lg' />
                 </div>
                 <p className='p-4 md:w-6/12 text-sm my-8'>
-                    {AppName}では、気に入ったWEBサイトなどのリンクを保存し、管理することができます。保存したURLは友達や仕事仲間と共有し、ブックマークリストを一緒に成長させましょう！
+                    <span>{AppName}では、気に入ったWEBサイトなどのリンクを保存し、管理することができます。</span>
+                    <span className='hidden md:inline'>保存したURLは友達や仕事仲間と共有し、ブックマークリストを一緒に成長させましょう！</span>
+                    <span className='md:hidden'>
+                        新規登録・ログインともにGoogleアカウントを用いて行えます。
+                    </span>
+                    <a href={termLink} target='_blank' rel='noopener noreferrer' className='underline md:hidden'>利用規約</a>
+                    <span className='md:hidden'>に合意の上、ご登録ください。</span>
                 </p>
                 {
                     signining ? (
@@ -41,10 +49,14 @@ const Presenter = ({
 
                 <BookmarksSigninImg width={400} height={200} />
             </div>
-            <div className='hidden md:w-5/12 bg-primary-dark h-full text-white p-4 md:flex flex-col items-center justify-center'>
+            <div className='hidden md:w-5/12 bg-primary-dark h-full text-white py-4 px-2 md:flex flex-col items-center justify-center'>
                 <h1 className='text-2xl font-bold mb-8'>Sign In</h1>
                 <p className='w-7/12 text-sm mb-8'>
-                    新規登録・ログインともにGoogleアカウントを用いて以下のリンクより行えます。
+                    <span>
+                        新規登録・ログインともにGoogleアカウントを用いて行えます。
+                    </span>
+                    <a href={termLink} target='_blank' rel='noopener noreferrer' className='underline'>利用規約</a>
+                    <span>に合意の上、ご登録ください。</span>
                 </p>
                 {signining ? (
                     <div className='flex items-center justify-center'>
