@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { LoadingImg } from '../../../Common/Image'
-import { ButtonBase } from '../../../Common/Button'
-import UrlImage, { NotFound } from '../../../Common/Avatar/UrlImage'
-import { Label } from '../../../Common/Label'
+import { LoadingImg } from '@components/Common/Image'
+import { ButtonBase } from '@components/Common/Button'
+import UrlImage, { NotFound } from '@components/Common/Avatar/UrlImage'
+import { Label } from '@components/Common/Label'
+import { BookmarkListImageSize, BookmarkLargeImageSize } from '@utils/constants'
 
 type Props = {
     image?: string,
@@ -31,8 +32,8 @@ const Image: React.FC<Props> = ({
                 {loading ? (<LoadingImg className='w-32' />) : (
                     <>
                         <div className='flex justify-center md:block md:border rounded p-1 text-xs border-primary-border overflow-hidden'>
-                            <UrlImage enableEndpoint={false} width='256px' src={currentImage} fallback={(<div className='text-secondary-main text-xs w-full' style={{ maxWidth: '256px' }}>
-                                <NotFound width='256px' height='128px' text={`画像が見つかりません`} />
+                            <UrlImage enableEndpoint={false} width={BookmarkLargeImageSize} src={currentImage} fallback={(<div className='text-secondary-main text-xs w-full' style={{ maxWidth: BookmarkLargeImageSize }}>
+                                <NotFound width={BookmarkLargeImageSize} height={128} text={`画像が見つかりません`} />
                             </div>)} />
                         </div>
                         {otherImages.length > 0 && (
@@ -44,7 +45,7 @@ const Image: React.FC<Props> = ({
                                             <ButtonBase className={`rounded block p-1 ${i === currentImage ? 'border-2 border-primary-main' : 'border border-primary-border'}`} onClick={() => {
                                                 i !== currentImage && onChangeImage(i)
                                             }}>
-                                                <UrlImage width='64px' height='64px' src={i} enableEndpoint={!disableEndpoint}/>
+                                                <UrlImage width={BookmarkListImageSize} height={BookmarkListImageSize} src={i} enableEndpoint={!disableEndpoint}/>
                                             </ButtonBase>
                                         </div>
                                     ))}

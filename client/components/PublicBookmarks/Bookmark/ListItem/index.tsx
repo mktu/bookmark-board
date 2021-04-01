@@ -1,12 +1,13 @@
 import React from 'react'
-import UrlImage from '../../../Common/Avatar/UrlImage'
-import ChevronDoubleDown from '../../../Common/Icon/ChevronDoubleDown'
-import Duplicate from '../../../Common/Icon/Duplicate'
-import { SvgIconButton } from '../../../Common/Button'
-import { copyToClipBoard } from '../../../../utils'
+import UrlImage from '@components/Common/Avatar/UrlImage'
+import ChevronDoubleDown from '@components/Common/Icon/ChevronDoubleDown'
+import Duplicate from '@components/Common/Icon/Duplicate'
+import { SvgIconButton } from '@components/Common/Button'
+import { copyToClipBoard } from '@utils/index'
 import { toast } from 'react-toastify';
 import DefaultPresenter from './Default'
 import MobilePresenter from './Mobile'
+import { BookmarkListImageSize } from '@utils/constants'
 
 type Props = {
     bookmark: Bookmark,
@@ -37,7 +38,7 @@ const ListItem: React.FC<Props> = ({
         }}><ChevronDoubleDown className='w-4' strokeWidth={2} /></SvgIconButton>
     )
     const origin = new URL(bookmark.url)
-    const image = <UrlImage enableEndpoint={!bookmark.disableEndpoint} width='64px' height='64px' src={bookmark.image} name={bookmark.title} />
+    const image = <UrlImage className='rounded' enableEndpoint={!bookmark.disableEndpoint} width={BookmarkListImageSize} height={BookmarkListImageSize} src={bookmark.image} name={bookmark.title} />
     return (
         <>
             <div className='hidden md:block'>

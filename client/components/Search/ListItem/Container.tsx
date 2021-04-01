@@ -32,6 +32,7 @@ const Container: React.FC<Props> = ({
 
     const image = (
         <UrlImage
+            className='rounded border border-primary-border'
             src={bookmark.image}
             enableEndpoint={!bookmark.disableEndpoint}
             width={BookmarkListImageSize}

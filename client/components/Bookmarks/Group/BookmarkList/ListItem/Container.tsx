@@ -1,16 +1,16 @@
 import React from 'react'
-import { UrlImage } from '../../../../Common/Avatar'
-import { ExternalLink, Duplicate, Trash } from '../../../../Common/Icon'
-import { SvgIconButton, HeartButton, ButtonBase } from '../../../../Common/Button'
-import { PopoverDivContainer } from '../../../../Common/Popover'
+import { UrlImage } from '@components/Common/Avatar'
+import { ExternalLink, Duplicate, Trash } from '@components/Common/Icon'
+import { SvgIconButton, HeartButton, ButtonBase } from '@components/Common/Button'
+import { PopoverDivContainer } from '@components/Common/Popover'
 import ColorSelector from '../ColorOption/Selector'
-import { useRefinementById } from '../../../../../modules/groupRefinementSlice'
-import { copyToClipBoard, numberToDateTime } from '../../../../../utils'
-import { BookmarkListImageSize } from '../../../../../utils/constants'
+import { useRefinementById } from '@modules/groupRefinementSlice'
+import { copyToClipBoard, numberToDateTime } from '@utils/index'
+import { BookmarkListImageSize } from '@utils/constants'
 import { toast } from 'react-toastify';
-import { useBookmark } from '../../../../../hooks/useBookmark'
-import { useBookmarkGroup } from '../../../../../hooks/useBookmarkGroup'
-import { useHoverable } from '../../../../../hooks/useBookmarkDnd'
+import { useBookmark } from '@hooks/useBookmark'
+import { useBookmarkGroup } from '@hooks/useBookmarkGroup'
+import { useHoverable } from '@hooks/useBookmarkDnd'
 import Presenter from './Presenter'
 
 
@@ -63,6 +63,7 @@ const ListItem: React.FC<Props> = ({
     }
     const image = (
         <UrlImage
+            className='rounded border border-primary-border'
             src={bookmark.image}
             enableEndpoint={!bookmark.disableEndpoint}
             width={BookmarkListImageSize}

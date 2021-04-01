@@ -47,10 +47,10 @@ const ListItem: React.FC<Props> = ({
         <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center`}
             style={color ? { borderLeft: `5px solid ${color}`, opacity } : { opacity }} >
             <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50' >
-                <div ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
+                <div  ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
                     {image}
                 </div>
-                <div style={{ minHeight: BookmarkListImageSize }} className='mx-2 border-primary-border border-r' />
+                <div style={{ minHeight: BookmarkListImageSize }} className='mx-2' />
                 <Link href={detailLink}>
                     <a href={detailLink} className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1' tabIndex={0}>
                         <div className='overflow-hidden truncate max-w-full'>{title || url}</div>

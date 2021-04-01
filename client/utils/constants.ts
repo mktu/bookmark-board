@@ -1,5 +1,6 @@
 export const TwitterUrl = 'https://twitter.com/'
-export const BookmarkListImageSize = '64px'
+export const BookmarkListImageSize = 72
+export const BookmarkLargeImageSize = 256
 export const MaxGroupNumber = 50
 export const MaxBookmarkNumber = 50
 export const MaxColorNumber = 20
