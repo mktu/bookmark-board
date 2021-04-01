@@ -1,14 +1,15 @@
 import React from 'react'
-import UrlImage from '../../Common/Avatar/UrlImage'
-import ChevronDoubleUp from '../../Common/Icon/ChevronDoubleUp'
-import Chat from '../../Common/Icon/Chat'
-import Duplicate from '../../Common/Icon/Duplicate'
-import { Label } from '../../Common/Label'
-import { SvgIconButton } from '../../Common/Button'
-import { copyToClipBoard } from '../../../utils'
+import UrlImage from '@components/Common/Avatar/UrlImage'
+import ChevronDoubleUp from '@components/Common/Icon/ChevronDoubleUp'
+import Chat from '@components/Common/Icon/Chat'
+import Duplicate from '@components/Common/Icon/Duplicate'
+import { Label } from '@components/Common/Label'
+import { SvgIconButton } from '@components/Common/Button'
+import { copyToClipBoard } from '@utils/index'
 import { toast } from 'react-toastify';
-import { TooltipDivContainer } from '../../Common/Tooltip'
-import { hex2rgb } from '../../../utils/rgb'
+import { TooltipDivContainer } from '@components/Common/Tooltip'
+import { hex2rgb } from '@utils/rgb'
+import { BookmarkListImageSize } from '@utils/constants'
 
 type Props = {
     bookmark: Bookmark,
@@ -22,8 +23,8 @@ const ListCard: React.FC<Props> = ({
     const [r, g, b] = hex2rgb(bookmark.color)
     return (
         <div className='flex py-1 px-2 border rounded border-primary-border'>
-            <div style={{ minWidth: '64px' }}>
-                <UrlImage width='64px' height='64px' src={bookmark.image} />
+            <div style={{ minWidth: BookmarkListImageSize }}>
+                <UrlImage className='rounded' width={BookmarkListImageSize} height={BookmarkListImageSize} src={bookmark.image} />
             </div>
             <div className='ml-2 text-primary-main overflow-hidden w-full px-1 border-l-2  border-primary-border pl-2' style={{ borderColor: bookmark.color && `rgba(${r},${g},${b},0.5)` }}>
                 <Label htmlFor='title' textSize='text-xs'>タイトル</Label>

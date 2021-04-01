@@ -1,11 +1,11 @@
 import React from 'react'
-import { UrlImage } from '../../../../../Common/Avatar'
-import { ExternalLink, Duplicate, Trash } from '../../../../../Common/Icon'
-import { HeartButton, ButtonBase } from '../../../../../Common/Button'
-import { useRefinementById } from '../../../../../../modules/groupRefinementSlice'
-import { numberToDateTime } from '../../../../../../utils'
-import { BookmarkListImageSize } from '../../../../../../utils/constants'
-import { useBookmark } from '../../../../../../hooks/useBookmark'
+import { UrlImage } from '@components/Common/Avatar'
+import { ExternalLink, Duplicate, Trash } from '@components/Common/Icon'
+import { HeartButton, ButtonBase } from '@components/Common/Button'
+import { useRefinementById } from '@modules/groupRefinementSlice'
+import { numberToDateTime } from '@utils/index'
+import { BookmarkListImageSize } from '@utils/constants'
+import { useBookmark } from '@hooks/useBookmark'
 import Presenter from './Presenter'
 
 

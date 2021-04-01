@@ -3,9 +3,9 @@ import { PlaceHolderImg } from '../Image'
 
 type Props = {
     src?: string,
-    width?: string,
+    width?: number,
     fallback?: React.ReactNode
-    height?: string,
+    height?: number,
     name?: string,
     enableEndpoint?: boolean,
     cAtMax?: boolean,
@@ -14,20 +14,15 @@ type Props = {
 }
 const UrlEndpoint = process.env.NEXT_PUBLIC_IMGKIT_ID
 
-const toNumber = (str?: string) => {
-    if (!str) return 0
-    return Number(str.replace('px', ''))
-}
-
-const makeDefaultSrcSet = (useEndpoint: boolean, width?: string, height?: string, src?: string) => {
-    const baseWidth = toNumber(width)
+const makeDefaultSrcSet = (useEndpoint: boolean, width?: number, height?: number, src?: string) => {
+    const baseWidth = width || 0
     const width1 = `${UrlEndpoint}tr:w-${baseWidth}/${src} ${baseWidth}w`
     const width2 = `${UrlEndpoint}tr:w-${baseWidth * 2}/${src} ${baseWidth * 2}w`
     const width3 = `${UrlEndpoint}tr:w-${baseWidth * 3}/${src} ${baseWidth * 3}w`
     const srcset = (useEndpoint && baseWidth > 0) ? `${width1},${width2},${width3}` : undefined
     const style: React.CSSProperties = {
         maxWidth: width,
-        maxHeight: height
+        maxHeight: height,
     }
     return {
         style,
@@ -35,8 +30,8 @@ const makeDefaultSrcSet = (useEndpoint: boolean, width?: string, height?: string
     }
 }
 
-const makeCAtMaxSrcSet = (useEndpoint: boolean, width?: string, height?: string, src?: string) => {
-    const baseWidth = toNumber(width)
+const makeCAtMaxSrcSet = (useEndpoint: boolean, width?: number, height?: number, src?: string) => {
+    const baseWidth = width || 0
     const width1 = `${UrlEndpoint}tr:w-${baseWidth},h-${baseWidth},c-at_max/${src} ${baseWidth}w`
     const width2 = `${UrlEndpoint}tr:w-${baseWidth * 2},h-${baseWidth * 2},c-at_max/${src} ${baseWidth * 2}w`
     const width3 = `${UrlEndpoint}tr:w-${baseWidth * 3},h-${baseWidth * 3},c-at_max/${src} ${baseWidth * 3}w`
@@ -52,8 +47,8 @@ const makeCAtMaxSrcSet = (useEndpoint: boolean, width?: string, height?: string,
 }
 
 export const NotFound: React.FC<{
-    width?: string,
-    height?: string,
+    width?: number,
+    height?: number,
     text?: string
 }> = ({
     width,
@@ -84,7 +79,7 @@ const UrlImage: React.FC<Props> = ({
 }) => {
     const [useEndpoint, setUseEndpoint] = useState(enableEndpoint)
     const [error, setError] = useState(false)
-    const { style, srcset } = cAtMax ? makeCAtMaxSrcSet(useEndpoint, width, height, src)
+    const { srcset } = cAtMax ? makeCAtMaxSrcSet(useEndpoint, width, height, src)
         : makeDefaultSrcSet(useEndpoint, width, height, src)
 
     if (!src || error) {
@@ -93,8 +88,8 @@ const UrlImage: React.FC<Props> = ({
                 <>{fallback}</>
             )
         }
-        const w = toNumber(width)
-        const h = toNumber(height)
+        const w = width || 0
+        const h = height || 0
         return (
             <div className={className} style={{
                 width,
@@ -107,17 +102,15 @@ const UrlImage: React.FC<Props> = ({
     //width: 100%; height: auto
     // https://parashuto.com/rriver/development/img-size-attributes-are-back
     return (
-        <div className={className} style={style}>
-            <img width={width} height={height} alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
-                if (useEndpoint) {
-                    setUseEndpoint(false)
-                    onError && onError(true)
-                } else {
-                    setError(true)
-                    onError && onError()
-                }
-            }} srcSet={srcset} style={{width:'100%', height:'auto'}}/>
-        </div>
+        <img className={className} alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
+            if (useEndpoint) {
+                setUseEndpoint(false)
+                onError && onError(true)
+            } else {
+                setError(true)
+                onError && onError()
+            }
+        }} srcSet={srcset} style={{ width, height, objectFit: 'cover', objectPosition: '50% 50%' }} />
     )
 }
 
