@@ -47,7 +47,7 @@ const ListItem: React.FC<Props> = ({
         <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center`}
             style={color ? { borderLeft: `5px solid ${color}`, opacity } : { opacity }} >
             <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50' >
-                <div  ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
+                <div ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
                     {image}
                 </div>
                 <div style={{ minHeight: BookmarkListImageSize }} className='mx-2' />
@@ -55,14 +55,6 @@ const ListItem: React.FC<Props> = ({
                     <a href={detailLink} className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1' tabIndex={0}>
                         <div className='overflow-hidden truncate max-w-full'>{title || url}</div>
                         {description && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
-
-                        {comment && (
-                            <div className='text-xs text-primary-main font-thin max-w-full flex items-center py-1' >
-                                <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2} />
-                                <div className='overflow-hidden truncate flex-1'>
-                                    {comment}
-                                </div>
-                            </div>)}
                         {url && (
                             <div className='mt-auto pt-1 overflow-hidden truncate text-xs text-primary-main font-thin max-w-full md:flex items-center' >
                                 {/* {lastUpdate && (
@@ -76,12 +68,20 @@ const ListItem: React.FC<Props> = ({
                                 {url && (
                                     <div className='flex items-center'>
                                         <span>
-                                            <LinkIcon className='w-4 stroke-primary-main' />
+                                            <LinkIcon className='w-4 stroke-primary-main mr-1' />
                                         </span>
                                         <span className='overflow-hidden truncate text-primary-main font-thin max-w-full' > {url}</span>
                                     </div>
                                 )}
                             </div>)}
+                        {comment && (
+                            <div className='mt-1 text-xs text-primary-main font-thin max-w-full flex items-center p-1 border border-primary-border rounded' >
+                                <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2} />
+                                <div className='overflow-hidden truncate flex-1'>
+                                    {comment}
+                                </div>
+                            </div>)}
+
                     </a>
                 </Link>
                 <div className='ml-auto flex flex-col justify-start'>
