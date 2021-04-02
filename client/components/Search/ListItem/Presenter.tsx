@@ -30,7 +30,7 @@ const Presenter: React.FC<Props> = ({
                 <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
                     {image}
                 </div>
-                <div style={{ minHeight: BookmarkListImageSize }} className='mx-2 border-primary-border border-r' />
+                <div style={{ minHeight: BookmarkListImageSize }} className='mx-2' />
                 <div className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1'>
                     <div className='overflow-hidden truncate max-w-full'>{title}</div>
                     {description && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
