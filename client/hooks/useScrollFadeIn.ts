@@ -40,7 +40,6 @@ export const useScrollFadeIn = <T extends HTMLElement>(
 
     const nodeStyle = useMemo(
         () => ({
-            width: "100%",
             transition: "1s",
             opacity: state.opacity,
             transform: state.transform,
