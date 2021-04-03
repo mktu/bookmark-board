@@ -1,79 +1,26 @@
 import React from 'react'
-import { BookmarksSigninImg, GoogleSignInImg } from '@components/Common/Image'
-import Logo from '@components/Common/Logo/Logo'
-import { LoadingImg } from '@components/Common/Image'
-import { AppName } from '@utils/constants'
 
 type Props = {
-    handleSignin: () => void,
-    handleMobileSignin: () => void,
-    handleAnonymous: () => void,
-    signining: boolean,
-    termLink: string
+    welcome : React.ReactNode,
+    webLogin : React.ReactNode,
+    mobileLogin : React.ReactNode,
 }
 
 const Presenter = ({
-    handleSignin,
-    handleMobileSignin,
-    handleAnonymous,
-    signining,
-    termLink
+    welcome,
+    webLogin,
+    mobileLogin
 }: Props) => {
     return (
         <div className='w-screen h-screen flex flex-col md:flex-row'>
-            <div className='w-full md:w-7/12 h-full flex flex-col items-center justify-center p-4'>
-                <div>
-                    <Logo theme='dark' size='lg' />
-                </div>
-                <p className='p-4 md:w-6/12 text-sm my-8'>
-                    <span>{AppName}では、気に入ったWEBサイトなどのリンクを保存し、管理することができます。</span>
-                    <span className='hidden md:inline'>保存したURLは友達や仕事仲間と共有し、ブックマークリストを一緒に成長させましょう！</span>
-                    <span className='md:hidden'>
-                        新規登録・ログインともにGoogleアカウントを用いて行えます。
-                    </span>
-                    <a href={termLink} target='_blank' rel='noopener noreferrer' className='underline md:hidden'>利用規約</a>
-                    <span className='md:hidden'>に合意の上、ご登録ください。</span>
-                </p>
-                {
-                    signining ? (
-                        <div className='flex items-center justify-center mb-16 md:hidden'>
-                            <LoadingImg />
-                        </div>
-                    ) : (
-                        <button className='md:hidden mb-16 flex items-center shadow bg-white p-1 rounded' onClick={handleMobileSignin}>
-                            <GoogleSignInImg className='inline-block' />
-                            <div className='pl-4 pr-4 inline-block text-primary-main'>Sign in with Google</div>
-                        </button>
-                    )
-                }
-
-                <BookmarksSigninImg width={400} height={200} />
+            <div className='hidden md:block w-full md:w-7/12 h-full'>
+                {welcome}
             </div>
-            <div className='hidden md:w-5/12 bg-primary-dark h-full text-white py-4 px-2 md:flex flex-col items-center justify-center'>
-                <h1 className='text-2xl font-bold mb-8'>Sign In</h1>
-                <p className='w-7/12 text-sm mb-8'>
-                    <span>
-                        新規登録・ログインともにGoogleアカウントを用いて行えます。
-                    </span>
-                    <a href={termLink} target='_blank' rel='noopener noreferrer' className='underline'>利用規約</a>
-                    <span>に合意の上、ご登録ください。</span>
-                </p>
-                {signining ? (
-                    <div className='flex items-center justify-center'>
-                        <LoadingImg />
-                    </div>
-                ) : (
-                    <div className='flex flex-col items-center justify-center'>
-                        <button className='bg-white p-0' onClick={handleSignin}>
-                            <GoogleSignInImg className='inline-block' />
-                            <span className='pl-4 pr-4 inline-block text-primary-main'>Sign in with Google</span>
-                        </button>
-                        <button className='border border-primary-light p-2 mt-2' onClick={handleAnonymous}>
-                            Anonymous
-                        </button>
-                    </div>
-                )}
-
+            <div className='hidden md:block w-full md:w-5/12 h-full'>
+                {webLogin}
+            </div>
+            <div className='md:hidden w-full md:w-5/12 h-full'>
+                {mobileLogin}
             </div>
         </div>
     )
