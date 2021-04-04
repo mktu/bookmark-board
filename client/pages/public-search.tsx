@@ -1,7 +1,7 @@
 import React from 'react'
 import { PublicLayout } from '../components/Layout'
 import Search from '../components/PublicSearch'
-import Header from '../components/Header'
+import PublicPageHeader from '../components/Header/PublicPageHeader'
 import Footer from '../components/Footer'
 import AppMeta from '../components/Meta/AppMeta'
 
@@ -10,7 +10,7 @@ export default function PublicSearch() {
     <div>
       <AppMeta title='公開ブックマーク' path='public-search'/>
       <PublicLayout
-        header={<Header />}
+        header={<PublicPageHeader />}
         main={<Search />}
         footer={<Footer />}
       />
