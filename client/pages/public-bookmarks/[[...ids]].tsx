@@ -2,7 +2,7 @@ import React from 'react'
 import { useRouter } from 'next/router'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import { PublicLayout } from '@components/Layout'
-import Header from '@components/Header'
+import PublicPageHeader from '@components/Header/PublicPageHeader'
 import Footer from '@components/Footer'
 import PublicBookmarks from '@components/PublicBookmarks'
 import PublicBookmarkMeta from '@components/Meta/PublicBookmarkMeta'
@@ -23,7 +23,7 @@ const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProp
     <div>
       <PublicBookmarkMeta {...{group,profile}}/>
       <PublicLayout
-        header={<Header />}
+        header={<PublicPageHeader />}
         main={<PublicBookmarks group={group} bookmarks={bookmarks} editor={profile} />}
         footer={<Footer />}
       />

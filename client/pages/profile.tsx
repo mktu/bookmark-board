@@ -2,7 +2,7 @@ import React from 'react'
 import Profile from '../components/Profile'
 import { AppLayout } from '../components/Layout'
 import Sidebar from '../components/Sidebar'
-import Header from '../components/Header'
+import AppPageHeader from '../components/Header/AppPageHeader'
 import AppMeta from '../components/Meta/AppMeta'
 import {RequireSignedIn} from '../components/App'
 
@@ -14,7 +14,7 @@ export default function ProfilePage() {
         <AppLayout
           sidebar={<Sidebar />}
           main={<Profile />}
-          header={<Header />}
+          header={<AppPageHeader />}
         />
       </RequireSignedIn>
     </div>

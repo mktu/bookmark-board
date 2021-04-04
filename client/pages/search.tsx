@@ -2,7 +2,7 @@ import React from 'react'
 import Search from '../components/Search'
 import { AppLayout } from '../components/Layout'
 import Sidebar from '../components/Sidebar'
-import Header from '../components/Header'
+import AppPageHeader from '../components/Header/AppPageHeader'
 import { RequireSignedIn } from '../components/App'
 import AppMeta from '../components/Meta/AppMeta'
 
@@ -14,7 +14,7 @@ export default function BookmarksPage() {
                 <AppLayout
                     sidebar={<Sidebar />}
                     main={<Search />}
-                    header={<Header />}
+                    header={<AppPageHeader />}
                 />
             </RequireSignedIn>
         </div>

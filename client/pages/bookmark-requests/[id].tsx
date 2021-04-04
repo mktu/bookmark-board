@@ -1,10 +1,10 @@
 import React from 'react'
-import BookmarkRequests from '../../components/BookmarkRequests'
-import { AppLayout } from '../../components/Layout'
-import Sidebar from '../../components/Sidebar'
-import Header from '../../components/Header'
-import AppMeta from '../../components/Meta/AppMeta'
-import {RequireSignedIn} from '../../components/App'
+import BookmarkRequests from '@components/BookmarkRequests'
+import { AppLayout } from '@components/Layout'
+import Sidebar from '@components/Sidebar'
+import AppPageHeader from '@components/Header/AppPageHeader'
+import AppMeta from '@components/Meta/AppMeta'
+import {RequireSignedIn} from '@components/App'
 
 export default function BookmarkRequestsPage() {
   return (
@@ -14,7 +14,7 @@ export default function BookmarkRequestsPage() {
         <AppLayout
           sidebar={<Sidebar />}
           main={<BookmarkRequests />}
-          header={<Header />}
+          header={<AppPageHeader />}
         />
       </RequireSignedIn>
     </div>
