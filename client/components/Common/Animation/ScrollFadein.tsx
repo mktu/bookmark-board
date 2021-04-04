@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import {useScrollFadeIn} from '@hooks/useScrollFadeIn'
+
 type Children<T extends HTMLElement> = React.ReactElement & {
     ref?: React.Ref<T>;
 }
@@ -28,7 +29,7 @@ export default function ScrollFadein<T extends HTMLElement>({ children, translat
             }
             setReferenceElement(value)
         },
-        style : nodeStyle
+        style : nodeStyle,
     }
 
     return (
