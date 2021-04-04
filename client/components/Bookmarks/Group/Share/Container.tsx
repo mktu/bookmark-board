@@ -19,10 +19,10 @@ const Share: React.FC<Props> = ({
     const { group, updatePartial, handleSubmit, hasChange } = useBookmarkGroup(groupId)
     const { canCreate, canDelete, searchable, setSearchable, handleCreateAlgolia, handleDeleteAlgolia } = useAlgoliaRegister(groupId, group?.searchable)
     const { sharable } = group || {}
-    const host = window.location.host
+    const origin = window.location.origin
     const publicPath = `/public-bookmarks/${groupId}`
-    const publicUrl = `${host}${publicPath}`
-    const requestUrl = `${host}/bookmark-requests/${groupId}`
+    const publicUrl = `${origin}${publicPath}`
+    const requestUrl = `${origin}/bookmark-requests/${groupId}`
     const handleShare = (sharable: boolean) => {
         updatePartial({ sharable })
         !sharable && setSearchable(false)
