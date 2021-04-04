@@ -2,8 +2,9 @@ import React from 'react'
 import Link from 'next/link'
 import Chat from '@components/Common/Icon/Chat'
 import LinkIcon from '@components/Common/Icon/Link'
-import { TooltipDivContainer } from '../../../../Common/Tooltip'
-import { BookmarkListImageSize } from '../../../../../utils/constants'
+import { TooltipDivContainer } from '@components/Common/Tooltip'
+import { BookmarkListImageSize } from '@utils/constants'
+import { checkIsTouch } from '@utils/dnd'
 
 type Props = {
     detailLink: string,
@@ -42,7 +43,7 @@ const ListItem: React.FC<Props> = ({
     heartButton,
     colorButton
 }) => {
-    const isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0))
+    const isTouch = checkIsTouch()
     return (
         <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center`}
             style={color ? { borderLeft: `5px solid ${color}`, opacity } : { opacity }} >
