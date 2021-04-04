@@ -1,6 +1,6 @@
 import React from 'react'
-import { OutlinedButton, SvgIconButton } from '@components/Common/Button'
-import { Duplicate, XFill } from '@components/Common/Icon'
+import { SvgIconButton } from '@components/Common/Button'
+import { Duplicate} from '@components/Common/Icon'
 import Link from 'next/link'
 import { TooltipDivContainer } from '@components/Common/Tooltip'
 import { copyToClipBoard } from '@utils/index'

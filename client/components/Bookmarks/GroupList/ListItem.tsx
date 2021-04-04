@@ -1,8 +1,9 @@
 import React from 'react'
-import { FolderOpen } from '../../Common/Icon'
+import { FolderOpen } from '@components/Common/Icon'
 import { useRouter } from 'next/router'
-import { useHoverable } from '../../../hooks/useBookmarkGroupDnd'
+import { useHoverable } from '@hooks/useBookmarkGroupDnd'
 import classNames from 'classnames'
+import { checkIsTouch } from '@utils/dnd'
 
 type Props = {
     bookmarkGroup: BookmarkGroup,
@@ -15,6 +16,7 @@ const ListItem: React.FC<Props> = ({
     onHover,
     listIndex
 }) => {
+    const isTouch = checkIsTouch()
     const { attachDnDRef, isBookmarkOver, dragging } = useHoverable(bookmarkGroup, onHover, listIndex)
     const router = useRouter()
     if (!bookmarkGroup || !bookmarkGroup.id) {
@@ -23,16 +25,16 @@ const ListItem: React.FC<Props> = ({
     const { ids } = router.query
     const selected = Boolean(ids) && ids[0] === bookmarkGroup.id
     return (
-        <button ref={attachDnDRef} onClick={() => {
+        <button ref={!isTouch ? attachDnDRef : undefined} onClick={() => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${bookmarkGroup.id}`, { shallow: true })
         }} className={classNames(`w-full overflow-hidden flex text-primary-main items-center p-2 cursor-pointer hover:text-primary-dark hover:bg-primary-hover focus:outline-none ${selected && 'bg-primary-hover'}`,
             isBookmarkOver && 'border-dotted border-primary-main border-2',
             dragging && 'hidden'
         )}>
-            <div>
+            <div ref={isTouch ? attachDnDRef : undefined}>
                 <FolderOpen className='w-8 stroke-primary-main' strokeWidth={1} />
             </div>
-            <div className='ml-2  truncate'>{bookmarkGroup.name}</div>
+            <div className='ml-2 truncate'>{bookmarkGroup.name}</div>
         </button>
     )
 }
