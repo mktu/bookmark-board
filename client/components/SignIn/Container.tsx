@@ -17,15 +17,18 @@ const Signin = () => {
     useEffect(() => {
         if (authModuleImported && uid) {
             getMyProfile(() => {
-                setSignining(false)
                 // login flow
                 const fromPath = sessionStorage.getItem('fromPath')
                 // tbd check if profile exists
                 if (fromPath) {
-                    router.push(fromPath)
+                    router.push(fromPath).then(()=>{
+                        setSignining(false)
+                    })
                 }
                 else {
-                    router.push('/bookmarks')
+                    router.push('/bookmarks').then(()=>{
+                        setSignining(false)
+                    })
                 }
             }, () => {
                 setSignining(false)
