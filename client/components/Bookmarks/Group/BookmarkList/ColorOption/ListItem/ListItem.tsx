@@ -39,7 +39,7 @@ const ListItem: React.FC<Props> = ({
                 }} />
             </div>
             <label className='text-xs text-primary-main underline whitespace-no-wrap cursor-pointer' htmlFor={id}>色を変更</label>
-            <input id={id} type='color' className='invisible w-0' value={color} onChange={(e) => {
+            <input id={id} type='color' className='opacity-0 w-0' value={color} onChange={(e) => {
                 updateColor(id, { color: e.target.value })
             }} />
             <OutlinedButton onClick={() => {
