@@ -14,9 +14,9 @@ export const Content: React.ReactNode = (
         </p>
         <p className='mt-2'>
             <span role='img' aria-label='right' className='mr-2'>👉</span>
-            <a href={SampleUrl} target='_blank' rel='noopener noreferrer' className='underline'>サンプルの公開ブックマークリスト</a>
+            <a href={SampleUrl} target='_blank' rel='noopener noreferrer' className='underline'>サンプルの公開ブックマークグループ</a>
         </p>
     </div>
 )
 
-export const Image = <LpPubApp width={457} height={544} />
+export const Image = <LpPubApp width={490} height={540} />
