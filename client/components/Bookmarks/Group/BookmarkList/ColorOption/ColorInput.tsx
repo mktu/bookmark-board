@@ -26,7 +26,7 @@ const ColorInput: React.FC<Props> = ({
                         </label>
                     )}
 
-                <input id='NewColor' type='color' className='invisible w-0' value={color} onChange={(e) => {
+                <input id='NewColor' type='color' className='opacity-0 w-0' value={color} onChange={(e) => {
                     setColor(e.target.value)
                 }} />
                 <ContainedButton onClick={()=>{
