@@ -1,6 +1,6 @@
 import React from 'react'
 import { SvgIconButton } from '@components/Common/Button'
-import { Duplicate} from '@components/Common/Icon'
+import { Duplicate } from '@components/Common/Icon'
 import Link from 'next/link'
 import { TooltipDivContainer } from '@components/Common/Tooltip'
 import { copyToClipBoard } from '@utils/index'
@@ -36,22 +36,27 @@ const PublicLink: React.FC<Props> = ({
             </div>
             <div className='flex items-center my-2'>
                 <p className='hidden md:block'>閲覧用リンク</p>
-                <Link href={publicPath} shallow>
-                    {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                        (<a className='hidden md:inline-block underline text-blue-700 mx-2'>{publicUrl}</a>)
-                    }
-                </Link>
-                <Link href={publicPath} shallow>
-                    {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                        (<a className='md:hidden underline text-blue-700 mx-2'>閲覧用リンク</a>)
-                    }
-                </Link>
-
-                <TooltipDivContainer content='URLをコピー' placement='bottom'>
-                    <SvgIconButton aria-label='Copy URL' className='block' onClick={copyToClipboard}>
-                        <Duplicate className='w-6' />
-                    </SvgIconButton>
-                </TooltipDivContainer>
+                <div className='flex-1 flex items-center'>
+                    <div className='hidden md:block mx-2'>
+                        <Link href={publicPath} shallow>
+                            {// eslint-disable-next-line jsx-a11y/anchor-is-valid
+                                (<a className='underline text-blue-700'>{publicUrl}</a>)
+                            }
+                        </Link>
+                    </div>
+                    <div className='md:hidden mx-2'>
+                        <Link href={publicPath} shallow>
+                            {// eslint-disable-next-line jsx-a11y/anchor-is-valid
+                                (<a className='underline text-blue-700'>閲覧用リンク</a>)
+                            }
+                        </Link>
+                    </div>
+                    <TooltipDivContainer content='URLをコピー' placement='bottom'>
+                        <SvgIconButton aria-label='Copy URL' className='block' onClick={copyToClipboard}>
+                            <Duplicate className='w-6' />
+                        </SvgIconButton>
+                    </TooltipDivContainer>
+                </div>
             </div>
             {/* <label htmlFor='Searchable' className='text-primary-dark text-xs flex items-center pl-1'>
                         <input id='Searchable' type='checkbox' checked={Boolean(searchable)} onChange={(e) => {
