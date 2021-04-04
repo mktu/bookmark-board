@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { PlaceHolderImg } from '../Image'
 
+type ObjectFit = 'cover' | 'contain' 
+
 type Props = {
     src?: string,
     width?: number,
@@ -8,8 +10,10 @@ type Props = {
     height?: number,
     name?: string,
     enableEndpoint?: boolean,
+    objectFit?: ObjectFit
     cAtMax?: boolean,
     className?: string,
+    style?: React.CSSProperties,
     onError?: (disableEndpoint?: boolean) => void
 }
 const UrlEndpoint = process.env.NEXT_PUBLIC_IMGKIT_ID
@@ -66,6 +70,15 @@ export const NotFound: React.FC<{
         </div>
     )
 
+const objectFits : {[type in ObjectFit] : React.CSSProperties} = {
+    cover : {
+        objectFit: 'cover', objectPosition: '50% 50%'
+    },
+    contain : {
+        objectFit: 'contain',
+    } 
+}
+
 const UrlImage: React.FC<Props> = ({
     src,
     width,
@@ -74,6 +87,8 @@ const UrlImage: React.FC<Props> = ({
     fallback,
     cAtMax,
     onError,
+    objectFit = 'cover',
+    style = {},
     name = 'Unknown',
     enableEndpoint = true,
 }) => {
@@ -110,7 +125,7 @@ const UrlImage: React.FC<Props> = ({
                 setError(true)
                 onError && onError()
             }
-        }} srcSet={srcset} style={{ width, height, objectFit: 'cover', objectPosition: '50% 50%' }} />
+        }} srcSet={srcset} style={{ width, height, ...objectFits[objectFit], ...style }} />
     )
 }
 
