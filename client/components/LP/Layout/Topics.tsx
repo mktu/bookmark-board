@@ -1,4 +1,4 @@
-import React from 'react'
+import React  from 'react'
 import classNames from 'classnames'
 
 type Topic = {
@@ -11,17 +11,19 @@ type Props = {
     title: React.ReactNode | string,
     description?: React.ReactNode | string,
     topics: Topic[],
-    className?: string
+    className?: string,
+    style?: React.CSSProperties
 }
 
-const SideBySide: React.FC<Props> = ({
+const Topic = React.forwardRef<HTMLElement, Props>(function topic({
     title,
     topics,
     description,
-    className
-}) => {
+    className,
+    style
+}, ref) {
     return (
-        <section className={classNames('w-full md:p-8 break-words flex flex-col justify-center items-center', className)}>
+        <section ref={ref} style={style} className={classNames('w-full md:p-8 break-words flex flex-col justify-center items-center', className)}>
             <h1 className='text-primary-700 text-2xl font-bold my-4'>{title}</h1>
             <div className='mb-4'>{description}</div>
             <div className='md:flex justify-between'>
@@ -39,6 +41,6 @@ const SideBySide: React.FC<Props> = ({
             </div>
         </section>
     )
-}
+})
 
-export default SideBySide;
+export default Topic;
