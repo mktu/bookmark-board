@@ -1,11 +1,13 @@
 import { useContext, useMemo, useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
-import { useGroupById, initialGroup } from '../modules/groupSlice'
-import { useUsersByIds } from '../modules/usersSlice'
-import FirebaseContext from '../context/FirebaseContext'
+import { useGroupById, initialGroup } from '@modules/groupSlice'
+import { useUsersByIds } from '@modules/usersSlice'
+import { useProfile } from '@modules/profileSlice'
+import FirebaseContext from '@context/FirebaseContext'
 
 export const useBookmarkGroup = (groupId?: string) => {
     const base = useGroupById(groupId)
+    const profile = useProfile()
     const [update, setUpdate] = useState<Partial<BookmarkGroup>>({})
     const updatePartial = useCallback((val: Partial<BookmarkGroup>) => {
         setUpdate(before => ({
@@ -13,7 +15,7 @@ export const useBookmarkGroup = (groupId?: string) => {
             ...val
         }))
     }, [])
-
+    const hasOwnership = profile?.id === base.owner
     const hydrateColor = useMemo(()=>base?.colors || {},[base])
 
     const bookmarkColors = useMemo(() => {
@@ -81,6 +83,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         updatePartial,
         handleDeleteGroup,
         handleSubmit,
-        hasChange
+        hasChange,
+        hasOwnership
     }
 }

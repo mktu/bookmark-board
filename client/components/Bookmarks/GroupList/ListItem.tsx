@@ -14,7 +14,7 @@ type Props = {
 const ListItem: React.FC<Props> = ({
     bookmarkGroup,
     onHover,
-    listIndex
+    listIndex,
 }) => {
     const isTouch = checkIsTouch()
     const { attachDnDRef, isBookmarkOver, dragging } = useHoverable(bookmarkGroup, onHover, listIndex)

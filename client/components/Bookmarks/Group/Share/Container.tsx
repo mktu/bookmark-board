@@ -16,7 +16,7 @@ const Share: React.FC<Props> = ({
     groupId,
     onClose
 }) => {
-    const { group, updatePartial, handleSubmit, hasChange } = useBookmarkGroup(groupId)
+    const { group, updatePartial, handleSubmit, hasChange, hasOwnership } = useBookmarkGroup(groupId)
     const { canCreate, canDelete, searchable, setSearchable, handleCreateAlgolia, handleDeleteAlgolia } = useAlgoliaRegister(groupId, group?.searchable)
     const { sharable } = group || {}
     const origin = window.location.origin
@@ -29,6 +29,7 @@ const Share: React.FC<Props> = ({
     }
 
     const publicLink = <PublicLink
+        hasOwnership={hasOwnership}
         handleShare={handleShare}
         publicPath={publicPath}
         publicUrl={publicUrl}
@@ -39,7 +40,7 @@ const Share: React.FC<Props> = ({
     const privateLink = <PrivateLink
         requestUrl={requestUrl}
     />
-    const submit = (
+    const submit = hasOwnership ? (
         <ContainedButton disabled={!hasChange && (!canCreate && !canDelete)} onClick={async () => {
             if (hasChange) {
                 await handleSubmit()
@@ -55,9 +56,9 @@ const Share: React.FC<Props> = ({
             }
             onClose()
         }}>変更を保存</ContainedButton>
-    )
+    ) : <div/>
     const cancel = (
-        <OutlinedButton onClick={() => { onClose() }}>キャンセル</OutlinedButton>
+        <OutlinedButton onClick={() => { onClose() }}>{hasOwnership ? 'キャンセル' : '戻る'}</OutlinedButton>
     )
     return <Presenter
         {...{

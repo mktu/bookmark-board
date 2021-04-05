@@ -1,9 +1,10 @@
 import { useDrag, useDrop } from 'react-dnd'
 
-export const useHoverable = (bookmark: Bookmark, listIndex: number, onHover: (index: number) => void) => {
+export const useHoverable = (bookmark: Bookmark, listIndex: number, onHover: (index: number) => void, hasOwnership:boolean) => {
     const [{ dragging, opacity }, drag] = useDrag({
         item: {
             ...bookmark,
+            hasOwnership,
             type: 'LIST'
         },
         collect: (monitor) => ({

@@ -42,9 +42,9 @@ const Default: React.FC<Props> = ({
                 </div>
             </div>
             {comment && (
-                <div className='text-xs overflow-hidden truncate max-w-full flex items-center text-primary-main p-1 border rounded'>
+                <div className='text-xs md:overflow-hidden md:truncate max-w-full flex items-center text-primary-main p-1 border rounded'>
                     <div><Chat className='w-6 stroke-primary-300 mr-2' /></div>
-                    <div className='overflow-hidden truncate flex-1 text-xs'>
+                    <div className='md:overflow-hidden md:truncate flex-1 text-xs'>
                         {comment}
                     </div>
                 </div>
