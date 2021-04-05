@@ -2,7 +2,7 @@ import { useContext, useState, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { useBookmarkById, initialBookmark } from '../modules/bookmarkSlice'
 import { useGroupsByUser } from '../modules/groupSlice'
-import { useProfile } from '../modules/profileSlice'
+import { useProfile } from '@modules/profileSlice'
 import FirebaseContext from '../context/FirebaseContext'
 
 export const useMoveGroup = (bookmark: Bookmark) => {

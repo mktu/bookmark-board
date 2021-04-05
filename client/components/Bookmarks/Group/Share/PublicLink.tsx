@@ -12,7 +12,8 @@ type Props = {
     publicPath: string,
     handleShare: (share: boolean) => void,
     enableSearch: (searchable: boolean) => void,
-    searchable: boolean
+    searchable: boolean,
+    hasOwnership: boolean
 }
 
 const PublicLink: React.FC<Props> = ({
@@ -20,20 +21,23 @@ const PublicLink: React.FC<Props> = ({
     publicUrl,
     publicPath,
     handleShare,
+    hasOwnership
 }) => {
     const copyToClipboard = () => {
         copyToClipBoard(publicUrl, successCopyUrl)
     }
     return (
         <div className='text-sm'>
-            <div>
-                <label htmlFor='Public' className='text-primary-main flex items-center'>
-                    <input id='Public' type='checkbox' checked={Boolean(sharable)} onChange={(e) => {
-                        handleShare(e.target.checked)
-                    }} />
-                    <span className='ml-2 inline-block'>公開する</span>
-                </label>
-            </div>
+            {hasOwnership && (
+                <div>
+                    <label htmlFor='Public' className='text-primary-main flex items-center'>
+                        <input id='Public' type='checkbox' checked={Boolean(sharable)} onChange={(e) => {
+                            handleShare(e.target.checked)
+                        }} />
+                        <span className='ml-2 inline-block'>公開する</span>
+                    </label>
+                </div>
+            )}
             <div className='flex items-center my-2'>
                 <p className='hidden md:block'>閲覧用リンク</p>
                 <div className='flex-1 flex items-center'>

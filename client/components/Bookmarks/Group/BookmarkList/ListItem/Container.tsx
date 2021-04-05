@@ -5,6 +5,7 @@ import { SvgIconButton, HeartButton, ButtonBase } from '@components/Common/Butto
 import { PopoverDivContainer } from '@components/Common/Popover'
 import ColorSelector from '../ColorOption/Selector'
 import { useRefinementById } from '@modules/groupRefinementSlice'
+import { useProfile } from '@modules/profileSlice'
 import { copyToClipBoard, numberToDateTime } from '@utils/index'
 import { BookmarkListImageSize } from '@utils/constants'
 import { toast } from 'react-toastify';
@@ -33,9 +34,10 @@ const ListItem: React.FC<Props> = ({
         handleJumpLink,
         updateBookmarkImmediately
     } = useBookmark(bookmarkId)
+    const profile = useProfile()
     const { group } = useBookmarkGroup(bookmark.groupId)
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
-    const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover)
+    const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover, profile?.id===group?.owner)
     const colors = group?.colors || {}
     const handleCopyUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
         copyToClipBoard(bookmark.url, () => {

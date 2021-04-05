@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { useDrag, useDrop } from 'react-dnd'
+import { toast } from 'react-toastify';
 import FirebaseContext from '../context/FirebaseContext'
 
 export const useHoverable = (
@@ -29,7 +30,9 @@ export const useHoverable = (
         drop: (_, monitor) => {
             if (monitor.getItemType() === 'LIST') {
                 const i = monitor.getItem()
-                clientService.moveGroup(i, bookmarkGroup.id)
+                clientService.moveGroup(i, bookmarkGroup.id, ()=>{
+                    toast.success(`ブックマークを${i.hasOwnership ? '移動しました' : 'コピーしました'}`)
+                }, !i.hasOwnership)
             }
         },
         hover: (_, monitor) => {
