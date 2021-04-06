@@ -38,7 +38,7 @@ export const Topics = [
     },
     {
         icon: <Template className='w-8 stroke-primary-main' />,
-        name: 'カスタマイズ',
+        name: '整理整頓',
         content: (
             <div className='flex flex-col'>
                 <p>

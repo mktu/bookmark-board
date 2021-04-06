@@ -39,7 +39,7 @@ const LP = () => {
             siginin={
                 <Layout.Single
                     title={Sections.Signin.Title}
-                    content={<Sections.Signin.Content handleLogin={handleLogin} />}
+                    content={<Sections.Signin.Content />}
                 />
             }
         />
