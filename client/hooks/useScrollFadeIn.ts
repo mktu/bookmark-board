@@ -30,7 +30,8 @@ const getScrollableParent = (element: (HTMLElement | null)): HTMLElement => {
 export const useScrollFadeIn = <T extends HTMLElement>(
     node: T | null,
     translate: { x: number; y: number },
-    adjust?: number
+    adjust?: number,
+    transition = '1s'
 ) => {
     const [state, update] = useState<State>({
         opacity: 0,
@@ -40,11 +41,11 @@ export const useScrollFadeIn = <T extends HTMLElement>(
 
     const nodeStyle = useMemo(
         () => ({
-            transition: "1s",
+            transition,
             opacity: state.opacity,
             transform: state.transform,
         }),
-        [state.opacity, state.transform]
+        [state.opacity, state.transform, transition]
     )
 
     const handleWindowScroll = useCallback(() => {

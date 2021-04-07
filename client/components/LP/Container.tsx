@@ -37,10 +37,12 @@ const LP = () => {
                 </ScrollFadein>
             }
             siginin={
-                <Layout.Single
-                    title={Sections.Signin.Title}
-                    content={<Sections.Signin.Content />}
-                />
+                <ScrollFadein translate={{ x: 0, y: 0 }} transition='2s'>
+                    <Layout.Single
+                        title={Sections.Signin.Title}
+                        content={<Sections.Signin.Content />}
+                    />
+                </ScrollFadein>
             }
         />
     )

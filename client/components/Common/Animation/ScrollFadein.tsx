@@ -9,11 +9,12 @@ export type Props<T extends HTMLElement> = {
     children: Children<T>,
     translate: Parameters<typeof useScrollFadeIn>[1],
     adjust?: Parameters<typeof useScrollFadeIn>[2],
+    transition?: Parameters<typeof useScrollFadeIn>[3],
 }
 
-export default function ScrollFadein<T extends HTMLElement>({ children, translate, adjust }: Props<T>) {
+export default function ScrollFadein<T extends HTMLElement>({ children, translate, adjust, transition }: Props<T>) {
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
-    const { nodeStyle } = useScrollFadeIn(referenceElement, translate, adjust)
+    const { nodeStyle } = useScrollFadeIn(referenceElement, translate, adjust, transition)
     const childProps = {
         ...children.props,
         ref: (value: T) => {
