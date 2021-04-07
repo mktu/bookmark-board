@@ -57,7 +57,7 @@ const ListItem: React.FC<Props> = ({
                         <div className='overflow-hidden truncate max-w-full'>{title || url}</div>
                         {description && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
                         {url && (
-                            <div className='mt-auto pt-1 overflow-hidden truncate text-xs text-primary-main font-thin max-w-full md:flex items-center' >
+                            <div className='mt-auto pt-1 overflow-hidden truncate text-xs text-primary-main max-w-full md:flex items-center' >
                                 {/* {lastUpdate && (
                                     <div className='flex items-center md:mr-1'>
                                         <span className='mr-1'>
@@ -71,13 +71,13 @@ const ListItem: React.FC<Props> = ({
                                         <span>
                                             <LinkIcon className='w-4 stroke-primary-main mr-1' />
                                         </span>
-                                        <span className='overflow-hidden truncate text-primary-main font-thin max-w-full' > {url}</span>
+                                        <span className='overflow-hidden truncate text-primary-main max-w-full' > {url}</span>
                                     </div>
                                 )}
                             </div>)}
                         {comment && (
-                            <div className='mt-1 text-xs text-primary-main font-thin max-w-full flex items-center p-1 border border-primary-border rounded' >
-                                <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2} />
+                            <div className='mt-1 text-xs text-primary-main max-w-full flex items-center p-1 border border-primary-border rounded' >
+                                <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={1} />
                                 <div className='overflow-hidden truncate flex-1'>
                                     {comment}
                                 </div>
