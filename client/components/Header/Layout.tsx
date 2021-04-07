@@ -13,7 +13,7 @@ const Layout : React.FC<Props> = ({
 }) => {
     const router = useRouter()
     return (
-        <header className="text-gray-500 bg-brand body-font">
+        <div className="text-gray-500 bg-brand body-font shadow-xl">
             <div className="flex flex-wrap p-2 items-center">
                 <ButtonBase className='hidden md:block' aria-label='Home' onClick={() => {
                     router.push('/')
@@ -29,7 +29,7 @@ const Layout : React.FC<Props> = ({
                     {children}
                 </div>
             </div>
-        </header>
+        </div>
     )
 }
 

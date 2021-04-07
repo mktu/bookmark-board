@@ -1,13 +1,15 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { BookmarksSigninImg, GoogleSignInImg } from '@components/Common/Image'
 import Logo from '@components/Common/Logo/Logo'
+import { ButtonBase } from '@components/Common/Button'
 import { LoadingImg } from '@components/Common/Image'
 
 type Props = {
     handleMobileSignin: () => void,
     signining: boolean,
     termLink: string,
-    privactPolicyLink : string
+    privactPolicyLink: string
 }
 
 const CommonSection = ({
@@ -16,11 +18,14 @@ const CommonSection = ({
     termLink,
     privactPolicyLink
 }: Props) => {
+    const router = useRouter()
     return (
         <div className='flex flex-col items-center justify-center p-4 h-full'>
-            <div>
+            <ButtonBase onClick={() => {
+                router.push('./')
+            }}>
                 <Logo theme='dark' size='lg' />
-            </div>
+            </ButtonBase>
             <div className='p-4 text-sm mt-8 mb-4'>
                 <p>
                     <span>Bookmark-Boardでは新規登録・ログインともにGoogleアカウントを用いて行えます。</span>

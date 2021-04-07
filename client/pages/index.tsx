@@ -13,6 +13,7 @@ export default function Home() {
         header={<PublicPageHeader />}
         main={<LP />}
         footer={<Footer />}
+        fixedHeader
       />
     </div>
   )
