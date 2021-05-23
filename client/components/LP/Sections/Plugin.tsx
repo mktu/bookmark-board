@@ -1,6 +1,6 @@
 import React from 'react'
 import { LpPlugin } from '@components/Common/Image/Lp'
-import { SampleUrl } from '@utils/constants'
+import { PluginUrl } from '@utils/constants'
 
 export const Title = '拡張機能でより便利に'
 
@@ -12,7 +12,7 @@ export const Content: React.ReactNode = (
         </p>
         <p className='mt-2'>
             <span role='img' aria-label='right' className='mr-2'>👉</span>
-            <a href={SampleUrl} target='_blank' rel='noopener noreferrer' className='underline mx-2'>Chromeのストア</a>
+            <a href={PluginUrl} target='_blank' rel='noopener noreferrer' className='underline mx-2'>Chromeのストア</a>
             <span>からインストールすることができます</span>
         </p>
     </div>
