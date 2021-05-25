@@ -36,6 +36,16 @@ const LP = () => {
                     />
                 </ScrollFadein>
             }
+            plugin={
+                <ScrollFadein translate={{ x: -100, y: 0 }}>
+                    <Layout.SideBySide
+                        title={Sections.Plugin.Title}
+                        content={Sections.Plugin.Content}
+                        image={Sections.Plugin.Image}
+                        imageLeft
+                    />
+                </ScrollFadein>
+            }
             siginin={
                 <ScrollFadein translate={{ x: 0, y: 0 }} transition='2s'>
                     <Layout.Single

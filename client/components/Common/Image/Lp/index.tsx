@@ -30,6 +30,10 @@ const LpStart: React.FC<ImageProps> = ({width, height, ...others}) => {
     return <Image src={'/undraw_Balloons_re_8ymj.svg'} alt='LpStart' width={width} height={height} {...others} />;
 }
 
+const LpPlugin: React.FC<ImageProps> = ({width, height, ...others}) => {
+    return <Image src={'/Plugin.png'} alt='Plugin' width={width} height={height} {...others}/>
+}
+
 export {
     LpBubble,
     LpApp,
@@ -37,5 +41,6 @@ export {
     LpGroup,
     LpComment,
     LpShare,
-    LpStart
+    LpStart,
+    LpPlugin
 }

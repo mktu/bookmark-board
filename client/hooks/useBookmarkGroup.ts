@@ -15,7 +15,7 @@ export const useBookmarkGroup = (groupId?: string) => {
             ...val
         }))
     }, [])
-    const hasOwnership = profile?.id === base.owner
+    const hasOwnership = profile?.id === base?.owner
     const hydrateColor = useMemo(()=>base?.colors || {},[base])
 
     const bookmarkColors = useMemo(() => {

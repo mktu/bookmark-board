@@ -4,6 +4,7 @@ type Props = {
     top : React.ReactNode,
     publish : React.ReactNode,
     topics : React.ReactNode,
+    plugin : React.ReactNode,
     siginin : React.ReactNode,
 }
 
@@ -11,6 +12,7 @@ const Page : React.FC<Props> = ({
     top,
     publish,
     topics,
+    plugin,
     siginin
 }) => {
     return (
@@ -18,6 +20,7 @@ const Page : React.FC<Props> = ({
             {top}
             {topics}
             {publish}
+            {plugin}
             {siginin}
         </article>
     )
