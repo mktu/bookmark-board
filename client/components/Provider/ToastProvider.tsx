@@ -20,7 +20,6 @@ const ToastProvider: React.FC<Props> = () => (
             " flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
         }
         bodyClassName={() => "text-sm font-white font-med block p-3"}
-        position="bottom-left"
         autoClose={5000}
         hideProgressBar
         newestOnTop={false}
