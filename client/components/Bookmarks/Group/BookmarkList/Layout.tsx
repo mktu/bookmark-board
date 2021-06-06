@@ -12,7 +12,7 @@ const Layout: React.FC<Props> = ({
     renderBookmark,
     input
 }) => {
-    const [footer, setFooter] = useState<HTMLDivElement>()
+    const [footerHeight, setFooter] = useState<number>()
     return (
         <div className='flex flex-col items-center bg-primary-light h-full w-full relative overflow-hidden'>
             <div className='flex flex-col items-center h-full w-full flex-1 overflow-hidden' >
@@ -28,11 +28,12 @@ const Layout: React.FC<Props> = ({
                 </div>
             </div>
             <div className='md:hidden' style={{
-                height : footer ? footer.clientHeight : undefined
-            }}/>
-            <div className='w-full fixed bottom-0 md:relative md:mt-auto md:pt-1' ref={(r)=>{
-                if(r){
-                    setFooter(r)
+                height: footerHeight ? footerHeight : undefined
+            }} />
+            <div className='w-full fixed bottom-0 md:relative md:mt-auto md:pt-1' ref={(r) => {
+                if (r) {
+                    // set height only once because input height may change when url image shows
+                    setFooter(b => !b ? r.clientHeight : b)
                 }
             }}>
                 {input}
