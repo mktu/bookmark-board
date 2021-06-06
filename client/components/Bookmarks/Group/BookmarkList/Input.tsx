@@ -48,7 +48,7 @@ const Input: React.FC<Props> = ({
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>
                 <div className='flex flex-row items-center max-w-full overflow-hidden'>
                     <div>
-                        <SvgIconButton aria-label='Hide Input' className='block mx-1' onClick={() => { toggle(false) }}>
+                        <SvgIconButton aria-label='Hide Input' className='hidden md:block mx-1' onClick={() => { toggle(false) }}>
                             <ChevronDown strokeWidth='1.5px' className='w-8' />
                         </SvgIconButton>
                     </div>

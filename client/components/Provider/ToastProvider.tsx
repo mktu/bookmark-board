@@ -17,10 +17,9 @@ const contextClass = {
 const ToastProvider: React.FC<Props> = () => (
     <ToastContainer
         toastClassName={({ type }) => contextClass[type || "default"] +
-            " flex p-1 min-h-10 rounded-md justify-between overflow-hidden cursor-pointer"
+            " flex p-2 md:p-1 min-h-10 md:rounded-md justify-between overflow-hidden cursor-pointer"
         }
         bodyClassName={() => "text-sm font-white font-med block p-3"}
-        position="bottom-left"
         autoClose={5000}
         hideProgressBar
         newestOnTop={false}
