@@ -12,10 +12,10 @@ const Layout = ({
     header
 }: Props) => {
     return (
-        <div className='box-border w-screen h-screen flex flex-col md:flex-row'>
+        <div className='box-border w-screen h-screen md:flex'>
             <div className='md:hidden'>{header}</div>
             <div className='hidden md:block'>{sidebar}</div>
-            <div className='overflow-hidden flex-1 h-full'>{main}</div>
+            <div className='overflow-hidden md:flex-1'>{main}</div>
         </div>
     )
 }
