@@ -56,7 +56,7 @@ const Menu: React.VFC<{ onClose: () => void }> = ({
 
     const app = (
         <div className='my-2 flex items-center'>
-            <TextButton aria-label='Open Bookmark' className='flex items-center' onClick={() => {
+            <TextButton aria-label='Open Bookmark' className='flex items-center w-full' onClick={() => {
                 push('/bookmarks')
             }}>
                 <Book strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
@@ -67,7 +67,7 @@ const Menu: React.VFC<{ onClose: () => void }> = ({
 
     const search = (
         <div className='mr-4 md:hidden flex items-center'>
-            <TextButton aria-label='Open Search' colorType='none' className='flex items-center text-primary-main' onClick={() => {
+            <TextButton aria-label='Open Search' colorType='none' className='flex items-center text-primary-main w-full' onClick={() => {
                 push('/search')
             }}>
                 <Search strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
@@ -79,7 +79,7 @@ const Menu: React.VFC<{ onClose: () => void }> = ({
     const profileMenu = (
         <div className='my-2'>
             <div className='flex items-center text-primary-main' >
-                <TextButton aria-label='Login Menu' colorType='none' className='flex items-center text-primary-main' onClick={() => {
+                <TextButton aria-label='Login Menu' colorType='none' className='flex items-center text-primary-main w-full' onClick={() => {
                     setOpenProfile(b => !b)
                 }}>
                     <User strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
@@ -106,7 +106,7 @@ const Menu: React.VFC<{ onClose: () => void }> = ({
 
     const help = (
         <div className='my-2 flex items-center'>
-            <TextButton aria-label='How to use Bookmark' colorType='none' className='flex items-center text-primary-main' onClick={() => {
+            <TextButton aria-label='How to use Bookmark' colorType='none' className='flex items-center text-primary-main w-full' onClick={() => {
                 window && window.open(HelpLink, '_blank')
             }}>
                 <Help strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
