@@ -31,7 +31,11 @@ const Dialog: React.FC<DialogProps> = ({
 }) => {
     return (
         <Modal open={open} showCloseIcon={false} blockScroll focusTrapped={false} onClose={onClose} classNames={{
-            modal: 'w-full m-0',
+            modal: 'w-full',
+        }} styles={{
+            modal : {
+                margin : 0
+            }
         }}>
             {children}
         </Modal>
@@ -112,7 +116,7 @@ const Menu: React.VFC<{ onClose: () => void }> = ({
     )
 
     const close = (
-        <SvgIconButton aria-label='Close dialog' colorType='none' className='absolute top-0 right-0 flex items-center bg-primary-light opacity-75 rounded-full mr-4 border border-primary-dark p-2'
+        <SvgIconButton aria-label='Close dialog' colorType='none' className='absolute top-0 right-0 flex items-center bg-primary-light opacity-75 rounded-full mr-2 border border-primary-dark p-2'
             onClick={() => {
                 onClose()
             }}>
