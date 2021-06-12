@@ -8,6 +8,7 @@ import Book from '@components/Common/Icon/Book'
 import Search from '@components/Common/Icon/Search'
 import Help from '@components/Common/Icon/Help'
 import User from '@components/Common/Icon/User'
+import X from '@components/Common/Icon/X'
 import MenuIcon from '@components/Common/Icon/Menu'
 import FirebaseContext from '@context/FirebaseContext'
 import { SvgIconButton, TextButton } from '@components/Common/Button'
@@ -30,23 +31,29 @@ const Dialog: React.FC<DialogProps> = ({
 }) => {
     return (
         <Modal open={open} showCloseIcon={false} blockScroll focusTrapped={false} onClose={onClose} classNames={{
-            modal: 'w-full ',
+            modal: 'w-full m-0',
         }}>
             {children}
         </Modal>
     )
 }
 
-const Menu: React.VFC = () => {
+const Menu: React.VFC<{ onClose: () => void }> = ({
+    onClose
+}) => {
     const router = useRouter()
     const [openProfile, setOpenProfile] = useState(false)
     const profile = useProfile()
     const { clientService } = useContext(FirebaseContext)
+    const push = (path:string)=>{
+        onClose()
+        router.push(path)
+    }
 
     const app = (
         <div className='my-2 flex items-center'>
             <TextButton aria-label='Open Bookmark' className='flex items-center' onClick={() => {
-                router.push('/bookmarks')
+                push('/bookmarks')
             }}>
                 <Book strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
                 <div>Bookmarkアプリ</div>
@@ -57,7 +64,7 @@ const Menu: React.VFC = () => {
     const search = (
         <div className='mr-4 md:hidden flex items-center'>
             <TextButton aria-label='Open Search' colorType='none' className='flex items-center text-primary-main' onClick={() => {
-                router.push('/search')
+                push('/search')
             }}>
                 <Search strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
                 <div>検索</div>
@@ -80,12 +87,12 @@ const Menu: React.VFC = () => {
                 <li>
                     <TextButton className='underline'
                         onClick={() => {
-                            router.push('/profile')
+                            push('/profile')
                         }}>編集</TextButton>
                 </li>
                 <TextButton className='underline' onClick={() => {
                     clientService.logout(() => {
-                        router.push('/signin')
+                        push('/signin')
                     })
                 }} >ログアウト</TextButton>
 
@@ -104,12 +111,22 @@ const Menu: React.VFC = () => {
         </div>
     )
 
+    const close = (
+        <SvgIconButton aria-label='Close dialog' colorType='none' className='absolute top-0 right-0 flex items-center bg-primary-light opacity-75 rounded-full mr-4 border border-primary-dark p-2'
+            onClick={() => {
+                onClose()
+            }}>
+            <X strokeWidth={1} className='w-6 h-6 stroke-primary-dark' />
+        </SvgIconButton>
+    )
+
     return (
-        <div>
+        <div className='relative'>
             {profileMenu}
             {app}
             {search}
             {help}
+            {close}
         </div>
     )
 }
@@ -122,7 +139,7 @@ const Header: React.VFC = () => {
             classNames(inView ? styles['heroicon-button'] : 'bg-primary-light rounded-full stroke-primary-main p-2 border border-primary-main')} onClick={() => {
                 setOpen(o => !o)
             }}>
-            <MenuIcon strokeWidth={1.5} className='w-10 h-10'/>
+            <MenuIcon strokeWidth={1.5} className='w-10 h-10' />
         </SvgIconButton>
     )
 
@@ -131,11 +148,11 @@ const Header: React.VFC = () => {
             <Layout ref={ref}>
                 {menu}
             </Layout>
-            <div className={`${inView? 'h-0 overflow-hidden opacity-0' : 'opacity-75 p-2'} fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
+            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-75 p-2'} fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
                 {menu}
             </div>
             <Dialog open={open} onClose={() => { setOpen(o => !o) }}>
-                <Menu />
+                <Menu onClose={() => { setOpen(o => !o) }}/>
             </Dialog>
         </>
     )
