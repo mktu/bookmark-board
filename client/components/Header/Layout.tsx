@@ -5,15 +5,16 @@ import LogoSm from '@components/Common/Icon/LogoSm'
 import { ButtonBase } from '@components/Common/Button'
 
 type Props = {
-    children : React.ReactNode
+    children: React.ReactNode
 }
 
-const Layout : React.FC<Props> = ({
+
+const Layout = React.forwardRef<HTMLDivElement, Props>(function Layout({
     children
-}) => {
+}, ref) {
     const router = useRouter()
     return (
-        <div className="text-gray-500 bg-brand body-font shadow-xl">
+        <div ref={ref} className="text-gray-500 bg-brand body-font shadow-xl">
             <div className="flex flex-wrap p-2 items-center">
                 <ButtonBase className='hidden md:block' aria-label='Home' onClick={() => {
                     router.push('/')
@@ -31,6 +32,6 @@ const Layout : React.FC<Props> = ({
             </div>
         </div>
     )
-}
+})
 
 export default Layout;

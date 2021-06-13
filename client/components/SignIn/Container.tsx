@@ -15,19 +15,21 @@ const Signin = () => {
     const [signining, setSignining] = useState(false)
     const router = useRouter()
     useEffect(() => {
+        let unmounted = false
         if (authModuleImported && uid) {
+            setSignining(true) // for redirect from google signin of mobile
             getMyProfile(() => {
                 // login flow
                 const fromPath = sessionStorage.getItem('fromPath')
                 // tbd check if profile exists
                 if (fromPath) {
                     router.push(fromPath).then(()=>{
-                        setSignining(false)
+                        !unmounted && setSignining(false)
                     })
                 }
                 else {
                     router.push('/bookmarks').then(()=>{
-                        setSignining(false)
+                        !unmounted && setSignining(false)
                     })
                 }
             }, () => {
@@ -35,6 +37,9 @@ const Signin = () => {
                 // signup flow
                 setNeedSignup(true)
             })
+        }
+        return ()=>{
+            unmounted = true
         }
     }, [authModuleImported, uid, getMyProfile, router])
 
