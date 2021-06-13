@@ -15,7 +15,7 @@ import Layout from './Layout'
 
 
 const Header: React.VFC = () => {
-    const { ref, inView } = useInView()
+    const { ref, inView } = useInView({initialInView:true})
     const router = useRouter()
     const push = (path: string) => {
         router.push(path)
@@ -75,7 +75,7 @@ const Header: React.VFC = () => {
                     <Profile root={mainRootStyle} svg={mainSvgStyle} />
                 </div>
             </Layout>
-            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-100 p-2 border border-primary-400 rounded-full m-8'} fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
+            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-100 p-2 border border-primary-400 rounded-full '} m-8 fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
                 <App root={sideRootStyle} />
                 <Search root={sideRootStyle} />
                 <Help root={sideRootStyle} />

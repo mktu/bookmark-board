@@ -12,7 +12,7 @@ import Layout from './Layout'
 
 const WebUnauthedHeader = () => {
     const router = useRouter()
-    const { ref, inView } = useInView()
+    const { ref, inView } = useInView({initialInView:true})
     const onClickLogin = () => {
         router.push('/signin')
     }
@@ -52,7 +52,7 @@ const WebUnauthedHeader = () => {
                 <Help root={mainRootStyle} svg={mainSvgStyle} />
                 <LoginMain />
             </div>
-            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-100 p-2 border border-primary-400 rounded-full m-8'} fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
+            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-100 p-2 border border-primary-400 rounded-full'} m-8 fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
                 <LoginSide />
                 <Help root={sideRootStyle} />
             </div>
