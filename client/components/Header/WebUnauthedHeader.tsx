@@ -24,7 +24,7 @@ const WebUnauthedHeader = () => {
     const mainSvgStyle = styles['heroicon-button']
 
     const LoginMain: React.VFC = () => (
-        <TextButton colorType='none' className={classNames(styles['heroicon-button'], 'flex items-center', mainRootStyle)} onClick={onClickLogin}>
+        <TextButton aria-label='Login' colorType='none' className={classNames(styles['heroicon-button'], 'flex items-center', mainRootStyle)} onClick={onClickLogin}>
             <LoginIcon className='w-10 h-10 stroke-primary-400' />
             <p>LOGIN</p>
         </TextButton>
@@ -32,7 +32,7 @@ const WebUnauthedHeader = () => {
 
     const LoginSide: React.VFC = () => (
         <TooltipDivContainer content='ログイン' placement='bottom' className={sideRootStyle}>
-            <SvgIconButton colorType='none' className='flex items-center' onClick={onClickLogin}>
+            <SvgIconButton aria-label='Login' colorType='none' className='flex items-center' onClick={onClickLogin}>
                 <LoginIcon className='w-10 h-10 stroke-primary-400' />
             </SvgIconButton>
         </TooltipDivContainer>

@@ -29,7 +29,7 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
 
     const login = (
         <div className='my-2 flex items-center'>
-            <TextButton aria-label='How to use Bookmark' colorType='none' className='flex items-center text-primary-main w-full' onClick={() => {
+            <TextButton aria-label='Login' colorType='none' className='flex items-center text-primary-main w-full' onClick={() => {
                 push('/signin')
             }}>
                 <LoginIcon strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
