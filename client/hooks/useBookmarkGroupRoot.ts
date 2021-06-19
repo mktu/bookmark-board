@@ -1,7 +1,7 @@
 import { useEffect, useCallback } from 'react'
 import { useRouter } from 'next/router'
 import { useGroupStatus, useGroupById } from '@modules/groupSlice'
-import { useBookmarkIdsByRefinements, useBookmarkStatus } from '@modules/bookmarkSlice'
+import { useBookmarkIdsByRefinements, useBookmarkStatus, useBookmarkById } from '@modules/bookmarkSlice'
 import { useRefinementById, hasListFilter } from '@modules/groupRefinementSlice'
 
 const useBookmarkGroupRoot = (groupId?: string, bookmarkId?: string) => {
@@ -17,6 +17,8 @@ const useBookmarkGroupRoot = (groupId?: string, bookmarkId?: string) => {
     const jumpToGroupRoot = useCallback(() => {
         router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}`, { shallow: true })
     }, [router, groupId])
+    const bookmark = useBookmarkById(bookmarkId)
+
     let alternativeMode = bookmarkId && 'bookmark'
     if (bookmarkId === 'setting') {
         alternativeMode = 'setting'
@@ -27,6 +29,11 @@ const useBookmarkGroupRoot = (groupId?: string, bookmarkId?: string) => {
     if (bookmarkId === 'colors') {
         alternativeMode = 'colors'
     }
+    useEffect(()=>{
+        if(groupId && bookmarkId && !bookmark?.id){
+            router.replace(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}`, { shallow: true })
+        }
+    },[bookmarkId,bookmark?.id,groupId,router])
     useEffect(() => {
         if (!groupId) {
             return
@@ -47,7 +54,8 @@ const useBookmarkGroupRoot = (groupId?: string, bookmarkId?: string) => {
         bookmarkStatus,
         hasFilter,
         bookmarkIds,
-        jumpToGroupRoot
+        jumpToGroupRoot,
+        bookmark
     }
 }
 
