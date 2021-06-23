@@ -72,6 +72,27 @@ export function modifyBookmark(
         .catch(onFailed);
 }
 
+export async function modifyBookmarks(
+    groupId: string,
+    bookmarkIds: string[],
+    data: Partial<Bookmark>,
+) {
+    const merged: Partial<Bookmark> = {
+        ...data,
+        lastUpdate: Date.now()
+    }
+    const batch = db.batch();
+    bookmarkIds.forEach((id) => {
+        const docRef = db
+            .collection('groups')
+            .doc(groupId)
+            .collection('bookmarks')
+            .doc(id)
+        batch.update(docRef, merged)
+    })
+    await batch.commit()
+}
+
 async function moveGroupAsync(
     sourceId: string,
     sourceGroupId: string,
@@ -127,6 +148,22 @@ export function deleteBookmark(
         .delete()
         .then(onSucceeded)
         .catch(onFailed);
+}
+
+export async function deleteBookmarks(
+    groupId: string,
+    bookmarkIds: string[],
+) {
+    const batch = db.batch();
+    bookmarkIds.forEach((id) => {
+        const docRef = db
+            .collection('groups')
+            .doc(groupId)
+            .collection('bookmarks')
+            .doc(id)
+        batch.delete(docRef)
+    })
+    await batch.commit()
 }
 
 export function listenBookmarks(

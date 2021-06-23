@@ -30,10 +30,11 @@ const useBookmarkGroupRoot = (groupId?: string, bookmarkId?: string) => {
         alternativeMode = 'colors'
     }
     useEffect(()=>{
-        if(groupId && bookmarkId && !bookmark?.id){
+        // deleted bookmark or non exist bookmark
+        if(groupId && bookmarkId && alternativeMode === 'bookmark' && !bookmark?.id){
             router.replace(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}`, { shallow: true })
         }
-    },[bookmarkId,bookmark?.id,groupId,router])
+    },[bookmarkId,bookmark?.id,groupId,router,alternativeMode])
     useEffect(() => {
         if (!groupId) {
             return

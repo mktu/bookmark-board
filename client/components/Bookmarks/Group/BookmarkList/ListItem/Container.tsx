@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import { UrlImage } from '@components/Common/Avatar'
 import { ExternalLink, Duplicate, Trash } from '@components/Common/Icon'
+import Check from '@components/Common/Icon/Check'
 import { SvgIconButton, HeartButton, ButtonBase } from '@components/Common/Button'
 import { PopoverDivContainer } from '@components/Common/Popover'
 import ColorSelector from '../ColorOption/Selector'
@@ -12,19 +13,20 @@ import { toast } from 'react-toastify';
 import { useBookmark } from '@hooks/useBookmark'
 import { useBookmarkGroup } from '@hooks/useBookmarkGroup'
 import { useHoverable } from '@hooks/useBookmarkDnd'
+import BookmarkBulkContext from '@context/BookmarkBulkContext'
 import Presenter from './Presenter'
 
 
 type Props = {
     bookmarkId: string,
     setHover: (idx: number) => void,
-    idx: number
+    idx: number,
 }
 
 const ListItem: React.FC<Props> = ({
     bookmarkId,
     setHover,
-    idx
+    idx,
 }) => {
     const {
         bookmark,
@@ -34,6 +36,8 @@ const ListItem: React.FC<Props> = ({
         handleJumpLink,
         updateBookmarkImmediately
     } = useBookmark(bookmarkId)
+    const { checkList, onCheck } = useContext(BookmarkBulkContext)
+    const checked = checkList[bookmarkId]
     const profile = useProfile()
     const { group } = useBookmarkGroup(bookmark.groupId)
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
@@ -105,6 +109,18 @@ const ListItem: React.FC<Props> = ({
             <ButtonBase className='text-xs text-primary-main underline' >色選択</ButtonBase>
         </PopoverDivContainer>
     )
+    const checkButton = (
+        <ButtonBase aria-label='Check Bookmark' 
+            onClick={()=>{
+                onCheck(bookmarkId,!checked)
+            }}
+            className={`${checked ? 
+                'bg-primary-main stroke-primary-50' :
+                'bg-white opacity-75 stroke-primary-300 hover:border-primary-200 hover:stroke-primary-500'} 
+                border border-primary-border rounded-full`}>
+            <Check className='w-5 h-5 ' strokeWidth={2} fill='none'/>
+        </ButtonBase>
+    )
     const origin = new URL(bookmark.url)
     return (
         <Presenter
@@ -124,7 +140,8 @@ const ListItem: React.FC<Props> = ({
                 deleteIcon: deleteButton,
                 heartButton: heartButton,
                 color: colors[bookmark.color]?.color,
-                colorButton
+                colorButton,
+                checkButton
             }}
         />
     )
