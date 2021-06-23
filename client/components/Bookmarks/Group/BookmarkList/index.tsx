@@ -4,11 +4,10 @@ import ListItem, { Fallback } from './ListItem'
 import Input from './Input'
 import Droppable from './Droppable'
 import Refinements from './Refinements'
-import useBookmarkBulkOperation from '@hooks/useBookmarkBulkOperation'
 import FirebaseContext from '@context/FirebaseContext'
-import BookmarkBulkContext from '@context/BookmarkBulkContext'
 import { spliceAndInsert } from '../../../../logics'
-import ErrorBoundary from '../../../Common/ErrorBoundary'
+import Provider from './Provider'
+import ErrorBoundary from '@components/Common/ErrorBoundary'
 
 type Props = {
     bookmarkIds: string[],
@@ -21,14 +20,13 @@ const BookmarkList: React.FC<Props> = ({
 }) => {
     const [hover, setHover] = useState(-1)
     const [input, setInput] = useState(true)
-    const contextValue = useBookmarkBulkOperation(groupId,bookmarkIds)
     const { clientService } = useContext(FirebaseContext)
     const onChangeOrder = (idx: number, target: string) => {
         const ordered = spliceAndInsert(bookmarkIds, idx, target)
         clientService.changeOrder(groupId, ordered)
     }
     return (
-        <BookmarkBulkContext.Provider value={contextValue}>
+        <Provider bookmarkIds={bookmarkIds} groupId={groupId}>
             <Layout
                 refinements={<Refinements groupId={groupId} />}
                 bookmarkIds={bookmarkIds}
@@ -52,7 +50,7 @@ const BookmarkList: React.FC<Props> = ({
                 }}
                 input={<Input groupId={groupId} toggle={setInput} show={input} />}
             />
-        </BookmarkBulkContext.Provider>
+        </Provider>
 
     )
 }

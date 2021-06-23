@@ -34,27 +34,27 @@ const Confirm: React.VFC<{ onSubmit: () => void, onCancel: () => void, text: str
 
 type Toggle = () => void
 
-const BulkDeletePopoverContainer: React.VFC<{ className?: string, onSubmit: (toggle: Toggle) => void }> = ({ onSubmit, className }) => (
+const BulkDeletePopoverContainer: React.VFC<{ className?: string, onSubmit: (toggle: Toggle) => void, disabled?:boolean }> = ({ onSubmit, className, disabled }) => (
     <PopoverDivContainer className={className} render={(toggle) => (
         <Confirm text='削除する' onCancel={() => {
             toggle()
         }} onSubmit={() => { onSubmit(toggle) }} />
     )}>
-        <BulkDelete />
+        <BulkDelete disabled={disabled}/>
     </PopoverDivContainer>
 )
 
-const CulkColorOptionContainer: React.VFC<{ className?: string, groupId: string, handleSelectColor: (color: string, toggle: Toggle) => void }> =
-    ({ className, groupId, handleSelectColor }) => (
+const CulkColorOptionContainer: React.VFC<{ className?: string, groupId: string, handleSelectColor: (color: string, toggle: Toggle) => void, disabled?:boolean }> =
+    ({ className, groupId, handleSelectColor, disabled }) => (
         <PopoverDivContainer className={className} render={(toggle) => (
             <Selector groupId={groupId} handleSelectColor={(color) => { handleSelectColor(color, toggle) }} />
         )}>
-            <BulkColor />
+            <BulkColor disabled={disabled}/>
         </PopoverDivContainer>
     )
 
 const useBulkMenu = () => {
-    const { deleteBookmarks, updateColors } = useContext(BookmarkBulkContext)
+    const { deleteBookmarks, updateColors, checkState, disabled } = useContext(BookmarkBulkContext)
     const onDelete = (toggle: () => void) => {
         deleteBookmarks().finally(toggle)
     }
@@ -63,7 +63,8 @@ const useBulkMenu = () => {
     }
     return {
         onDelete,
-        onUpdateColors
+        onUpdateColors,
+        disabled : disabled || checkState === 'none'
     }
 }
 
@@ -82,34 +83,34 @@ export const BulkCheckBox: React.VFC<{ className?: string }> = ({ className }) =
 }
 
 export const BulkMenuFixedHeader: React.VFC<{ className?: string, groupId: string }> = ({ className, groupId }) => {
-    const { onDelete, onUpdateColors } = useBulkMenu()
+    const { onDelete, onUpdateColors, disabled } = useBulkMenu()
 
     return (
         <div className={classNames('p-2 bg-white flex items-center', className)}>
-            <BulkDeletePopoverContainer onSubmit={onDelete} />
-            <CulkColorOptionContainer className='mx-4' groupId={groupId} handleSelectColor={onUpdateColors}/>
+            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
+            <CulkColorOptionContainer className='mx-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
         </div>
     )
 }
 
 export const BulkMenuMobile: React.VFC<{ className?: string, groupId: string }> = ({ className, groupId }) => {
-    const { onDelete, onUpdateColors } = useBulkMenu()
+    const { onDelete, onUpdateColors, disabled } = useBulkMenu()
 
     return (
-        <div className={classNames('p-2 w-full flex items-center', className)}>
-            <BulkDeletePopoverContainer onSubmit={onDelete} />
-            <CulkColorOptionContainer className='mx-4' groupId={groupId} handleSelectColor={onUpdateColors}/>
+        <div className={classNames('py-1 w-full flex items-center', className)}>
+            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
+            <CulkColorOptionContainer className='mx-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
         </div>
     )
 }
 
 export const BulkMenuWeb: React.VFC<{ className?: string, groupId: string }> = ({ className, groupId }) => {
-    const { onDelete, onUpdateColors } = useBulkMenu()
+    const { onDelete, onUpdateColors, disabled } = useBulkMenu()
 
     return (
         <div className={classNames('w-full flex items-center', className)}>
-            <BulkDeletePopoverContainer onSubmit={onDelete} />
-            <CulkColorOptionContainer className='mx-4' groupId={groupId} handleSelectColor={onUpdateColors}/>
+            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
+            <CulkColorOptionContainer className='mx-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
         </div>
     )
 }
