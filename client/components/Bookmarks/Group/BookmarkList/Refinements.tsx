@@ -65,7 +65,7 @@ const Refinements: React.FC<Props> = ({
                         </div>
                     </div>
                 </div>
-                <div className={`${hasSelection ? '' : 'h-0 overflow-hidden opacity-0'} md:hidden  transition-all ease-in-out duration-500`}>
+                <div className={`${hasSelection && inView ? '' : 'h-0 overflow-hidden opacity-0'} md:hidden  transition-all ease-in-out duration-500`}>
                     <BulkMenuMobile className='mt-2 mr-4 border-t border-primary-border' groupId={groupId}/>
                 </div>
             </div>
