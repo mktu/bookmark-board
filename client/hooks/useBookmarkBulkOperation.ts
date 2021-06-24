@@ -31,7 +31,7 @@ const useBookmarkBulkOperation = (groupId:string, boolmarkIds:string[]) => {
         }
         try{
             await clientService.deleteBookmarks(groupId, selectedBookmarks)
-            toast.success('削除に成功しました')
+            toast.success('ブックマークを削除しました')
         }catch(e){
             console.error(e)
             toast.error('削除に失敗しました')
@@ -45,7 +45,6 @@ const useBookmarkBulkOperation = (groupId:string, boolmarkIds:string[]) => {
         }
         try{
             await clientService.modifyBookmarks(groupId, selectedBookmarks, {color})
-            toast.success('色変更に成功しました')
             setCheckList({})
         }catch(e){
             console.error(e)
