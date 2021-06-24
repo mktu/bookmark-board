@@ -11,14 +11,14 @@ import Selector from './ColorOption/Selector'
 const BulkDelete: React.VFC<Parameters<typeof TextButton>[0]> = ({ className, ...props }) => (
     <TextButton aria-label='Color Filter' className={classNames('flex items-center', className)} {...props}>
         <Trash className='w-6 mr-1 stroke-primary-main' strokeWidth={1.5} />
-        <div className='text-sm'>一括削除</div>
+        <div className='text-sm'>削除</div>
     </TextButton>
 )
 
 const BulkColor: React.VFC<Parameters<typeof TextButton>[0]> = ({ className, ...props }) => (
     <TextButton aria-label='Color Filter' className={classNames('flex items-center', className)} {...props}>
         <ColorSwatch className='w-6 mr-1 stroke-primary-main' strokeWidth={1.5} />
-        <div className='text-sm'>一括色設定</div>
+        <div className='text-sm'>色設定</div>
     </TextButton>
 )
 
