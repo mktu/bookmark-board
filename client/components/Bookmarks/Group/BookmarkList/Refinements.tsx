@@ -69,7 +69,7 @@ const Refinements: React.FC<Props> = ({
                     <BulkMenuMobile className='mt-2 mr-4 border-t border-primary-border' groupId={groupId}/>
                 </div>
             </div>
-            <div className={`${hasSelection && !inView ? 'border border-primary-border rounded w-full' : 'w-0 h-0 opacity-0'} fixed top-0 left-0 z-20 `}>
+            <div className={`${hasSelection && !inView ? 'border border-primary-border rounded w-full' : 'w-0 h-0 opacity-0 overflow-hidden'} fixed top-0 left-0 z-20 `}>
                 <BulkMenu groupId={groupId}/>
             </div>
         </div>
