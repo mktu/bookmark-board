@@ -10,7 +10,7 @@ type ChildType = React.VFC<{ onClose: () => void }>
 
 const MobileHeader: React.VFC<{ Child: ChildType }> = ({ Child }) => {
     const [open, setOpen] = useState(false)
-    const { ref, inView } = useInView()
+    const { ref, inView } = useInView({initialInView : true})
     const onOpen = () => {
         setOpen(o => !o)
     }
