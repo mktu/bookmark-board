@@ -6,6 +6,8 @@ import { TooltipDivContainer } from '@components/Common/Tooltip'
 import { BookmarkListImageSize } from '@utils/constants'
 import { checkIsTouch } from '@utils/dnd'
 
+const borderWidth = 5
+
 type Props = {
     detailLink: string,
     attachDnDRef: (el: HTMLElement) => void,
@@ -48,9 +50,9 @@ const Presenter: React.FC<Props> = ({
     const isTouch = checkIsTouch()
     return (
         <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center relative`}
-            style={color ? { borderLeft: `5px solid ${color}`, opacity } : { opacity }} >
+            style={color ? { borderLeft: `${borderWidth}px solid ${color}`, opacity } : { opacity }} >
             <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50' >
-                <div className='absolute top-0 left-0 z-10'>{checkButton}</div>
+                <div className='absolute top-0 left-0 z-10' style={color ? {left : -borderWidth} : {}}>{checkButton}</div>
                 <div ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
                     {image}
                 </div>

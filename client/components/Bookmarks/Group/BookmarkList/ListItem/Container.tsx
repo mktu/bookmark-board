@@ -116,8 +116,8 @@ const ListItem: React.FC<Props> = ({
             }}
             className={`${checked ? 
                 'bg-primary-main stroke-primary-50' :
-                'bg-white opacity-100 stroke-primary-300 hover:border-primary-200 hover:stroke-primary-500'} 
-                border border-primary-border rounded-full`}>
+                'bg-white opacity-100 stroke-primary-200 hover:border-primary-200 hover:stroke-primary-500'} 
+                shadow border-r border-b border-primary-border`}>
             <Check className='w-5 h-5 ' strokeWidth={2} fill='none'/>
         </ButtonBase>
     )
