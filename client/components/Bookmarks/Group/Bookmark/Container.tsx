@@ -2,11 +2,12 @@ import React, { useMemo } from 'react'
 import { useRouter } from 'next/router'
 import { toast } from 'react-toastify';
 import Presenter from './Presenter'
-import { useBookmark, useMoveGroup } from '../../../../hooks/useBookmark'
-import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
-import TextInput from '../../../Common/Input/TextInput'
-import TextArea from '../../../Common/Input/TextArea'
-import { HeartButton, ContainedButton, OutlinedButton } from '../../../Common/Button'
+import { useBookmark, useMoveGroup } from '@hooks/useBookmark'
+import { useBookmarkGroup } from '@hooks/useBookmarkGroup'
+import TextInput from '@components/Common/Input/TextInput'
+import TextArea from '@components/Common/Input/TextArea'
+import ArrowLeft from '@components/Common/Icon/ArrowLeft'
+import { HeartButton, ContainedButton, OutlinedButton, SvgIconButton } from '@components/Common/Button'
 import Url from './Url'
 import Refresh from './Refresh'
 import Color from './Color'
@@ -108,6 +109,14 @@ const Container: React.FC<Props> = ({
         }}>更新</ContainedButton>
     ), [hasChange, handleSubmit, onClose])
 
+    const back = useMemo(()=>(
+        <SvgIconButton onClick={()=>{
+            router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
+        }}>
+            <ArrowLeft className='w-5 h-5'/>
+        </SvgIconButton>
+    ),[router, group.id])
+
     const cancel = useMemo(() => (
         <OutlinedButton className='text-sm' onClick={onClose}>戻る</OutlinedButton>
     ), [onClose])
@@ -127,14 +136,14 @@ const Container: React.FC<Props> = ({
                 likes,
                 url,
                 refresh,
-                status,
                 color,
                 move,
                 date,
                 image,
                 trash,
                 submit,
-                cancel
+                cancel,
+                back
             }
             }
         />

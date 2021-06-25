@@ -6,6 +6,8 @@ import { TooltipDivContainer } from '@components/Common/Tooltip'
 import { BookmarkListImageSize } from '@utils/constants'
 import { checkIsTouch } from '@utils/dnd'
 
+const borderWidth = 5
+
 type Props = {
     detailLink: string,
     attachDnDRef: (el: HTMLElement) => void,
@@ -24,9 +26,10 @@ type Props = {
     deleteIcon: React.ReactNode,
     heartButton: React.ReactNode,
     colorButton: React.ReactNode,
+    checkButton: React.ReactNode,
 }
 
-const ListItem: React.FC<Props> = ({
+const Presenter: React.FC<Props> = ({
     detailLink,
     attachDnDRef,
     dragging,
@@ -41,13 +44,15 @@ const ListItem: React.FC<Props> = ({
     openIcon,
     deleteIcon,
     heartButton,
-    colorButton
+    colorButton,
+    checkButton
 }) => {
     const isTouch = checkIsTouch()
     return (
-        <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center`}
-            style={color ? { borderLeft: `5px solid ${color}`, opacity } : { opacity }} >
+        <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center relative`}
+            style={color ? { borderLeft: `${borderWidth}px solid ${color}`, opacity } : { opacity }} >
             <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50' >
+                <div className='absolute top-0 z-10 flex items-start' style={color ? {left : -borderWidth} : {left : 0}}>{checkButton}</div>
                 <div ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
                     {image}
                 </div>
@@ -107,4 +112,4 @@ const ListItem: React.FC<Props> = ({
     )
 }
 
-export default ListItem
+export default Presenter

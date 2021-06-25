@@ -8,6 +8,7 @@ type Props = {
     dangerZone: React.ReactNode,
     cancel: React.ReactNode,
     update: React.ReactNode,
+    back : React.ReactNode,
     lastUpdate: string
 
 }
@@ -19,12 +20,16 @@ const Presenter: React.FC<Props> = ({
     dangerZone,
     cancel,
     update,
+    back,
     lastUpdate
 }) => {
     return (
         <div className='w-full p-2'>
-            <div className='flex items-center'>
-                <div className='w-full'>
+            <div className='flex items-center w-full'>
+                <div className='mx-1 md:hidden'>
+                    {back}
+                </div>
+                <div className='flex-1 overflow-hidden'>
                     {title}
                 </div>
             </div>

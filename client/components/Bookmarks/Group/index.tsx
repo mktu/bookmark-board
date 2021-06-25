@@ -27,6 +27,7 @@ const Group: React.FC<Props> = ({
         status,
         bookmarkStatus,
         jumpToGroupRoot,
+        bookmark
     } = useBookmarkGroupRoot(groupId, bookmarkId)
     // can use react-responsive because these component never rendered in server side
     const alternatives = useMemo(() => ({
@@ -57,12 +58,12 @@ const Group: React.FC<Props> = ({
         bookmark: (
             <>
                 <DefaultSize>
-                    <Dialog open={Boolean(bookmarkId)} onClose={jumpToGroupRoot}>
-                        <Bookmark bookmarkId={bookmarkId} onClose={jumpToGroupRoot} />
+                    <Dialog open={Boolean(bookmark?.id)} onClose={jumpToGroupRoot}>
+                        <Bookmark bookmarkId={bookmark?.id} onClose={jumpToGroupRoot} />
                     </Dialog>
                 </DefaultSize>
                 <MobileSize>
-                    <Bookmark bookmarkId={bookmarkId} onClose={jumpToGroupRoot} />
+                    <Bookmark bookmarkId={bookmark?.id} onClose={jumpToGroupRoot} />
                 </MobileSize>
             </>
         ),
@@ -78,7 +79,7 @@ const Group: React.FC<Props> = ({
                 </MobileSize>
             </>
         )
-    }), [jumpToGroupRoot, groupId, bookmarkId])
+    }), [jumpToGroupRoot, groupId, bookmark?.id])
     const bookmarkList = useMemo(()=><BookmarkList bookmarkIds={bookmarkIds} groupId={groupId} />,[bookmarkIds,groupId])
     const header = useMemo(()=><Header groupId={groupId} />,[groupId])
     const noItem = useMemo(()=><NoItem groupId={groupId} />,[groupId])

@@ -1,6 +1,6 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { useInView } from 'react-intersection-observer';
+import { useInView } from 'react-intersection-observer'
 import styles from './index.module.scss'
 import { ProfileMenu } from '@components/PopoverMenu'
 import { PopoverDivContainer } from '@components/Common/Popover'

@@ -35,18 +35,18 @@ const Header: React.FC<Props> = ({
     }
 
     return (
-        <div className='h-full w-full px-2 py-2 border-b border-primary-border md:flex md:items-center' >
+        <div className='h-full w-full px-2 py-2 border-b border-primary-border flex items-center' >
             <div className='flex items-center max-w-full overflow-hidden' >
                 <div className='flex items-center'>
                     <SvgIconButton className='md:hidden' onClick={handleBack}>
                         <ArrowLeft strokeWidth={1.0} className='w-6' />
                     </SvgIconButton>
                 </div>
-                <ButtonBase className='text-primary-main ml-2 mr-4 overflow-hidden truncate max-w-full block' onClick={jumpTo('setting')}>
-                    <div className='font-semibold flex justify-start' >
+                <ButtonBase className='text-primary-main ml-2 mr-4 overflow-hidden truncate flex-1 block text-left' onClick={jumpTo('setting')}>
+                    <div className='font-semibold overflow-hidden truncate max-w-full' >
                         {group.name}
                     </div>
-                    <div className='text-sm overflow-hidden truncate max-w-full'>
+                    <div className='hidden md:block text-sm overflow-hidden truncate max-w-full'>
                         {group.description}
                     </div>
                 </ButtonBase>

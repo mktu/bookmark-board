@@ -1,15 +1,16 @@
 import React, { useMemo } from 'react'
 import { toast } from 'react-toastify';
-import WithFrame from '../../../Common/Avatar/NextImage'
-import Initial from '../../../Common/Avatar/Initial'
-import { OutlinedButton, ContainedButton } from '../../../Common/Button'
-import TextInput from '../../../Common/Input/TextInput'
-import TextArea from '../../../Common/Input/TextArea'
-import { useProfile } from '../../../../modules/profileSlice'
+import WithFrame from '@components/Common/Avatar/NextImage'
+import Initial from '@components/Common/Avatar/Initial'
+import { OutlinedButton, ContainedButton, SvgIconButton } from '@components/Common/Button'
+import TextInput from '@components/Common/Input/TextInput'
+import TextArea from '@components/Common/Input/TextArea'
+import ArrowLeft from '@components/Common/Icon/ArrowLeft'
+import { useProfile } from '@modules/profileSlice'
 import { numberToDateTime } from '../../../../utils'
 import DangerZone from '../DangerZone'
-import { useBookmarkGroup } from '../../../../hooks/useBookmarkGroup'
-import { useAlgoliaRegister } from '../../../../hooks/useAlgoliaRegister'
+import { useBookmarkGroup } from '@hooks/useBookmarkGroup'
+import { useAlgoliaRegister } from '@hooks/useAlgoliaRegister'
 import Presenter from './Presenter'
 
 type Props = {
@@ -93,6 +94,12 @@ const Container: React.FC<Props> = ({
         <OutlinedButton onClick={onClose}>キャンセル</OutlinedButton>
     )
 
+    const back = (
+        <SvgIconButton onClick={onClose}>
+            <ArrowLeft className='w-5 h-5'/>
+        </SvgIconButton>
+    )
+
     const lastUpdate = group.lastUpdate && `最終更新 ${numberToDateTime(group.lastUpdate)}`
 
     if (!group) {
@@ -107,6 +114,7 @@ const Container: React.FC<Props> = ({
             dangerZone,
             update,
             cancel,
+            back,
             lastUpdate
         }}
     />
