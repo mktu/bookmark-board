@@ -35,20 +35,20 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <div className='flex flex-col'>
-            <div className='flex items-center w-full overflow-hidden pt-2 px-4 justify-end'>
-
-                <div className='ml-auto'>{refresh}</div>
-                <div className='text-sm text-primary-main mx-1'>情報を再取得</div>
-                <div className='ml-3'>
-                    {heart}
-                </div>
-            </div>
-            <div className='w-full overflow-hidden px-4'>
+            
+            <div className='w-full overflow-hidden p-4'>
                 <div className='flex items-center'>
                     <div className='md:hidden mr-2'>{back}</div>
                     <div className='w-full flex-1'>
                         {title}
                     </div>
+                </div>
+            </div>
+            <div className='flex items-center w-full overflow-hidden px-4 justify-end'>
+                <div className='ml-auto'>{refresh}</div>
+                <div className='text-sm text-primary-main mx-1'>情報を再取得</div>
+                <div className='ml-3'>
+                    {heart}
                 </div>
             </div>
 
