@@ -35,7 +35,6 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <div className='flex flex-col'>
-            
             <div className='w-full overflow-hidden p-4'>
                 <div className='flex items-center'>
                     <div className='md:hidden mr-2'>{back}</div>

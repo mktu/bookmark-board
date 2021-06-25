@@ -16,9 +16,7 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <div className='bg-white w-full h-full flex flex-col border-primary-border border-r'>
-            <div className={classNames('border-primary-border flex flex-row justify-between p-1 items-center text-primary-main',
-                !error && 'mb-3'
-            )}>
+            <div className={classNames('border-primary-border flex flex-row justify-between p-1 items-center text-primary-main')}>
                 <div className='p-2 w-full'>
                     {input}
                 </div>
