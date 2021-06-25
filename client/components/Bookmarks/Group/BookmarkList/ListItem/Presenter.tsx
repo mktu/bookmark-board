@@ -52,7 +52,7 @@ const Presenter: React.FC<Props> = ({
         <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center relative`}
             style={color ? { borderLeft: `${borderWidth}px solid ${color}`, opacity } : { opacity }} >
             <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50' >
-                <div className='absolute top-0 left-0 z-10' style={color ? {left : -borderWidth} : {}}>{checkButton}</div>
+                <div className='absolute top-0 z-10 flex items-start' style={color ? {left : -borderWidth} : {left : 0}}>{checkButton}</div>
                 <div ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
                     {image}
                 </div>

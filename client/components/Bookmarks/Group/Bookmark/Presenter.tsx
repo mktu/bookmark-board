@@ -1,8 +1,6 @@
 import React from 'react'
-import { TooltipDivContainer } from '../../../Common/Tooltip'
 
 type Props = {
-    status: LoadStatus['status'],
     title: React.ReactNode,
     heart: React.ReactNode,
     description: React.ReactNode,
@@ -16,10 +14,10 @@ type Props = {
     trash: React.ReactNode,
     submit: React.ReactNode,
     cancel: React.ReactNode,
+    back: React.ReactNode
 }
 
 const Presenter: React.FC<Props> = ({
-    status,
     title,
     heart,
     description,
@@ -32,23 +30,25 @@ const Presenter: React.FC<Props> = ({
     image,
     trash,
     submit,
-    cancel
+    cancel,
+    back
 }) => {
-    const inputDisabled = status === 'loading'
     return (
         <div className='flex flex-col'>
             <div className='w-full overflow-hidden p-4'>
                 <div className='flex items-center'>
+                    <div className='md:hidden mr-1'>{back}</div>
                     <div className='w-full flex-1'>
                         {title}
                     </div>
-                    <TooltipDivContainer disabled={inputDisabled} content='説明や画像の情報を再度取得します' placement='bottom' className='mx-4'>
-                        {refresh}
-                    </TooltipDivContainer>
                     <div>
                         {heart}
                     </div>
                 </div>
+            </div>
+            <div className='flex items-center w-full overflow-hidden px-4 justify-end'>
+                <div>{refresh}</div>
+                <div className='text-sm text-primary-main mx-1'>情報を再取得</div>
             </div>
             <div className='w-full overflow-hidden p-4'>
                 {image}

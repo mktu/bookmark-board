@@ -115,10 +115,10 @@ const ListItem: React.FC<Props> = ({
                 onCheck(bookmarkId,!checked)
             }}
             className={`${checked ? 
-                'bg-primary-main stroke-primary-50' :
+                'bg-primary-500 stroke-primary-50' :
                 'bg-white opacity-100 stroke-primary-200 hover:border-primary-200 hover:stroke-primary-500'} 
-                shadow border-r border-b border-primary-border`}>
-            <Check className='w-5 h-5 ' strokeWidth={2} fill='none'/>
+                border-r border-b border-primary-border`}>
+            <Check className='w-5 h-5 md:w-4 md:h-4' strokeWidth={2} fill='none'/>
         </ButtonBase>
     )
     const origin = new URL(bookmark.url)
