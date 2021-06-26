@@ -19,9 +19,9 @@ const Checkbox : React.VFC<Props> = ({onClick, color, checked, className})=>{
             className={classNames(className, `${checked ? 
                 'bg-primary-500 stroke-primary-50 border-white' :
                 'bg-white stroke-primary-200 hover:border-primary-200 hover:stroke-primary-500 border-primary-border'} 
-                 shadow border-b border-r`)} style={color ? checked ? 
+                 shadow border-b border-r rounded-full`)} style={color ? checked ? 
                     {backgroundColor : color} : 
-                    {borderColor : `rgba(${rgba[0]},${rgba[1]},${rgba[2]},${colorOpacity})`, stroke : color, strokeOpacity : colorOpacity} : 
+                    {borderColor : `rgba(${rgba[0]},${rgba[1]},${rgba[2]},${colorOpacity})`, borderWidth : 1, stroke : color, strokeOpacity : colorOpacity} : 
                     {}}>
             <Check className='w-5 h-5 md:w-4 md:h-4' strokeWidth={2} fill='none'/>
         </ButtonBase>
