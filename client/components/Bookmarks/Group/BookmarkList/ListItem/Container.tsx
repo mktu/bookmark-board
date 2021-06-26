@@ -1,7 +1,6 @@
-import React, {useContext} from 'react'
+import React, { useContext } from 'react'
 import { UrlImage } from '@components/Common/Avatar'
 import { ExternalLink, Duplicate, Trash } from '@components/Common/Icon'
-import Check from '@components/Common/Icon/Check'
 import { SvgIconButton, HeartButton, ButtonBase } from '@components/Common/Button'
 import { PopoverDivContainer } from '@components/Common/Popover'
 import ColorSelector from '../ColorOption/Selector'
@@ -15,7 +14,7 @@ import { useBookmarkGroup } from '@hooks/useBookmarkGroup'
 import { useHoverable } from '@hooks/useBookmarkDnd'
 import BookmarkBulkContext from '@context/BookmarkBulkContext'
 import Presenter from './Presenter'
-
+import Checkbox from './Checkbox'
 
 type Props = {
     bookmarkId: string,
@@ -41,8 +40,9 @@ const ListItem: React.FC<Props> = ({
     const profile = useProfile()
     const { group } = useBookmarkGroup(bookmark.groupId)
     const { listViewMask = [] } = useRefinementById(bookmark.groupId)
-    const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover, profile?.id===group?.owner)
+    const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover, profile?.id === group?.owner)
     const colors = group?.colors || {}
+    const color = colors[bookmark.color]?.color
     const handleCopyUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
         copyToClipBoard(bookmark.url, () => {
             toast.success('クリップボードにURLをコピーしました',)
@@ -58,7 +58,7 @@ const ListItem: React.FC<Props> = ({
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
         e.preventDefault()
-        deleteBookmark().then(()=>{
+        deleteBookmark().then(() => {
             toast.success('ブックマークを削除しました')
         })
     }
@@ -110,16 +110,12 @@ const ListItem: React.FC<Props> = ({
         </PopoverDivContainer>
     )
     const checkButton = (
-        <ButtonBase aria-label='Check Bookmark' 
-            onClick={()=>{
-                onCheck(bookmarkId,!checked)
-            }}
-            className={`${checked ? 
-                'bg-primary-500 stroke-primary-50' :
-                'bg-white opacity-100 stroke-primary-200 hover:border-primary-200 hover:stroke-primary-500'} 
-                border-r border-b border-primary-border`}>
-            <Check className='w-5 h-5 md:w-4 md:h-4' strokeWidth={2} fill='none'/>
-        </ButtonBase>
+        <Checkbox onClick={() => {
+            onCheck(bookmarkId, !checked)
+        }}
+            checked={checked}
+            color={color}
+        />
     )
     const origin = new URL(bookmark.url)
     return (
@@ -139,7 +135,7 @@ const ListItem: React.FC<Props> = ({
                 openIcon: openButton,
                 deleteIcon: deleteButton,
                 heartButton: heartButton,
-                color: colors[bookmark.color]?.color,
+                color,
                 colorButton,
                 checkButton
             }}
