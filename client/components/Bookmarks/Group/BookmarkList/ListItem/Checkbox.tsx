@@ -17,13 +17,13 @@ const Checkbox : React.VFC<Props> = ({onClick, color, checked, className})=>{
 
     const colorOpacity = !isTouch && hover ? 1.0 : 0.75
     const strokeOpacity = !isTouch && hover ? 1.0 : 0
+    const defaultCheckedStyle = 'bg-primary-500 stroke-primary-50 border-white'
+    const defaultStyle = `bg-white hover:border-primary-200 border-primary-border ${!isTouch && 'hover:stroke-primary-500'}`
     return (
         <ButtonBase aria-label='Check Bookmark'  onMouseOver={()=>{setHover(true)}} onMouseLeave={()=>{setHover(false)}}
             onClick={onClick}
-            className={classNames(className, `${checked ? 
-                'bg-primary-500 stroke-primary-50 border-white' :
-                'bg-white hover:border-primary-200 hover:stroke-primary-500 border-primary-border'} 
-                 shadow border rounded-full`)} style={color ? checked ? 
+            className={classNames(className, `${checked ? defaultCheckedStyle : defaultStyle } shadow border rounded-full`)} 
+            style={color ? checked ? 
                     {backgroundColor : color} : 
                     {borderColor : `rgba(${rgba[0]},${rgba[1]},${rgba[2]},${colorOpacity})`, borderWidth : 1, stroke : color, strokeOpacity : strokeOpacity} : 
                     {}}>
