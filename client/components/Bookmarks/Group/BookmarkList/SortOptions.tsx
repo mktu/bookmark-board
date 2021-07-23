@@ -15,8 +15,8 @@ type CompFunction = (a:Bookmark,b:Bookmark)=>number
 
 
 const lastUpdateSorter : CompFunction = (a,b)=>{
-    const aLastUpdate = a.lastUpdate || 0
-    const bLastUpdate = b.lastUpdate || 0
+    const aLastUpdate = a.lastUpdate || a.created || 0
+    const bLastUpdate = b.lastUpdate || b.created || 0
     return bLastUpdate - aLastUpdate
 }
 
