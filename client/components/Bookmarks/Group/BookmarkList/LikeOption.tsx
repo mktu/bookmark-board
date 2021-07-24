@@ -27,7 +27,7 @@ const LikeOptions: React.FC<Props> = ({
             <TooltipDivContainer content='お気に入り' placement='bottom'>
                 <HeartFill className={classNames('w-6 mr-1',
                     likeMask ? 'fill-secondary-300' : 'fill-white',
-                    likeMask ? 'stroke-secondary-300' : 'stroke-primary-300',
+                    likeMask ? 'stroke-secondary-300' : 'stroke-primary-main',
                 )} strokeWidth={1.5} />
             </TooltipDivContainer>
         </SvgIconButton>

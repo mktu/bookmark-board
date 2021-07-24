@@ -13,7 +13,7 @@ const LP = () => {
     return (
         <Layout.Page
             top={
-                <ScrollFadein translate={{ x: 100, y: 0 }}>
+                <ScrollFadein translate={{ x: 0, y: 0 }}>
                     <Layout.SideBySide
                         title={Sections.Top.Title}
                         content={<Sections.Top.Content handleLogin={handleLogin} />}
@@ -28,7 +28,7 @@ const LP = () => {
                     />
                 </ScrollFadein>}
             publish={
-                <ScrollFadein translate={{ x: 100, y: 0 }}>
+                <ScrollFadein translate={{ x: 0, y: 100 }}>
                     <Layout.SideBySide
                         title={Sections.Publish.Title}
                         content={Sections.Publish.Content}
@@ -37,7 +37,7 @@ const LP = () => {
                 </ScrollFadein>
             }
             plugin={
-                <ScrollFadein translate={{ x: -100, y: 0 }}>
+                <ScrollFadein translate={{ x: 0, y: 100 }}>
                     <Layout.SideBySide
                         title={Sections.Plugin.Title}
                         content={Sections.Plugin.Content}
@@ -47,7 +47,7 @@ const LP = () => {
                 </ScrollFadein>
             }
             siginin={
-                <ScrollFadein translate={{ x: 0, y: 0 }} transition='2s'>
+                <ScrollFadein translate={{ x: 0, y: 100 }} transition='2s'>
                     <Layout.Single
                         title={Sections.Signin.Title}
                         content={<Sections.Signin.Content />}

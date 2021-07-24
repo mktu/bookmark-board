@@ -2,7 +2,7 @@ import React, { useContext } from 'react'
 import { useInView } from 'react-intersection-observer'
 import Sort from '@components/Common/Icon/Sort'
 import Template from '@components/Common/Icon/Template'
-import ColorSwatch from '@components/Common/Icon/ColorSwatch'
+import Filter from '@components/Common/Icon/Filter'
 import { PopoverDivContainer } from '@components/Common/Popover'
 import { TooltipDivContainer } from '@components/Common/Tooltip'
 import { toast } from 'react-toastify';
@@ -44,7 +44,7 @@ const Refinements: React.FC<Props> = ({
                             <PopoverDivContainer placement='left-start' content={<VisibilityOption groupId={groupId} />}>
                                 <SvgIconButton aria-label='Color Filter' className='flex items-center ml-4' >
                                     <TooltipDivContainer content='色フィルタ' placement='bottom'>
-                                        <ColorSwatch className='w-6' strokeWidth={1.5} />
+                                        <Filter className='w-6' strokeWidth={1.5} />
                                     </TooltipDivContainer>
                                 </SvgIconButton>
                             </PopoverDivContainer>
