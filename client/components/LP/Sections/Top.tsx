@@ -1,5 +1,6 @@
 import React from 'react'
-import { LpApp } from '../../Common/Image/Lp'
+import NextImage from 'next/image'
+import appImage from 'public/App.png'
 import { ContainedButton } from '@components/Common/Button'
 import classNames from 'classnames'
 
@@ -23,9 +24,9 @@ export const Content: React.FC<{ handleLogin: () => void }> = ({
 // 4:17
 export const Image = <>
     <div className={classNames('hidden md:block')}>
-        <LpApp width={720} height={405} />
+        <NextImage src={appImage} width={720} height={405} placeholder='blur' />
     </div>
     <div className='md:hidden shadow-lg'>
-        <LpApp width={512} height={280} />
+        <NextImage src={appImage} width={512} height={280} placeholder='blur'/>
     </div>
 </>

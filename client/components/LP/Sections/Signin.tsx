@@ -1,10 +1,12 @@
 import React from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
-import { LpStart } from '@components/Common/Image/Lp'
+import Baloons from 'public/undraw_Balloons_re_8ymj.svg' 
 import { HelpLink } from '@utils/constants'
 
 export const Title = '利用の始め方'
 const SigninPath = '/signin'
+
 
 export const Content: React.FC = () => (
     <div>
@@ -20,7 +22,7 @@ export const Content: React.FC = () => (
             <span>にも載せていますので、ぜひ確認してみてください</span>
         </p>
         <div className='my-6 w-full flex justify-center'>
-            <LpStart width={245} height={300}/>
+            <Image src={Baloons} width={245} height={300} alt='LpStart'/>
         </div>
         <div className='text-sm my-4'>
             <p>※動作環境について 以下のブラウザで動作確認しています</p>

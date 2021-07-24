@@ -1,5 +1,6 @@
 import React from 'react'
-import { LpPlugin } from '@components/Common/Image/Lp'
+import NextImage from 'next/image'
+import LpPlugin from 'public/Plugin.png'
 import { PluginUrl } from '@utils/constants'
 
 export const Title = '拡張機能でより便利に'
@@ -18,4 +19,4 @@ export const Content: React.ReactNode = (
     </div>
 )
 
-export const Image = <LpPlugin width={545} height={400} />
+export const Image = <NextImage alt='Plugin' src={LpPlugin} width={545} height={400} />

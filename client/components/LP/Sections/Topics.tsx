@@ -1,8 +1,13 @@
 import React from 'react'
+import Image from 'next/image'
 import FolderOpen from '../../Common/Icon/FolderOpen'
 import Share from '../../Common/Icon/Share'
-import { LpComment, LpShare, LpGroup } from '../../Common/Image/Lp'
+import LpShare from 'public/LpShare.png'
+import LpComment from 'public/LpComment.png'
+import LpGroup from 'public/LpGroup.png'
 import Template from '../../Common/Icon/Template'
+
+
 
 export const Title = 'FEATURES'
 
@@ -17,7 +22,7 @@ export const Topics = [
                     また、それぞれのグループに対して50までのブックマークを登録することが可能です。一度登録したブックマークを別のグループに移動させることも可能です
                 </p>
                 <div className='relative flex justify-end mt-4' style={{ width: '100%', height: '300px' }}>
-                    <LpGroup />
+                    <Image src={LpGroup} layout='fill' objectFit='contain' alt='LpGroup' objectPosition='left top'/>
                 </div>
             </div>
         )
@@ -31,7 +36,7 @@ export const Topics = [
                     共有したい人をブックマークリストの共同編集者として招待することで、一緒にそのブックマークを充実させることができます。誰かと一緒に情報を収集したい際などに便利です
                 </p>
                 <div className='relative mt-4 flex justify-end' style={{ width: '100%', height: '300px' }}>
-                    <LpShare />
+                    <Image src={LpShare} layout='fill' objectFit='contain' alt='LpShare' objectPosition='left top'/>
                 </div>
             </div>
         )
@@ -46,7 +51,7 @@ export const Topics = [
                     自分なりの色やコメントを記載することで、そのブックマークを識別する手助けとすることができます
                 </p>
                 <div className='relative mt-4 w-full' style={{height:'300px', width : '100%'}}>
-                    <LpComment />
+                    <Image src={LpComment} layout='fill' objectFit='contain' alt='LpComment' objectPosition='left top'/>
                 </div>
             </div>
         )
