@@ -22,14 +22,14 @@ const BookmarkRequests: React.FC<Props> = () => {
         }, () => {
             setError(new Error('グループは見つかりませんでした'))
         }, setError)
-    }, [clientService])
+    }, [clientService,groupId])
 
     useEffect(() => {
         if (latestStatus === 'accepted') {
             clientService.removeRequest(groupId, latestRequest.id)
             router.push(`/bookmarks/${groupId}`)
         }
-    }, [latestStatus])
+    }, [latestStatus,groupId,latestRequest.id,router,clientService])
 
     if (!group) {
         return <div />

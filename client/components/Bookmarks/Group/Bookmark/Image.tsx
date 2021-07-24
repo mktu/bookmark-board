@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, CSSProperties } from 'react'
 import { LoadingImg } from '@components/Common/Image'
 import { ButtonBase } from '@components/Common/Button'
 import UrlImage, { NotFound } from '@components/Common/Avatar/UrlImage'
@@ -25,18 +25,21 @@ const Image: React.FC<Props> = ({
         setCurrentImage(image)
     }, [image])
     const otherImages = images && Array.from(new Set(images)).filter(Boolean) || []
+    const imageStyle : CSSProperties = {
+        width : `min(${BookmarkLargeImageSize}px,90vw)`,
+        height : `calc(min(${BookmarkLargeImageSize}px,90vw)/1.91)` }
     return (
         <>
             <Label className=''>Icons</Label>
-            <div className='md:flex items-end max-w-full m-2 overflow-hidden'>
+            <div className='md:flex items-end w-full m-2 overflow-hidden'>
                 {loading ? (<LoadingImg className='w-32' />) : (
                     <>
-                        <div className='flex justify-center md:block md:border rounded p-1 text-xs border-primary-border overflow-hidden'>
-                            <UrlImage enableEndpoint={false} width={BookmarkLargeImageSize} objectFit='contain' src={currentImage}
-                                style={{maxHeight : BookmarkLargeImageSize}}
+                        <div className='flex justify-center md:block text-xs overflow-hidden'>
+                            <UrlImage className='md:border border-primary-border rounded p-1' enableEndpoint={false} objectFit='cover' src={currentImage}
+                                style={imageStyle}
                                 fallback={(
-                                    <div className='text-secondary-main text-xs w-full' style={{ maxWidth: BookmarkLargeImageSize }}>
-                                        <NotFound width={BookmarkLargeImageSize} height={128} text={`画像が見つかりません`} />
+                                    <div className='text-secondary-main text-xs w-full'>
+                                        <NotFound style={imageStyle} text={`画像が見つかりません`} />
                                     </div>)} />
                         </div>
                         {otherImages.length > 0 && (

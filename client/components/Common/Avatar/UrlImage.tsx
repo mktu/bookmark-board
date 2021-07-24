@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { CSSProperties, useState } from 'react'
 import { PlaceHolderImg } from '../Image'
 
 type ObjectFit = 'cover' | 'contain' 
@@ -54,9 +54,11 @@ export const NotFound: React.FC<{
     width?: number,
     height?: number,
     text?: string
+    style?:CSSProperties
 }> = ({
     width,
     height,
+    style,
     text = '画像が見つかりません'
 }) => (
         <div className='flex items-center justify-center text-white text-sm' style={{
@@ -64,7 +66,8 @@ export const NotFound: React.FC<{
             height,
             backgroundImage: `url('/Placeholder.svg')`,
             backgroundRepeat: 'no-repeat',
-            backgroundSize: 'cover'
+            backgroundSize: 'cover',
+            ...style
         }}>
             {text}
         </div>
