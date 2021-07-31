@@ -22,7 +22,7 @@ export const Topics = [
                     また、それぞれのグループに対して50までのブックマークを登録することが可能です。一度登録したブックマークを別のグループに移動させることも可能です
                 </p>
                 <div className='relative flex justify-end mt-4' style={{ width: '100%', height: '300px' }}>
-                    <Image src={LpGroup} className='object-left-top' layout='fill' objectFit='contain' alt='LpGroup'/>
+                    <Image src={LpGroup} layout='fill' objectFit='contain' alt='LpGroup' objectPosition='left top'/>
                 </div>
             </div>
         )
@@ -51,7 +51,7 @@ export const Topics = [
                     自分なりの色やコメントを記載することで、そのブックマークを識別する手助けとすることができます
                 </p>
                 <div className='relative mt-4 w-full' style={{height:'300px', width : '100%'}}>
-                    <Image src={LpComment} className=' object-left-top' layout='fill' objectFit='cover' alt='LpComment' />
+                    <Image src={LpComment}  layout='fill' objectFit='cover' objectPosition='left top' alt='LpComment' />
                 </div>
             </div>
         )
