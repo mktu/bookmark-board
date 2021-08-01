@@ -1,11 +1,11 @@
 import React from 'react'
 import Image from 'next/image'
-import FolderOpen from '../../Common/Icon/FolderOpen'
-import Share from '../../Common/Icon/Share'
-import LpShare from 'public/LpShare.png'
+import FolderOpen from '@components/Common/Icon/FolderOpen'
+import Share from '@components/Common/Icon/Share'
+import LpShare from 'public/LpShare.svg'
 import LpComment from 'public/LpComment.png'
 import LpGroup from 'public/LpGroup.png'
-import Template from '../../Common/Icon/Template'
+import Template from '@components/Common/Icon/Template'
 
 
 
@@ -36,14 +36,14 @@ export const Topics = [
                     共有したい人をブックマークリストの共同編集者として招待することで、一緒にそのブックマークを充実させることができます。誰かと一緒に情報を収集したい際などに便利です
                 </p>
                 <div className='relative mt-4 flex justify-end' style={{ width: '100%', height: '300px' }}>
-                    <Image src={LpShare} layout='fill' objectFit='contain' alt='LpShare' objectPosition='left top'/>
+                    <Image src={LpShare}  layout='fill' objectFit='contain' alt='LpShare'/>
                 </div>
             </div>
         )
     },
     {
         icon: <Template className='w-8 stroke-primary-main' />,
-        name: '整理整頓',
+        name: 'カテゴライズ',
         content: (
             <div className='flex flex-col'>
                 <p>
@@ -51,7 +51,7 @@ export const Topics = [
                     自分なりの色やコメントを記載することで、そのブックマークを識別する手助けとすることができます
                 </p>
                 <div className='relative mt-4 w-full' style={{height:'300px', width : '100%'}}>
-                    <Image src={LpComment} layout='fill' objectFit='contain' alt='LpComment' objectPosition='left top'/>
+                    <Image src={LpComment}  layout='fill' objectFit='cover' objectPosition='left top' alt='LpComment' />
                 </div>
             </div>
         )
