@@ -35,6 +35,9 @@ service cloud.firestore {
     match /profiles/{profileId} {
       allow read, create : if isLoggedIn();
       allow update, delete : if hasProfileEditorPermission(resource);
+      match /notifications/{notificationId}{
+        allow update, read, create, delete : if isLoggedIn() && request.auth.uid == profileId;
+      }
     }
     match /groups/{groupId} {
       allow create : if hasGroupCreaterPrivilege();
