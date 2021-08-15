@@ -67,7 +67,7 @@ const Header: React.VFC = () => {
 
     return (
         <>
-            <Layout ref={ref}>
+            <Layout ref={ref} onClickHome={onClickBookmark}>
                 <div className='flex items-center'>
                     <App root={mainRootStyle} svg={mainSvgStyle} />
                     <Search root={mainRootStyle} svg={mainSvgStyle} />

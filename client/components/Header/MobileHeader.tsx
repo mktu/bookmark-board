@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useInView } from 'react-intersection-observer';
+import { useRouter } from 'next/router';
 import MenuIcon from '@components/Common/Icon/Menu'
 import Notification from '@components/Common/MenuIcon/Notification'
 import MenuIconButton from '@components/Common/MenuIcon/MenuIconButton'
@@ -9,8 +10,16 @@ import Dialog from './MenuCommon'
 
 type ChildType = React.VFC<{ onClose: () => void }>
 
-const MobileHeader: React.VFC<{ Child: ChildType }> = ({ Child }) => {
+const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean }> = ({ Child, authed }) => {
     const [open, setOpen] = useState(false)
+    const router = useRouter()
+    const onClickHome = () => {
+        if (authed) {
+            router.push('/bookmarks')
+        } else {
+            router.push('/')
+        }
+    }
     const { ref, inView } = useInView({ initialInView: true })
     const onOpen = () => {
         setOpen(o => !o)
@@ -28,9 +37,11 @@ const MobileHeader: React.VFC<{ Child: ChildType }> = ({ Child }) => {
 
     return (
         <>
-            <Layout ref={ref}>
+            <Layout ref={ref} onClickHome={onClickHome}>
                 <div className='flex items-center'>
-                    <Notification className='mr-2' placement='left' notificationPos={{left:0}}/>
+                    {authed && (
+                        <Notification className='mr-2' placement='left' notificationPos={{ left: 0 }} />
+                    )}
                     {menu}
                 </div>
             </Layout>

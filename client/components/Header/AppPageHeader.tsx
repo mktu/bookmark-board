@@ -8,7 +8,7 @@ const AppPageHeader: React.VFC = () => {
     return (
         <>
         <div className='md:hidden'>
-            <MobileHeader Child={AppMenu}/>
+            <MobileHeader Child={AppMenu} authed={true}/>
         </div>
         <div className='hidden md:block'>
             <WebAppHeader />

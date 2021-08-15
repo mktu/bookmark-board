@@ -8,7 +8,7 @@ const UnauthedPageHeader: React.VFC = () => {
     return (
         <>
         <div className='md:hidden'>
-            <MobileHeader Child={UnauthedMenu}/>
+            <MobileHeader Child={UnauthedMenu} authed={false}/>
         </div>
         <div className='hidden md:block'>
             <WebUnauthedHeader />
