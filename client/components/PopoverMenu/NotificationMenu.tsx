@@ -33,9 +33,7 @@ const NotificationMenu = () => {
                             ):(
                                 <span>{v.content}</span>
                             )}
-                        </div>
-                        <div className='pr-2 flex text-xs justify-end ml-auto flex-col'>
-                            <div>{numberToDate(v.created)}</div>
+                            <span className='ml-2'>({numberToDate(v.created)})</span>
                         </div>
                     </li>
                 ))}
