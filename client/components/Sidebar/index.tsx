@@ -1,9 +1,12 @@
-import styles from './index.module.scss'
 import { useRouter } from 'next/router'
-import { User, Book, Help, Search } from '../Common/Icon'
-import { Popover } from '../Common/Popover'
-import { SvgIconButton } from '../Common/Button'
+import User from '@components/Common/Icon/User'
+import Book from '@components/Common/Icon/Book'
+import Help from '@components/Common/Icon/Help'
+import Search from '@components/Common/Icon/Search'
+import { Popover } from '@components/Common/Popover'
 import { ProfileMenu } from '../PopoverMenu'
+import Notification from '@components/Common/MenuIcon/Notification'
+import MenuIconButton from '@components/Common/MenuIcon/MenuIconButton'
 import { HelpLink } from '@utils/constants'
 
 const Sidebar = () => {
@@ -17,28 +20,29 @@ const Sidebar = () => {
                         placement='auto'
                     >
                         <div>
-                            <SvgIconButton aria-label='Profile' colorType='none' className={styles['heroicon-button']}>
+                            <MenuIconButton aria-label='Profile' colorType='none' className='mb-6'>
                                 <User />
-                            </SvgIconButton>
+                            </MenuIconButton>
                         </div>
                     </Popover>
-                    <SvgIconButton aria-label='Bookmark' colorType='none' className={styles['heroicon-button']} onClick={() => {
+                    <MenuIconButton aria-label='Bookmark' colorType='none' className='mb-6' onClick={() => {
                         router.push('/bookmarks')
                     }}>
                         <Book />
-                    </SvgIconButton>
-                    <SvgIconButton aria-label='Search' colorType='none' className={styles['heroicon-button']} onClick={() => {
+                    </MenuIconButton>
+                    <MenuIconButton aria-label='Search' colorType='none' className='mb-6' onClick={() => {
                         router.push('/search')
                     }}>
                         <Search />
-                    </SvgIconButton>
+                    </MenuIconButton>
                 </div>
                 <div className='mt-auto'>
-                    <SvgIconButton aria-label='Help' colorType='none' className={styles['heroicon-button']} onClick={() => {
+                    <Notification className='mb-6'/>
+                    <MenuIconButton aria-label='Help' colorType='none' className='mb-6' onClick={() => {
                         window && window.open(HelpLink, '_blank')
                     }}>
                         <Help />
-                    </SvgIconButton>
+                    </MenuIconButton>
                 </div>
             </nav>
         </div>

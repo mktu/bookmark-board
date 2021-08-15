@@ -6,6 +6,11 @@ export const numberToDateTime = (time?: number) => {
     return new Date(time).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })
 }
 
+export const numberToDate = (time?: number) => {
+    if (!time) return ''
+    return new Date(time).toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' })
+}
+
 export const removeUndefined = (obj: { [key: string]: unknown }) => {
     return Object.keys(obj).reduce((acc, key) => {
         const _acc = acc

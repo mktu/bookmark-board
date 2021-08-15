@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { useRouter } from 'next/router'
-import { TextButton } from '../Common/Button'
-import FirebaseContext from '../../context/FirebaseContext'
+import { TextButton } from '@components/Common/Button'
+import FirebaseContext from '@context/FirebaseContext'
 
 const ProfileMenu = () => {
     const router = useRouter()

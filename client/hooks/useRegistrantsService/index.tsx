@@ -5,6 +5,7 @@ import useBookmarks from './useBookmarks'
 import useRequest from './useRequest'
 import useRequestors from './useRequestors'
 import useRefinements from './useRefinements'
+import useNotifications from './useNotifications'
 
 const useRegistrantsService = () => {
     const bookmarkServices = useBookmarks()
@@ -15,6 +16,7 @@ const useRegistrantsService = () => {
     useGroup(monitors)
     useEditors()
     useRequestors()
+    useNotifications()
 }
 
 export default useRegistrantsService

@@ -22,7 +22,7 @@ const Layout = React.forwardRef<HTMLDivElement, Props>(function Layout({
                     <HeaderLogo theme='light' size='sm' />
                 </ButtonBase>
                 <ButtonBase className='md:hidden' aria-label='Home' onClick={() => {
-                    router.push('/')
+                    router.push('/bookmarks')
                 }}>
                     <LogoSm width={45} height={30} strokeOpacity={0.7} />
                 </ButtonBase>
