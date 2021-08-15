@@ -69,3 +69,26 @@ export const onUpdateInformations =
         })
         await batch.commit()
     });
+
+export const onDeleteInformations = functions.firestore.document('informations/{informationId}')
+.onDelete(async (change) => {
+    const profileIds = await getProfileIds()
+    const batch = firebaseAdmin.firestore().batch()
+    const snapPromises = profileIds.map(async (id)=>{
+      return await firebaseAdmin.firestore()
+        .collection('profiles')
+        .doc(id)
+        .collection('notifications')
+        .where('sourceId', '==', change.id)
+        .get()
+    })
+    const snaps = await Promise.all(snapPromises)
+    snaps.forEach(snap=>{
+      if(snap.empty){
+        return
+      }
+      const doc = snap.docs[0].ref
+      batch.delete(doc)
+    })
+    await batch.commit()
+});
