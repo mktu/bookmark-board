@@ -30,7 +30,7 @@ const MobileHeader: React.VFC<{ Child: ChildType }> = ({ Child }) => {
         <>
             <Layout ref={ref}>
                 <div className='flex items-center'>
-                    <Notification className='mr-2'/>
+                    <Notification className='mr-2' placement='left' notificationPos={{left:'-3px'}}/>
                     {menu}
                 </div>
             </Layout>

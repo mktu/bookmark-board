@@ -37,7 +37,7 @@ const Sidebar = () => {
                     </MenuIconButton>
                 </div>
                 <div className='mt-auto'>
-                    <Notification className='mb-6'/>
+                    <Notification className='mb-6' placement='auto-end' notificationPos={{right : '10px', top : '-10px'}}/>
                     <MenuIconButton aria-label='Help' colorType='none' className='mb-6' onClick={() => {
                         window && window.open(HelpLink, '_blank')
                     }}>
