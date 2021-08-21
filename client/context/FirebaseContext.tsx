@@ -10,8 +10,8 @@ const createFirebaseService = async () => {
         ...await import('../services/reaction'),
         ...await import('../services/request'),
         ...await import('../services/storage'),
-        ...await import('../services/callable'),
         ...await import('../services/notification'),
+        ...await import('../services/callable'),
         mock : false,
         auth : true
     }
@@ -39,8 +39,8 @@ export const upgradeAuthedService = async (original : FirebaseClientServiceType)
         ...await import('../services/reaction'),
         ...await import('../services/request'),
         ...await import('../services/storage'),
-        ...await import('../services/callable'),
         ...await import('../services/notification'),
+        ...await import('../services/callable'),
         mock : false,
         auth : true
     }
