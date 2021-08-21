@@ -4,6 +4,7 @@ import capture from './capture'
 import { createIndex, updateIndex, deleteIndex } from './algolia'
 import firebaseAdmin from './admin'
 import { onWriteReactions } from './triggers'
+import { onCreateInformations, onUpdateInformations, onDeleteInformations } from './information'
 
 type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never;
 
@@ -108,5 +109,8 @@ export const deleteAlgoliaIndex = functions
   });
 
 export {
-  onWriteReactions
+  onWriteReactions,
+  onCreateInformations,
+  onUpdateInformations,
+  onDeleteInformations
 }

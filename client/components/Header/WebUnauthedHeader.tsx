@@ -19,6 +19,9 @@ const WebUnauthedHeader = () => {
     const onClickHelp = () => {
         window && window.open(HelpLink, '_blank')
     }
+    const onClickHome = ()=>{
+        router.push('/')
+    }
     const mainRootStyle = 'mx-2'
     const sideRootStyle = 'my-2'
     const mainSvgStyle = styles['heroicon-button']
@@ -47,7 +50,7 @@ const WebUnauthedHeader = () => {
         </TooltipDivContainer>
     )
     return (
-        <Layout ref={ref}>
+        <Layout ref={ref} onClickHome={onClickHome}>
             <div className='flex items-center mr-2'>
                 <Help root={mainRootStyle} svg={mainSvgStyle} />
                 <LoginMain />

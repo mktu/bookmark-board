@@ -11,6 +11,7 @@ const createFirebaseService = async () => {
         ...await import('../services/request'),
         ...await import('../services/storage'),
         ...await import('../services/callable'),
+        ...await import('../services/notification'),
         mock : false,
         auth : true
     }
@@ -39,6 +40,7 @@ export const upgradeAuthedService = async (original : FirebaseClientServiceType)
         ...await import('../services/request'),
         ...await import('../services/storage'),
         ...await import('../services/callable'),
+        ...await import('../services/notification'),
         mock : false,
         auth : true
     }
@@ -95,6 +97,10 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         createAlgoliaIndex : async ()=>{func('createAlgoliaIndex'); },
         updateAlgoliaIndex : async ()=>{func('updateAlgoliaIndex'); },
         deleteAlgoliaIndex : async ()=>{func('deleteAlgoliaIndex'); },
+        getNotifications : async ()=>{func('getNotifications'); return []},
+        updateNotification : async ()=>{func('updateNotification'); },
+        listenNotifications : ()=>{func('listenNotifications'); return ()=>{1}},
+        readNotifications: async ()=>{func('readNotifications');},
         mock : true,
         auth : false
     }

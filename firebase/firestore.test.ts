@@ -60,6 +60,42 @@ describe('permissionTest', ()=>{
         })
     })
 
+    describe('notificationPermissionTest', ()=>{
+        test('hasProfilePrivilege', async ()=>{
+            const db = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
+            const profileDoc = db.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3')
+            await profileDoc.set({name: 'reds'})
+            const notificationDoc = db.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc()
+            await firebase.assertSucceeds(notificationDoc.set({name: 'reds'}))
+            await firebase.assertSucceeds(notificationDoc.set({name: 'reds2'}))
+            await firebase.assertSucceeds(notificationDoc.delete())
+        })
+        test('onlyHaveOwnsPrivilege', async ()=>{
+            const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
+            const editorDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' });
+            const profileDoc = ownerDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
+            await profileDoc.set({name: 'reds'})
+            const notificationDocFromOwner = ownerDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc('test')
+            await firebase.assertSucceeds(notificationDocFromOwner.set({name: 'reds'}))
+            // access to the other's document 
+            const notificationDoc = editorDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc('test')
+            await firebase.assertFails(notificationDoc.get())
+            await firebase.assertFails(notificationDoc.set({name: 'reds2'}))
+        })
+        test('notAuthed', async ()=>{
+            const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
+            const profileDoc = ownerDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
+            await profileDoc.set({name: 'reds'})
+            const notificationDoc = ownerDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc('test')
+            await firebase.assertSucceeds(notificationDoc.set({name: 'reds'}))
+            const unauthedDb = unAuthedApp();
+            // access to the other's document 
+            const doc = unauthedDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc('test')
+            await firebase.assertFails(doc.get())
+            await firebase.assertFails(doc.set({roomName: 'reds'}))
+        })
+    })
+
     describe('bookmarkPermissionTest', ()=>{
         test('group', async ()=>{
             const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });

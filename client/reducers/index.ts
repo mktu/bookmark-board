@@ -1,13 +1,14 @@
 import { combineReducers } from 'redux'
 import { configureStore } from '@reduxjs/toolkit'
-import profileSlice from '../modules/profileSlice'
-import groupSlice from '../modules/groupSlice'
-import bookmarkSlice from '../modules/bookmarkSlice'
-import usersSlice from '../modules/usersSlice'
-import commentSlice from '../modules/commentSlice'
-import requestSlice from '../modules/requestSlice'
-import authSlice from '../modules/authSlice'
-import groupRefinementSlice from '../modules/groupRefinementSlice'
+import profileSlice from '@modules/profileSlice'
+import groupSlice from '@modules/groupSlice'
+import bookmarkSlice from '@modules/bookmarkSlice'
+import usersSlice from '@modules/usersSlice'
+import commentSlice from '@modules/commentSlice'
+import requestSlice from '@modules/requestSlice'
+import authSlice from '@modules/authSlice'
+import notificationSlice from '@modules/notificationSlice'
+import groupRefinementSlice from '@modules/groupRefinementSlice'
 
 const rootReducer = combineReducers({
     profile : profileSlice,
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
     comments : commentSlice,
     requests : requestSlice,
     auth : authSlice,
+    notifications : notificationSlice,
     groupRefinements : groupRefinementSlice
 })
 

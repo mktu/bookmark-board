@@ -1,21 +1,5 @@
-.icon-button{
-    @apply pb-4;
-    &:focus {
-        @apply outline-none;
-    }
-    svg {
-        @apply w-10;
-        @apply h-10;
-        @apply opacity-50;
-        fill : white;
-        &:hover{
-            opacity: 0.75;
-        }
-    }
-}
 .heroicon-button{
     display : block;
-    @apply mb-6;
     &:focus {
         @apply outline-none;
     }

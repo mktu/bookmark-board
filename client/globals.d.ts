@@ -112,6 +112,27 @@ declare type BookmarkRequest = {
     lastUpdate?: number,
 }
 
+declare type Information = {
+    id : string,
+    content: string,
+    priority?: Priority,
+    contentUrl?: string,
+    created: number,
+    lastUpdate?: number,
+}
+
+declare type UserNotification = {
+    id : string,
+    type : 'information',
+    content: string,
+    priority: Priority,
+    contentUrl?: string,
+    created: number,
+    read: boolean,
+    sourceId?:string,
+    lastUpdate?: number,
+}
+
 declare type LoadStatus = {
     id: string,
     status: 'loading' | 'loaded' | 'failed'

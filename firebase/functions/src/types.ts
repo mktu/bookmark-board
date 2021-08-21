@@ -29,3 +29,26 @@ export type BookmarkGroupIndex = {
     ownerId: string,
     created: number
 }
+
+type Priority = 'normal' | 'low' | 'high'
+
+export type Information = {
+    content: string,
+    priority?: Priority,
+    contentUrl?: string,
+    created: number,
+    lastUpdate?: number,
+}
+
+export type NotificationType = 'information'
+
+export type Notification = {
+    type : NotificationType,
+    content: string,
+    priority: Priority,
+    contentUrl?: string,
+    created: number,
+    read: boolean,
+    sourceId?:string,
+    lastUpdate?: number,
+}

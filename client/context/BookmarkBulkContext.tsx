@@ -22,6 +22,6 @@ export const initialService : ContextType = {
     disabled : true
 }
 
-const groupContext = React.createContext<ContextType>(initialService);
+const bulkContext = React.createContext<ContextType>(initialService);
 
-export default groupContext;
+export default bulkContext;
