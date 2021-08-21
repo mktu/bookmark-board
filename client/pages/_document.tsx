@@ -25,6 +25,7 @@ export default class CustomDocument extends Document {
                 }} />
             </>
           )}
+          <link rel="manifest" href="/manifest.webmanifest" />
         </Head>
         <body>
           <Main />
