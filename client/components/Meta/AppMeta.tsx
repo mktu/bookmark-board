@@ -2,7 +2,6 @@ import React from 'react'
 import Head from 'next/head'
 import { AppName, AppDescription } from '../../utils/constants'
 import { getOrigin } from '../../utils'
-import Favicon from './Favicon'
 
 type Props = {
     title?: string,
@@ -27,7 +26,6 @@ const AppMeta: React.FC<Props> = ({
         <meta name="twitter:card" content='summary_large_image' />
         <meta name="twitter:description" content={AppDescription} />
         <meta name="twitter:image" content={`https://og-image-lilac-kappa.vercel.app/-Manage%20your%20favorites-.png?theme=dark`} />
-        <Favicon />
     </Head>
 )
 
