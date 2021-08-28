@@ -43,7 +43,7 @@ const Dropdowns: React.FC<Props> = ({
     const selectedLabel = options.find(v => v.value === selected)
     return (
         <div className={className}>
-            <div ref={(value) => {
+            <div className='w-full' ref={(value) => {
                 if (!value) return; // called when unmounted
                 setReferenceElement(value)
             }}>
