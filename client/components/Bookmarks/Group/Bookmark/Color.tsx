@@ -20,7 +20,11 @@ const Color: React.FC<Props> = ({
                 <ColorPallet colors={group.colors} boxSize={5} value={color} handleSelectColor={handleUpdate} />
                 <Dropdowns
                     allowEmpty
-                    placement='bottom'
+                    placement='auto-end'
+                    className='w-40'
+                    poperStyles={{
+                        maxHeight: 200,
+                    }}
                     options={Object.keys(group.colors).map(v=>({ label: group.colors[v].name, value : v }))}
                     selected={color}
                     onSelect={handleUpdate} />
