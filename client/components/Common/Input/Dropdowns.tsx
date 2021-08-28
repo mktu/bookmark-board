@@ -14,6 +14,7 @@ type Props = {
     selected: string,
     onSelect: (selected: string) => void,
     placement?: PopperChildrenProps['placement'],
+    comboStyles?:Pick<CSSProperties,'width' | 'height' | 'maxHeight' | 'maxWidth'>,
     className?: string,
     poperStyles?:Pick<CSSProperties,'width' | 'height' | 'maxHeight' | 'maxWidth'>,
     allowEmpty?: boolean
@@ -25,6 +26,7 @@ const Dropdowns: React.FC<Props> = ({
     onSelect,
     className,
     poperStyles,
+    comboStyles,
     placement = 'auto',
     allowEmpty
 }) => {
@@ -43,12 +45,13 @@ const Dropdowns: React.FC<Props> = ({
     const selectedLabel = options.find(v => v.value === selected)
     return (
         <div className={className}>
-            <div ref={(value) => {
+            <div className='w-full' ref={(value) => {
                 if (!value) return; // called when unmounted
                 setReferenceElement(value)
             }}>
                 <ButtonBase
                     onClick={toggle}
+                    style={comboStyles}
                     type="button"
                     className="flex items-center justify-start w-full rounded-md border border-primary-border shadow-sm px-4 py-2 text-sm font-medium text-primary-700 hover:bg-primary-hover focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-indigo-500 stroke-primary-main hover:stroke-primary-dark"
                     id="options-menu"
