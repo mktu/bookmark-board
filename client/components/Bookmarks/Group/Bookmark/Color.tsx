@@ -21,7 +21,9 @@ const Color: React.FC<Props> = ({
                 <Dropdowns
                     allowEmpty
                     placement='auto-end'
-                    className='w-40'
+                    comboStyles={{
+                        width : 160
+                    }}
                     poperStyles={{
                         maxHeight: 200,
                     }}
