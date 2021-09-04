@@ -1,3 +1,5 @@
+import firebase from './firebaseClient'
+
 export type UnsubscribeNotifier = {
     unsubscribe : boolean
 }

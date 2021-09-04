@@ -1,3 +1,3 @@
-import 'firebase/firestore';
-import 'firebase/functions';
-import 'firebase/storage';
+import 'firebase/compat/firestore';
+import 'firebase/compat/functions';
+import 'firebase/compat/storage';
