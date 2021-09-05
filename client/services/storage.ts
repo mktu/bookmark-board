@@ -1,5 +1,7 @@
-import firebase from './firebaseClient'
-const storageRef = firebase.storage().ref();
+import firebaseApp from './firebaseClient'
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+
+const storage = getStorage(firebaseApp)
 
 export function uploadFile(
     path: string,
@@ -8,19 +10,19 @@ export function uploadFile(
     onProgress?: (progress: number, status: 'paused' | 'running') => void,
     onFailed?: ErrorHandler
 ) {
-    const task = storageRef.child(path).put(file);
+    const task = uploadBytesResumable(ref(storage, path), file)
     task.on('state_changed', (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED: // or 'paused'
+            case 'paused': // or 'paused'
                 onProgress && onProgress(progress, 'paused');
                 break;
-            case firebase.storage.TaskState.RUNNING: // or 'running'
+            case 'running': // or 'running'
                 onProgress && onProgress(progress, 'running');
                 break;
         }
     }, onFailed, () => {
-        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        getDownloadURL(task.snapshot.ref).then(function (downloadURL) {
             onSucceeded(downloadURL);
         });
     })

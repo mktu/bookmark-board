@@ -1,9 +1,10 @@
-import firebase from './firebaseClient'
+import firebaseApp from './firebaseClient'
+import { getFunctions, httpsCallable } from "firebase/functions";
 
-const asiaFunction = firebase.app().functions('asia-northeast1')
+const asiaFunction = getFunctions(firebaseApp, 'asia-northeast1')
 
 export const scrapeUrl = async (url:string, capture?:boolean, validate?:boolean)=>{
-    const callable = asiaFunction.httpsCallable('scrapeUrl')
+    const callable = httpsCallable(asiaFunction, 'scrapeUrl')
     const result = await callable({url,capture, validate})
     return result.data as {
         title?: string,
@@ -14,7 +15,7 @@ export const scrapeUrl = async (url:string, capture?:boolean, validate?:boolean)
 }
 
 export const completeBookmark = async (url:string, groupId:string, bookmarkId:string, scrape?:boolean)=>{
-    const callable = asiaFunction.httpsCallable('completeBookmark')
+    const callable = httpsCallable(asiaFunction, 'completeBookmark')
     await callable({
         url,
         groupId, 
@@ -24,14 +25,14 @@ export const completeBookmark = async (url:string, groupId:string, bookmarkId:st
 }
 
 export const createAlgoliaIndex = async (groupId:string)=>{
-    const callable = asiaFunction.httpsCallable('createAlgoliaIndex')
+    const callable = httpsCallable(asiaFunction,'createAlgoliaIndex')
     await callable({
         groupId
     })
 }
 
 export const updateAlgoliaIndex = async (groupId:string, data: Partial<Pick<BookmarkGroup, 'name' | 'description'>>)=>{
-    const callable = asiaFunction.httpsCallable('createAlgoliaIndex')
+    const callable = httpsCallable(asiaFunction,'createAlgoliaIndex')
     await callable({
         groupId,
         ...data
@@ -39,7 +40,7 @@ export const updateAlgoliaIndex = async (groupId:string, data: Partial<Pick<Book
 }
 
 export const deleteAlgoliaIndex = async (groupId:string)=>{
-    const callable = asiaFunction.httpsCallable('deleteAlgoliaIndex')
+    const callable = httpsCallable(asiaFunction,'deleteAlgoliaIndex')
     await callable({
         groupId
     })

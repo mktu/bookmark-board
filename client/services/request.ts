@@ -1,8 +1,13 @@
-import firebase from './firebaseClient'
-import { getCollectionListener } from './firestoreUtil'
-const db = firebase.firestore();
-const auth = firebase.auth()
+import firebaseApp from './firebaseClient'
+import { getFirestore, collection, where, query, onSnapshot, doc, addDoc, deleteDoc, setDoc } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getCollectionSnapshotListener } from './firestoreUtil'
 
+const firestore = getFirestore(firebaseApp)
+const auth = getAuth(firebaseApp)
+
+const getRequestCollection = (groupId: string) => collection(doc(collection(firestore, 'groups'), groupId), 'requests')
+const getReactionDoc = (groupId: string, reactionId: string) => doc(getRequestCollection(groupId), reactionId)
 
 export function addRequest(
     request: Omit<BookmarkRequest, 'status' | 'created' | 'updated' | 'sender' | 'id'>,
@@ -17,12 +22,12 @@ export function addRequest(
         created: time,
         status: 'requesting'
     }
-    db.collection('groups')
-        .doc(request.groupId)
-        .collection('requests')
-        .add(added)
+    addDoc(
+        getRequestCollection(request.groupId),
+        added
+    )
         .then((data) => {
-            onSucceeded&&onSucceeded(data.id)
+            onSucceeded && onSucceeded(data.id)
         })
         .catch(onFailed);
 }
@@ -34,14 +39,13 @@ export function updateRequest(
     onSucceeded?: Notifier,
     onFailed: ErrorHandler = console.error
 ) {
-    db.collection('groups')
-        .doc(groupId)
-        .collection('requests')
-        .doc(requestId)
-        .set({
+    setDoc(
+        getReactionDoc(groupId, requestId),
+        {
             ...request,
             lastUpdate: Date.now()
-        }, { merge: true })
+        }, { merge: true }
+    )
         .then(onSucceeded)
         .catch(onFailed);
 }
@@ -52,17 +56,15 @@ export function removeRequest(
     onSucceeded?: Notifier,
     onFailed: ErrorHandler = console.error
 ) {
-    db.collection('groups')
-        .doc(groupId)
-        .collection('requests')
-        .doc(requestId)
-        .delete()
+    deleteDoc(
+        getReactionDoc(groupId, requestId)
+    )
         .then(onSucceeded)
         .catch(onFailed);
 }
 
 export function listenRequest(
-    { 
+    {
         groupId,
         onAdded,
         onModified,
@@ -78,22 +80,33 @@ export function listenRequest(
         sender?: string
     }
 ) {
-    let query:
-    firebase.firestore.DocumentReference<firebase.firestore.DocumentData> | firebase.firestore.Query<firebase.firestore.DocumentData> = db.collection('groups')
-        .doc(groupId)
-        .collection('requests')
-        
-    if(sender){
-       query =  sender === 'me' ? query.where('sender', '==', auth.currentUser.uid) : query.where('sender', '==', sender)
+    const col = getRequestCollection(groupId)
+    let requestQuery : ReturnType<typeof query> | typeof col = col
+
+    if (sender) {
+        requestQuery = sender === 'me' ?
+            query(
+                col,
+                where('sender', '==', auth.currentUser.uid)
+            ) :
+            query(
+                col,
+                where('sender', '==', sender)
+            )
     }
     if (status) {
-        query = query.where('status', '==', status)
+        requestQuery = query(
+            col,
+            where('status', '==', status)
+        )
     }
-    return query
-        .onSnapshot(getCollectionListener(
+    return onSnapshot(
+        requestQuery,
+        getCollectionSnapshotListener(
             onAdded,
             onModified,
             onDeleted
-        ))
+        )
+    )
 }
 

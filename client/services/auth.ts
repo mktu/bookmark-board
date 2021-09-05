@@ -1,9 +1,23 @@
 
-import firebase from './firebaseClient';
+import firebaseApp from './firebaseClient';
+import {
+    getAuth, onIdTokenChanged,
+    User as FirebaseUser,
+    GoogleAuthProvider,
+    signInWithPopup,
+    getRedirectResult,
+    signInWithRedirect,
+    linkWithPopup,
+    updateProfile,
+    signInAnonymously,
+    signOut
+} from "firebase/auth";
 
-const loginDebugLog = (user:User) => {console.debug(`${user?.name || ''} logged in`)}
+const auth = getAuth(firebaseApp)
 
-const convertUser = (user: firebase.User): User => {
+const loginDebugLog = (user: User) => { console.debug(`${user?.name || ''} logged in`) }
+
+const convertUser = (user: FirebaseUser): User => {
     return {
         uid: user.uid,
         isAnonymous: user.isAnonymous,
@@ -11,8 +25,8 @@ const convertUser = (user: firebase.User): User => {
     }
 }
 
-export const listenAuthState = (onLogin: Transfer<firebase.User>, onLogout: () => void, onError?: () => void) => {
-    return firebase.auth().onIdTokenChanged(function (user) {
+export const listenAuthState = (onLogin: Transfer<FirebaseUser>, onLogout: () => void, onError?: () => void) => {
+    return onIdTokenChanged(auth, function (user) {
         if (user) {
             onLogin(user)
         } else {
@@ -28,8 +42,8 @@ export const loginByGoogle = (
     onSucceeded: Transfer<User> = loginDebugLog,
     onFailed: ErrorHandler = console.error
 ) => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithPopup(provider).then((usercred) => {
+    const provider = new GoogleAuthProvider();
+    signInWithPopup(auth, provider).then((usercred) => {
         usercred.user && onSucceeded(convertUser(usercred.user))
     }).catch(onFailed);
 }
@@ -38,9 +52,9 @@ export const loginByGoogleWithRedirect = (
     onSucceeded: Transfer<User> = loginDebugLog,
     onFailed: ErrorHandler = console.error
 ) => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    firebase.auth().signInWithRedirect(provider).catch(onFailed);
-    firebase.auth().getRedirectResult().then(result => {
+    const provider = new GoogleAuthProvider();
+    signInWithRedirect(auth, provider).catch(onFailed);
+    getRedirectResult(auth).then(result => {
         onSucceeded(convertUser(result.user))
     }, onFailed)
 }
@@ -49,13 +63,12 @@ export const linkWithGoogle = (
     onSucceeded: Transfer<User>,
     onFailed: ErrorHandler = console.error
 ) => {
-    const provider = new firebase.auth.GoogleAuthProvider();
-    const curUser = firebase.auth().currentUser;
-    curUser?.linkWithPopup(provider).then(function (usercred) {
+    const provider = new GoogleAuthProvider();
+    const curUser = auth.currentUser;
+    linkWithPopup(curUser, provider).then(function (usercred) {
         const user = usercred.user;
-        const profile = usercred.additionalUserInfo?.profile as { name: string };
-        user?.updateProfile({
-            displayName: profile.name
+        updateProfile(user, {
+            displayName: user.displayName
         }).then(function () {
             onSucceeded(convertUser(user));
         }).catch(onFailed)
@@ -66,7 +79,7 @@ export const loginWithAnonymous = (
     onSucceeded: Transfer<User> = loginDebugLog,
     onFailed: ErrorHandler = console.error
 ) => {
-    firebase.auth().signInAnonymously().then((usercred) => {
+    signInAnonymously(auth).then((usercred) => {
         usercred.user && onSucceeded(convertUser(usercred.user))
     }
     ).catch(onFailed);
@@ -76,5 +89,5 @@ export const logout = (
     onSucceeded = console.log,
     onFailed: ErrorHandler = console.error
 ) => {
-    firebase.auth().signOut().then(onSucceeded).catch(onFailed);
+    signOut(auth).then(onSucceeded).catch(onFailed);
 }

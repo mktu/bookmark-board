@@ -1,8 +1,13 @@
-import firebase from './firebaseClient'
-import { getCollectionListener } from './firestoreUtil'
-const db = firebase.firestore();
-const auth = firebase.auth()
+import firebaseApp from './firebaseClient'
+import { getAuth } from "firebase/auth";
+import { getFirestore, collection, where, query, onSnapshot, doc, addDoc, deleteDoc } from "firebase/firestore";
+import { getCollectionSnapshotListener } from './firestoreUtil'
 
+const firestore = getFirestore(firebaseApp)
+const auth = getAuth(firebaseApp)
+
+const getReactionCollection = (groupId:string) => collection( doc( collection(firestore,'groups'), groupId ), 'reactions' )
+const getReactionDoc = (groupId:string,reactionId:string) => doc(getReactionCollection(groupId), reactionId)
 
 export function addReaction(
     reaction: Omit<Reaction, 'user'|'id'>,
@@ -14,10 +19,10 @@ export function addReaction(
         ...reaction,
         user : auth.currentUser.uid,
     }
-    db.collection('groups')
-        .doc(reaction.targetId)
-        .collection('reactions')
-        .add(added)
+    addDoc(
+        getReactionCollection(reaction.targetId),
+        added
+    )
         .then((data) => {
             onSucceeded && onSucceeded(data.id)
         })
@@ -30,11 +35,9 @@ export function deleteReaction(
     onSucceeded?: Notifier,
     onFailed: ErrorHandler = console.error
 ){
-    db.collection('groups')
-    .doc(groupId)
-    .collection('reactions')
-    .doc(reactionId)
-    .delete()
+    deleteDoc(
+        getReactionDoc(groupId, reactionId)
+    )
     .then(onSucceeded)
     .catch(onFailed);
 }
@@ -46,13 +49,15 @@ export function listenReactions(
     onModified: Transfer<Reaction[]>,
     onDeleted: Transfer<Reaction[]>,
 ) {
-    return db.collection('groups')
-        .doc(groupId)
-        .collection('reactions')
-        .where('type','==',type)
-        .onSnapshot(getCollectionListener(
+    return onSnapshot(
+        query(
+            getReactionCollection(groupId),
+            where('type','==',type)
+        ),
+        getCollectionSnapshotListener(
             onAdded,
             onModified,
             onDeleted
-        ))
+        )
+    )
 }
