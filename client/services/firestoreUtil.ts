@@ -53,7 +53,7 @@ export function getDocumentSnapshotListener<T>(
     onModified: Transfer<T>
 ){
     return function (doc: DocumentSnapshot<DocumentData>) {
-        if(doc.exists){
+        if(doc.exists()){
             const data = doc.data() as T;
             onModified({
                 id : doc.id,

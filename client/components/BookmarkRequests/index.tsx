@@ -4,11 +4,8 @@ import { WelcomeImg } from '../Common/Image'
 import { ContainedButton, OutlinedButton } from '../Common/Button'
 import FirebaseContext from '../../context/FirebaseContext'
 import { useRequestListener } from '../../hooks'
-type Props = {
 
-}
-
-const BookmarkRequests: React.FC<Props> = () => {
+const BookmarkRequests: React.VFC = () => {
     const router = useRouter()
     const [error, setError] = useState<Error>()
     const [group, setGroup] = useState<BookmarkGroup>()
@@ -25,11 +22,11 @@ const BookmarkRequests: React.FC<Props> = () => {
     }, [clientService,groupId])
 
     useEffect(() => {
-        if (latestStatus === 'accepted') {
+        if (latestStatus === 'accepted' && latestRequest?.id) {
             clientService.removeRequest(groupId, latestRequest.id)
             router.push(`/bookmarks/${groupId}`)
         }
-    }, [latestStatus,groupId,latestRequest.id,router,clientService])
+    }, [latestStatus,groupId,latestRequest?.id,router,clientService])
 
     if (!group) {
         return <div />

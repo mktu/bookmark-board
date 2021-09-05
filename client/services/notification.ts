@@ -20,7 +20,7 @@ export async function getNotifications(
     )
     const notifications : UserNotification[] = []
     notificationSnaps.forEach(snap=>{
-        if(!snap.exists){
+        if(!snap.exists()){
             return
         }
         notifications.push({

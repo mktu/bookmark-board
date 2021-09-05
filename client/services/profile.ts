@@ -68,7 +68,7 @@ export function getProfile(
         getProfileDoc(uid)
     )
         .then(function (querySnapshot) {
-            if (!querySnapshot.exists) {
+            if (!querySnapshot.exists()) {
                 onNotfound()
                 return;
             }
@@ -95,7 +95,7 @@ export function getProfiles(
         .then(function (querySnapshot) {
             const results: Profile[] = [];
             querySnapshot.forEach((data) => {
-                if (data.exists) {
+                if (data.exists()) {
                     results.push({
                         id: data.id,
                         ...data.data()

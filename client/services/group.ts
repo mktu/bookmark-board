@@ -86,7 +86,7 @@ export function getGroups(
         .then((querySnapshot) => {
             const results: BookmarkGroup[] = [];
             querySnapshot.forEach((data) => {
-                if (data.exists) {
+                if (data.exists()) {
                     results.push({
                         id: data.id,
                         ...data.data()
@@ -108,7 +108,7 @@ export function getGroup(
         getGroupDoc(groupId)
     )
         .then((querySnapshot) => {
-            if (!querySnapshot.exists) {
+            if (!querySnapshot.exists()) {
                 onNotfound()
                 return;
             }
