@@ -1,24 +1,33 @@
-import firebase from './firebaseClient'
-import { getDocumentListener } from './firestoreUtil'
+import firebaseApp from './firebaseClient'
+import { getAuth } from "firebase/auth";
+import { getStorage, ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { getFirestore, collection, where, query, onSnapshot, getDocs, getDoc, doc, setDoc, documentId } from "firebase/firestore";
+import { getDocumentSnapshotListener } from './firestoreUtil'
 
-const db = firebase.firestore();
-const storageRef = firebase.storage().ref();
-const auth = firebase.auth()
+const firestore = getFirestore(firebaseApp)
+const storage = getStorage(firebaseApp)
+const auth = getAuth(firebaseApp)
+
+const getProfileCollection = () => collection(firestore, 'profiles')
+const getProfileDoc = (profileId: string) => doc(getProfileCollection(), profileId)
 
 export function addProfile(
     profile: Omit<Profile, 'lastUpdate' | 'id' | 'image'>,
-    onSucceeded: (id:string) => void,
+    onSucceeded: (id: string) => void,
     onFailed: ErrorHandler = console.error
 ) {
-    if(!auth.currentUser){
+    if (!auth.currentUser) {
         onFailed(new Error('NOT AUTHENTICATED'))
         return
     }
-    db.collection('profiles').doc(auth.currentUser.uid).set({
-        ...profile,
-        lastUpdate: Date.now()
-    })
-        .then(()=>{
+    setDoc(
+        getProfileDoc(auth.currentUser.uid),
+        {
+            ...profile,
+            lastUpdate: Date.now()
+        }
+    )
+        .then(() => {
             onSucceeded(auth.currentUser.uid)
         })
         .catch(onFailed);
@@ -28,9 +37,10 @@ export function listenProfile(
     uid: string,
     onModified: Transfer<Profile>,
 ) {
-    return db.collection('profiles')
-        .doc(uid)
-        .onSnapshot(getDocumentListener<Profile>(onModified))
+    return onSnapshot(
+        getProfileDoc(uid),
+        getDocumentSnapshotListener<Profile>(onModified)
+    )
 }
 
 export function getMyProfile(
@@ -38,7 +48,7 @@ export function getMyProfile(
     onNotfound: () => void,
     onFailed: ErrorHandler = console.error
 ) {
-    if(!auth.currentUser){
+    if (!auth.currentUser) {
         onNotfound()
         return
     }
@@ -54,11 +64,11 @@ export function getProfile(
     onNotfound: () => void,
     onFailed: ErrorHandler = console.error
 ) {
-    db.collection('profiles')
-        .doc(uid)
-        .get()
+    getDoc(
+        getProfileDoc(uid)
+    )
         .then(function (querySnapshot) {
-            if (!querySnapshot.exists) {
+            if (!querySnapshot.exists()) {
                 onNotfound()
                 return;
             }
@@ -76,13 +86,16 @@ export function getProfiles(
     onSucceeded: Transfer<Profile[]>,
     onFailed: ErrorHandler = console.error
 ) {
-    db.collection('profiles')
-        .where(firebase.firestore.FieldPath.documentId(), 'in', uids)
-        .get()
+    getDocs(
+        query(
+            getProfileCollection(),
+            where(documentId(), 'in', uids)
+        )
+    )
         .then(function (querySnapshot) {
             const results: Profile[] = [];
             querySnapshot.forEach((data) => {
-                if (data.exists) {
+                if (data.exists()) {
                     results.push({
                         id: data.id,
                         ...data.data()
@@ -100,11 +113,13 @@ export function updateProfile(
     onSucceeded?: Notifier,
     onFailed: ErrorHandler = console.error
 ) {
-    db.collection('profiles')
-        .doc(id).set({
+    setDoc(
+        getProfileDoc(id),
+        {
             ...profile,
             lastUpdate: Date.now()
-        }, { merge: true })
+        }, { merge: true }
+    )
         .then(onSucceeded)
         .catch(onFailed);
 }
@@ -116,19 +131,19 @@ export function uploadProfileImage(
     onProgress?: (progress: number, status: 'paused' | 'running') => void,
     onFailed?: ErrorHandler
 ) {
-    const task = storageRef.child(`profiles/${profileId}`).put(image);
+    const task = uploadBytesResumable(ref(storage, `profiles/${profileId}`), image)
     task.on('state_changed', (snapshot) => {
         const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100;
         switch (snapshot.state) {
-            case firebase.storage.TaskState.PAUSED: // or 'paused'
+            case 'paused': // or 'paused'
                 onProgress && onProgress(progress, 'paused');
                 break;
-            case firebase.storage.TaskState.RUNNING: // or 'running'
+            case 'running': // or 'running'
                 onProgress && onProgress(progress, 'running');
                 break;
         }
     }, onFailed, () => {
-        task.snapshot.ref.getDownloadURL().then(function (downloadURL) {
+        getDownloadURL(task.snapshot.ref).then(function (downloadURL) {
             onSucceeded(downloadURL);
         });
     })

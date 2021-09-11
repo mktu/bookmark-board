@@ -1,14 +1,16 @@
+import { QuerySnapshot, DocumentData, DocumentSnapshot } from "firebase/firestore";
+
 export type UnsubscribeNotifier = {
     unsubscribe : boolean
 }
 
-export function getCollectionListener<T>(
+export function getCollectionSnapshotListener<T>(
     onAdded: CollectionTransfer<T>,
     onModified: CollectionTransfer<T>,
     onDeleted: CollectionTransfer<T>,
     unsubscribeNotifier ?: UnsubscribeNotifier
 ) {
-    return function (querySnapshot: firebase.firestore.QuerySnapshot<firebase.firestore.DocumentData>) {
+    return function (querySnapshot: QuerySnapshot<DocumentData>) {
         if(unsubscribeNotifier && unsubscribeNotifier.unsubscribe){
             return;
         }
@@ -47,11 +49,11 @@ export function getCollectionListener<T>(
     }
 }
 
-export function getDocumentListener<T>(
+export function getDocumentSnapshotListener<T>(
     onModified: Transfer<T>
 ){
-    return function (doc: firebase.firestore.DocumentSnapshot<firebase.firestore.DocumentData>) {
-        if(doc.exists){
+    return function (doc: DocumentSnapshot<DocumentData>) {
+        if(doc.exists()){
             const data = doc.data() as T;
             onModified({
                 id : doc.id,

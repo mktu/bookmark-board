@@ -1,10 +1,15 @@
-import firebase from './firebaseClient'
-import { getCollectionListener } from './firestoreUtil'
-import {removeUndefined} from '../utils'
+import firebaseApp from './firebaseClient'
+import { getAuth } from "firebase/auth";
+import { getFirestore, collection, onSnapshot, getDoc, addDoc, doc, writeBatch, setDoc, deleteDoc } from "firebase/firestore";
+import { getCollectionSnapshotListener } from './firestoreUtil'
+import { removeUndefined } from '../utils'
 
-const db = firebase.firestore();
-const auth = firebase.auth()
+const firestore = getFirestore(firebaseApp)
+const auth = getAuth(firebaseApp)
 type AddBookmarkProps = Omit<Bookmark, 'created' | 'updated' | 'idx' | 'id' | 'owner'>
+
+const getBookmarkCollection = (groupId: string) => collection(doc(collection(firestore, 'groups'), groupId), 'bookmarks')
+const getBookmarkDoc = (groupId: string, bookmarkId: string) => doc(getBookmarkCollection(groupId), bookmarkId)
 
 export function addBookmark(
     bookmark: AddBookmarkProps,
@@ -19,13 +24,12 @@ export function addBookmark(
         created: time,
         idx: time
     }
-    db.collection('groups')
-        .doc(bookmark.groupId)
-        .collection('bookmarks')
-        .add(removeUndefined(added))
-        .then((data) => {
-            onSucceeded(data.id)
-        })
+    addDoc(
+        getBookmarkCollection(bookmark.groupId),
+        removeUndefined(added)
+    ).then((data) => {
+        onSucceeded(data.id)
+    })
         .catch(onFailed);
 }
 
@@ -35,14 +39,9 @@ export function changeOrder(
     onSucceeded?: Notifier,
     onFailed: ErrorHandler = console.error
 ) {
-    const batch = db.batch();
+    const batch = writeBatch(firestore)
     sortedIds.forEach((id, idx) => {
-        const docRef = db
-            .collection('groups')
-            .doc(groupId)
-            .collection('bookmarks')
-            .doc(id);
-
+        const docRef = getBookmarkDoc(groupId, id)
         batch.update(docRef, {
             idx
         })
@@ -63,11 +62,11 @@ export function modifyBookmark(
         ...data,
         lastUpdate: Date.now()
     }
-    db.collection('groups')
-        .doc(groupId)
-        .collection('bookmarks')
-        .doc(bookmarkId)
-        .set(merged, { merge: true })
+    setDoc(
+        getBookmarkDoc(groupId, bookmarkId),
+        merged,
+        { merge: true }
+    )
         .then(onSucceeded)
         .catch(onFailed);
 }
@@ -81,13 +80,9 @@ export async function modifyBookmarks(
         ...data,
         lastUpdate: Date.now()
     }
-    const batch = db.batch();
+    const batch = writeBatch(firestore)
     bookmarkIds.forEach((id) => {
-        const docRef = db
-            .collection('groups')
-            .doc(groupId)
-            .collection('bookmarks')
-            .doc(id)
+        const docRef = getBookmarkDoc(groupId, id)
         batch.update(docRef, merged)
     })
     await batch.commit()
@@ -97,42 +92,36 @@ async function moveGroupAsync(
     sourceId: string,
     sourceGroupId: string,
     destGroupId: string,
-    copy ?: boolean
+    copy?: boolean
 ) {
-    const sourceDoc = db.collection('groups')
-        .doc(sourceGroupId)
-        .collection('bookmarks')
-        .doc(sourceId)
+    const sourceDoc = getBookmarkDoc(sourceGroupId, sourceId)
 
-    const sourceData = await sourceDoc.get()
+    const sourceData = await getDoc(sourceDoc)
     const destData = {
         ...sourceData.data(),
-        groupId : destGroupId,
-        reactions : {},
-        lastUpdate : Date.now()
+        groupId: destGroupId,
+        reactions: {},
+        lastUpdate: Date.now()
     }
-    const batch = db.batch();
-    const destDoc = db.collection('groups')
-        .doc(destGroupId)
-        .collection('bookmarks')
-        .doc()
-    batch.set(destDoc,destData)
-    if(!copy){
+    const batch = writeBatch(firestore)
+    const destDoc = doc(getBookmarkCollection(destGroupId))
+    batch.set(destDoc, destData)
+    if (!copy) {
         batch.delete(sourceDoc)
     }
     await batch.commit()
 }
 
 export function moveGroup(
-    source: Pick<Bookmark, 'id'|'groupId'>,
+    source: Pick<Bookmark, 'id' | 'groupId'>,
     destGroupId: string,
     onSucceeded?: Notifier,
-    copy?:boolean,
+    copy?: boolean,
     onFailed: ErrorHandler = console.error
 ) {
     moveGroupAsync(source.id, source.groupId, destGroupId, copy)
-    .then(onSucceeded)
-    .catch(onFailed)
+        .then(onSucceeded)
+        .catch(onFailed)
 }
 
 export function deleteBookmark(
@@ -141,11 +130,9 @@ export function deleteBookmark(
     onSucceeded?: Notifier,
     onFailed: ErrorHandler = console.error
 ) {
-    db.collection('groups')
-        .doc(groupId)
-        .collection('bookmarks')
-        .doc(bookmarkId)
-        .delete()
+    deleteDoc(
+        getBookmarkDoc(groupId, bookmarkId)
+    )
         .then(onSucceeded)
         .catch(onFailed);
 }
@@ -154,13 +141,9 @@ export async function deleteBookmarks(
     groupId: string,
     bookmarkIds: string[],
 ) {
-    const batch = db.batch();
+    const batch = writeBatch(firestore)
     bookmarkIds.forEach((id) => {
-        const docRef = db
-            .collection('groups')
-            .doc(groupId)
-            .collection('bookmarks')
-            .doc(id)
+        const docRef = getBookmarkDoc(groupId, id)
         batch.delete(docRef)
     })
     await batch.commit()
@@ -172,12 +155,12 @@ export function listenBookmarks(
     onModified: Transfer<Bookmark[]>,
     onDeleted: Transfer<Bookmark[]>,
 ) {
-    return db.collection('groups')
-        .doc(groupId)
-        .collection('bookmarks')
-        .onSnapshot(getCollectionListener(
+    return onSnapshot(
+        getBookmarkCollection(groupId),
+        getCollectionSnapshotListener(
             onAdded,
             onModified,
             onDeleted
-        ))
+        )
+    )
 }

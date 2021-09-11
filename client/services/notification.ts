@@ -1,21 +1,26 @@
-import firebase from './firebaseClient'
-import { getCollectionListener } from './firestoreUtil'
+import firebaseApp from './firebaseClient'
+import { getFirestore, collection, query, onSnapshot, getDocs, doc, writeBatch, updateDoc, orderBy, limit } from "firebase/firestore";
+import { getCollectionSnapshotListener } from './firestoreUtil'
 
-const db = firebase.firestore();
+const firestore = getFirestore(firebaseApp)
+
+const getNotificationCollection = (profileId:string) => collection( doc( collection(firestore, 'profiles'), profileId ), 'notifications' )
+const getNotificationDoc = (profileId:string, notificationId:string) => doc( getNotificationCollection(profileId), notificationId )
 
 export async function getNotifications(
     uid: string,
-    limit = 10
+    limitNum = 10
 ) {
-    const notificationSnaps = await db.collection('profiles')
-        .doc(uid)
-        .collection('notifications')
-        .orderBy('created','desc')
-        .limit(limit)
-        .get()
+    const notificationSnaps = await getDocs(
+        query(
+            getNotificationCollection(uid),
+            orderBy('created','desc'),
+            limit(limitNum)
+        )
+    )
     const notifications : UserNotification[] = []
     notificationSnaps.forEach(snap=>{
-        if(!snap.exists){
+        if(!snap.exists()){
             return
         }
         notifications.push({
@@ -31,32 +36,29 @@ export function listenNotifications(
     onAdded: Transfer<UserNotification[]>,
     onModified: Transfer<UserNotification[]>,
     onDeleted: Transfer<UserNotification[]>,
-    limit = 10
+    limitNum = 10
 ) {
-    return db.collection('profiles')
-        .doc(uid)
-        .collection('notifications')
-        .orderBy('created','desc')
-        .limit(limit)
-        .onSnapshot(
-            getCollectionListener(
-                onAdded,
+    return onSnapshot(
+        query(
+            getNotificationCollection(uid),
+            orderBy('created','desc'),
+            limit(limitNum)
+        ),
+        getCollectionSnapshotListener(
+            onAdded,
                 onModified,
                 onDeleted
-            )
         )
+    )
 }
 
 export async function readNotifications(
     uid: string,
     targetIds:string[]
 ) {
-    const batch = db.batch()
+    const batch = writeBatch(firestore)
     targetIds.forEach(id=>{
-        const targetDoc = db.collection('profiles')
-        .doc(uid)
-        .collection('notifications')
-        .doc(id)
+        const targetDoc = getNotificationDoc(uid,id)
         batch.update(targetDoc,{
             read:true
         })
@@ -69,11 +71,10 @@ export async function updateNotification(
     data:UserNotification
 ) {
     const {id, ...updated} = data
-    await db.collection('profiles')
-        .doc(uid)
-        .collection('notifications')
-        .doc(id)
-        .update({
+    await updateDoc(
+        getNotificationDoc(uid,id),
+        {
             updated
-        })
+        }
+    )
 }

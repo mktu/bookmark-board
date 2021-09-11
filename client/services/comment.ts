@@ -1,8 +1,13 @@
-import firebase from './firebaseClient'
-import { getCollectionListener } from './firestoreUtil'
-const db = firebase.firestore();
-const auth = firebase.auth()
+import firebaseApp from './firebaseClient'
+import { getFirestore, collection, onSnapshot, query, addDoc, doc, setDoc, limit } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
+import { getCollectionSnapshotListener } from './firestoreUtil'
 
+const firestore = getFirestore(firebaseApp);
+const auth = getAuth(firebaseApp)
+
+const getCommentCollection = (groupId: string) => collection(doc(collection(firestore, 'groups'), groupId), 'comments')
+const getCommentDoc = (groupId: string, commentId: string) => doc(getCommentCollection(groupId), commentId)
 
 export function addComment(
     comment: Omit<BookmarkComment, 'created' | 'updated' | 'sender' | 'readers' | 'id' | 'reactions'>,
@@ -18,10 +23,7 @@ export function addComment(
         created: time,
         reactions: []
     }
-    db.collection('groups')
-        .doc(comment.groupId)
-        .collection('comments')
-        .add(added)
+    addDoc(getCommentCollection(comment.groupId), added)
         .then((data) => {
             onSucceeded(data.id)
         })
@@ -35,27 +37,24 @@ export function updateComment(
     onSucceeded?: Notifier,
     onFailed: ErrorHandler = console.error
 ) {
-    // TBD comment must be subcollection
     if (comment.reactions) {
-        db.collection('groups')
-            .doc(groupId)
-            .collection('comments')
-            .doc(commentId)
-            .set({
+        setDoc(
+            getCommentDoc(groupId, commentId),
+            {
                 ...comment
-            }, { merge: true })
+            }, { merge: true }
+        )
             .then(onSucceeded)
             .catch(onFailed);
     }
     else {
-        db.collection('groups')
-            .doc(groupId)
-            .collection('comments')
-            .doc(commentId)
-            .set({
+        setDoc(
+            getCommentDoc(groupId, commentId),
+            {
                 ...comment,
                 lastUpdate: Date.now()
-            }, { merge: true })
+            }, { merge: true }
+        )
             .then(onSucceeded)
             .catch(onFailed);
     }
@@ -63,18 +62,17 @@ export function updateComment(
 
 export function listenComments(
     groupId: string,
-    limit: number,
+    limitNum: number,
     onAdded: Transfer<BookmarkComment[]>,
     onModified: Transfer<BookmarkComment[]>,
     onDeleted: Transfer<BookmarkComment[]>,
 ) {
-    return db.collection('groups')
-        .doc(groupId)
-        .collection('comments')
-        .limit(limit)
-        .onSnapshot(getCollectionListener(
+    return onSnapshot(
+        query(getCommentCollection(groupId), limit(limitNum)),
+        getCollectionSnapshotListener(
             onAdded,
             onModified,
             onDeleted
-        ))
+        )
+    )
 }
