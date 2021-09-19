@@ -62,7 +62,10 @@ const Container: VFC = () => {
         </OutlinedButton>
     ), [router])
     return (
+        <div>
         <Presenter Input={Input} Preview={Preview} GroupDropdown={GroupDropdown} Cancel={Cancel} Submit={Submit} errorMessage={error} />
+        {JSON.stringify(router.query)}
+        </div>
     )
 }
 
