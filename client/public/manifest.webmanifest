@@ -7,6 +7,14 @@
     "name": "Bookmark Board",
     "short_name": "Bookmark Board",
     "description": "ブックマーク管理アプリ",
+    "share_target": {
+        "action": "/create-bookmark",
+        "params": {
+            "title": "name",
+            "text": "description",
+            "url": "link"
+        }
+    },
     "icons": [
         {
             "src": "/icon-192x192.png",

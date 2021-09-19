@@ -24,14 +24,14 @@ const usePublicBookmarks = (group:BookmarkGroup, bookmarks:Bookmark[]) => {
         if(waiting){
             return
         }
-        start(1000)
+        start(500)
         myReaction ? clientService.deleteReaction(group.id, myReaction.id) :
             clientService.addReaction({
                 type: 'likes',
                 targetId: group.id
             })
     }, [clientService, myReaction, group, start, waiting])
-    const enableLike = (status !== 'loading' && profile.id && !waiting)
+    const enableLike = (status !== 'loading' && profile.id )
     return {
         reactions,
         status,

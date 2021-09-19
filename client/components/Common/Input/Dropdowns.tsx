@@ -17,7 +17,8 @@ type Props = {
     comboStyles?:Pick<CSSProperties,'width' | 'height' | 'maxHeight' | 'maxWidth'>,
     className?: string,
     poperStyles?:Pick<CSSProperties,'width' | 'height' | 'maxHeight' | 'maxWidth'>,
-    allowEmpty?: boolean
+    allowEmpty?: boolean,
+    placeholder?:string
 }
 
 const Dropdowns: React.FC<Props> = ({
@@ -28,7 +29,8 @@ const Dropdowns: React.FC<Props> = ({
     poperStyles,
     comboStyles,
     placement = 'auto',
-    allowEmpty
+    allowEmpty,
+    placeholder
 }) => {
 
     const [popoverShow, setPopoverShow] = useState(false);
@@ -58,6 +60,9 @@ const Dropdowns: React.FC<Props> = ({
                     aria-haspopup="true"
                     aria-expanded="true">
                     <div className='max-w-full overflow-x-hidden truncate mr-2'>{selectedLabel?.label}</div>
+                    {placeholder && !allowEmpty && !selectedLabel && (
+                        <div className='max-w-full overflow-x-hidden truncate mr-2 text-primary-main'>{placeholder}</div>
+                    )}
                     <ChevronDown className='ml-auto w-5' strokeWidth={2} />
                 </ButtonBase>
             </div>

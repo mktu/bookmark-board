@@ -5,22 +5,30 @@ import { useBookmarksByGroup } from '../modules/bookmarkSlice'
 import { useLinkPreview } from '../components/Common/LinkPreview'
 import { toast } from 'react-toastify';
 
-const useNewBookmark = (groupId: string) => {
+const useNewBookmark = (groupId : string) => {
     const unmounted = useRef(false)
     const bookmarks = useBookmarksByGroup(groupId)
     const [bookmarkInput, setBookmarkInput] = useState('')
+    const [submitting, setSubmitting] = useState(false)
     const { linkData, url, status } = useLinkPreview({ text: bookmarkInput })
+    const dupulicated = useMemo(()=>Boolean(bookmarks.find(v=>v.url===url)),[url,bookmarks])
     const reachedLimit = useMemo(() => MaxBookmarkNumber <= bookmarks.length, [bookmarks.length])
     const invalidUrl = status === 'none' && Boolean(bookmarkInput)
     const error = useMemo(() => {
+        if(submitting){
+            return ''
+        }
         if (reachedLimit) {
             return `1グループに登録できるブックマークの上限(${MaxBookmarkNumber})を超えています.`
         }
         if (status === 'failed' || invalidUrl) {
             return '無効なURLです'
         }
+        if(dupulicated){
+            return 'すでに登録されているブックマークです'
+        }
         return ''
-    }, [status, invalidUrl, reachedLimit])
+    }, [status, invalidUrl, reachedLimit, dupulicated, submitting])
     const { clientService } = useContext(FirebaseContext)
     useEffect(() => {
         unmounted.current = false
@@ -31,8 +39,9 @@ const useNewBookmark = (groupId: string) => {
     const onChangeBookmarkInput = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
         setBookmarkInput(e.target.value)
     }, [])
-    const submit = useCallback(() => {
-        if (error || !url) return
+    const submit = useCallback(()=> new Promise<string>((resolve) => {
+        if (error || !url || !groupId) return
+        setSubmitting(true)
         const hasLinkData = Boolean(linkData)
         let data;
         if (hasLinkData) {
@@ -59,7 +68,11 @@ const useNewBookmark = (groupId: string) => {
             }
         }
         clientService.addBookmark(data, (bookmarkId) => {
-            !unmounted.current && setBookmarkInput('')
+            if(!unmounted.current){
+                setBookmarkInput('')
+                setSubmitting(false)
+            }
+            resolve(bookmarkId)
             if (!hasLinkData) {
                 clientService.completeBookmark(url, groupId, bookmarkId, true).catch(() => {
                     toast.error('Bookmark情報の自動付与に失敗しました')
@@ -70,7 +83,7 @@ const useNewBookmark = (groupId: string) => {
                 })
             }
         })
-    }, [clientService, url, linkData, groupId, error])
+    }), [clientService, url, linkData, groupId, error])
 
     const onKeyPress = useCallback((e: React.KeyboardEvent<HTMLInputElement>) => {
         if (e.key == 'Enter') {

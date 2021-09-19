@@ -10,7 +10,8 @@ import PublicBookmarkMeta from '@components/Meta/PublicBookmarkMeta'
 const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   group,
   profile,
-  bookmarks
+  bookmarks,
+  reactions
 }) => {
   const router = useRouter()
   if (router.isFallback) {
@@ -21,10 +22,10 @@ const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProp
   }
   return (
     <div>
-      <PublicBookmarkMeta {...{group,profile}}/>
+      <PublicBookmarkMeta {...{ group, profile }} />
       <PublicLayout
         header={<PublicPageHeader />}
-        main={<PublicBookmarks group={group} bookmarks={bookmarks} editor={profile} />}
+        main={<PublicBookmarks group={group} bookmarks={bookmarks} editor={profile} initReactions={reactions}/>}
         footer={<Footer />}
       />
     </div>
@@ -58,18 +59,33 @@ export const getStaticProps = async ({
     .doc(ids[0])
     .collection('bookmarks')
     .get()
+
+  const reactionDocs = await firebaseAdmin.firestore()
+    .collection('groups')
+    .doc(ids[0])
+    .collection('reactions')
+    .get()
+
   const bookmarks: Bookmark[] = []
+  const reactions: Reaction[] = []
   bookmarkDocs.forEach(b => {
     bookmarks.push({
       id: b.id,
       ...(b.data() as Bookmark)
     })
   })
+  reactionDocs.forEach(r=>{
+    reactions.push({
+      id: r.id,
+      ...(r.data() as Reaction)
+    })
+  })
   return {
     props: {
       group,
       profile,
-      bookmarks
+      bookmarks,
+      reactions
     },
     revalidate: 1,
   }

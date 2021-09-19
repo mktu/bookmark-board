@@ -14,13 +14,15 @@ import usePublicBookmarks from '@hooks/usePublicBookmarks'
 type Props = {
     group: BookmarkGroup,
     editor: Profile,
-    bookmarks: Bookmark[]
+    bookmarks: Bookmark[],
+    initReactions: Reaction[]
 }
 
 const Container: React.FC<Props> = ({
     group,
     editor,
-    bookmarks
+    bookmarks,
+    initReactions
 }) => {
     const { 
         reactions,
@@ -33,13 +35,13 @@ const Container: React.FC<Props> = ({
         handleLike, 
         handleLogin, 
     } = usePublicBookmarks(group,bookmarks)
-
+    const counter = reactions.length > 0 ? reactions.length : initReactions.length
     const editorIcon = useMemo(() => <Editor image={editor.image} name={editor.name} />, [editor])
     const heartIcon = useMemo(() => <Heart
         disabled={!enableLike}
         active={Boolean(myReaction)}
-        counter={reactions.length > 0 && reactions.length}
-        onClick={handleLike} />, [reactions, handleLike, myReaction, enableLike])
+        counter={counter > 0 && counter}
+        onClick={handleLike} />, [counter, handleLike, myReaction, enableLike])
     const bookmarkList = useMemo(() => hasColor ?
         <GroupList bookmarks={bookmarks} independents={independents} colors={definedColors} group={group} />
         : bookmarks.map(b => (<Bookmark bookmark={b} key={b.id} />)), [bookmarks, independents, definedColors, group, hasColor])
