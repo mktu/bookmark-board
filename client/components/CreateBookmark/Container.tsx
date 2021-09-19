@@ -1,6 +1,6 @@
 import Presenter from "./Presenter";
 import { useRouter } from 'next/router'
-import { useMemo, useState, VFC } from "react";
+import { useMemo, useState, VFC, useEffect } from "react";
 import useNewBookmark from "@hooks/useNewBookmark";
 import { BookmarkInputBase } from '@components/Common/Input/BookmarkInput'
 import { LinkPreview } from "@components/Common/LinkPreview";
@@ -11,10 +11,17 @@ import { ContainedButton, OutlinedButton } from "@components/Common/Button";
 
 const Container: VFC = () => {
     const router = useRouter()
+    const { link } = router.query as { link ?: string }
     const [selectedGroup, setGroup] = useState<BookmarkGroup>()
     const profile = useProfile()
     const groups = useGroupsByUser(profile.id)
-    const { submit, onChangeBookmarkInput, bookmarkInput, url, linkData, error } = useNewBookmark(selectedGroup?.id)
+    const { submit, onChangeBookmarkInput, bookmarkInput, url, linkData, error, setBookmarkInput } = useNewBookmark(selectedGroup?.id)
+
+    useEffect(()=>{
+        if(link){
+            setBookmarkInput(link)
+        }
+    }, [link, setBookmarkInput])
 
     const Input = useMemo(() => (
         <BookmarkInputBase value={bookmarkInput} onChange={onChangeBookmarkInput} placeholder='ここにURLを入力' />
