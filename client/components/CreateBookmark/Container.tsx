@@ -11,17 +11,17 @@ import { ContainedButton, OutlinedButton } from "@components/Common/Button";
 
 const Container: VFC = () => {
     const router = useRouter()
-    const { link } = router.query as { link ?: string }
+    const { description } = router.query as { description?: string }
     const [selectedGroup, setGroup] = useState<BookmarkGroup>()
     const profile = useProfile()
     const groups = useGroupsByUser(profile.id)
     const { submit, onChangeBookmarkInput, bookmarkInput, url, linkData, error, setBookmarkInput } = useNewBookmark(selectedGroup?.id)
 
-    useEffect(()=>{
-        if(link){
-            setBookmarkInput(link)
+    useEffect(() => {
+        if (description) {
+            setBookmarkInput(description)
         }
-    }, [link, setBookmarkInput])
+    }, [description, setBookmarkInput])
 
     const Input = useMemo(() => (
         <BookmarkInputBase value={bookmarkInput} onChange={onChangeBookmarkInput} placeholder='ここにURLを入力' />
@@ -45,27 +45,24 @@ const Container: VFC = () => {
     ), [groups, selectedGroup])
 
     const Submit = useMemo(() => (
-        <ContainedButton disabled={Boolean(error) || !selectedGroup || !url} onClick={()=>{
-            submit().then(()=>{
+        <ContainedButton disabled={Boolean(error) || !selectedGroup || !url} onClick={() => {
+            submit().then(() => {
                 router.push(`/bookmarks/${selectedGroup.id}`)
             })
         }}>
             保存
         </ContainedButton>
-    ), [submit, selectedGroup, url, error,router])
+    ), [submit, selectedGroup, url, error, router])
 
     const Cancel = useMemo(() => (
-        <OutlinedButton onClick={()=>{
+        <OutlinedButton onClick={() => {
             router.push(`/bookmarks`)
         }}>
             キャンセル
         </OutlinedButton>
     ), [router])
     return (
-        <div>
         <Presenter Input={Input} Preview={Preview} GroupDropdown={GroupDropdown} Cancel={Cancel} Submit={Submit} errorMessage={error} />
-        {JSON.stringify(router.query)}
-        </div>
     )
 }
 
