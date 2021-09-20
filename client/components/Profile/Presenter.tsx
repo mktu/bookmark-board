@@ -46,7 +46,7 @@ const Presenter: React.FC<Props> = ({
                         {twitterInput}
                     </div>
                     {commentInput}
-                    <div className='flex flex-col items-end my-2 justify-cenrter'>
+                    <div className='flex flex-col justify-center items-end my-2'>
                         {submit}
                         <p className='text-xs text-primary-400'>
                             {updateDate}

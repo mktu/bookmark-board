@@ -3,7 +3,7 @@ import { TermLink, PrivactPolicyLink, InqueryLink, TwitterLink } from '@utils/co
 
 const Footer = () => {
     return (
-        <footer className="text-gray-500 bg-brand body-font">
+        <footer className="text-gray-500 bg-brand">
             <div className="p-4 md:p-6 text-sm text-white">
                 <div className='flex md:hidden flex-wrap justify-center items-center mb-2'>
                     <span className='mr-1'>©︎</span>

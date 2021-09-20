@@ -26,7 +26,7 @@ const UserPopover: React.FC<Props> = ({
                 />
             </div>
             <div className='ml-2 w-full'>
-                <div className='flex items-center text-primary-dark w-ful'>
+                <div className='flex items-center w-full text-primary-dark'>
                     <div>
                         {user.name}
                     </div>
