@@ -51,7 +51,7 @@ const NoItem: React.FC<Props> = ({
                 </li>
                 <li className='text-sm'>
                     <Link href={shareLink}>
-                        <a href={shareLink} className='inline-flex underline'>共有設定<Share className='hidden md:inline-block w-4 stroke-primary-dark' strokeWidth={1.5} /></a>
+                        <a href={shareLink} className='inline-flex underline'>共有設定<Share className='hidden md:inline-block w-4 h-5 stroke-primary-dark' strokeWidth={1.5} /></a>
                     </Link>
                     <span className='ml-1'>でこのグループの公開設定や共同編集設定を行うことができます</span>
                 </li>

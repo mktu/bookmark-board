@@ -11,7 +11,7 @@ const UserPopover: React.FC<Props> = ({
     user
 }) => {
     return (
-        <div className='flex p-3 font-semibold bg-white rounded border border-primary-border shadow-lg opacity-80'>
+        <div className='flex p-3 font-semibold bg-white rounded border border-primary-border shadow-lg'>
             <div>
                 <Avatar
                     height={48}

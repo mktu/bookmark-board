@@ -56,7 +56,7 @@ const RequestUsers: React.FC<Props> = ({
     requests
 }) => {
     return (
-        <div className='flex flex-col justify-start p-3 font-semibold align-middle bg-white rounded border border-primary-border shadow-lg opacity-80'>
+        <div className='flex flex-col justify-start p-3 font-semibold align-middle bg-white rounded border border-primary-border shadow-lg'>
             <div className='p-2 font-normal text-primary-main'>{`${requests.length}件の参加リクエストがあります`}</div>
             {requests.map(r => (
                 <div key={r.id}>

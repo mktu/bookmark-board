@@ -12,7 +12,7 @@ const NotificationMenu = () => {
         }
     }, [unreadCount, setReadFlag])
     return (
-        <div className='flex overflow-hidden flex-col justify-start pb-1 align-middle bg-white rounded border border-primary-border shadow-lg opacity-80' style={{width:256}}>
+        <div className='flex overflow-hidden flex-col justify-start pb-1 align-middle bg-white rounded border border-primary-border shadow-lg' style={{width:256}}>
             <div className='flex justify-center items-center p-2 w-full text-primary-main bg-primary-light border-b border-primary-border'>
                 <span><Info className='mr-2 w-6 h-6 fill-white stroke-primary-main' /></span>
                 <span>お知らせ</span>

@@ -29,7 +29,7 @@ const DangerZone: React.FC<Props> = ({
                 <TextInputBase value={input} onChange={(e) => {
                     setInput(e.target.value)
                 }} className='block px-2 mr-1 placeholder-primary-100 rounded border border-primary-50' placeholder='グループ名を入力' />
-                <OutlinedButton className='text-sm whitespace-no-wrap' disabled={!enableDelete} colorType='secondary' onClick={handleDelete}>
+                <OutlinedButton className='text-sm whitespace-nowrap' disabled={!enableDelete} colorType='secondary' onClick={handleDelete}>
                     グループを削除
                 </OutlinedButton>
             </div>

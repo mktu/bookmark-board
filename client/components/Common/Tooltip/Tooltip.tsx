@@ -56,7 +56,7 @@ export default function Tooltip<T extends HTMLElement>({ children, content, plac
                         style={styles.popper}
                         {...attributes.popper}
                     >
-                        <div className='hidden sm:block p-2 text-sm text-white bg-primary-600 rounded-lg opacity-80 whitespace-no-wrap'>
+                        <div className='hidden sm:block p-2 text-sm text-white whitespace-nowrap bg-primary-600 rounded-lg opacity-100'>
                             {content}
                         </div>
                     </div>

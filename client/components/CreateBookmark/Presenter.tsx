@@ -25,7 +25,7 @@ const Presenter: VFC<Props> = ({
             <div className='mt-8 w-full'>
                 {GroupDropdown}
             </div>
-            <div className='mt-4 w-full bg-white rounded border border-primary-border shadow focus:shadow-outline' >
+            <div className='mt-4 w-full bg-white rounded border border-primary-border focus:ring shadow' >
                 {Input}
             </div>
             {errorMessage && (

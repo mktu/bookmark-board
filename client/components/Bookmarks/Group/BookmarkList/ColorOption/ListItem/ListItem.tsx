@@ -38,13 +38,13 @@ const ListItem: React.FC<Props> = ({
                     updateColor(id, { name: e.target.value })
                 }} />
             </div>
-            <label className='text-xs text-primary-main underline cursor-pointer whitespace-no-wrap' htmlFor={id}>色を変更</label>
+            <label className='text-xs text-primary-main underline cursor-pointer' htmlFor={id}>色を変更</label>
             <input id={id} type='color' className='w-0 opacity-0' value={color} onChange={(e) => {
                 updateColor(id, { color: e.target.value })
             }} />
             <OutlinedButton onClick={() => {
                 handleDelete(id)
-            }} className='ml-2 text-xs whitespace-no-wrap' paddings='px-1'>×</OutlinedButton>
+            }} className='ml-2 text-xs whitespace-nowrap' paddings='px-1'>×</OutlinedButton>
         </div>
     )
 }

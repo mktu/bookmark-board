@@ -38,7 +38,7 @@ const Input: React.FC<Props> = ({
     }
     else if (status !== 'none') {
         preview = (
-            <div className='mt-2 bg-white rounded shadow focus:shadow-outline' >
+            <div className='mt-2 bg-white rounded focus:ring shadow' >
                 <LinkPreview url={url} linkData={linkData} />
             </div>
         )
@@ -53,7 +53,7 @@ const Input: React.FC<Props> = ({
                         </SvgIconButton>
                     </div>
                     <div className='overflow-hidden flex-1 w-full'>
-                        <div className='bg-white rounded shadow focus:shadow-outline'>
+                        <div className='bg-white rounded focus:ring shadow'>
                             <BookmarkInputBase aria-label='Input Bookmark URL' placeholder={'ブックマークURLを入力'} value={bookmarkInput} onKeyPress={onKeyPress} onChange={onChangeBookmarkInput} />
                         </div>
                         {preview}

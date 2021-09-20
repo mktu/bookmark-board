@@ -51,11 +51,11 @@ const Container: React.FC<Props> = ({
                 />
                 <p className='text-center text-primary-main'>{e.name}</p>
                 {group.owner !== e.id && (profile.id === e.id ? (
-                    <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap'>
+                    <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-nowrap'>
                         離脱する
                     </OutlinedButton>
                 ) : (
-                        <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap' onClick={() => { handleRemoveUser(e.id) }}>
+                        <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-nowrap' onClick={() => { handleRemoveUser(e.id) }}>
                             除外
                         </OutlinedButton>
                     ))}
