@@ -20,9 +20,9 @@ const ListOptions: React.FC<Props> = ({
         })
     }
     return (
-        <div className='bg-white p-4 rounded shadow-lg border border-primary-border font-semibold  flex flex-col justify-start align-middle'>
+        <div className='flex flex-col justify-start p-4 font-semibold align-middle bg-white rounded border border-primary-border shadow-lg'>
             <p className='text-sm text-primary-main'>表示する項目を選択</p>
-            <label className='flex flex-row cursor-pointer items-center mt-2' htmlFor='description'>
+            <label className='flex flex-row items-center mt-2 cursor-pointer' htmlFor='description'>
                 <input id='description' type='checkbox' className='block mr-2 hover:bg-primary-50' defaultChecked={!maskDescription} 
                 onChange={createChangeEvent('description')} />
                 <span>説明</span>

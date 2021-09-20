@@ -20,7 +20,7 @@ type Props = Parameters<typeof TextInputBase>[0] & {
 }
 
 export const Warning: React.FC<{ text: string }> = ({ text }) => (
-    <span className='text-secondary-main font-normal text-sm ml-1'>{text}</span>
+    <span className='ml-1 text-sm font-normal text-secondary-main'>{text}</span>
 )
 
 const TextInput: React.FC<Props> = ({
@@ -67,10 +67,10 @@ const TextInput: React.FC<Props> = ({
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     id={id}
-                    className='block px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white md:text-sm'
+                    className='block relative py-3 px-3 md:text-sm placeholder-primary-200 text-primary-700 bg-white'
                 />
                 {clear && (
-                    <div className='ml-auto px-2'>
+                    <div className='px-2 ml-auto'>
                         {clear}
                     </div>
                 )}

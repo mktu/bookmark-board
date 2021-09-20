@@ -14,11 +14,11 @@ const Date: React.FC<Props> = ({
 }) => (
         <div>
             {loading ? (
-                <p className=' text-primary-main text-xs'>更新中...</p>
+                <p className=' text-xs text-primary-main'>更新中...</p>
             ) : (
-                    <p className=' text-primary-main text-xs'>{lastUpdate && `更新日時   ${numberToDateTime(lastUpdate)}`}</p>
+                    <p className=' text-xs text-primary-main'>{lastUpdate && `更新日時   ${numberToDateTime(lastUpdate)}`}</p>
                 )}
-            <p className=' text-primary-main text-xs'>{`作成日時   ${numberToDateTime(created)}`}</p>
+            <p className=' text-xs text-primary-main'>{`作成日時   ${numberToDateTime(created)}`}</p>
         </div>
     )
 

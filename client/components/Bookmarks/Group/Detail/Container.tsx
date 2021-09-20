@@ -42,14 +42,14 @@ const Container: React.FC<Props> = ({
                     src={e.image}
                     width={48}
                     height={48}
-                    className='block mr-2 my-2'
+                    className='block my-2 mr-2'
                     name={e.name}
                     fallback={<Initial
                         width={48}
                         height={48}
                         name={e.name} />}
                 />
-                <p className='text-primary-main text-center'>{e.name}</p>
+                <p className='text-center text-primary-main'>{e.name}</p>
                 {group.owner !== e.id && (profile.id === e.id ? (
                     <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-no-wrap'>
                         離脱する

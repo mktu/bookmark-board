@@ -20,7 +20,7 @@ const Preview: React.FC<Props> = ({
             <div className='flex items-center w-full'>
                 <TextInput aria-label='Color Name' className={`w-full`} value={name} />
             </div>
-            <OutlinedButton className='text-xs ml-2 whitespace-no-wrap' paddings='px-1'>×</OutlinedButton>
+            <OutlinedButton className='ml-2 text-xs whitespace-no-wrap' paddings='px-1'>×</OutlinedButton>
         </div>
     )
 }

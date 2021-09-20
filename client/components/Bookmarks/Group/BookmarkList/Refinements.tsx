@@ -31,16 +31,16 @@ const Refinements: React.FC<Props> = ({
     return (
         <div className='p-1' ref={ref}>
             <div className='p-2 bg-white shadow'>
-                <div className='flex w-full items-center'>
+                <div className='flex items-center w-full'>
                     <div>
                         <BulkCheckBox />
                     </div>
-                    <div className='ml-auto md:flex items-center'>
+                    <div className='md:flex items-center ml-auto'>
                         <div className={`${hasSelection ? 'border-r opacity-100' : 'w-0 overflow-hidden h-0 opacity-0'} hidden md:block mr-2 pr-2 transition-all ease-in-out duration-500`}>
                             <BulkMenuWeb groupId={groupId}/>
                         </div>
-                        <div className='flex items-center '>
-                            <LikeOption className='ml-auto md:ml-0 ' groupId={groupId} />
+                        <div className=' flex items-center'>
+                            <LikeOption className=' ml-auto md:ml-0' groupId={groupId} />
                             <PopoverDivContainer placement='left-start' content={<VisibilityOption groupId={groupId} />}>
                                 <SvgIconButton aria-label='Color Filter' className='flex items-center ml-4' >
                                     <TooltipDivContainer content='色フィルタ' placement='bottom'>

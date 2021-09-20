@@ -14,8 +14,8 @@ const Layout = React.forwardRef<HTMLDivElement, Props>(function Layout({
     onClickHome
 }, ref) {
     return (
-        <div ref={ref} className="text-gray-500 bg-brand body-font shadow-xl">
-            <div className="flex flex-wrap p-2 items-center">
+        <div ref={ref} className="text-gray-500 bg-brand shadow-xl body-font">
+            <div className="flex flex-wrap items-center p-2">
                 <ButtonBase className='hidden md:block' aria-label='Home' onClick={onClickHome}>
                     <HeaderLogo theme='light' size='sm' />
                 </ButtonBase>

@@ -8,7 +8,7 @@ const Layout = ({
     children
 }: Props) => {
     return (
-        <div className='w-screen h-screen flex flex-row justify-center items-center'>
+        <div className='flex flex-row justify-center items-center w-screen h-screen'>
             {children}
         </div>
     )

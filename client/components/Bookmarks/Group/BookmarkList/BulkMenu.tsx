@@ -10,21 +10,21 @@ import Selector from './ColorOption/Selector'
 
 const BulkDelete: React.VFC<Parameters<typeof TextButton>[0]> = ({ className, ...props }) => (
     <TextButton aria-label='Color Filter' className={classNames('flex items-center', className)} {...props}>
-        <Trash className='w-6 mr-1 stroke-primary-main' strokeWidth={1.5} />
+        <Trash className='mr-1 w-6 stroke-primary-main' strokeWidth={1.5} />
         <div className='text-sm'>削除</div>
     </TextButton>
 )
 
 const BulkColor: React.VFC<Parameters<typeof TextButton>[0]> = ({ className, ...props }) => (
     <TextButton aria-label='Color Filter' className={classNames('flex items-center', className)} {...props}>
-        <ColorSwatch className='w-6 mr-1 stroke-primary-main' strokeWidth={1.5} />
+        <ColorSwatch className='mr-1 w-6 stroke-primary-main' strokeWidth={1.5} />
         <div className='text-sm'>色設定</div>
     </TextButton>
 )
 
 const Confirm: React.VFC<{ onSubmit: () => void, onCancel: () => void, text: string }> = ({ onCancel, onSubmit, text }) => (
-    <div className='p-4 bg-white border border-primary-border md:text-sm'>
-        <div className='text-primary-dark '>選択アイテムを削除します</div>
+    <div className='p-4 md:text-sm bg-white border border-primary-border'>
+        <div className=' text-primary-dark'>選択アイテムを削除します</div>
         <div className='flex items-center my-2'>
             <ContainedButton onClick={onSubmit} className='mx-1'>{text}</ContainedButton>
             <TextButton onClick={onCancel}>キャンセル</TextButton>

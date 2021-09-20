@@ -12,14 +12,14 @@ const NotificationMenu = () => {
         }
     }, [unreadCount, setReadFlag])
     return (
-        <div className='bg-white opacity-80 rounded shadow-lg border border-primary-border overflow-hidden flex flex-col justify-start align-middle pb-1' style={{width:256}}>
-            <div className='flex items-center w-full text-primary-main bg-primary-light justify-center p-2 border-b border-primary-border'>
-                <span><Info className='w-6 h-6 stroke-primary-main mr-2 fill-white' /></span>
+        <div className='flex overflow-hidden flex-col justify-start pb-1 align-middle bg-white rounded border border-primary-border shadow-lg opacity-80' style={{width:256}}>
+            <div className='flex justify-center items-center p-2 w-full text-primary-main bg-primary-light border-b border-primary-border'>
+                <span><Info className='mr-2 w-6 h-6 fill-white stroke-primary-main' /></span>
                 <span>お知らせ</span>
             </div>
-            <ul className='text-sm text-primary-main overflow-y-auto' style={{minHeight : 128, maxHeight : 256}}>
+            <ul className='overflow-y-auto text-sm text-primary-main' style={{minHeight : 128, maxHeight : 256}}>
                 {notifications.length === 0 && (
-                    <div className='flex items-center w-full h-full justify-center' style={{height:128}}>
+                    <div className='flex justify-center items-center w-full h-full' style={{height:128}}>
                         新しいお知らせはありません
                     </div>
                 )}

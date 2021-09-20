@@ -12,7 +12,7 @@ const Layout = ({
     showGroup
 }: Props) => {
     return (
-        <div className='w-full h-full flex flex-row'>
+        <div className='flex flex-row w-full h-full'>
             <div className={`h-full w-full ${showGroup && 'hidden'} md:w-3/12 md:block`}>{groups}</div>
             <div className={`h-full w-full ${!showGroup && 'hidden'} md:w-9/12 md:block`}>{group}</div>
         </div>

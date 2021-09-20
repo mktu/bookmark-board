@@ -32,7 +32,7 @@ const ListItem: React.FC<{ request: BookmarkRequest }> = ({
             <div className='mx-2 text-primary-main'>
                 {user.name}
             </div>
-            <div className='ml-auto flex items-center text-sm'>
+            <div className='flex items-center ml-auto text-sm'>
                 <ContainedButton colorType='secondary' className='mx-2' onClick={() => {
                     group && clientService.modifyGroup(group.id, {
                         users: [...group.users, user.id]
@@ -56,8 +56,8 @@ const RequestUsers: React.FC<Props> = ({
     requests
 }) => {
     return (
-        <div className='bg-white opacity-80 rounded shadow-lg border border-primary-border font-semibold p-3 flex flex-col justify-start align-middle'>
-            <div className='p-2 text-primary-main font-normal'>{`${requests.length}件の参加リクエストがあります`}</div>
+        <div className='flex flex-col justify-start p-3 font-semibold align-middle bg-white rounded border border-primary-border shadow-lg opacity-80'>
+            <div className='p-2 font-normal text-primary-main'>{`${requests.length}件の参加リクエストがあります`}</div>
             {requests.map(r => (
                 <div key={r.id}>
                     <ListItem request={r} />

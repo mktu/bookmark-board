@@ -22,17 +22,17 @@ export const ColorPallet: React.FC<Props> = ({
     const [r, g, b] = hex2rgb(colors[value]?.color)
     return (
         <div className={classNames(className, 'p-2 m-1 rounded')}>
-            <div className='whitespace-pre-wrap flex items-center'>
+            <div className='flex items-center whitespace-pre-wrap'>
                 {Object.keys(colors).map(c => (
                     <ButtonBase aria-label={c} key={c}
                         style={c === value ? { border: `1px solid rgba(${r},${g},${b},0.5)`, padding: '3px' } : {}}
-                        className='rounded bg-white flex items-center justify-center mx-1' onClick={() => {
+                        className='flex justify-center items-center mx-1 bg-white rounded' onClick={() => {
                             handleSelectColor(c)
                         }}>
                         <div className={classNames(`w-${boxSize} h-${boxSize} rounded`)} style={{ backgroundColor: colors[c].color }} />
                     </ButtonBase>
                 ))}
-                <ButtonBase aria-label='None' style={!value ? { border: `1px solid rgba(0,0,0,0.5)`, padding: '3px' } : {}} className='rounded bg-white flex items-center justify-center mx-1' onClick={() => {
+                <ButtonBase aria-label='None' style={!value ? { border: `1px solid rgba(0,0,0,0.5)`, padding: '3px' } : {}} className='flex justify-center items-center mx-1 bg-white rounded' onClick={() => {
                     handleSelectColor('')
                 }}>
                     <div className={classNames(`w-${boxSize} h-${boxSize} rounded bg-white border-secondary-500 border`)} >
@@ -57,7 +57,7 @@ const ColorPicker: React.FC<Props> = ({
     return (
         <PopoverDivContainer className={classNames(className)} content={
             <ColorPallet {...{ colors, boxSize, handleSelectColor, value }} />}>
-            <ButtonBase aria-label='Current Color' style={{ border: `1px solid rgba(${r},${g},${b},0.25)` }} className='rounded bg-white border flex items-center justify-center p-1 bg-clip-padding'>
+            <ButtonBase aria-label='Current Color' style={{ border: `1px solid rgba(${r},${g},${b},0.25)` }} className='flex justify-center items-center p-1 bg-clip-padding bg-white rounded border'>
                 <div className={classNames(`w-${boxSize} h-${boxSize} rounded`)} style={{ backgroundColor: value }} />
             </ButtonBase>
         </PopoverDivContainer>

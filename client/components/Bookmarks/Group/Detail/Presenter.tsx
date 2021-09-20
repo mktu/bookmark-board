@@ -24,12 +24,12 @@ const Presenter: React.FC<Props> = ({
     lastUpdate
 }) => {
     return (
-        <div className='w-full p-2'>
+        <div className='p-2 w-full'>
             <div className='flex items-center w-full'>
-                <div className='mx-1 md:hidden'>
+                <div className='md:hidden mx-1'>
                     {back}
                 </div>
-                <div className='flex-1 overflow-hidden'>
+                <div className='overflow-hidden flex-1'>
                     {title}
                 </div>
             </div>
@@ -47,13 +47,13 @@ const Presenter: React.FC<Props> = ({
                 </div>
             </div>
             {dangerZone}
-            <div className='mt-4 flex justify-end text-primary-main'>
+            <div className='flex justify-end mt-4 text-primary-main'>
                 <div className='mx-2'>
                     {cancel}
                 </div>
                 {update}
             </div>
-            <div className='mt-2 flex justify-end text-xs text-primary-main'>
+            <div className='flex justify-end mt-2 text-xs text-primary-main'>
                 <div>
                     {lastUpdate}
                 </div>

@@ -14,7 +14,7 @@ export const Content: React.FC<{ handleLogin: () => void }> = ({
             友達や家族と好きなものを共有したい。そんな時に役立つものを目指したシンプルなブックマークサービスです
             もちろん、共有なしの個人利用もできます！
         </p>
-        <div className='my-6 w-full flex justify-center'>
+        <div className='flex justify-center my-6 w-full'>
             <ContainedButton onClick={handleLogin}>ログインまたは登録する</ContainedButton>
         </div>
     </div>

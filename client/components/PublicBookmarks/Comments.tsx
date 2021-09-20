@@ -32,7 +32,7 @@ const Comments: React.FC<Props> = ({
     return (
         <div>
             {comments.length > 0 && (
-                <h2 className='text-primary-main mb-2'>コメント</h2>
+                <h2 className='mb-2 text-primary-main'>コメント</h2>
             )}
             {comments.map(c => {
                 const myReaction = c.reactions.find(r => r.user === myProfile.id)

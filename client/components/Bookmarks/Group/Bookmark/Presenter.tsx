@@ -35,45 +35,45 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <div className='flex flex-col'>
-            <div className='w-full overflow-hidden p-4'>
+            <div className='overflow-hidden p-4 w-full'>
                 <div className='flex items-center'>
                     <div className='md:hidden mr-2'>{back}</div>
-                    <div className='w-full flex-1'>
+                    <div className='flex-1 w-full'>
                         {title}
                     </div>
                 </div>
             </div>
-            <div className='flex items-center w-full overflow-hidden px-4 justify-end'>
+            <div className='flex overflow-hidden justify-end items-center px-4 w-full'>
                 <div className='ml-auto'>{refresh}</div>
-                <div className='text-sm text-primary-main mx-1'>情報を再取得</div>
+                <div className='mx-1 text-sm text-primary-main'>情報を再取得</div>
                 <div className='ml-3'>
                     {heart}
                 </div>
             </div>
 
-            <div className='w-full overflow-hidden p-4'>
+            <div className='overflow-hidden p-4 w-full'>
                 {image}
             </div>
-            <div className='w-full overflow-hidden p-4'>
+            <div className='overflow-hidden p-4 w-full'>
                 {description}
             </div>
-            <div className='w-full overflow-hidden p-4'>
+            <div className='overflow-hidden p-4 w-full'>
                 {url}
             </div>
-            <div className='w-full overflow-hidden p-4'>
+            <div className='overflow-hidden p-4 w-full'>
                 {comment}
             </div>
-            <div className='w-full overflow-hidden p-4'>
+            <div className='overflow-hidden p-4 w-full'>
                 {color}
             </div>
-            <div className='w-full overflow-hidden p-4'>
+            <div className='overflow-hidden p-4 w-full'>
                 {move}
             </div>
-            <div className='p-2 mt-8 md:flex'>
+            <div className='md:flex p-2 mt-8'>
                 <div >
                     {trash}
                 </div>
-                <div className='ml-auto flex flex-col items-end'>
+                <div className='flex flex-col items-end ml-auto'>
                     <div className='flex items-center p-2'>
                         <div className='mx-2'>{cancel}</div>
                         <div>{submit}</div>

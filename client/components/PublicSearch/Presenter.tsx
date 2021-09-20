@@ -11,7 +11,7 @@ const Presenter: React.FC<Props> = ({
     hits
 }) => {
     return (
-        <div className='w-full flex justify-center'>
+        <div className='flex justify-center w-full'>
             <div className='p-8 w-full md:w-4/5'>
                 <div className='mb-4'>
                     {searchBox}

@@ -20,9 +20,9 @@ const Trash: React.FC<Props> = ({
                 <span>このブックマークを削除</span>
             </TextButton>
             {select && (
-                <div className='mt-2 text-secondary-main text-sm'>
+                <div className='mt-2 text-sm text-secondary-main'>
                     <div>元に戻せませんがよろしいですか?</div>
-                    <div className='mt-2 flex items-center'>
+                    <div className='flex items-center mt-2'>
                         <TextButton fontType='none' className='ml-auto' colorType='secondary' onClick={()=>{setSelect(false)}}>Cancel</TextButton>
                         <OutlinedButton colorType='secondary' className='mx-2' onClick={()=>{handleDelete()}}>削除</OutlinedButton>
                     </div>

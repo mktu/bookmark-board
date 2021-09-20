@@ -27,11 +27,11 @@ const Presenter: React.FC<Props> = ({
     updateDate
 }) => {
     return (
-        <div className='w-full h-full p-6'>
-            <div className='w-full md:flex'>
+        <div className='p-6 w-full h-full'>
+            <div className='md:flex w-full'>
                 <div className='flex flex-col items-center'>
                     {avatar}
-                    <div className='flex items-center justify-center p-4'>
+                    <div className='flex justify-center items-center p-4'>
                         {modifyImage}
                         {uploadingImage}
                         {failedUpload}
@@ -46,9 +46,9 @@ const Presenter: React.FC<Props> = ({
                         {twitterInput}
                     </div>
                     {commentInput}
-                    <div className='flex flex-col items-end justify-cenrter my-2'>
+                    <div className='flex flex-col items-end my-2 justify-cenrter'>
                         {submit}
-                        <p className='text-primary-400 text-xs'>
+                        <p className='text-xs text-primary-400'>
                             {updateDate}
                         </p>
                     </div>

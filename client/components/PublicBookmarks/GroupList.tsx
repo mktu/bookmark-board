@@ -19,8 +19,8 @@ const GroupList: React.FC<Props> = ({
         const color = group.colors[c]
         return target.length > 0 ? (
             <div key={c}>
-                <div className='w-full p-4 text-primary-main flex items-center'>
-                    <div className='w-3 h-3 rounded mr-2' style={{ backgroundColor: color.color }} />
+                <div className='flex items-center p-4 w-full text-primary-main'>
+                    <div className='mr-2 w-3 h-3 rounded' style={{ backgroundColor: color.color }} />
                     <div>{color.name}</div>
                 </div>
                 <div>{target.map(b => (
@@ -35,7 +35,7 @@ const GroupList: React.FC<Props> = ({
 
             {independents.length > 0 && (
                 <>
-                    <div className='w-full p-4 text-primary-main'>その他</div>
+                    <div className='p-4 w-full text-primary-main'>その他</div>
                     <div>{independents.map(b => (
                         <Bookmark bookmark={b} key={b.id} />
                     ))}</div>

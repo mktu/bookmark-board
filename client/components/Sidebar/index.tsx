@@ -13,7 +13,7 @@ const Sidebar = () => {
     const router = useRouter()
     return (
         <div className={`flex flex-row h-full bg-primary-dark`}>
-            <nav className="h-full items-center flex flex-col p-4">
+            <nav className="flex flex-col items-center p-4 h-full">
                 <div>
                     <Popover
                         content={<ProfileMenu />}
