@@ -39,7 +39,7 @@ const NoItem: React.FC<Props> = ({
             <LinkPreview url={url} linkData={linkData} />
         )
     }
-    const settingLink = `/bookmarks/${groupId}/setting`
+    const shareLink = `/bookmarks/${groupId}/share`
     return (
         <div className='flex flex-col md:items-center justify-center p-4 w-full h-full bg-primary-light'>
             <p className='text-primary-main text-lg font-semibold'>
@@ -50,8 +50,8 @@ const NoItem: React.FC<Props> = ({
                     <span>タイトルをクリックすることで、グループの名前を変更することができます</span>
                 </li>
                 <li className='text-sm'>
-                    <Link href={settingLink}>
-                        <a href={settingLink} className='underline inline-flex'>共有設定<Share className='w-4 stroke-primary-dark hidden md:inline-block' strokeWidth={1.5} /></a>
+                    <Link href={shareLink}>
+                        <a href={shareLink} className='underline inline-flex'>共有設定<Share className='w-4 stroke-primary-dark hidden md:inline-block' strokeWidth={1.5} /></a>
                     </Link>
                     <span className='ml-1'>でこのグループの公開設定や共同編集設定を行うことができます</span>
                 </li>
