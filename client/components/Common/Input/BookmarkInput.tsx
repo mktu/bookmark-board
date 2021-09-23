@@ -15,8 +15,8 @@ const BookmarkInput: React.FC<InputProps> = ({
     ...props
 }) => {
     return (
-        <div className="relative flex w-full flex-wrap items-stretch mb-3">
-            <input {...props} type="text" className="px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white rounded md:text-sm outline-none focus:outline-none shadow focus:shadow-outline w-full" />
+        <div className="flex relative flex-wrap items-stretch mb-3 w-full">
+            <input {...props} type="text" className="relative py-3 px-3 w-full md:text-sm placeholder-primary-200 text-primary-700 bg-white rounded focus:ring shadow outline-none focus:outline-none" />
         </div>
     )
 }

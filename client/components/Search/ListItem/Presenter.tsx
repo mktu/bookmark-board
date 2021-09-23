@@ -26,23 +26,23 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <Link href={bookmarkDetailUrl}>
-            <a href={bookmarkDetailUrl} className='p-2 flex bg-white w-full shadow hover:bg-gray-50 cursor-pointer'>
-                <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
+            <a href={bookmarkDetailUrl} className='flex p-2 w-full bg-white hover:bg-gray-50 shadow cursor-pointer'>
+                <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
                     {image}
                 </div>
                 <div style={{ minHeight: BookmarkListImageSize }} className='mx-2' />
-                <div className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1'>
-                    <div className='overflow-hidden truncate max-w-full'>{title}</div>
-                    {description && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
+                <div className='flex overflow-hidden flex-col flex-1 justify-center items-start max-w-full'>
+                    <div className='overflow-hidden max-w-full truncate'>{title}</div>
+                    {description && (<div className='overflow-hidden max-w-full text-xs text-primary-main truncate' key={description} > {description}</div>)}
                     {comment && (
-                        <div className='text-xs text-primary-main font-thin max-w-full flex items-center py-1' >
-                            <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2} />
-                            <div className='overflow-hidden truncate flex-1'>
+                        <div className='flex items-center py-1 max-w-full text-xs font-thin text-primary-main' >
+                            <Chat className='mr-1 w-6 stroke-primary-300' strokeWidth={2} />
+                            <div className='overflow-hidden flex-1 truncate'>
                                 {comment}
                             </div>
                         </div>)}
                 </div>
-                <div className='ml-auto flex flex-col justify-start'>
+                <div className='flex flex-col justify-start ml-auto'>
                     <div className='flex items-start'>
                         <TooltipDivContainer content='コピー' placement='bottom' className='hidden md:block mx-1'>
                             {copyIcon}

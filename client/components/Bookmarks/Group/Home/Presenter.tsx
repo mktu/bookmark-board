@@ -16,10 +16,10 @@ const Presenter: React.FC<Props> = ({
     recentCreated
 }) => {
     return (
-        <div className='w-full h-full flex items-center justify-center'>
-            <div className='text-primary-main p-4 w-full lg:w-4/5'>
-                <div className='flex items-center justify-center flex-col'>
-                    <div className='text-xl text-primary-main  mb-12'>
+        <div className='flex justify-center items-center w-full h-full'>
+            <div className='p-4 w-full lg:w-4/5 text-primary-main'>
+                <div className='flex flex-col justify-center items-center'>
+                    <div className='mb-12 text-xl text-primary-main'>
                         <span className='mx-1'>{userName}</span>
                         <span>さんのBookmarks</span>
                     </div>
@@ -31,8 +31,8 @@ const Presenter: React.FC<Props> = ({
                         <div>登録ブックマーク数 : <span className='text-primary-dark'>{bookmarks} / {MaxGroupNumber * MaxBookmarkNumber}</span></div>
                     </div>
                 </div>
-                <div className='border-t w-full border-primary-border'>
-                    <h6 className='my-2 font-semibold text-sm'>最近登録したブックマーク</h6>
+                <div className='w-full border-t border-primary-border'>
+                    <h6 className='my-2 text-sm font-semibold'>最近登録したブックマーク</h6>
                     <div className='px-2'>
                         {recentCreated}
                     </div>

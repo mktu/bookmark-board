@@ -35,36 +35,36 @@ const Header: React.FC<Props> = ({
     }
 
     return (
-        <div className='h-full w-full px-2 py-2 border-b border-primary-border flex items-center' >
-            <div className='flex items-center max-w-full overflow-hidden' >
+        <div className='flex items-center py-2 px-2 w-full h-full border-b border-primary-border' >
+            <div className='flex overflow-hidden items-center max-w-full' >
                 <div className='flex items-center'>
                     <SvgIconButton className='md:hidden' onClick={handleBack}>
                         <ArrowLeft strokeWidth={1.0} className='w-6' />
                     </SvgIconButton>
                 </div>
-                <ButtonBase className='text-primary-main ml-2 mr-4 overflow-hidden truncate flex-1 block text-left' onClick={jumpTo('setting')}>
-                    <div className='font-semibold overflow-hidden truncate max-w-full' >
+                <ButtonBase className='block overflow-hidden flex-1 mr-4 ml-2 text-left text-primary-main truncate' onClick={jumpTo('setting')}>
+                    <div className='overflow-hidden max-w-full font-semibold truncate' >
                         {group.name}
                     </div>
-                    <div className='hidden md:block text-sm overflow-hidden truncate max-w-full'>
+                    <div className='hidden md:block overflow-hidden max-w-full text-sm truncate'>
                         {group.description}
                     </div>
                 </ButtonBase>
             </div>
 
-            <div className='ml-auto flex items-center justify-end'>
+            <div className='flex justify-end items-center ml-auto'>
                 {requests.length > 0 && (
                     <PopoverDivContainer className='px-2' placement='bottom' content={<RequestUsers requests={requests} />}>
                         <div>
                             <SvgFillIconButton aria-label='Show Requesting User' colorType='secondary' className='relative'>
                                 <UserAddFill className='w-8' />
-                                <span className='text-xs text-white bg-secondary-300 rounded-full p-1 absolute' style={{ left: '-10px', top: '-10px' }}>{requests.length}</span>
+                                <span className='absolute p-1 text-xs text-white bg-secondary-300 rounded-full' style={{ left: '-10px', top: '-10px' }}>{requests.length}</span>
                             </SvgFillIconButton>
                         </div>
                     </PopoverDivContainer>
                 )}
                 {editors.map(e => (
-                    <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='px-1 flex items-center'>
+                    <PopoverDivContainer key={e.id} content={<UserPopover user={e} />} placement='bottom' className='flex items-center px-1'>
                         <SvgIconButton aria-label='Show User'>
                             <Avatar
                                 src={e.image}

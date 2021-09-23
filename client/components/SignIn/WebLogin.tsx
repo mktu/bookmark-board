@@ -17,10 +17,10 @@ const WebLoginSection = ({
     privactPolicyLink
 }: Props) => {
     return (
-        <div className='bg-primary-dark text-white py-4 px-2 flex flex-col items-center justify-center h-full'>
+        <div className='flex flex-col justify-center items-center py-4 px-2 h-full text-white bg-primary-dark'>
             <div className='w-7/12'>
-                <h1 className='text-2xl font-bold mb-8 flex justify-center'>Sign In</h1>
-                <div className='text-sm mb-6'>
+                <h1 className='flex justify-center mb-8 text-2xl font-bold'>Sign In</h1>
+                <div className='mb-6 text-sm'>
                     <p className='my-2'>
                         <span>新規登録・ログインともにGoogleアカウントを用いて行えます。</span>
                         <a href={termLink} target='_blank' rel='noopener noreferrer' className='underline'>利用規約</a>
@@ -30,14 +30,14 @@ const WebLoginSection = ({
                     </p>
                 </div>
                 {signining ? (
-                    <div className='flex items-center justify-center'>
+                    <div className='flex justify-center items-center'>
                         <LoadingImg />
                     </div>
                 ) : (
                     <div className='flex justify-center'>
-                        <button className='bg-white p-0' onClick={handleSignin}>
+                        <button className='p-0 bg-white' onClick={handleSignin}>
                             <GoogleSignInImg className='inline-block' />
-                            <span className='pl-4 pr-4 inline-block text-primary-main'>Sign in with Google</span>
+                            <span className='inline-block pr-4 pl-4 text-primary-main'>Sign in with Google</span>
                         </button>
                         {/* <button className='border border-primary-light p-2 mt-2' onClick={handleAnonymous}>
                         Anonymous

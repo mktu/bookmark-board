@@ -19,24 +19,24 @@ const Presenter: VFC<Props> = ({
     Cancel,
     errorMessage
 }) => (
-    <div className='w-full h-full flex items-center justify-center' >
+    <div className='flex justify-center items-center w-full h-full' >
         <div style={{ width: Width }}>
-            <h3 className=' text-primary-main font-bold text-lg mt-8'>ブックマークを新規追加</h3>
+            <h3 className=' mt-8 text-lg font-bold text-primary-main'>ブックマークを新規追加</h3>
             <div className='mt-8 w-full'>
                 {GroupDropdown}
             </div>
-            <div className='bg-white rounded shadow focus:shadow-outline mt-4 border-primary-border border w-full' >
+            <div className='mt-4 w-full bg-white rounded border border-primary-border focus:ring shadow' >
                 {Input}
             </div>
             {errorMessage && (
-                <div className='text-secondary-main mt-4 w-full text-sm'>
+                <div className='mt-4 w-full text-sm text-secondary-main'>
                     {errorMessage}
                 </div>
             )}
             <div className='mt-4 w-full' >
                 {Preview}
             </div>
-            <div className='flex items-end justify-end mt-4 w-full'>
+            <div className='flex justify-end items-end mt-4 w-full'>
                 <div>{Cancel}</div>
                 <div className='ml-2'>{Submit}</div>
             </div>

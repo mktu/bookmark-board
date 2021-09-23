@@ -12,7 +12,7 @@ const Presenter : React.FC<Props> = ({
     bookmarkList,
 }) => {
     return (
-        <div className='w-full h-full p-4 flex flex-col'>
+        <div className='flex flex-col p-4 w-full h-full'>
             {/* <div className='p-2 text-sm text-primary-main inline-flex items-center'>
                 <span className='mr-1'>▶︎</span>
                 <span>グローバル検索は</span>
@@ -23,7 +23,7 @@ const Presenter : React.FC<Props> = ({
             <div className='p-4'>
                 {searchRefinements}
             </div>
-            <div className='flex-1 p-4 overflow-y-auto'>
+            <div className='overflow-y-auto flex-1 p-4'>
                 {bookmarkList}
             </div>
         </div>

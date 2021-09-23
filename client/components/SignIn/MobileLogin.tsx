@@ -20,13 +20,13 @@ const CommonSection = ({
 }: Props) => {
     const router = useRouter()
     return (
-        <div className='flex flex-col items-center justify-center p-4 h-full'>
+        <div className='flex flex-col justify-center items-center p-4 h-full'>
             <ButtonBase onClick={() => {
                 router.push('./')
             }}>
                 <Logo theme='dark' size='lg' />
             </ButtonBase>
-            <div className='p-4 text-sm mt-8 mb-4'>
+            <div className='p-4 mt-8 mb-4 text-sm'>
                 <p>
                     <span>Bookmark-Boardでは新規登録・ログインともにGoogleアカウントを用いて行えます。</span>
                     <span>以下に合意の上、ご登録ください。</span>
@@ -42,13 +42,13 @@ const CommonSection = ({
             </div>
             {
                 signining ? (
-                    <div className='flex items-center justify-center mb-16'>
+                    <div className='flex justify-center items-center mb-16'>
                         <LoadingImg />
                     </div>
                 ) : (
-                    <button className='mb-16 flex items-center shadow bg-white p-1 rounded' onClick={handleMobileSignin}>
+                    <button className='flex items-center p-1 mb-16 bg-white rounded shadow' onClick={handleMobileSignin}>
                         <GoogleSignInImg className='inline-block' />
-                        <div className='pl-4 pr-4 inline-block text-primary-main'>Sign in with Google</div>
+                        <div className='inline-block pr-4 pl-4 text-primary-main'>Sign in with Google</div>
                     </button>
                 )
             }

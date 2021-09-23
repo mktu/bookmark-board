@@ -14,15 +14,15 @@ const VisibilityOption: React.FC<Props> = ({
     const { colorMasks, updateColorFilters } = useRefinements(groupId)
     const colorSettingPath = `/bookmarks/${groupId}/colors`
     return (
-        <div className='bg-white p-4 rounded shadow-lg border border-primary-border flex flex-col justify-start align-middle'>
-            <p className='text-sm text-primary-main font-semibold'>表示する項目を選択</p>
+        <div className='flex flex-col justify-start p-4 align-middle bg-white rounded border border-primary-border shadow-lg'>
+            <p className='text-sm font-semibold text-primary-main'>表示する項目を選択</p>
             
             {colors.map(c => {
                 const [r, g, b] = hex2rgb(c.color)
                 const show = !colorMasks.includes(c.id)
                 return (
                     <div key={c.color}>
-                        <label className='flex cursor-pointer items-center mt-2 text-sm font-semibold' htmlFor={c.color}>
+                        <label className='flex items-center mt-2 text-sm font-semibold cursor-pointer' htmlFor={c.color}>
                             <input id={c.color} type='checkbox' className='block mr-2 hover:bg-primary-50'
                                 checked={show}
                                 onChange={(e) => {
@@ -47,7 +47,7 @@ const VisibilityOption: React.FC<Props> = ({
             <div className='flex justify-end mt-2'>
                 <Link href={colorSettingPath} shallow>
                     {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                        (<a className='text-sm inline-block underline text-link-main hover:text-link-hover'>色設定へ</a>)
+                        (<a className='inline-block text-sm text-link-main hover:text-link-hover underline'>色設定へ</a>)
                     }
                 </Link>
             </div>

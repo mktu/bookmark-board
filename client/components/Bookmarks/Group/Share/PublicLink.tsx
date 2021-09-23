@@ -30,28 +30,28 @@ const PublicLink: React.FC<Props> = ({
         <div className='text-sm'>
             {hasOwnership && (
                 <div>
-                    <label htmlFor='Public' className='text-primary-main flex items-center'>
+                    <label htmlFor='Public' className='flex items-center text-primary-main'>
                         <input id='Public' type='checkbox' checked={Boolean(sharable)} onChange={(e) => {
                             handleShare(e.target.checked)
                         }} />
-                        <span className='ml-2 inline-block'>公開する</span>
+                        <span className='inline-block ml-2'>公開する</span>
                     </label>
                 </div>
             )}
             <div className='flex items-center my-2'>
                 <p className='hidden md:block'>閲覧用リンク</p>
-                <div className='flex-1 flex items-center'>
+                <div className='flex flex-1 items-center'>
                     <div className='hidden md:block mx-2'>
                         <Link href={publicPath} shallow>
                             {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                                (<a className='underline text-blue-700'>{publicUrl}</a>)
+                                (<a className='text-blue-700 underline'>{publicUrl}</a>)
                             }
                         </Link>
                     </div>
                     <div className='md:hidden mx-2'>
                         <Link href={publicPath} shallow>
                             {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                                (<a className='underline text-blue-700'>閲覧用リンク</a>)
+                                (<a className='text-blue-700 underline'>閲覧用リンク</a>)
                             }
                         </Link>
                     </div>

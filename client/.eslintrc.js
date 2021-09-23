@@ -7,7 +7,8 @@ module.exports = {
         "eslint:recommended",
         "plugin:react/recommended",
         "plugin:@typescript-eslint/recommended",
-        "plugin:jsx-a11y/recommended"
+        "plugin:jsx-a11y/recommended",
+        "plugin:tailwindcss/recommended"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -23,13 +24,19 @@ module.exports = {
         "react-hooks",
         "@typescript-eslint",
         "eslint-plugin-react",
-        "jsx-a11y"
+        "jsx-a11y",
+        "tailwindcss"
     ],
     "rules": {
         "react/react-in-jsx-scope": "off",
         "react/prop-types":"off",
         "react-hooks/rules-of-hooks": "error",
         "react-hooks/exhaustive-deps": "warn",
-        "@typescript-eslint/explicit-module-boundary-types": "off"
+        "@typescript-eslint/explicit-module-boundary-types": "off",
+    },
+    "settings": {
+        "tailwindcss": {
+          "whitelist": ["stroke\\-[a-z]+\\-[0-9a-z]+", "fill\\-[a-z]+\\-[0-9a-z]+"]
+        }
     }
 };

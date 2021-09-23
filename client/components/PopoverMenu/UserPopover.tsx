@@ -11,7 +11,7 @@ const UserPopover: React.FC<Props> = ({
     user
 }) => {
     return (
-        <div className='bg-white opacity-80 rounded shadow-lg border border-primary-border font-semibold p-3 flex'>
+        <div className='flex p-3 font-semibold bg-white rounded border border-primary-border shadow-lg'>
             <div>
                 <Avatar
                     height={48}
@@ -26,17 +26,17 @@ const UserPopover: React.FC<Props> = ({
                 />
             </div>
             <div className='ml-2 w-full'>
-                <div className='text-primary-dark flex items-center w-ful'>
+                <div className='flex items-center w-full text-primary-dark'>
                     <div>
                         {user.name}
                     </div>
                     {user.twitter && (
-                        <a className='p-1 flex items-center' href={`${TwitterUrl}${user.twitter}`} target='_blank' rel='noopener noreferrer' >
+                        <a className='flex items-center p-1' href={`${TwitterUrl}${user.twitter}`} target='_blank' rel='noopener noreferrer' >
                             <TwitterIcon width='32px' height='32px' />
                         </a>
                     )}
                 </div>
-                <div className='text-primary-main font-normal text-sm'>
+                <div className='text-sm font-normal text-primary-main'>
                     {user.comment}
                 </div>
             </div>

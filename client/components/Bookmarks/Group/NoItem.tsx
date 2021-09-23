@@ -29,7 +29,7 @@ const NoItem: React.FC<Props> = ({
     let preview = null
     if (error) {
         preview = (
-            <div className=' text-secondary-main text-sm p-2' >
+            <div className=' p-2 text-sm text-secondary-main' >
                 {error}
             </div>
         )
@@ -41,23 +41,23 @@ const NoItem: React.FC<Props> = ({
     }
     const shareLink = `/bookmarks/${groupId}/share`
     return (
-        <div className='flex flex-col md:items-center justify-center p-4 w-full h-full bg-primary-light'>
-            <p className='text-primary-main text-lg font-semibold'>
+        <div className='flex flex-col justify-center md:items-center p-4 w-full h-full bg-primary-light'>
+            <p className='text-lg font-semibold text-primary-main'>
                 ブックマークを追加しましょう！
             </p>
-            <ul className='text-primary-dark my-4 text-sm'>
+            <ul className='my-4 text-sm text-primary-dark'>
                 <li>
                     <span>タイトルをクリックすることで、グループの名前を変更することができます</span>
                 </li>
                 <li className='text-sm'>
                     <Link href={shareLink}>
-                        <a href={shareLink} className='underline inline-flex'>共有設定<Share className='w-4 stroke-primary-dark hidden md:inline-block' strokeWidth={1.5} /></a>
+                        <a href={shareLink} className='inline-flex underline'>共有設定<Share className='hidden md:inline-block w-4 h-5 stroke-primary-dark' strokeWidth={1.5} /></a>
                     </Link>
                     <span className='ml-1'>でこのグループの公開設定や共同編集設定を行うことができます</span>
                 </li>
             </ul>
-            <div className='my-4 flex items-center justify-center w-full'>
-                <div className='bg-white rounded-full flex items-center justify-center' style={{
+            <div className='flex justify-center items-center my-4 w-full'>
+                <div className='flex justify-center items-center bg-white rounded-full' style={{
                     width: 300, height: 300
                 }}>
                     <NoItemImg width={200} height={200} />

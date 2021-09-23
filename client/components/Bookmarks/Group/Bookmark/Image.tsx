@@ -31,23 +31,23 @@ const Image: React.FC<Props> = ({
     return (
         <>
             <Label className=''>Icons</Label>
-            <div className='md:flex items-end w-full m-2 overflow-hidden'>
+            <div className='md:flex overflow-hidden items-end m-2 w-full'>
                 {loading ? (<LoadingImg className='w-32' />) : (
                     <>
-                        <div className='flex justify-center md:block text-xs overflow-hidden'>
-                            <UrlImage className='md:border border-primary-border rounded p-1' enableEndpoint={false} objectFit='cover' src={currentImage}
+                        <div className='flex md:block overflow-hidden justify-center text-xs'>
+                            <UrlImage className='p-1 rounded md:border border-primary-border' enableEndpoint={false} objectFit='cover' src={currentImage}
                                 style={imageStyle}
                                 fallback={(
-                                    <div className='text-secondary-main text-xs w-full'>
+                                    <div className='w-full text-xs text-secondary-main'>
                                         <NotFound style={imageStyle} text={`画像が見つかりません`} />
                                     </div>)} />
                         </div>
                         {otherImages.length > 0 && (
-                            <div className='ml-auto mr-1'>
+                            <div className='mr-1 ml-auto'>
                                 <div className='hidden md:block text-xs text-primary-main'>選択可能なアイコン</div>
-                                <div className='mt-4 flex items-end'>
+                                <div className='flex items-end mt-4'>
                                     {otherImages.map((i) => (
-                                        <div className='mx-1 flex flex-col items-center' key={i} >
+                                        <div className='flex flex-col items-center mx-1' key={i} >
                                             <ButtonBase className={`rounded block p-1 ${i === currentImage ? 'border-2 border-primary-main' : 'border border-primary-border'}`} onClick={() => {
                                                 i !== currentImage && onChangeImage(i)
                                             }}>
@@ -61,7 +61,7 @@ const Image: React.FC<Props> = ({
                     </>
                 )}
             </div>
-            {currentImage && (<a className='px-2 inline-block w-full truncate overflow-hidden underline text-xs text-lightslategray-600' href={currentImage} target='_blank' rel='noopener noreferrer'>画像を別タブで開く</a>)}
+            {currentImage && (<a className='inline-block overflow-hidden px-2 w-full text-xs text-lightslategray-600 underline truncate' href={currentImage} target='_blank' rel='noopener noreferrer'>画像を別タブで開く</a>)}
         </>
     )
 }

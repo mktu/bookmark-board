@@ -15,7 +15,7 @@ const Presenter: React.FC<Props> = ({
     error
 }) => {
     return (
-        <div className='bg-white w-full h-full flex flex-col border-primary-border border-r'>
+        <div className='flex flex-col w-full h-full bg-white border-r border-primary-border'>
             <div className={classNames('border-primary-border flex flex-row justify-between p-1 items-center text-primary-main')}>
                 <div className='p-2 w-full'>
                     {input}
@@ -25,7 +25,7 @@ const Presenter: React.FC<Props> = ({
                 </div>
             </div>
             {error && (
-                <div className='text-secondary-main text-xs px-4 py-2'>{error}</div>
+                <div className='py-2 px-4 text-xs text-secondary-main'>{error}</div>
             )}
             <div className='overflow-y-auto h-full'>
                 {groupList}

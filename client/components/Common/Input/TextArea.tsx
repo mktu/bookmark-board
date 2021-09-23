@@ -49,11 +49,11 @@ const TextArea: React.FC<Props> = ({
                     {label}
                 </Label>}
             <div className={classNames('relative flex items-center border-primary-border pl-2 pb-2', borderClasses)}>
-                <ResizableTextAreaBase id={id} {...props} className='placeholder-primary-200 text-primary-700 bg-white md:text-sm resize-none'
+                <ResizableTextAreaBase id={id} {...props} className='md:text-sm placeholder-primary-200 text-primary-700 bg-white resize-none'
                     onFocus={handleFocus}
                     onBlur={handleBlur} />
                 {clear && (
-                    <div className='ml-auto px-2'>
+                    <div className='px-2 ml-auto'>
                         {clear}
                     </div>
                 )}

@@ -8,11 +8,11 @@ const InputWithIcon: React.FC<InputProps & {
     ...props
 }) => {
         return (
-            <div className="relative flex w-full flex-wrap items-stretch">
-                <span className="z-10 h-full leading-snug font-normal text-center text-primary-700 absolute bg-transparent rounded text-base items-center justify-center w-8 pl-3 py-3">
+            <div className="flex relative flex-wrap items-stretch w-full">
+                <span className="absolute z-10 justify-center items-center py-3 pl-3 w-8 h-full text-base font-normal leading-snug text-center text-primary-700 bg-transparent rounded">
                     {icon}
                 </span>
-                <input {...props} type="text" className="px-3 py-3 placeholder-primary-200 text-primary-700 relative bg-white rounded md:text-sm shadow outline-none focus:outline-none focus:shadow-outline w-full pl-10" />
+                <input {...props} type="text" className="relative py-3 px-3 pl-10 w-full md:text-sm placeholder-primary-200 text-primary-700 bg-white rounded focus:ring shadow outline-none focus:outline-none" />
             </div>
         )
     }

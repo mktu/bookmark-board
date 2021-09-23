@@ -13,7 +13,7 @@ export const Content: React.ReactNode = (
         </p>
         <p className='mt-2'>
             <span role='img' aria-label='right' className='mr-2'>👉</span>
-            <a href={PluginUrl} target='_blank' rel='noopener noreferrer' className='underline mx-2'>Chromeのストア</a>
+            <a href={PluginUrl} target='_blank' rel='noopener noreferrer' className='mx-2 underline'>Chromeのストア</a>
             <span>からインストールすることができます</span>
         </p>
     </div>

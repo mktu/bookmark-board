@@ -12,21 +12,21 @@ export const Content: React.FC = () => (
     <div>
         <p>
             <span>Googleのアカウントがあれば無料で開始することができます。早速ブックマークの</span>
-            <Link href={SigninPath}><a className='underline text-primary-main' href={SigninPath}>登録</a></Link>
+            <Link href={SigninPath}><a className='text-primary-main underline' href={SigninPath}>登録</a></Link>
             <span>を行いましょう！</span>
         </p>
         <p>
             <span>よくある使い方については</span>
             <span role='img' aria-label='right' className='ml-1'>👉</span>
-            <a href={HelpLink} target='_blank' rel='noopener noreferrer' className='underline mr-1 text-primary-main'>こちら</a>
+            <a href={HelpLink} target='_blank' rel='noopener noreferrer' className='mr-1 text-primary-main underline'>こちら</a>
             <span>にも載せていますので、ぜひ確認してみてください</span>
         </p>
-        <div className='my-6 w-full flex justify-center'>
+        <div className='flex justify-center my-6 w-full'>
             <Image src={Baloons} width={245} height={300} alt='LpStart'/>
         </div>
-        <div className='text-sm my-4'>
+        <div className='my-4 text-sm'>
             <p>※動作環境について 以下のブラウザで動作確認しています</p>
-            <ul className='list-disc list-inside px-2'>
+            <ul className='px-2 list-disc list-inside'>
                 <li>Chrome ver.89-</li>
                 <li>Safari ver.12-</li>
                 <li>Firefox ver.87-</li>

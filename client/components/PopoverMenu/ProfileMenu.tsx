@@ -7,8 +7,8 @@ const ProfileMenu = () => {
     const router = useRouter()
     const { clientService } = useContext(FirebaseContext)
     return (
-        <div className='bg-white opacity-80 rounded shadow-lg border border-primary-border font-semibold pt-3 pb-3 flex flex-col justify-start align-middle'>
-            <TextButton className='block w-full pl-3 pr-3 text-left hover:bg-primary-50 whitespace-no-wrap'
+        <div className='flex flex-col justify-start pt-3 pb-3 font-semibold align-middle bg-white rounded border border-primary-border shadow-lg'>
+            <TextButton className='block pr-3 pl-3 w-full text-left whitespace-nowrap hover:bg-primary-50'
                 onClick={() => {
                     router.push('/profile')
                 }}>編集</TextButton>
@@ -16,7 +16,7 @@ const ProfileMenu = () => {
                 clientService.logout(() => {
                     router.push('/signin')
                 })
-            }} className='block w-full pl-3 pr-3 text-left hover:bg-primary-50 whitespace-no-wrap'>ログアウト</TextButton>
+            }} className='block pr-3 pl-3 w-full text-left whitespace-nowrap hover:bg-primary-50'>ログアウト</TextButton>
         </div>
     )
 }

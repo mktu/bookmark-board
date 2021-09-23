@@ -24,16 +24,16 @@ const Topic = React.forwardRef<HTMLElement, Props>(function topic({
 }, ref) {
     return (
         <section ref={ref} style={style} className={classNames('w-full md:p-8 break-words flex flex-col justify-center items-center', className)}>
-            <h1 className='text-primary-700 text-2xl font-bold my-4'>{title}</h1>
+            <h1 className='my-4 text-2xl font-bold text-primary-700'>{title}</h1>
             <div className='mb-4'>{description}</div>
             <div className='md:flex justify-between'>
                 {topics.map((v, i) => (
-                    <div key={i} className='shadow-lg flex flex-col md:rounded-lg bg-primary-light max-w-screen-md p-4 w-full md:mx-4'>
-                        <div className='flex items-center md:rounded-lg bg-white md:text-primary-700 text-primary-dark p-2'>
+                    <div key={i} className='flex flex-col p-4 md:mx-4 w-full max-w-screen-md bg-primary-light md:rounded-lg shadow-lg'>
+                        <div className='flex items-center p-2 text-primary-dark md:text-primary-700 bg-white md:rounded-lg'>
                             <div className='mx-2'>{v.icon}</div>
                             <div>{v.name}</div>
                         </div>
-                        <div className='my-2 p-4 md:rounded-lg bg-white h-full flex-1 text-primary-dark md:text-primary-main'>
+                        <div className='flex-1 p-4 my-2 h-full text-primary-dark md:text-primary-main bg-white md:rounded-lg'>
                             {v.content}
                         </div>
                     </div>

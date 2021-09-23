@@ -16,7 +16,7 @@ const Layout: React.FC<Props> = ({
         <>
             <div className={`${alternative ? 'hidden' : 'flex'} md:flex flex-col w-full box-border h-full`}>
                 <div >{header}</div>
-                <div className='flex-1 overflow-hidden'>{contents}</div>
+                <div className='overflow-hidden flex-1'>{contents}</div>
             </div>
             <div>
                 {alternativeContent}

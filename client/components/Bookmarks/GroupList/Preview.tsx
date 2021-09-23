@@ -11,7 +11,7 @@ const Preview: React.FC<Props> = ({
     style
 }) => {
     return (
-        <button className='w-full flex text-primary-main items-center p-2 ' style={style}>
+        <button className=' flex items-center p-2 w-full text-primary-main' style={style}>
             <div>
                 <FolderOpen className='w-8 stroke-primary-main' strokeWidth={1} />
             </div>

@@ -36,32 +36,32 @@ const ListItem: React.FC<Props> = ({
 }) => {
     return (
         <div className={`w-full flex items-center cursor-pointer opacity-50`} style={color ? { borderLeft: `5px solid ${color}`, ...style } : { ...style }} >
-            <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
-            <div className='p-2 flex bg-white w-full shadow hover:bg-gray-50'>
-            <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='overflow-hidden flex items-center'>
+            <div className='flex p-2 w-full bg-white hover:bg-gray-50 shadow'>
+            <div className='flex p-2 w-full bg-white hover:bg-gray-50 shadow'>
+            <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
                 {image}
             </div>
-            <div style={{ minHeight: BookmarkListImageSize }} className='mx-2 border-primary-border border-r' />
-            <div className='flex flex-col items-start justify-center max-w-full overflow-hidden flex-1'>
-                <div className='overflow-hidden truncate max-w-full'>{title || url}</div>
-                {description && (<div className='overflow-hidden truncate text-xs text-primary-main max-w-full' key={description} > {description}</div>)}
-                {url && (<div className='overflow-hidden truncate text-xs text-primary-main font-thin max-w-full' > {url}</div>)}
+            <div style={{ minHeight: BookmarkListImageSize }} className='mx-2 border-r border-primary-border' />
+            <div className='flex overflow-hidden flex-col flex-1 justify-center items-start max-w-full'>
+                <div className='overflow-hidden max-w-full truncate'>{title || url}</div>
+                {description && (<div className='overflow-hidden max-w-full text-xs text-primary-main truncate' key={description} > {description}</div>)}
+                {url && (<div className='overflow-hidden max-w-full text-xs font-thin text-primary-main truncate' > {url}</div>)}
                 {comment && (
-                    <div className='text-xs text-primary-main font-thin max-w-full flex items-center py-1' >
-                        <Chat className='w-6 stroke-primary-300 mr-1' strokeWidth={2} />
-                        <div className='overflow-hidden truncate flex-1'>
+                    <div className='flex items-center py-1 max-w-full text-xs font-thin text-primary-main' >
+                        <Chat className='mr-1 w-6 stroke-primary-300' strokeWidth={2} />
+                        <div className='overflow-hidden flex-1 truncate'>
                             {comment}
                         </div>
                     </div>)}
                 {lastUpdate && (
-                    <div className='mt-auto pt-1 overflow-hidden truncate text-xs text-primary-main font-thin max-w-full flex items-center' >
+                    <div className='flex overflow-hidden items-center pt-1 mt-auto max-w-full text-xs font-thin text-primary-main truncate' >
                         <span className='mr-1'>
                             <Refresh className='w-4 stroke-primary-main' />
                         </span>
                         <span>{lastUpdate}</span>
                     </div>)}
             </div>
-            <div className='ml-auto flex flex-col justify-start'>
+            <div className='flex flex-col justify-start ml-auto'>
                 <div className='flex items-start'>
                     <div className='hidden md:block mx-1'>
                         {copyIcon}
@@ -73,8 +73,8 @@ const ListItem: React.FC<Props> = ({
                         {deleteIcon}
                     </div>
                 </div>
-                <div className='mt-auto flex items-center justify-end'>
-                    <div className='mr-2 hidden md:block'>{colorButton}</div>
+                <div className='flex justify-end items-center mt-auto'>
+                    <div className='hidden md:block mr-2'>{colorButton}</div>
                     <div>{heartButton}</div>
                 </div>
             </div>

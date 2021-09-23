@@ -20,17 +20,17 @@ const LinkPreview: React.FC<{
             return <></>
         }
         if (!linkData) {
-            return <div className='flex items-center justify-center'><LoadingImg width='50px'/></div>;
+            return <div className='flex justify-center items-center'><LoadingImg width='50px'/></div>;
         }
         return (
             <a className={classNames('flex text-current items-center p-2 w-full',className)} href={url} target='_blank' rel="noopener noreferrer">
-                <div className='mr-2 overflow-hidden'>
-                    <UrlImage className='border-primary-border border rounded' width={BookmarkListImageSize} height={BookmarkListImageSize} src={linkData.images[0]} name={linkData.title}/>
+                <div className='overflow-hidden mr-2'>
+                    <UrlImage className='rounded border border-primary-border' width={BookmarkListImageSize} height={BookmarkListImageSize} src={linkData.images[0]} name={linkData.title}/>
                 </div>
-                <div className='flex-1 w-full overflow-hidden'>
+                <div className='overflow-hidden flex-1 w-full'>
                     <div className='overflow-hidden truncate' > {linkData.title}</div>
-                    <div className='overflow-hidden truncate text-xs text-primary-main' > {linkData.description}</div>
-                    <div className='overflow-hidden truncate text-xs text-primary-main font-thin' > {url}</div>
+                    <div className='overflow-hidden text-xs text-primary-main truncate' > {linkData.description}</div>
+                    <div className='overflow-hidden text-xs font-thin text-primary-main truncate' > {url}</div>
                 </div>
             </a>
         )

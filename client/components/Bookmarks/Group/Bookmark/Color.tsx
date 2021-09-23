@@ -16,7 +16,7 @@ const Color: React.FC<Props> = ({
 }) => (
         <div className='flex'>
             <Label className='block'>色を設定</Label>
-            <div className='ml-auto flex flex-col items-end'>
+            <div className='flex flex-col items-end ml-auto'>
                 <ColorPallet colors={group.colors} boxSize={5} value={color} handleSelectColor={handleUpdate} />
                 <Dropdowns
                     allowEmpty

@@ -33,14 +33,14 @@ const BookmarkRequests: React.VFC = () => {
     }
     if (error) {
         return (
-            <div className='w-full h-full flex flex-col justify-center items-center text-secondary-main'>
+            <div className='flex flex-col justify-center items-center w-full h-full text-secondary-main'>
                 {error.name}
             </div>
         )
     }
     return (
-        <div className='w-full h-full flex flex-col justify-center items-center'>
-            <div className='w-3/5 flex flex-col justify-center items-center'>
+        <div className='flex flex-col justify-center items-center w-full h-full'>
+            <div className='flex flex-col justify-center items-center w-3/5'>
                 {latestStatus === 'none' && (
                     <div className='text-lg text-primary-main'>
                         <span>グループ </span>
@@ -63,12 +63,12 @@ const BookmarkRequests: React.VFC = () => {
                     </div>
                 )}
                 {exceededLimit && (
-                    <div className='text-base text-secondary-main p-2'>
+                    <div className='p-2 text-base text-secondary-main'>
                         リクエストが一定回数を超えました
                     </div>
                 )}
                 <div className=''><WelcomeImg width='480px' height='480px' /></div>
-                <div className='flex items-center justify-center'>
+                <div className='flex justify-center items-center'>
                     <ContainedButton className='mr-2' disabled={latestStatus === 'requesting' || exceededLimit} onClick={() => {
                         clientService.addRequest({
                             groupId

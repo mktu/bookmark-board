@@ -40,14 +40,14 @@ const Signup: React.FC<Props> = ({
         }
     }
     return (
-        <div className='md:flex w-screen h-screen justify-center p-4 md:p-0'>
-            <div className='w-full md:w-1/2 h-full flex flex-col md:justify-center'>
-                <p className='text-lg text-primary-main font-bold md:mb-4'>ユーザー登録</p>
-                <p className='text-base text-primary-main mb-4'>ニックネームを登録し、早速始めましょう</p>
+        <div className='md:flex justify-center p-4 md:p-0 w-screen h-screen'>
+            <div className='flex flex-col md:justify-center w-full md:w-1/2 h-full'>
+                <p className='md:mb-4 text-lg font-bold text-primary-main'>ユーザー登録</p>
+                <p className='mb-4 text-base text-primary-main'>ニックネームを登録し、早速始めましょう</p>
                 <div className='md:flex w-full'>
                     <div className='flex flex-col items-center p-2'>
                         <Avatar width={128} height={128} src={fileUrl} disableNextImage />
-                        <label className='my-2 py-2 px-4 cursor-pointer rounded border text-primary-main hover:text-primary-dark border-primary-main hover:border-primary-dark' htmlFor='file-upload'>
+                        <label className='py-2 px-4 my-2 text-primary-main hover:text-primary-dark rounded border border-primary-main hover:border-primary-dark cursor-pointer' htmlFor='file-upload'>
                             画像を変更
                         <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />
                         </label>
@@ -63,7 +63,7 @@ const Signup: React.FC<Props> = ({
                 <div className='flex justify-end p-4'>
                     {state === 'loading' ? (
                         <div className='flex items-center'>
-                            <LoadingImg width='32px' /> <span className='inline-block text-primary-main font-semibold'>作成中...</span>
+                            <LoadingImg width='32px' /> <span className='inline-block font-semibold text-primary-main'>作成中...</span>
                         </div>
                     ) : (
                         <>
@@ -73,7 +73,7 @@ const Signup: React.FC<Props> = ({
                     )}
                 </div>
             </div>
-            <div className='hidden ml-4 md:flex items-end p-10'>
+            <div className='hidden md:flex items-end p-10 ml-4'>
                 <SigninImg width='256px' height='256px' />
             </div>
         </div>

@@ -22,22 +22,22 @@ const ListCard: React.FC<Props> = ({
 }) => {
     const [r, g, b] = hex2rgb(bookmark.color)
     return (
-        <div className='flex py-1 px-2 border rounded border-primary-border'>
+        <div className='flex py-1 px-2 rounded border border-primary-border'>
             <div style={{ minWidth: BookmarkListImageSize }}>
                 <UrlImage className='rounded' width={BookmarkListImageSize} height={BookmarkListImageSize} src={bookmark.image} />
             </div>
-            <div className='ml-2 text-primary-main overflow-hidden w-full px-1 border-l-2  border-primary-border pl-2' style={{ borderColor: bookmark.color && `rgba(${r},${g},${b},0.5)` }}>
+            <div className='overflow-hidden px-1 pl-2 ml-2 w-full text-primary-main border-l-2 border-primary-border' style={{ borderColor: bookmark.color && `rgba(${r},${g},${b},0.5)` }}>
                 <Label htmlFor='title' textSize='text-xs'>タイトル</Label>
-                <div id='title' className='text-sm break-words max-w-full p-1'>{bookmark.title}</div>
+                <div id='title' className='p-1 max-w-full text-sm break-words'>{bookmark.title}</div>
                 <Label htmlFor='description' textSize='text-xs'>説明</Label>
-                <div id='description' className='text-xs break-words max-w-full p-1'>{bookmark.description}</div>
+                <div id='description' className='p-1 max-w-full text-xs break-words'>{bookmark.description}</div>
                 <Label htmlFor='url' textSize='text-xs'>URL</Label>
-                <a target='_blank' rel='noopener noreferrer' href={bookmark.url} id='url' className='block text-sm break-words max-w-full p-1 underline'>{bookmark.url}</a>
+                <a target='_blank' rel='noopener noreferrer' href={bookmark.url} id='url' className='block p-1 max-w-full text-sm underline break-words'>{bookmark.url}</a>
                 {bookmark.comment && (
-                    <div className='text-xs overflow-hidden max-w-full flex items-center text-primary-main py-1'>
-                        <div className='border-primary-200 border rounded p-1 mr-2 flex items-center'>
+                    <div className='flex overflow-hidden items-center py-1 max-w-full text-xs text-primary-main'>
+                        <div className='flex items-center p-1 mr-2 rounded border border-primary-200'>
                             <Chat className='w-6 stroke-primary-300' />
-                            <div className='mx-2 whitespace-pre-wrap flex-1'>
+                            <div className='flex-1 mx-2 whitespace-pre-wrap'>
                                 {bookmark.comment}
                             </div>
                         </div>

@@ -26,22 +26,22 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
     }
 
     const app = (
-        <div className='my-2 flex items-center'>
+        <div className='flex items-center my-2'>
             <TextButton aria-label='Open Bookmark' className='flex items-center w-full' onClick={() => {
                 push('/bookmarks')
             }}>
-                <Book strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
+                <Book strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
                 <div>Bookmarkアプリ</div>
             </TextButton>
         </div>
     )
 
     const search = (
-        <div className='mr-4 flex items-center'>
-            <TextButton aria-label='Open Search' colorType='none' className='flex items-center text-primary-main w-full' onClick={() => {
+        <div className='flex items-center mr-4'>
+            <TextButton aria-label='Open Search' colorType='none' className='flex items-center w-full text-primary-main' onClick={() => {
                 push('/search')
             }}>
-                <Search strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
+                <Search strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
                 <div>検索</div>
             </TextButton>
         </div>
@@ -50,10 +50,10 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
     const profileMenu = (
         <div className='my-2'>
             <div className='flex items-center text-primary-main' >
-                <TextButton aria-label='Login Menu' colorType='none' className='flex items-center text-primary-main w-full' onClick={() => {
+                <TextButton aria-label='Login Menu' colorType='none' className='flex items-center w-full text-primary-main' onClick={() => {
                     setOpenProfile(b => !b)
                 }}>
-                    <User strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
+                    <User strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
                     <div>{profile.name}</div>
 
                 </TextButton>
@@ -76,18 +76,18 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
     )
 
     const help = (
-        <div className='my-2 flex items-center'>
-            <TextButton aria-label='How to use Bookmark' colorType='none' className='flex items-center text-primary-main w-full' onClick={() => {
+        <div className='flex items-center my-2'>
+            <TextButton aria-label='How to use Bookmark' colorType='none' className='flex items-center w-full text-primary-main' onClick={() => {
                 window && window.open(HelpLink, '_blank')
             }}>
-                <Help strokeWidth={1.5} className='w-10 h-10 stroke-primary-main mr-2' />
+                <Help strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
                 <div>ヘルプ</div>
             </TextButton>
         </div>
     )
 
     const close = (
-        <SvgIconButton aria-label='Close dialog' colorType='none' className='absolute top-0 right-0 flex items-center bg-primary-light opacity-75 rounded-full mr-2 border border-primary-dark p-2'
+        <SvgIconButton aria-label='Close dialog' colorType='none' className='flex absolute top-0 right-0 items-center p-2 mr-2 bg-primary-light rounded-full border border-primary-dark opacity-75'
             onClick={() => {
                 onClose()
             }}>

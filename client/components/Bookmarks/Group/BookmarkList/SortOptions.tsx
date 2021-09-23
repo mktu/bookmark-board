@@ -70,11 +70,11 @@ const SortOptions: React.FC<Props> = ({
         }
     }
     return (
-        <div className='bg-white p-4 rounded shadow-lg border border-primary-border font-semibold  flex flex-col justify-start align-middle'>
-            <p className='text-sm text-primary-main mb-2'>並び替えを実行</p>
+        <div className='flex flex-col justify-start p-4 font-semibold align-middle bg-white rounded border border-primary-border shadow-lg'>
+            <p className='mb-2 text-sm text-primary-main'>並び替えを実行</p>
             <Checkbox id='color' onChange={sortByColor} className='my-1' label='色でグルーピング' labelProps={{textSize:'text-sm',weight:'font-bold' }}/> 
             <Checkbox id='lastupdate' onChange={sortByUpdateDate} className='my-1' label='更新が新しい順' labelProps={{textSize:'text-sm',weight:'font-bold' }}/> 
-            <ContainedButton onClick={sort} className='text-sm mx-2 mt-4'>実行</ContainedButton>
+            <ContainedButton onClick={sort} className='mx-2 mt-4 text-sm'>実行</ContainedButton>
         </div>
     )
 }

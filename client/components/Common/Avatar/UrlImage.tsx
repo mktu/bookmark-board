@@ -61,7 +61,7 @@ export const NotFound: React.FC<{
     style,
     text = '画像が見つかりません'
 }) => (
-        <div className='flex items-center justify-center text-white text-sm' style={{
+        <div className='flex justify-center items-center text-sm text-white' style={{
             width,
             height,
             backgroundImage: `url('/Placeholder.svg')`,
