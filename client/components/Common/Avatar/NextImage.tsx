@@ -23,9 +23,11 @@ export const NextImage: React.FC<Props> = ({
     const validSrc = src && src !== ''
     if (validSrc) {
         if (disableNextImage) {
+            // blurdata
+            // background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAE0lEQVR42mPMq6ysZ0ADjDQQBAA3RAlhPiic9AAAAABJRU5ErkJggg==);
             return <img alt={name} src={src} width={width} height={height} style={{ objectFit: 'cover' }} />
         } else {
-            return <Image alt={name} src={src} width={width} height={height} objectFit='cover' />
+            return <Image alt={name} src={src} width={width} height={height} objectFit='cover' placeholder='blur' blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAE0lEQVR42mPMq6ysZ0ADjDQQBAA3RAlhPiic9AAAAABJRU5ErkJggg==' />
         }
     }
     if (fallback) {
