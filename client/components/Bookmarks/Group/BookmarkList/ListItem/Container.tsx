@@ -1,7 +1,9 @@
 import React, { useContext } from 'react'
 import { UrlImage } from '@components/Common/Avatar'
-import { ExternalLink, Duplicate, Trash } from '@components/Common/Icon'
-import { SvgIconButton, HeartButton, ButtonBase } from '@components/Common/Button'
+import { useRouter } from 'next/router'
+import { Duplicate, Trash } from '@components/Common/Icon'
+import EditFill from '@components/Common/Icon/EditFill'
+import { SvgIconButton, SvgFillIconButton, HeartButton, ButtonBase } from '@components/Common/Button'
 import { PopoverDivContainer } from '@components/Common/Popover'
 import ColorSelector from '../ColorOption/Selector'
 import { useRefinementById } from '@modules/groupRefinementSlice'
@@ -27,12 +29,12 @@ const ListItem: React.FC<Props> = ({
     setHover,
     idx,
 }) => {
+    const router = useRouter()
     const {
         bookmark,
         sentLikes,
         handleLikes,
         deleteBookmark,
-        handleJumpLink,
         updateBookmarkImmediately
     } = useBookmark(bookmarkId)
     const { checkList, onCheck } = useContext(BookmarkBulkContext)
@@ -43,17 +45,17 @@ const ListItem: React.FC<Props> = ({
     const { dragging, attachDnDRef, opacity } = useHoverable(bookmark, idx, setHover, profile?.id === group?.owner)
     const colors = group?.colors || {}
     const color = colors[bookmark.color]?.color
+    const handleJumpDetail = (e: React.MouseEvent<HTMLButtonElement>)=>{
+        e.stopPropagation()
+        e.preventDefault()
+        router.push(`/bookmarks/${bookmark.groupId}/${bookmark.id}`)
+    }
     const handleCopyUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
         copyToClipBoard(bookmark.url, () => {
             toast.success('クリップボードにURLをコピーしました',)
         })
         e.stopPropagation()
         e.preventDefault()
-    }
-    const handleOpenUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
-        e.stopPropagation()
-        e.preventDefault()
-        handleJumpLink()
     }
     const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
         e.stopPropagation()
@@ -78,10 +80,10 @@ const ListItem: React.FC<Props> = ({
         <SvgIconButton aria-label='Copy URL' onClick={handleCopyUrl}>
             <Duplicate className='w-5' strokeWidth={1.5} />
         </SvgIconButton>)
-    const openButton = (
-        <SvgIconButton aria-label='Open URL in New Tab' onClick={handleOpenUrl}>
-            <ExternalLink className='w-5' strokeWidth={1.5} />
-        </SvgIconButton>
+    const editButton = (
+        <SvgFillIconButton aria-label='Open URL in New Tab' onClick={handleJumpDetail}>
+            <EditFill className='w-5 fill-primary-600' strokeWidth={1.5} />
+        </SvgFillIconButton>
     )
     const deleteButton = (
         <SvgIconButton aria-label='Delete Bookmark' onClick={handleDelete}>
@@ -123,14 +125,15 @@ const ListItem: React.FC<Props> = ({
                 dragging,
                 image,
                 opacity,
+                linkUrl : bookmark.url,
                 detailLink: `/bookmarks/${bookmark.groupId}/${bookmark.id}`,
                 title: bookmark.title,
                 description: !listViewMask.includes('description') && bookmark.description,
-                url: !listViewMask.includes('url') && origin.host,
+                hostname: !listViewMask.includes('url') && origin.host,
                 comment: !listViewMask.includes('comment') && bookmark.comment,
                 lastUpdate: !listViewMask.includes('lastUpdate') && numberToDateTime(bookmark.lastUpdate),
                 copyIcon: copyButton,
-                openIcon: openButton,
+                editIcon: editButton,
                 deleteIcon: deleteButton,
                 heartButton: heartButton,
                 color,
