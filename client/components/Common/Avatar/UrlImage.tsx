@@ -96,6 +96,7 @@ const UrlImage: React.FC<Props> = ({
     enableEndpoint = true,
 }) => {
     const [useEndpoint, setUseEndpoint] = useState(enableEndpoint)
+    const [loading,setLoading] = useState(true)
     const [error, setError] = useState(false)
     const { srcset } = cAtMax ? makeCAtMaxSrcSet(useEndpoint, width, height, src)
         : makeDefaultSrcSet(useEndpoint, width, height, src)
@@ -126,9 +127,14 @@ const UrlImage: React.FC<Props> = ({
                 onError && onError(true)
             } else {
                 setError(true)
+                setLoading(false)
                 onError && onError()
             }
-        }} srcSet={srcset} style={{ width, height, ...objectFits[objectFit], ...style }} />
+        }} srcSet={srcset} style={{ width, height,
+            backgroundImage: loading ? 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mPMkwQAAPsAiUBY9G8AAAAASUVORK5CYII=)' : 'none',
+            ...objectFits[objectFit], ...style }} onLoad={()=>{
+                setLoading(false)
+            }} />
     )
 }
 
