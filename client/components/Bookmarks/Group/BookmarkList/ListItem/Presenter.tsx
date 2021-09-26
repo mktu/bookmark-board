@@ -3,7 +3,6 @@ import Chat from '@components/Common/Icon/Chat'
 import LinkIcon from '@components/Common/Icon/Link'
 import { TooltipDivContainer } from '@components/Common/Tooltip'
 import { BookmarkListImageSize } from '@utils/constants'
-import { checkIsTouch } from '@utils/dnd'
 
 const borderWidth = 5
 
@@ -45,13 +44,12 @@ const Presenter: React.FC<Props> = ({
     colorButton,
     checkButton
 }) => {
-    const isTouch = checkIsTouch()
     return (
-        <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center relative`}
+        <div ref={attachDnDRef} className={`w-full ${dragging && 'hidden'} flex items-center relative`}
             style={color ? { borderLeft: `${borderWidth}px solid ${color}`, opacity } : { opacity }} >
             <div className='flex p-2 w-full bg-white hover:bg-gray-50 shadow' >
                 <div className='flex absolute top-0 z-10 items-start' style={color ? { left: -borderWidth } : { left: 0 }}>{checkButton}</div>
-                <div ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
+                <div  style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
                     {image}
                 </div>
                 <div style={{ minHeight: BookmarkListImageSize }} className='mx-2' />
