@@ -9,6 +9,8 @@
     "description": "ブックマーク管理アプリ",
     "share_target": {
         "action": "/create-bookmark",
+        "method": "GET",
+        "enctype": "application/x-www-form-urlencoded",
         "params": {
             "title": "name",
             "text": "description",

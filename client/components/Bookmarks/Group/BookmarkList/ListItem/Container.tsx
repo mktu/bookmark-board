@@ -80,7 +80,7 @@ const ListItem: React.FC<Props> = ({
         </SvgIconButton>)
     const openButton = (
         <SvgIconButton aria-label='Open URL in New Tab' onClick={handleOpenUrl}>
-            <ExternalLink className='w-5' strokeWidth={1.5} />
+            <ExternalLink className='w-6 md:w-5' strokeWidth={1.5} />
         </SvgIconButton>
     )
     const deleteButton = (

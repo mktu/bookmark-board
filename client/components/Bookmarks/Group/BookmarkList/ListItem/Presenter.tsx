@@ -63,14 +63,6 @@ const Presenter: React.FC<Props> = ({
                         {description && (<div className='overflow-hidden max-w-full text-xs text-primary-main truncate' key={description} > {description}</div>)}
                         {url && (
                             <div className='md:flex overflow-hidden items-center pt-1 mt-auto max-w-full text-xs text-primary-main truncate' >
-                                {/* {lastUpdate && (
-                                    <div className='flex items-center md:mr-1'>
-                                        <span className='mr-1'>
-                                            <Refresh className='w-4 stroke-primary-main' />
-                                        </span>
-                                        <span>{lastUpdate}</span>
-                                    </div>
-                                )} */}
                                 {url && (
                                     <div className='flex items-center'>
                                         <span>
