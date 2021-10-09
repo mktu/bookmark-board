@@ -14,7 +14,7 @@ export default function BookmarkRequestsPage() {
         <AppLayout
           sidebar={<Sidebar />}
           main={<BookmarkRequests />}
-          header={<AppPageHeader />}
+          header={<AppPageHeader fixed/>}
         />
       </RequireSignedIn>
     </div>

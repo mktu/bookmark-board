@@ -69,12 +69,12 @@ const BookmarkRequests: React.VFC = () => {
                 )}
                 <div className=''><WelcomeImg width='480px' height='480px' /></div>
                 <div className='flex justify-center items-center'>
-                    <ContainedButton className='mr-2' disabled={latestStatus === 'requesting' || exceededLimit} onClick={() => {
+                    <ContainedButton className='mr-2 whitespace-nowrap' disabled={latestStatus === 'requesting' || exceededLimit} onClick={() => {
                         clientService.addRequest({
                             groupId
                         })
-                    }}>参加をリクエストする</ContainedButton>
-                    <OutlinedButton>キャンセルする</OutlinedButton>
+                    }}>参加をリクエスト</ContainedButton>
+                    <OutlinedButton className='whitespace-nowrap'>キャンセル</OutlinedButton>
                 </div>
             </div>
         </div>
