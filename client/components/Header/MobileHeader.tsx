@@ -10,7 +10,7 @@ import Dialog from './MenuCommon'
 
 type ChildType = React.VFC<{ onClose: () => void }>
 
-const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean }> = ({ Child, authed }) => {
+const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean, fixed?: boolean }> = ({ Child, authed, fixed }) => {
     const [open, setOpen] = useState(false)
     const router = useRouter()
     const onClickHome = () => {
@@ -34,7 +34,6 @@ const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean }> = ({ Child,
             <MenuIcon strokeWidth={1.5} className='w-10 h-10' />
         </SvgIconButton>
     )
-
     return (
         <>
             <Layout ref={ref} onClickHome={onClickHome}>
@@ -45,9 +44,11 @@ const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean }> = ({ Child,
                     {menu}
                 </div>
             </Layout>
-            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-75 p-2'} fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
-                {mobileMenu}
-            </div>
+            {fixed && (
+                <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-75 p-2'} fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
+                    {mobileMenu}
+                </div>
+            )}
             <Dialog open={open} onClose={() => { setOpen(o => !o) }}>
                 <Child onClose={() => { setOpen(o => !o) }} />
             </Dialog>

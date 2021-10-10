@@ -86,7 +86,7 @@ export const BulkMenuFixedHeader: React.VFC<{ className?: string, groupId: strin
     const { onDelete, onUpdateColors, disabled } = useBulkMenu()
 
     return (
-        <div className={classNames('p-2 bg-white flex items-center', className)}>
+        <div className={classNames('flex items-center', className)}>
             <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
             <CulkColorOptionContainer className='mx-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
         </div>

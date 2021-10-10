@@ -14,7 +14,7 @@ export default function ProfilePage() {
         <AppLayout
           sidebar={<Sidebar />}
           main={<Profile />}
-          header={<AppPageHeader />}
+          header={<AppPageHeader fixed/>}
         />
       </RequireSignedIn>
     </div>

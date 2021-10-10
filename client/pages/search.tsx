@@ -14,7 +14,7 @@ export default function BookmarksPage() {
                 <AppLayout
                     sidebar={<Sidebar />}
                     main={<Search />}
-                    header={<AppPageHeader />}
+                    header={<AppPageHeader fixed/>}
                 />
             </RequireSignedIn>
         </div>
