@@ -27,7 +27,7 @@ export const Image = <>
     <div className={classNames('hidden md:block', styles.nextImageWrapper)}>
         <NextImage src={appImage} width={760} height={453} placeholder='blur' />
     </div>
-    <div className='md:hidden shadow-lg'>
+    <div className={classNames('md:hidden', styles.nextImageWrapper)}>
         <NextImage src={appImage} width={512} height={305} placeholder='blur'/>
     </div>
 </>
