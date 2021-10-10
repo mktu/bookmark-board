@@ -24,9 +24,9 @@ export const Content: React.FC<{ handleLogin: () => void }> = ({
 // 4:17
 export const Image = <>
     <div className={classNames('hidden md:block')}>
-        <NextImage src={appImage} width={720} height={405} placeholder='blur' />
+        <NextImage src={appImage} width={760} height={453} placeholder='blur' />
     </div>
     <div className='md:hidden shadow-lg'>
-        <NextImage src={appImage} width={512} height={280} placeholder='blur'/>
+        <NextImage src={appImage} width={512} height={305} placeholder='blur'/>
     </div>
 </>
