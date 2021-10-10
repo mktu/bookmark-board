@@ -3,6 +3,7 @@ import NextImage from 'next/image'
 import appImage from 'public/App.png'
 import { ContainedButton } from '@components/Common/Button'
 import classNames from 'classnames'
+import styles from './Top.module.scss' // for dropping shadow ( not good idea )
 
 export const Title = 'ブックマークを親しい人と共有したい'
 
@@ -23,7 +24,7 @@ export const Content: React.FC<{ handleLogin: () => void }> = ({
 // 16:9
 // 4:17
 export const Image = <>
-    <div className={classNames('hidden md:block')}>
+    <div className={classNames('hidden md:block', styles.nextImageWrapper)}>
         <NextImage src={appImage} width={760} height={453} placeholder='blur' />
     </div>
     <div className='md:hidden shadow-lg'>
