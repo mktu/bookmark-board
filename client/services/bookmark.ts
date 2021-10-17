@@ -88,38 +88,41 @@ export async function modifyBookmarks(
     await batch.commit()
 }
 
-async function moveGroupAsync(
-    sourceId: string,
-    sourceGroupId: string,
+export async function moveGroupAsync(
+    sources: Pick<Bookmark, 'id' | 'groupId'>[],
     destGroupId: string,
     copy?: boolean
 ) {
-    const sourceDoc = getBookmarkDoc(sourceGroupId, sourceId)
-
-    const sourceData = await getDoc(sourceDoc)
-    const destData = {
-        ...sourceData.data(),
-        groupId: destGroupId,
-        reactions: {},
-        lastUpdate: Date.now()
-    }
     const batch = writeBatch(firestore)
-    const destDoc = doc(getBookmarkCollection(destGroupId))
-    batch.set(destDoc, destData)
-    if (!copy) {
-        batch.delete(sourceDoc)
-    }
+    const promises = sources.map(async (source)=>{
+        const {id : sourceId, groupId : sourceGroupId} = source
+        const sourceDoc = getBookmarkDoc(sourceGroupId, sourceId)
+
+        const sourceData = await getDoc(sourceDoc)
+        const destData = {
+            ...sourceData.data(),
+            groupId: destGroupId,
+            reactions: {},
+            lastUpdate: Date.now()
+        }
+        const destDoc = doc(getBookmarkCollection(destGroupId))
+        batch.set(destDoc, destData)
+        if (!copy) {
+            batch.delete(sourceDoc)
+        }
+    })
+    await Promise.all(promises)
     await batch.commit()
 }
 
 export function moveGroup(
-    source: Pick<Bookmark, 'id' | 'groupId'>,
+    sources: Pick<Bookmark, 'id' | 'groupId'>[],
     destGroupId: string,
     onSucceeded?: Notifier,
     copy?: boolean,
     onFailed: ErrorHandler = console.error
 ) {
-    moveGroupAsync(source.id, source.groupId, destGroupId, copy)
+    moveGroupAsync(sources, destGroupId, copy)
         .then(onSucceeded)
         .catch(onFailed)
 }

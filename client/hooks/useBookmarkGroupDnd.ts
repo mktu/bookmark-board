@@ -30,7 +30,7 @@ export const useHoverable = (
         drop: (_, monitor) => {
             if (monitor.getItemType() === 'LIST') {
                 const i = monitor.getItem()
-                clientService.moveGroup(i, bookmarkGroup.id, ()=>{
+                clientService.moveGroup([i], bookmarkGroup.id, ()=>{
                     toast.success(`ブックマークを${i.hasOwnership ? '移動しました' : 'コピーしました'}`)
                 }, !i.hasOwnership)
             }

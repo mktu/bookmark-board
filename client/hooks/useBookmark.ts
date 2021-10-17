@@ -1,26 +1,20 @@
 import { useContext, useState, useCallback, useMemo } from 'react'
 import { useRouter } from 'next/router'
-import { useBookmarkById, initialBookmark } from '../modules/bookmarkSlice'
-import { useGroupsByUser } from '../modules/groupSlice'
+import { useBookmarkById, initialBookmark } from '@modules/bookmarkSlice'
+import { useGroupSelector } from './useBookmarkGroup'
 import { useProfile } from '@modules/profileSlice'
 import FirebaseContext from '../context/FirebaseContext'
 
 export const useMoveGroup = (bookmark: Bookmark) => {
-    const profile = useProfile()
     const router = useRouter()
-    const groups = useGroupsByUser(profile.id)
+    const { selectedGroup : moveDest, handleSelect : handleSelectMoveDest, groups } = useGroupSelector(bookmark?.groupId)
     const { clientService } = useContext(FirebaseContext)
     const [copyGroup, setCopyGroup] = useState(false)
     const group = groups.find(g => bookmark && g.id === bookmark.groupId)
-    const [moveDest, setMoveDest] = useState(group)
     const handleMove = () => {
-        clientService.moveGroup(bookmark, moveDest.id, () => {
+        clientService.moveGroup([bookmark], moveDest.id, () => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
         }, copyGroup)
-    }
-
-    const handleSelectMoveDest = (s: string) => {
-        setMoveDest(groups.find(g => g.id === s))
     }
 
     return {

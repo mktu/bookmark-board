@@ -88,6 +88,7 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         deleteBookmark : func('deleteBookmark'),
         deleteBookmarks : async ()=>{func('deleteBookmarks')},
         moveGroup : func('moveGroup'),
+        moveGroupAsync : async ()=>{func('moveGroupAsync')},
         listenBookmarks : () => {func('listenBookmarks')(); return ()=>{1}},
         changeOrder : func('changeOrder'),
         uploadFile : func('uploadFile'),

@@ -18,6 +18,9 @@ export const initialService : ContextType = {
     updateColors : async()=>{
         console.log('dummy updateColors')
     },
+    moveGroup: async ()=>{
+        console.log('dummy moveGroup')
+    },
     checkState : 'none',
     disabled : true
 }

@@ -1,6 +1,6 @@
 import { useContext, useMemo, useState, useCallback } from 'react'
 import { useRouter } from 'next/router'
-import { useGroupById, initialGroup } from '@modules/groupSlice'
+import { useGroupById, initialGroup, useGroupsByUser } from '@modules/groupSlice'
 import { useUsersByIds } from '@modules/usersSlice'
 import { useProfile } from '@modules/profileSlice'
 import FirebaseContext from '@context/FirebaseContext'
@@ -85,5 +85,21 @@ export const useBookmarkGroup = (groupId?: string) => {
         handleSubmit,
         hasChange,
         hasOwnership
+    }
+}
+
+export const useGroupSelector = (initGroupId?:string)=>{
+    const profile = useProfile()
+    const groups = useGroupsByUser(profile.id)
+    const [selectedGroup, selectGroup] = useState(groups.find(g => initGroupId && g.id === initGroupId))
+
+    const handleSelect = (groupId: string) => {
+        selectGroup(groups.find(g => g.id === groupId))
+    }
+
+    return {
+        groups,
+        selectedGroup,
+        handleSelect
     }
 }
