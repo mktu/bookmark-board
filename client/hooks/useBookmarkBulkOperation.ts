@@ -63,6 +63,7 @@ const useBookmarkBulkOperation = (groupId:string, boolmarkIds:string[]) => {
     const moveGroup = useCallback(async (destGroupId:string)=>{
         try{
             await clientService.moveGroupAsync(selectedBookmarks.map(v=>({id:v,groupId:groupId})), destGroupId)
+            toast.success('ブックマークを移動しました')
             setCheckList({})
         }catch(e){
             console.error(e)
