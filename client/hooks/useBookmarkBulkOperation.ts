@@ -60,6 +60,18 @@ const useBookmarkBulkOperation = (groupId:string, boolmarkIds:string[]) => {
         }, {} as typeof checkList))
     },[boolmarkIds])
 
+    const moveGroup = useCallback(async (destGroupId:string)=>{
+        try{
+            await clientService.moveGroupAsync(selectedBookmarks.map(v=>({id:v,groupId:groupId})), destGroupId)
+            toast.success('ブックマークを移動しました')
+            setCheckList({})
+        }catch(e){
+            console.error(e)
+            toast.error('グループの移動に失敗しました')
+            throw e
+        }
+    },[selectedBookmarks,clientService,groupId])
+
     return {
         checkList,
         onCheck,
@@ -67,7 +79,8 @@ const useBookmarkBulkOperation = (groupId:string, boolmarkIds:string[]) => {
         checkAll,
         checkState,
         updateColors,
-        disabled
+        disabled,
+        moveGroup
     }
 }
 
