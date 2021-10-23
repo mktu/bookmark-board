@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import { checkIsTouch } from '@utils/dnd'
 
 type Props = {
     bookmarkIds: string[]
@@ -13,6 +14,11 @@ const Layout: React.FC<Props> = ({
     input
 }) => {
     const [footerHeight, setFooter] = useState<number>()
+    useEffect(() => {
+        window && checkIsTouch() && window.scrollTo({
+            top: 0,
+        });
+    }, [])
     return (
         <div className='flex overflow-hidden relative flex-col items-center w-full h-full bg-primary-light'>
             <div className='flex overflow-hidden flex-col flex-1 items-center w-full h-full' >
