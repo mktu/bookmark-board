@@ -1,10 +1,9 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState } from 'react'
 
 type Props = {
     input: React.ReactNode,
     addButton: React.ReactNode,
     groupList: React.ReactNode,
-    registScroller: (scroll: () => void) => void,
     error?: string
 }
 
@@ -12,20 +11,9 @@ const Presenter: React.FC<Props> = ({
     input,
     addButton,
     groupList,
-    registScroller,
     error
 }) => {
     const [footerHeight, setFooter] = useState<number>()
-    const ref = useRef<HTMLDivElement>()
-    useEffect(()=>{
-        registScroller(()=>{
-            if(!ref.current){
-                return
-            }
-            console.log(ref.current.scrollHeight)
-            ref.current.scrollTop = ref.current.scrollHeight;
-        })
-    },[registScroller])
     return (
         <div className='flex flex-col w-full h-full bg-white border-r border-primary-border'>
             <div className='hidden md:flex flex-row justify-between items-center p-1 text-primary-main border-primary-border'>
@@ -37,7 +25,7 @@ const Presenter: React.FC<Props> = ({
                 </div>
             </div>
             {error && (<div className='hidden md:block py-2 px-4 text-xs text-secondary-main'>{error}</div>)}
-            <div className='overflow-y-auto mt-2 md:mt-0 h-full' ref={ref}>
+            <div className='overflow-y-auto mt-2 md:mt-0 h-full'>
                 {groupList}
             </div>
             <div className='md:hidden' style={{

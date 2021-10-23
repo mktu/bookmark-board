@@ -1,4 +1,5 @@
 import { useState, useContext, useCallback, useMemo } from 'react'
+import { toast } from 'react-toastify'
 import { useProfile } from '@modules/profileSlice'
 import { useGroupsByUser } from '@modules/groupSlice'
 import { MaxGroupNumber } from '@utils/constants'
@@ -42,6 +43,7 @@ const useNewBookmarkGroupInput = () => {
         }
         await addGroup(newGroup,profile.id)
         setNewGroup('')
+        toast('グループを追加しました.')
     }, [newGroup, profile.id, addGroup, error])
     return {
         error,
