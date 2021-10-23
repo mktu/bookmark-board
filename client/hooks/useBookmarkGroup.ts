@@ -40,10 +40,9 @@ export const useBookmarkGroup = (groupId?: string) => {
         updatePartial({ users: group.users.filter(u => u !== uid) })
     }, [group?.users, updatePartial])
 
-    const handleDeleteGroup = () => {
-        clientService.deleteGroup(group.id, () => {
-            router.push('/bookmarks')
-        })
+    const handleDeleteGroup = async () => {
+        await clientService.deleteGroup(group.id)
+        router.push('/bookmarks')
     }
     const updateGroup = useCallback((key: keyof BookmarkGroup) => (value: string) => {
         updatePartial({ [key]: value })

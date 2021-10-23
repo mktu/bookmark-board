@@ -68,7 +68,7 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         addGroup : func('addGroup'),
         getGroups : func('getGroups'),
         getGroup : func('getGroup'),
-        deleteGroup : func('deleteGroup'),
+        deleteGroup : async ()=>{func('deleteGroup')},
         modifyGroup : func('modifyGroup'),
         changeGroupOrder : func('changeGroupOrder'),
         listenGroups : () => {func('listenGroups')(); return ()=>{1}},

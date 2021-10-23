@@ -43,7 +43,7 @@ const useNewBookmarkGroupInput = () => {
         }
         await addGroup(newGroup,profile.id)
         setNewGroup('')
-        toast('グループを追加しました.')
+        toast.success('グループを追加しました.')
     }, [newGroup, profile.id, addGroup, error])
     return {
         error,
