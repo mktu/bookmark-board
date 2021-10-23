@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useCallback } from 'react'
 import { SvgIconButton } from '@components/Common/Button'
 import { Add, Folder } from '@components/Common/Icon'
 import FirebaseContext from '@context/FirebaseContext'
@@ -13,6 +13,7 @@ import Input from './Input'
 
 const Container: React.FC = () => {
     const [hover, setHover] = useState(-1)
+    const [scrollToBottom, setScrollToBottom] = useState<{scroller:()=>void}>()
     const { clientService } = useContext(FirebaseContext)
     const profile = useProfile()
     const groups = useGroupsByUser(profile.id)
@@ -22,6 +23,10 @@ const Container: React.FC = () => {
         const ordered = spliceAndInsert(groups.map(g => g.id), next, id)
         clientService.changeGroupOrder(ordered)
     }
+
+    const registScroller = useCallback((cb:()=>void)=>{
+        setScrollToBottom({scroller:cb})
+    },[])
 
     const input = (
         <Input
@@ -42,7 +47,10 @@ const Container: React.FC = () => {
         <SvgIconButton
             disabled={Boolean(error) || !newGroup}
             aria-label='Add Group'
-            onClick={submit}>
+            onClick={async ()=>{
+                await submit()
+                scrollToBottom && scrollToBottom.scroller()
+            }}>
             <Add strokeWidth={1.5} className='w-10' />
         </SvgIconButton>
     )
@@ -63,7 +71,8 @@ const Container: React.FC = () => {
                 error,
                 input,
                 addButton,
-                groupList
+                groupList,
+                registScroller
             }}
         />
     )

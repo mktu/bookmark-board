@@ -19,7 +19,7 @@ const Input: React.FC<InputProps & {
                 <div className='flex md:hidden overflow-hidden flex-row items-center max-w-full'>
                     <div className='overflow-hidden flex-1 w-full'>
                         <div className='bg-white rounded focus:ring shadow'>
-                            <BookmarkInputBase aria-label='Input Bookmark URL' {...props} />
+                            <BookmarkInputBase aria-label='Input Bookmark URL' padding='px-3' {...props} />
                         </div>
                     </div>
                 </div>

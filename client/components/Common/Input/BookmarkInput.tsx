@@ -2,12 +2,13 @@ import React from 'react'
 import classNames from 'classnames'
 import {InputProps} from './TextInputBase'
 
-export const BookmarkInputBase: React.FC<InputProps> = ({
+export const BookmarkInputBase: React.FC<InputProps & {padding?:string}> = ({
     className,
+    padding = 'px-3 py-3',
     ...props
 }) => {
     return (
-        <input {...props} type="text" className={classNames("px-3 py-3 bg-transparent placeholder-primary-200 text-primary-700 relative md:text-sm outline-none focus:outline-none w-full",className)} />
+        <input {...props} type="text" className={classNames("bg-transparent placeholder-primary-200 text-primary-700 relative md:text-sm outline-none focus:outline-none w-full", padding, className)} />
     )
 }
 
