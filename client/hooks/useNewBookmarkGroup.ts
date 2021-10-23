@@ -26,12 +26,16 @@ const useNewBookmarkGroupInput = () => {
     const [newGroup, setNewGroup] = useState('')
     const profile = useProfile()
     const groups = useGroupsByUser(profile.id)
+    const hasInput = Boolean(newGroup)
     const error = useMemo(() => {
+        if(!hasInput){
+            return ''
+        }
         if (groups.length >= MaxGroupNumber) {
             return `登録できるグループの上限(${MaxGroupNumber})を超えています.`
         }
         return ''
-    }, [groups])
+    }, [groups,hasInput])
     const submit = useCallback(async () => {
         if (newGroup === '' || !profile.id || error) {
             return
