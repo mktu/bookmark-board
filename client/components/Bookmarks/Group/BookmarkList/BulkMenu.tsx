@@ -117,7 +117,7 @@ export const BulkMenuMobile: React.VFC<{ className?: string, groupId: string }> 
     const { onDelete, onUpdateColors, disabled ,moveGroup } = useBulkMenu()
 
     return (
-        <div className={classNames('py-1 w-full flex items-center', className)}>
+        <div className={classNames('w-full flex items-center', className)}>
             <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
             <BulkColorOptionContainer className='ml-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
             <BulkMoveOptionContainer className='mx-4' groupId={groupId} handleMove={moveGroup} disabled={disabled}/>
