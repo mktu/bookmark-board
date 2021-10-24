@@ -1,6 +1,6 @@
 import React from 'react'
-import { useRefinementById } from '../../../../modules/groupRefinementSlice'
-import { saveRefinement } from '../../../../utils/localStorages/group'
+import { useRefinementById } from '@modules/groupRefinementSlice'
+import { saveRefinement } from '@utils/localStorages/group'
 
 type Props = {
     groupId: string
