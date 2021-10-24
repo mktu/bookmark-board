@@ -64,7 +64,15 @@ const Container: React.FC<Props> = ({
     }, [editors, handleRemoveUser, profile, group.owner])
 
     const dangerZone = useMemo(() => profile.id === group.owner && (
-        <DangerZone className='mt-6' groupName={group.name} handleDelete={handleDeleteGroup} />
+        <DangerZone className='mt-6' groupName={group.name} handleDelete={async ()=>{
+            try{
+                await handleDeleteGroup()
+                toast.success('グループを削除しました')
+            }catch(error){
+                console.error(error)
+                toast.error('削除に失敗しました')
+            }
+        }} />
     ), [profile.id, group.owner, group.name, handleDeleteGroup])
 
     const title = useMemo(() => (

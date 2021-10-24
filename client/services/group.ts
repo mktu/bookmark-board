@@ -60,16 +60,12 @@ export function modifyGroup(
         .catch(onFailed);
 }
 
-export function deleteGroup(
-    groupId: string,
-    onSucceeded?: Notifier,
-    onFailed: ErrorHandler = console.error
+export async function deleteGroup(
+    groupId: string
 ) {
-    deleteDoc(
+    await deleteDoc(
         getGroupDoc(groupId)
     )
-        .then(onSucceeded)
-        .catch(onFailed)
 }
 
 export function getGroups(

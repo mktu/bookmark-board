@@ -1,4 +1,5 @@
 import { useState, useContext, useCallback, useMemo } from 'react'
+import { toast } from 'react-toastify'
 import { useProfile } from '@modules/profileSlice'
 import { useGroupsByUser } from '@modules/groupSlice'
 import { MaxGroupNumber } from '@utils/constants'
@@ -26,18 +27,23 @@ const useNewBookmarkGroupInput = () => {
     const [newGroup, setNewGroup] = useState('')
     const profile = useProfile()
     const groups = useGroupsByUser(profile.id)
+    const hasInput = Boolean(newGroup)
     const error = useMemo(() => {
+        if(!hasInput){
+            return ''
+        }
         if (groups.length >= MaxGroupNumber) {
             return `登録できるグループの上限(${MaxGroupNumber})を超えています.`
         }
         return ''
-    }, [groups])
+    }, [groups,hasInput])
     const submit = useCallback(async () => {
         if (newGroup === '' || !profile.id || error) {
             return
         }
         await addGroup(newGroup,profile.id)
         setNewGroup('')
+        toast.success('グループを追加しました.')
     }, [newGroup, profile.id, addGroup, error])
     return {
         error,

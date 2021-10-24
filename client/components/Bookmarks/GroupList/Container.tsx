@@ -1,5 +1,4 @@
 import React, { useState, useContext } from 'react'
-import { InputWithIcon } from '@components/Common/Input'
 import { SvgIconButton } from '@components/Common/Button'
 import { Add, Folder } from '@components/Common/Icon'
 import FirebaseContext from '@context/FirebaseContext'
@@ -10,6 +9,7 @@ import { spliceAndInsert } from '../../../logics'
 import ListItem from './ListItem'
 import Presenter from './Presenter'
 import Droppable from './Droppable'
+import Input from './Input'
 
 const Container: React.FC = () => {
     const [hover, setHover] = useState(-1)
@@ -24,7 +24,7 @@ const Container: React.FC = () => {
     }
 
     const input = (
-        <InputWithIcon
+        <Input
             aria-label='Input New Group'
             value={newGroup}
             onChange={(e) => {
@@ -63,7 +63,7 @@ const Container: React.FC = () => {
                 error,
                 input,
                 addButton,
-                groupList
+                groupList,
             }}
         />
     )
