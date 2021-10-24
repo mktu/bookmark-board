@@ -11,16 +11,18 @@ export type Props<T extends HTMLElement> = {
     render: (toggle:()=>void)=>React.ReactNode,
     content?: React.ReactNode,
     placement?: PopperChildrenProps['placement'],
-    zIndex?:number
+    zIndex?:number,
+    disabled?:boolean
 } | {
     children: Children<T>,
     render?: (toggle:()=>void)=>React.ReactNode,
     content: React.ReactNode,
     placement?: PopperChildrenProps['placement'],
-    zIndex?:number
+    zIndex?:number,
+    disabled?:boolean
 }
 
-export function Popover<T extends HTMLElement>({ children, content, render, placement = 'auto', zIndex=20 }: Props<T>) {
+export function Popover<T extends HTMLElement>({ children, content, render, disabled, placement = 'auto', zIndex=20 }: Props<T>) {
     const [popoverShow, setPopoverShow] = useState(false);
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
@@ -50,13 +52,16 @@ export function Popover<T extends HTMLElement>({ children, content, render, plac
                         setReferenceElement(value)
                     },
                     onClick: (e:React.MouseEvent<T>)=>{
+                        if(disabled){
+                            return
+                        }
                         e.stopPropagation && e.stopPropagation()
                         e.preventDefault && e.preventDefault()
                         toggle()
                     },
                 }
                 return React.cloneElement(children, childProps)
-            }, [children, toggle])}
+            }, [children, toggle, disabled])}
             {popoverShow && (
                 <Clickaway onClickAway={() => {
                     setPopoverShow(false)
