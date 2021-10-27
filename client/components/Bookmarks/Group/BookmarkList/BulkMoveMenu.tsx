@@ -34,7 +34,7 @@ const BulkMoveMenu: VFC<Props> = ({
             <div className='flex justify-end items-center mt-2 text-xs'>
                 <TextButton onClick={handleClose}>キャンセル</TextButton>
                 {targetGroup.length > 0 && (
-                    <ContainedButton className='ml-2' onClick={() => {
+                    <ContainedButton disabled={!selectedGroup || selectedGroup.id === groupId} className='ml-2' onClick={() => {
                         selectedGroup && handleMove(selectedGroup.id)
                     }}>移動する</ContainedButton>
                 )}
