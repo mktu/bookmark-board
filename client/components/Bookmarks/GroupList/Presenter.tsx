@@ -15,7 +15,7 @@ const Presenter: React.FC<Props> = ({
 }) => {
     const [footerHeight, setFooter] = useState<number>()
     return (
-        <div className='flex flex-col w-full h-full bg-white border-r border-primary-border'>
+        <div className='flex flex-col w-full h-full bg-primary-light md:bg-white border-r border-primary-border'>
             <div className='hidden md:flex flex-row justify-between items-center p-1 text-primary-main border-primary-border'>
                 <div className='p-2 w-full'>
                     {input}
@@ -25,7 +25,7 @@ const Presenter: React.FC<Props> = ({
                 </div>
             </div>
             {error && (<div className='hidden md:block py-2 px-4 text-xs text-secondary-main'>{error}</div>)}
-            <div className='overflow-y-auto mt-2 md:mt-0 h-full'>
+            <div className='overflow-y-auto py-2 md:py-0 bg-white md:border-0 border-b border-primary-border'>
                 {groupList}
             </div>
             <div className='md:hidden' style={{

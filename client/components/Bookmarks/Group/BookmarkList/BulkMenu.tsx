@@ -44,7 +44,7 @@ const Confirm: React.VFC<{ onSubmit: () => void, onCancel: () => void, text: str
 type Toggle = () => void
 
 const BulkDeletePopoverContainer: React.VFC<{ className?: string, onSubmit: (toggle: Toggle) => void, disabled?:boolean }> = ({ onSubmit, className, disabled }) => (
-    <PopoverDivContainer className={className} render={(toggle) => (
+    <PopoverDivContainer disabled={disabled} className={className} render={(toggle) => (
         <Confirm text='削除する' onCancel={() => {
             toggle()
         }} onSubmit={() => { onSubmit(toggle) }} />
@@ -55,7 +55,7 @@ const BulkDeletePopoverContainer: React.VFC<{ className?: string, onSubmit: (tog
 
 const BulkColorOptionContainer: React.VFC<{ className?: string, groupId: string, handleSelectColor: (color: string, toggle: Toggle) => void, disabled?:boolean }> =
     ({ className, groupId, handleSelectColor, disabled }) => (
-        <PopoverDivContainer className={className} render={(toggle) => (
+        <PopoverDivContainer disabled={disabled} className={className} render={(toggle) => (
             <Selector groupId={groupId} handleSelectColor={(color) => { handleSelectColor(color, toggle) }} />
         )}>
             <BulkColor disabled={disabled}/>
@@ -64,7 +64,7 @@ const BulkColorOptionContainer: React.VFC<{ className?: string, groupId: string,
 
 const BulkMoveOptionContainer: React.VFC<{ className?: string, groupId: string, handleMove: (destGroupId : string) => void, disabled?:boolean }> =
     ({ className, groupId, handleMove, disabled }) => (
-        <PopoverDivContainer className={className} render={(toggle) => (
+        <PopoverDivContainer disabled={disabled} className={className} render={(toggle) => (
             <BulkMoveMenu groupId={groupId} handleClose={toggle} handleMove={handleMove}/>
         )}>
             <BulkMove disabled={disabled}/>
@@ -117,7 +117,7 @@ export const BulkMenuMobile: React.VFC<{ className?: string, groupId: string }> 
     const { onDelete, onUpdateColors, disabled ,moveGroup } = useBulkMenu()
 
     return (
-        <div className={classNames('py-1 w-full flex items-center', className)}>
+        <div className={classNames('w-full flex items-center', className)}>
             <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
             <BulkColorOptionContainer className='ml-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
             <BulkMoveOptionContainer className='mx-4' groupId={groupId} handleMove={moveGroup} disabled={disabled}/>
