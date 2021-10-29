@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 type ClickAwayListenerProps<T extends HTMLElement> = {
-    onClickAway: () => void;
+    onClickAway: (e:Event) => void;
     children: React.ReactElement & React.RefAttributes<T>
 };
 
@@ -18,7 +18,7 @@ function ClickAwayListener<T extends HTMLElement>({
                 return;
             }
             if (!element.contains(e.target as Node)) {
-                onClickAway();
+                onClickAway(e);
             }
         }
         if (element) {
