@@ -24,6 +24,7 @@ export type Props<T extends HTMLElement> = {
 
 export function Popover<T extends HTMLElement>({ children, content, render, disabled, placement = 'auto', zIndex=20 }: Props<T>) {
     const [popoverShow, setPopoverShow] = useState(false);
+    const [timestamp,setTimestamp] = useState(-1)
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -55,16 +56,17 @@ export function Popover<T extends HTMLElement>({ children, content, render, disa
                         if(disabled){
                             return
                         }
-                        e.stopPropagation && e.stopPropagation()
-                        e.preventDefault && e.preventDefault()
+                        setTimestamp(e.timeStamp)
                         toggle()
                     },
                 }
                 return React.cloneElement(children, childProps)
             }, [children, toggle, disabled])}
             {popoverShow && (
-                <Clickaway onClickAway={() => {
-                    setPopoverShow(false)
+                <Clickaway onClickAway={(e) => {
+                    if(timestamp!==e.timeStamp){
+                        setPopoverShow(false)
+                    }
                 }}>
                     <div ref={setPopperElement} style={{...styles.popper, zIndex}} {...attributes.popper}>
                         {render ? render(toggle) : content}
