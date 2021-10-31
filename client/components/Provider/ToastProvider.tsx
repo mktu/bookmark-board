@@ -16,6 +16,7 @@ const contextClass = {
 
 const ToastProvider: React.FC<Props> = () => (
     <ToastContainer
+        className='md:opacity-90'
         toastClassName={({ type }) => contextClass[type || "default"] +
             " flex p-2 md:p-1 min-h-10 md:rounded-md justify-between overflow-hidden cursor-pointer"
         }
