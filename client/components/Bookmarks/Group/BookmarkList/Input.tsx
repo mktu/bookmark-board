@@ -1,10 +1,13 @@
 import React from 'react'
-import { AddFill, Add, ChevronDown } from '../../../Common/Icon'
-import { SvgIconButton, SvgFillIconButton } from '../../../Common/Button'
-import { BookmarkInputBase } from '../../../Common/Input'
-import { LinkPreview } from '../../../Common/LinkPreview'
+import AddFill from '@components/Common/Icon/AddFill'
+import Add from '@components/Common/Icon/Add'
+import ChevronDown from '@components/Common/Icon/ChevronDown'
+import Exclamation from '@components/Common/Icon/Exclamation'
+import { SvgIconButton, SvgFillIconButton } from '@components/Common/Button'
+import { BookmarkInputBase } from '@components/Common/Input'
+import { LinkPreview } from '@components/Common/LinkPreview'
 import styles from './index.module.scss'
-import useNewBookmark from '../../../../hooks/useNewBookmark'
+import useNewBookmark from '@hooks/useNewBookmark'
 
 type Props = {
     groupId: string,
@@ -23,16 +26,26 @@ const Input: React.FC<Props> = ({
         linkData,
         bookmarkInput,
         error,
+        warn,
         onChangeBookmarkInput,
         submit,
         onKeyPress
     } = useNewBookmark(groupId)
 
     let preview = null
+    
     if (error) {
         preview = (
             <div className='p-2 text-sm text-secondary-main' >
                 {error}
+            </div>
+        )
+    }
+    else if(warn){
+        preview = (
+            <div className='flex items-center p-2 text-sm text-coral-500' >
+                <span><Exclamation className='mr-2 w-5 h-5 stroke-coral-500' fill='none'/></span>
+                {warn}
             </div>
         )
     }
@@ -43,6 +56,8 @@ const Input: React.FC<Props> = ({
             </div>
         )
     }
+    
+    
     return (
         <div className='relative w-full bg-white border-t border-primary-border'>
             <div className={`overflow-hidden transition-all ease-in-out duration-200 transform ${show ? 'p-4' : 'h-0'}`}>

@@ -28,14 +28,15 @@ const Presenter: VFC<Props> = ({
             <div className='mt-4 w-full bg-white rounded border border-primary-border focus:ring shadow' >
                 {Input}
             </div>
-            {errorMessage && (
+            {errorMessage ? (
                 <div className='mt-4 w-full text-sm text-secondary-main'>
                     {errorMessage}
                 </div>
+            ) : (
+                <div className='mt-4 w-full' >
+                    {Preview}
+                </div>
             )}
-            <div className='mt-4 w-full' >
-                {Preview}
-            </div>
             <div className='flex justify-end items-end mt-4 w-full'>
                 <div>{Cancel}</div>
                 <div className='ml-2'>{Submit}</div>

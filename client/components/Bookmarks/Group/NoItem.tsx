@@ -4,6 +4,7 @@ import { NoItemImg } from '@components/Common/Image'
 import BookmarkInput from '@components/Common/Input/BookmarkInput'
 import { SvgIconButton } from '@components/Common/Button'
 import Add from '@components/Common/Icon/Add'
+import Exclamation from '@components/Common/Icon/Exclamation'
 import Share from '@components/Common/Icon/Share'
 import { LinkPreview } from '@components/Common/LinkPreview'
 import useNewBookmark from '@hooks/useNewBookmark'
@@ -23,7 +24,8 @@ const NoItem: React.FC<Props> = ({
         url,
         linkData,
         error,
-        status
+        status,
+        warn
     } = useNewBookmark(groupId)
 
     let preview = null
@@ -31,6 +33,14 @@ const NoItem: React.FC<Props> = ({
         preview = (
             <div className=' p-2 text-sm text-secondary-main' >
                 {error}
+            </div>
+        )
+    }
+    else if(warn){
+        preview = (
+            <div className='flex items-center p-2 text-sm text-coral-500' >
+                <span><Exclamation className='mr-2 w-5 h-5 stroke-coral-500' fill='none'/></span>
+                {warn}
             </div>
         )
     }

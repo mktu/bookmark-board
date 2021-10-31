@@ -17,12 +17,14 @@ module.exports = {
       },
       stroke: theme => ({
         primary: theme('colors.primary'),
-        secondary: theme('colors.secondary')
+        secondary: theme('colors.secondary'),
+        coral: theme('colors.coral')
       }),
       fill: theme => ({
         primary: theme('colors.primary'),
         secondary: theme('colors.secondary'),
         white: theme('colors.white'),
+        coral: theme('colors.coral')
       }),
       colors: {
         brand: '#293239',
