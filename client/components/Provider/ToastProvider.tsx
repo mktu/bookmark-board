@@ -1,5 +1,5 @@
 import React from 'react'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Flip } from 'react-toastify';
 
 type Props = {
 
@@ -16,12 +16,14 @@ const contextClass = {
 
 const ToastProvider: React.FC<Props> = () => (
     <ToastContainer
+        className='opacity-90'
         toastClassName={({ type }) => contextClass[type || "default"] +
             " flex p-2 md:p-1 min-h-10 md:rounded-md justify-between overflow-hidden cursor-pointer"
         }
         bodyClassName={() => "text-sm font-white font-med block p-3"}
         autoClose={5000}
         hideProgressBar
+        transition={Flip}
         newestOnTop={false}
         closeOnClick
         rtl={false}
