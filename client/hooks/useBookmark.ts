@@ -30,6 +30,7 @@ export const useMoveGroup = (bookmark: Bookmark) => {
 export const useBookmark = (bookmarkId: string) => {
     const profile = useProfile()
     const base = useBookmarkById(bookmarkId)
+    const [deleteMode,setDeleteMode] = useState(false)
     const [update, setUpdate] = useState<Partial<Bookmark>>({})
     const bookmark = useMemo(()=>({
         ...initialBookmark,
@@ -112,6 +113,8 @@ export const useBookmark = (bookmarkId: string) => {
         sentLikes,
         status,
         hasChange,
+        deleteMode,
+        setDeleteMode,
         handleLikes,
         handleRefetch,
         updateBookmark,
