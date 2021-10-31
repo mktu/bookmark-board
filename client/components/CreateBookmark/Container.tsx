@@ -68,7 +68,7 @@ const Container: VFC = () => {
         </OutlinedButton>
     ), [router])
     return (
-        <Presenter Input={Input} Preview={Preview} GroupDropdown={GroupDropdown} Cancel={Cancel} Submit={Submit} errorMessage={error} warnMessage={warn} />
+        <Presenter Input={Input} Preview={Preview} GroupDropdown={GroupDropdown} Cancel={Cancel} Submit={Submit} errorMessage={error} />
     )
 }
 
