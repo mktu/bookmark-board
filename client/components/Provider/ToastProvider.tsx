@@ -6,7 +6,7 @@ type Props = {
 }
 
 const contextClass = {
-    success: "bg-blue-500",
+    success: "bg-indigo-600",
     error: "bg-red-500",
     info: "bg-gray-500",
     warning: "bg-orange-400",
@@ -16,7 +16,6 @@ const contextClass = {
 
 const ToastProvider: React.FC<Props> = () => (
     <ToastContainer
-        className='md:opacity-90'
         toastClassName={({ type }) => contextClass[type || "default"] +
             " flex p-2 md:p-1 min-h-10 md:rounded-md justify-between overflow-hidden cursor-pointer"
         }
