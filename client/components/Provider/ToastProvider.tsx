@@ -6,11 +6,11 @@ type Props = {
 }
 
 const contextClass = {
-    success: "bg-primary-600",
+    success: "bg-blue-500",
     error: "bg-red-500",
     info: "bg-gray-500",
     warning: "bg-orange-400",
-    default: "bg-primary-600",
+    default: "bg-blue-500",
     dark: "bg-white-600 font-gray-300",
 };
 
