@@ -14,7 +14,7 @@ import Color from './Color'
 import Move from './Move'
 import Date from './Date'
 import Image from './Image'
-import Trash from './Trash'
+import Delete from './Delete'
 
 type Props = {
     bookmarkId: string,
@@ -32,19 +32,21 @@ const Container: React.FC<Props> = ({
         sentLikes,
         status,
         hasChange,
+        deleteMode,
         handleLikes,
         handleRefetch,
         updateBookmark,
         handleJumpLink,
         deleteBookmark,
-        handleSubmit
+        handleSubmit,
+        setDeleteMode
     } = useBookmark(bookmarkId)
     const moveGroupProps = useMoveGroup(bookmark)
     const { group } = useBookmarkGroup(bookmark?.groupId)
     const inputDisabled = status === 'loading'
 
     const title = useMemo(() => (
-        <TextInput label='Title' disabled={inputDisabled} id='title' value={bookmark.title} onChange={(e)=>{updateBookmark('title')(e.target.value)}} />
+        <TextInput label='Title' disabled={inputDisabled} id='title' value={bookmark.title} onChange={(e) => { updateBookmark('title')(e.target.value) }} />
     ), [inputDisabled, bookmark.title, updateBookmark])
 
     const heart = useMemo(() => (<HeartButton
@@ -93,13 +95,10 @@ const Container: React.FC<Props> = ({
     ), [bookmark.disableEndpoint, updateBookmark, bookmark.images, bookmark.image, status])
 
     const trash = useMemo(() => (
-        <Trash handleDelete={() => {
-            deleteBookmark().then(()=>{
-                router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
-                toast.success('ブックマークを削除しました')
-            })
-        }} />
-    ), [router, group.id, deleteBookmark])
+        <Delete checked={deleteMode}
+            onChange={setDeleteMode}
+        />
+    ), [deleteMode, setDeleteMode])
 
     const submit = useMemo(() => (
         <ContainedButton className='text-sm' disabled={!hasChange} onClick={() => {
@@ -109,17 +108,25 @@ const Container: React.FC<Props> = ({
         }}>更新</ContainedButton>
     ), [hasChange, handleSubmit, onClose])
 
-    const back = useMemo(()=>(
-        <SvgIconButton onClick={()=>{
+    const deleteSubmit = useMemo(() => (
+        <ContainedButton colorType='secondary' className='text-sm' onClick={async () => {
+            await deleteBookmark()
+            router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
+            toast.success('ブックマークを削除しました')
+        }}>削除を確定する</ContainedButton>
+    ), [deleteBookmark, router, group.id])
+
+    const back = useMemo(() => (
+        <SvgIconButton onClick={() => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
         }}>
-            <ArrowLeft className='w-5 h-5'/>
+            <ArrowLeft className='w-5 h-5' />
         </SvgIconButton>
-    ),[router, group.id])
+    ), [router, group.id])
 
     const cancel = useMemo(() => (
-        <OutlinedButton className='text-sm' onClick={onClose}>戻る</OutlinedButton>
-    ), [onClose])
+        <OutlinedButton colorType={deleteMode ? 'secondary' : 'dark'} className='text-sm' onClick={onClose}>戻る</OutlinedButton>
+    ), [onClose, deleteMode])
 
     if (!bookmark?.id || !group?.id) {
         return <div />
@@ -141,7 +148,7 @@ const Container: React.FC<Props> = ({
                 date,
                 image,
                 trash,
-                submit,
+                submit: deleteMode ? deleteSubmit : submit,
                 cancel,
                 back
             }
