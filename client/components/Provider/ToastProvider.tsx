@@ -1,5 +1,5 @@
 import React from 'react'
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, Slide } from 'react-toastify';
 
 type Props = {
 
@@ -10,7 +10,7 @@ const contextClass = {
     error: "bg-red-500",
     info: "bg-gray-500",
     warning: "bg-orange-400",
-    default: "bg-indigo-600",
+    default: "bg-blue-500",
     dark: "bg-white-600 font-gray-300",
 };
 
@@ -22,6 +22,7 @@ const ToastProvider: React.FC<Props> = () => (
         bodyClassName={() => "text-sm font-white font-med block p-3"}
         autoClose={5000}
         hideProgressBar
+        transition={Slide}
         newestOnTop={false}
         closeOnClick
         rtl={false}

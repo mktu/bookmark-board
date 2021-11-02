@@ -1,6 +1,7 @@
 import Presenter from "./Presenter";
 import { useRouter } from 'next/router'
 import { useMemo, useState, VFC, useEffect } from "react";
+import Exclamation from '@components/Common/Icon/Exclamation'
 import useNewBookmark from "@hooks/useNewBookmark";
 import { BookmarkInputBase } from '@components/Common/Input/BookmarkInput'
 import { LinkPreview } from "@components/Common/LinkPreview";
@@ -15,7 +16,7 @@ const Container: VFC = () => {
     const [selectedGroup, setGroup] = useState<BookmarkGroup>()
     const profile = useProfile()
     const groups = useGroupsByUser(profile.id)
-    const { submit, onChangeBookmarkInput, bookmarkInput, url, linkData, error, setBookmarkInput } = useNewBookmark(selectedGroup?.id)
+    const { submit, onChangeBookmarkInput, bookmarkInput, url, linkData, error, setBookmarkInput, warn } = useNewBookmark(selectedGroup?.id)
 
     useEffect(() => {
         if (description) {
@@ -27,9 +28,14 @@ const Container: VFC = () => {
         <BookmarkInputBase value={bookmarkInput} onChange={onChangeBookmarkInput} placeholder='ここにURLを入力' />
     ), [bookmarkInput, onChangeBookmarkInput])
 
-    const Preview = useMemo(() => (
+    const Preview = useMemo(() => warn ? (
+        <div className='flex items-center p-2 text-sm text-coral-500' >
+            <span><Exclamation className='mr-2 w-5 h-5 stroke-coral-500' fill='none' /></span>
+            {warn}
+        </div>
+    ) : (
         <LinkPreview linkData={linkData} url={url} />
-    ), [linkData, url])
+    ), [linkData, url, warn])
 
     const GroupDropdown = useMemo(() => (
         <Dropdowns placeholder='グループを選択してください' options={groups.map(v => ({ label: v.name, value: v.id }))} selected={selectedGroup?.id} onSelect={(selected) => {

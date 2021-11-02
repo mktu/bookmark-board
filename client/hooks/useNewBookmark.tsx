@@ -14,6 +14,12 @@ const useNewBookmark = (groupId : string) => {
     const dupulicated = useMemo(()=>Boolean(bookmarks.find(v=>v.url===url)),[url,bookmarks])
     const reachedLimit = useMemo(() => MaxBookmarkNumber <= bookmarks.length, [bookmarks.length])
     const invalidUrl = status === 'none' && Boolean(bookmarkInput)
+    const warn = useMemo(()=>{
+        if(status==='failed'){
+            return 'URLの情報取得に失敗しました'
+        }
+        return ''
+    },[status])
     const error = useMemo(() => {
         if(submitting){
             return ''
@@ -21,14 +27,14 @@ const useNewBookmark = (groupId : string) => {
         if (reachedLimit) {
             return `1グループに登録できるブックマークの上限(${MaxBookmarkNumber})を超えています.`
         }
-        if (status === 'failed' || invalidUrl) {
+        if (invalidUrl) {
             return '無効なURLです'
         }
         if(dupulicated){
             return 'すでに登録されているブックマークです'
         }
         return ''
-    }, [status, invalidUrl, reachedLimit, dupulicated, submitting])
+    }, [invalidUrl, reachedLimit, dupulicated, submitting])
     const { clientService } = useContext(FirebaseContext)
     useEffect(() => {
         unmounted.current = false
@@ -98,6 +104,7 @@ const useNewBookmark = (groupId : string) => {
         linkData,
         bookmarkInput,
         error,
+        warn,
         submit,
         setBookmarkInput,
         onChangeBookmarkInput,
