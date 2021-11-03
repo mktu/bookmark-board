@@ -70,7 +70,7 @@ const Refinements: React.FC<Props> = ({
             <div className='p-2 bg-white shadow'>
                 {content}
                 <div className={`md:hidden`}>
-                    <BulkMenuMobile className='pt-2 pb-1 mt-2 mr-4 border-t border-primary-border' groupId={groupId} />
+                    <BulkMenuMobile className='pt-2 mt-2 mr-4 border-t border-primary-border' groupId={groupId} />
                 </div>
             </div>
             <div className={`${!inView ? 'border border-primary-border rounded w-full' : 'w-0 h-0 opacity-0 overflow-hidden'} fixed top-0 left-0 z-20 md:hidden`}>
@@ -78,7 +78,7 @@ const Refinements: React.FC<Props> = ({
                     {content}
                     {hasSelection && (
                         <div>
-                            <BulkMenuMobile className='mt-2 mr-4 border-t border-primary-border' groupId={groupId} />
+                            <BulkMenuMobile className='pt-2 mt-2 mr-4 border-t border-primary-border' groupId={groupId} />
                         </div>
                     )}
                 </div>
