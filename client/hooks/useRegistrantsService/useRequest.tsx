@@ -54,7 +54,8 @@ const useRequests = ()=>{
         onLoad,
         onUnload,
         onLoaded,
-        clearAll
+        clearAll,
+        name : 'request'
     }),[onLoad,onUnload,clearAll,onLoaded])
 }
 

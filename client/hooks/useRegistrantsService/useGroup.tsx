@@ -22,7 +22,7 @@ const useGroup = (groupMonitors: GroupMonitor[]) => {
         }
         const { listenGroups } = clientService;
         const unsub = listenGroups(id, (groups) => {
-            for (const monitor of groupMonitors) {
+            groupMonitors.forEach(monitor=>{
                 const promises: Promise<void>[] = []
                 for (const group of groups) {
                     promises.push(monitor.onLoad(group.id, group.owner === id))
@@ -30,7 +30,7 @@ const useGroup = (groupMonitors: GroupMonitor[]) => {
                 Promise.all(promises).then(()=>{
                     monitor.onLoaded()
                 })
-            }
+            })
             dispatch(actions.addGroups({ groups }))
         }, (groups) => {
             dispatch(actions.modifyGroups({ groups }))
