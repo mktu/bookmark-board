@@ -25,7 +25,7 @@ const Presenter: React.FC<Props> = ({
                 </div>
             </div>
             {error && (<div className='hidden md:block py-2 px-4 text-xs text-secondary-main'>{error}</div>)}
-            <div className='overflow-y-auto md:bg-white md:border-0 border-b md:border-primary-border'>
+            <div className='overflow-y-auto md:bg-white md:border-0 md:border-b md:border-primary-border'>
                 {groupList}
             </div>
             <div className='md:hidden' style={{
