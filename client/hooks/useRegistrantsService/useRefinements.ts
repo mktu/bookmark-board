@@ -41,7 +41,8 @@ const useRefinements = ()=>{
         onLoad,
         onLoaded,
         onUnload,
-        clearAll
+        clearAll,
+        name : 'refinements'
     }),[onLoad,onUnload,clearAll,onLoaded])
 }
 

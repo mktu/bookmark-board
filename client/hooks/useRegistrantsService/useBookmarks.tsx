@@ -47,7 +47,8 @@ const useBookmarks = ()=>{
         onLoad,
         onLoaded,
         onUnload,
-        clearAll
+        clearAll,
+        name : 'bookmark'
     }),[onLoad,onUnload,clearAll,onLoaded])
 }
 

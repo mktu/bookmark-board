@@ -27,7 +27,7 @@ const ListItem: React.FC<Props> = ({
     return (
         <button ref={!isTouch ? attachDnDRef : undefined} onClick={() => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${bookmarkGroup.id}`, { shallow: true })
-        }} className={classNames(`w-full bg-white md:bg-transparent overflow-hidden flex text-primary-main items-center p-2 cursor-pointer hover:text-primary-dark md:hover:bg-primary-hover focus:outline-none ${selected && 'md:bg-primary-hover'}`,
+        }} className={classNames(`w-full bg-white md:bg-transparent overflow-hidden flex text-primary-main items-center p-2 cursor-pointer md:hover:text-primary-dark md:hover:bg-primary-hover focus:outline-none ${selected && 'md:bg-primary-hover'}`,
             isBookmarkOver && 'border-dotted border-primary-main border-2',
             dragging && 'hidden'
         )}>
