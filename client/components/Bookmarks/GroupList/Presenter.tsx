@@ -17,7 +17,7 @@ const Presenter: React.FC<Props> = ({
     return (
         <div className='flex flex-col w-full h-full bg-primary-light md:bg-white border-r border-primary-border'>
             <div className='hidden md:flex flex-row justify-between items-center p-1 text-primary-main border-primary-border'>
-                <div className='p-2 w-full'>
+                <div className='p-1 w-full'>
                     {input}
                 </div>
                 <div>
