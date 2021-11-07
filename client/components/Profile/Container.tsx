@@ -1,13 +1,20 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { toast } from 'react-toastify';
 import TextInput from '../Common/Input/TextInput'
 import TextArea from '../Common/Input/TextArea'
 import { ContainedButton } from '../Common/Button'
 import Avatar from '../Common/Avatar/NextImage'
-import useProfileEditor from '../../hooks/useProfileEditor'
+import useProfileEditor from '@hooks/useProfileEditor'
+import { useLineLogin } from '@hooks/useLineLogin'
 import Presenter from './Presenter'
+import LineLogin from './LineLogin'
+import { LineAuthlDialog, LineAuth } from './LineAuth'
 
 const Container: React.FC = () => {
+    const router = useRouter()
+    const { option } = router.query
+    const lineSetting = option && option.length > 0 && option[0] === 'line-setting'
     const {
         profile,
         progress,
@@ -18,7 +25,13 @@ const Container: React.FC = () => {
         handleSubmit,
         hasChange
     } = useProfileEditor()
+    const { lineLogin } = useLineLogin()
 
+    const lineLoginButton = (
+        <LineLogin onClickLogin={() => {
+            lineLogin()
+        }} />
+    )
     const avatar = (
         <Avatar
             src={profile.image}
@@ -57,6 +70,16 @@ const Container: React.FC = () => {
         }}>更新する</ContainedButton>
     )
 
+    const onCloseAuth = ()=>{
+        router.push('/profile')
+    }
+
+    const lineAuth = lineSetting ? (
+        <LineAuthlDialog open={lineSetting} onClose={onCloseAuth}>
+            <LineAuth onClose={onCloseAuth}/>
+        </LineAuthlDialog>
+    ) : (<div />)
+
     const updateDate = profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`
 
     return <Presenter
@@ -69,7 +92,9 @@ const Container: React.FC = () => {
             twitterInput,
             commentInput,
             submit,
-            updateDate
+            updateDate,
+            lineLogin: lineLoginButton,
+            lineAuth
         }}
     />
 }

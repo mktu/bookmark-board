@@ -1,6 +1,7 @@
 import * as functions from "firebase-functions";
 import scrape from './scrape'
 import capture from './capture'
+import { lineBot } from './linebot'
 import { createIndex, updateIndex, deleteIndex } from './algolia'
 import firebaseAdmin from './admin'
 import { onWriteReactions } from './triggers'
@@ -112,5 +113,6 @@ export {
   onWriteReactions,
   onCreateInformations,
   onUpdateInformations,
-  onDeleteInformations
+  onDeleteInformations,
+  lineBot
 }
