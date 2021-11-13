@@ -16,6 +16,10 @@ declare type Profile = {
     image: string,
     lastUpdate?: number,
     twitter?: string,
+    line ?: {
+        id : string,
+        name : string
+    }
 }
 
 declare type Reaction = {

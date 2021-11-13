@@ -10,7 +10,7 @@ const lineLoginSettingPage = `${getOrigin()}/profile/line-setting`
 
 const useLineAuth = () => {
   const [idtoken, setIdtoken] = useState('')
-  const [userId, setUserId] = useState('')
+  const [user, setUser] = useState<{id:string,name:string}>()
   const [error, setError] = useState('')
   const getAccessToken = useCallback(async () => {
     const currentLocation = window.location.href
@@ -64,7 +64,10 @@ const useLineAuth = () => {
         })
       })
       const data = await response.json()
-      setUserId(data.sub)
+      setUser({
+        id : data.sub,
+        name : data.name
+      })
       setError('')
     }catch(e){
       setError('ユーザID取得に失敗しました')
@@ -81,7 +84,7 @@ const useLineAuth = () => {
   }, [getUserId])
 
   return {
-    userId,
+    user,
     error,
     addFriendLink
   }
@@ -94,7 +97,7 @@ const useLineLogin = () => {
       response_type: 'code',
       client_id: clientId,
       state: Math.random().toString(32).substring(2),
-      scope: 'openid',
+      scope: 'profile openid',
       prompt: 'consent',
       bot_prompt: 'normal',
       redirect_uri: lineLoginSettingPage

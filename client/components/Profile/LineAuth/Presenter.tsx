@@ -20,7 +20,7 @@ const Presenter: VFC<Props> = ({
                     <div className='text-lg text-primary-main'>Lineアカウントの認証に成功
                         <span className='ml-1' role='img' aria-label='success'>🎉</span>
                     </div>
-                    <div className='text-primary-main my-2'>
+                    <div className='my-2 text-primary-main'>
                         友達に追加することで、Line上からBookmarkの登録や読み出しが行えます.
                     </div>
                 </div>
