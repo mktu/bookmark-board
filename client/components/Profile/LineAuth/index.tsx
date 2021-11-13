@@ -13,7 +13,7 @@ const LineAuthlDialog: React.FC<DialogProps> = ({
     onClose
 }) => {
     return (
-        <Modal blockScroll={false} open={open} showCloseIcon={false} focusTrapped={false} onClose={onClose} center classNames={{
+        <Modal blockScroll={true} open={open} showCloseIcon={false} focusTrapped={false} onClose={onClose} center classNames={{
             modal: 'w-full md:w-1/3',
         }}>
             {children}

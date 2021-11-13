@@ -16,7 +16,8 @@ declare type Profile = {
     image: string,
     lastUpdate?: number,
     twitter?: string,
-    line ?: {
+    lineid ?: string,
+    lineInfo ?: {
         id : string,
         name : string
     }

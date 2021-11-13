@@ -31,7 +31,7 @@ const Container: React.FC = () => {
     const lineLoginButton = (
         <LineLogin onClickLogin={() => {
             lineLogin()
-        }} authed={Boolean(profile?.line)} name={profile?.line?.name} />
+        }} authed={Boolean(profile?.lineInfo)} name={profile?.lineInfo?.name} />
     )
     const avatar = (
         <Avatar

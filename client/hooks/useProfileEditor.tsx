@@ -32,9 +32,10 @@ const useProfileContainer = () => {
         }))
     },[])
 
-    const registerLine = useCallback((line : Profile['line'])=>{
+    const registerLine = useCallback((lineInfo : Profile['lineInfo'])=>{
         clientService.updateProfile(profile.id, {
-            line
+            lineid : lineInfo.id,
+            lineInfo
         })
     },[clientService,profile.id])
 
