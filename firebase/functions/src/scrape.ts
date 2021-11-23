@@ -28,6 +28,7 @@ const scrape = async (url: string, validate?: boolean) => {
     if (twData.twitterImage) {
         images.push(twData.twitterImage.url as string)
     }
+    images = images.filter(Boolean)
     if (validate) {
         images = await validateImages(images)
     }
