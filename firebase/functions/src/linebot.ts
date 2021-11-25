@@ -92,8 +92,9 @@ const saveBookmark = async (groupId: string, {
 	title,
 	description = '',
 	url,
+	owner,
 	unacquired = false,
-}: Pick<Bookmark, 'url' | 'description' | 'title' | 'images' | 'image' | 'unacquired'>) => {
+}: Pick<Bookmark, 'url' | 'description' | 'title' | 'images' | 'image' | 'unacquired' | 'owner'>) => {
 	const result = await firebaseAdmin.firestore()
 		.collection('groups')
 		.doc(groupId)
@@ -105,6 +106,7 @@ const saveBookmark = async (groupId: string, {
 			url,
 			description,
 			unacquired,
+			owner,
 			neighbors: [],
 			reactions: {},
 			groupId,
@@ -139,7 +141,7 @@ const scrapeNoThrow = async (url:string) => {
 	}
 }
 
-const registBookmark = async (url: string, groupId: string) => {
+const registBookmark = async (url: string, groupId: string, owner:string) => {
 	const isDupplicate = await checkDupplicate(groupId,url)
 	if(isDupplicate){
 		throw new LineLogicError('すでに登録済みのブックマークです')
@@ -149,7 +151,7 @@ const registBookmark = async (url: string, groupId: string) => {
 	const [result, group] = await Promise.all([scrapePromise,loadPromise])
 	const { name } = group
 	if (!result) {
-		const bookmarkId = await saveBookmark(groupId, { url, title : url })
+		const bookmarkId = await saveBookmark(groupId, { url, title : url, owner })
 		return {
 			title: url,
 			description: undefined,
@@ -164,7 +166,8 @@ const registBookmark = async (url: string, groupId: string) => {
 		url,
 		description,
 		image: images.length > 0 ? images[0] : '',
-		images
+		images,
+		owner
 	})
 	return {
 		title,
@@ -175,12 +178,12 @@ const registBookmark = async (url: string, groupId: string) => {
 	}
 }
 
-const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, client: line.Client, url: string, groupId: string) => Promise<void> = async (events, client, url, groupId) => {
+const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, client: line.Client, url: string, groupId: string, owner:string) => Promise<void> = async (events, client, url, groupId, owner) => {
 	await client.replyMessage(events.replyToken, {
 		type: 'text',
 		text: 'ブックマークの登録中です。しばらくお待ち下さい'
 	})
-	const { title, description, image, groupName, bookmarkId } = await registBookmark(url, groupId)
+	const { title, description, image, groupName, bookmarkId } = await registBookmark(url, groupId, owner)
 	const siteurl = functions.config().hosting.siteurl;
 	const editLink = `${siteurl}/bookmarks/${groupId}/${bookmarkId}`
 	await client.pushMessage(events.source.userId || '', [{
@@ -233,7 +236,7 @@ const showGroupsBeforeRegisterBookmark: (events: line.MessageEvent, client: line
 		altText: "グループを選択してください",
 		contents: groupMessage(groups.map(v => ({
 			id: v.id, label: v.name
-		})), url)
+		})), url, profileId)
 	} as line.FlexMessage)
 }
 
@@ -245,7 +248,7 @@ const handleBookmark: (events: line.MessageEvent, client: line.Client) => Promis
 	}
 	const { id, lineInfo } = await loadProfile(events)
 	if (lineInfo?.defaultGroup) {
-		await handleRegisterBookmark(events, client, url, lineInfo.defaultGroup)
+		await handleRegisterBookmark(events, client, url, lineInfo.defaultGroup, id)
 	} else {
 		await showGroupsBeforeRegisterBookmark(events, client, url, id)
 	}
@@ -306,7 +309,8 @@ const handlePostback: (events: line.PostbackEvent, client: line.Client) => Promi
 	if (keyValues['event'] === EventTypes.group) {
 		const url = keyValues['url']
 		const groupId = keyValues['groupId']
-		await handleRegisterBookmark(events, client, url, groupId)
+		const owner = keyValues['owner']
+		await handleRegisterBookmark(events, client, url, groupId, owner)
 		return
 	}
 	if (keyValues['event'] === EventTypes.defaultGroup) {

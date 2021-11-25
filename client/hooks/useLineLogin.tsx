@@ -8,8 +8,6 @@ const clientSecret = process.env.NEXT_PUBLIC_LINE_CLIENT_SECRET
 const addFriendLink = process.env.NEXT_PUBLIC_LINE_ADD_FRIEND_LINK
 const lineLoginSettingPage = `${getOrigin()}/profile/line-setting`
 
-console.log(lineLoginSettingPage)
-
 const useLineAuth = () => {
   const [idtoken, setIdtoken] = useState('')
   const [user, setUser] = useState<{id:string,name:string}>()

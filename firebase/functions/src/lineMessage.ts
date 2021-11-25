@@ -6,8 +6,8 @@ export const EventTypes = {
 
 export const groupMessage = (groups: {
     label: string,
-    id: string
-}[], url: string) => {
+    id: string,
+}[], url: string, owner:string) => {
     return {
         "type": "bubble",
         "body": {
@@ -46,7 +46,7 @@ export const groupMessage = (groups: {
                         "action": {
                             "type": "postback",
                             "label": group.label,
-                            "data": `event=${EventTypes.group},groupId=${group.id},url=${url}`
+                            "data": `event=${EventTypes.group},groupId=${group.id},url=${url},owner=${owner}`
                         },
                         "margin": "none",
                         "height": "sm",
