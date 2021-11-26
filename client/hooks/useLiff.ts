@@ -15,6 +15,7 @@ const useLiff = ()=>{
         await liff.init({
             liffId
         });
+        console.log('init liff')
         setLoggedIn(liff.isLoggedIn())
         setLineClient(liff.isInClient())
     },[])
