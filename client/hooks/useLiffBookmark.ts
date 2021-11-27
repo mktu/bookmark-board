@@ -9,11 +9,13 @@ export const useGroups = () => {
     const { userId } = lineProfile || {}
     const [defaultGroup, setDefaultGroup] = useState('')
     const [error,setError] = useState('')
+    const [fetching, setFetching] = useState(false)
     const [groups, setGroups] = useState<BookmarkGroup[]>([])
     const fetchGroups = useCallback(async () => {
         if(!userId){
             return
         }
+        setFetching(true)
         const params = {
             user: userId
         }
@@ -26,11 +28,13 @@ export const useGroups = () => {
         const {groups, defaultGroup} = json
         setGroups(groups)
         setDefaultGroup(defaultGroup)
+        setFetching(false)
     }, [userId])
     useEffect(() => {
         fetchGroups().catch(e=>{
             console.error(e)
             setError('グループの取得に失敗しました')
+            setFetching(false)
         })
     }, [fetchGroups])
 
@@ -39,6 +43,7 @@ export const useGroups = () => {
         defaultGroup,
         groups,
         error,
-        setDefaultGroup
+        setDefaultGroup,
+        fetching
     }
 }

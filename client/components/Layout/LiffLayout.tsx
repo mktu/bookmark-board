@@ -11,7 +11,7 @@ const Layout = ({
     return (
         <div className='flex flex-col justify-center items-center p-4 w-screen'>
             <Logo theme='dark' size='md' />
-            <div className='mt-4'>
+            <div className='mt-4 w-full'>
                 {children}
             </div>
         </div>
