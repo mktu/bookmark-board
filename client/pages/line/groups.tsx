@@ -1,5 +1,5 @@
 import React from 'react'
-import LineHome from '@components/Line/Home'
+import LineGroups from '@components/Line/Group'
 import LiffLayout from '@components/Layout/LiffLayout'
 import AppMeta from '@components/Meta/AppMeta'
 import RequireLineSignedIn from '@components/App/RequireLineSignedIn'
@@ -10,7 +10,7 @@ export default function GroupsPage() {
       <AppMeta title='ホーム' path='line/groups'/>
       <RequireLineSignedIn>
         <LiffLayout>
-            <LineHome />
+            <LineGroups />
         </LiffLayout>
       </RequireLineSignedIn>
     </div>
