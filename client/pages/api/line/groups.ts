@@ -20,6 +20,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const profileId = profileDocs[0].id
+    const { lineInfo } = profileDocs[0].data() as Profile
 
     const { docs: groupDocs } = await firebaseAdmin.firestore()
         .collection('groups')
@@ -30,10 +31,13 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
         res.status(404).end('group not found.')
     }
 
-    res.status(200).json(groupDocs.filter(v => v.exists).map(v => ({
-		...v.data() as BookmarkGroup,
-		id: v.id
-	})))
+    res.status(200).json({
+        groups : groupDocs.filter(v => v.exists).map(v => ({
+            ...v.data() as BookmarkGroup,
+            id: v.id
+        })),
+        defaultGroup : lineInfo.defaultGroup || ''
+    })
 }
 
 const group = async (req: NextApiRequest, res: NextApiResponse) => {

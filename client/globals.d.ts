@@ -19,7 +19,8 @@ declare type Profile = {
     lineid ?: string,
     lineInfo ?: {
         id : string,
-        name : string
+        name : string,
+        defaultGroup :? string
     }
 }
 
