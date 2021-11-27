@@ -19,7 +19,7 @@ const useLiff = () => {
             setLoggedIn(true)
             setLineClient(true)
             setLineProfile({
-                userId : 'Ub3d89d90c4c1f8891f4976c8c2374149',
+                userId : process.env.NEXT_PUBLIC_LOCAL_LINE_USER || '',
                 displayName : 'mktu',
             })
             return
