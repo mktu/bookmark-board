@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-
+import { lineLogin, lineGroupsPage, getAccessToken } from './useLineLogin'
 
 const liffId = process.env.NEXT_PUBLIC_LIFF_ID
 type LineProfile = {
@@ -9,21 +9,25 @@ type LineProfile = {
     statusMessage?: string;
 }
 
+const isLocalhost = ()=> typeof window !== 'undefined' && location?.host.includes('localhost')
+
+type ClosureParam = {
+    close : boolean,
+    sendMessage ?: string
+}
+
 const useLiff = () => {
     const [hasInit, setInit] = useState(false)
     const [isLineClient, setLineClient] = useState(false)
     const [isLoggedIn, setLoggedIn] = useState(false)
     const [lineProfile, setLineProfile] = useState<LineProfile>()
-    const initLiff = useCallback(async () => {
-        if (location?.host.includes('localhost')) {
-            setLoggedIn(true)
-            setLineClient(true)
-            setLineProfile({
-                userId : process.env.NEXT_PUBLIC_LOCAL_LINE_USER || '',
-                displayName : 'mktu',
-            })
-            return
+    const [idToken, setIdToken] = useState('')
+    const [closure,setClosure] = useState({
+        close : async (param:ClosureParam)=>{
+            console.log(param)
         }
+    })
+    const initLiff = useCallback(async () => {
         const liff = typeof window !== 'undefined' && (await import('@line/liff')).default;
         if (!liff) {
             return
@@ -31,25 +35,52 @@ const useLiff = () => {
         await liff.init({
             liffId
         });
-        setLoggedIn(liff.isLoggedIn())
         setLineClient(liff.isInClient())
+        const isLoggedIn = liff.isLoggedIn()
+        setLoggedIn(isLoggedIn)
         if (!liff.isLoggedIn()) {
             return
         }
         const profile = await liff.getProfile()
+        const idToken = liff.getIDToken()
+        setIdToken(idToken)
         setLineProfile(profile)
+        setClosure({
+            close : async (param:ClosureParam)=>{
+                if(param.sendMessage){
+                    await liff.sendMessages([
+                        {
+                            type: 'text',
+                            text: param.sendMessage,
+                        },
+                    ])
+                }
+                if(param.close){
+                    liff.closeWindow()
+                }
+            }
+        })
     }, [])
     useEffect(() => {
-        initLiff().then(() => {
-            setInit(true)
-        })
+        if(isLocalhost()){
+            getAccessToken(lineGroupsPage).then(setIdToken).catch(e=>{
+                console.error(e)
+                lineLogin(lineGroupsPage)
+            })
+        }else{
+            initLiff().then(() => {
+                setInit(true)
+            })
+        }
     }, [initLiff])
 
     return {
         hasInit,
         isLineClient,
         isLoggedIn,
-        lineProfile
+        lineProfile,
+        idToken,
+        closure
     }
 }
 

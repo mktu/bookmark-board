@@ -1,5 +1,5 @@
 import { VFC, useEffect } from 'react'
-import { useLineAuth } from '@hooks/useLineLogin'
+import { useLineAuth, lineLoginSettingPage } from '@hooks/useLineLogin'
 import { OutlinedButton } from '@components/Common/Button'
 import Presenter from './Presenter'
 
@@ -12,7 +12,7 @@ const Container: VFC<Props> = ({
     onClose,
     registLineId
 }) => {
-    const { user, error, addFriendLink } = useLineAuth()
+    const { user, error, addFriendLink } = useLineAuth(lineLoginSettingPage)
     const success = user && !error
     useEffect(()=>{
         if(success){

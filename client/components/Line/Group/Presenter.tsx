@@ -25,7 +25,7 @@ const Presenter: React.VFC<Props> = ({
             <div style={{
                 height: footerHeight ? footerHeight : undefined
             }} />
-            <div className='fixed bottom-0 left-0 p-4 w-full bg-primary-light border-t border-primary-border' ref={(r) => {
+            <div className='fixed bottom-0 left-0 p-4 w-full bg-white border-t border-primary-border' ref={(r) => {
                 if (r) {
                     // set height only once because input height may change when url image shows
                     setFooter(b => !b ? r.clientHeight : b)

@@ -6,7 +6,7 @@ import TextArea from '../Common/Input/TextArea'
 import { ContainedButton } from '../Common/Button'
 import Avatar from '../Common/Avatar/NextImage'
 import useProfileEditor from '@hooks/useProfileEditor'
-import { useLineLogin } from '@hooks/useLineLogin'
+import { lineLogin, lineLoginSettingPage } from '@hooks/useLineLogin'
 import Presenter from './Presenter'
 import LineLogin from './LineLogin'
 import { LineAuthlDialog, LineAuth } from './LineAuth'
@@ -26,11 +26,10 @@ const Container: React.FC = () => {
         handleSubmit,
         hasChange
     } = useProfileEditor()
-    const { lineLogin } = useLineLogin()
 
     const lineLoginButton = (
         <LineLogin onClickLogin={() => {
-            lineLogin()
+            lineLogin(lineLoginSettingPage)
         }} authed={Boolean(profile?.lineInfo)} name={profile?.lineInfo?.name} />
     )
     const avatar = (

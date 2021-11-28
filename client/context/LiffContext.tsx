@@ -8,7 +8,13 @@ export const initialService : ContextType = {
     hasInit : false,
     isLineClient : false,
     isLoggedIn : false,
-    lineProfile : undefined
+    idToken : '',
+    lineProfile : undefined,
+    closure : {
+        close : async ()=> {
+            console.log('dummy')
+        }
+    }
 }
 
 const bulkContext = React.createContext<ContextType>(initialService);

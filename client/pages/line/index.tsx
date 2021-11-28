@@ -2,17 +2,17 @@ import React from 'react'
 import LineHome from '@components/Line/Home'
 import LiffLayout from '@components/Layout/LiffLayout'
 import AppMeta from '@components/Meta/AppMeta'
-import RequireLineSignedIn from '@components/App/RequireLineSignedIn'
+import LiffProvider from '@components/Provider/LiffProvider'
 
 export default function ProfilePage() {
   return (
     <div>
       <AppMeta title='ホーム' path='line'/>
-      <RequireLineSignedIn>
+      <LiffProvider>
         <LiffLayout>
             <LineHome />
         </LiffLayout>
-      </RequireLineSignedIn>
+      </LiffProvider>
     </div>
   )
 }
