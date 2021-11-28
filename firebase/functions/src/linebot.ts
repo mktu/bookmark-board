@@ -4,7 +4,7 @@ import * as line from '@line/bot-sdk';
 import firebaseAdmin from './admin'
 import { extractUrl } from './extractUrl'
 import scrape from './scrape'
-import { bookmarkMessage, groupMessage, groupSelector, EventTypes } from './lineMessage'
+import { bookmarkMessage, groupMessage, EventTypes } from './lineMessage'
 import { BookmarkGroup, Bookmark, Profile } from './types'
 
 // todo
@@ -254,18 +254,19 @@ const handleBookmark: (events: line.MessageEvent, client: line.Client) => Promis
 	}
 }
 
-const selectDefaultGroup: (events: line.MessageEvent, client: line.Client) => Promise<void> = async (events, client) => {
-	const { id, lineInfo } = await loadProfile(events)
-	const groups = await loadGroups(id)
-	const currentGroupName = groups.find(v => v.id === lineInfo?.defaultGroup)?.name
-	await client.replyMessage(events.replyToken, {
-		type: 'flex',
-		altText: "登録先グループを選択してください",
-		contents: groupSelector(groups.map(v => ({
-			id: v.id, label: v.name
-		})), currentGroupName)
-	} as line.FlexMessage)
-}
+// TBD replace by liff
+// const selectDefaultGroup: (events: line.MessageEvent, client: line.Client) => Promise<void> = async (events, client) => {
+// 	const { id, lineInfo } = await loadProfile(events)
+// 	const groups = await loadGroups(id)
+// 	const currentGroupName = groups.find(v => v.id === lineInfo?.defaultGroup)?.name
+// 	await client.replyMessage(events.replyToken, {
+// 		type: 'flex',
+// 		altText: "登録先グループを選択してください",
+// 		contents: groupSelector(groups.map(v => ({
+// 			id: v.id, label: v.name
+// 		})), currentGroupName)
+// 	} as line.FlexMessage)
+// }
 
 const handleMessage: (events: line.MessageEvent, client: line.Client) => Promise<void> = async (events, client) => {
 	const { type: messageType } = events.message
@@ -276,8 +277,7 @@ const handleMessage: (events: line.MessageEvent, client: line.Client) => Promise
 		})
 	}
 	const { text } = events.message as line.TextEventMessage
-	if (text === SelectGroup) {
-		await selectDefaultGroup(events, client)
+	if (text.includes(SelectGroup)) {
 		return
 	}
 	await handleBookmark(events, client)

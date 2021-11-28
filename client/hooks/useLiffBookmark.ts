@@ -3,6 +3,7 @@ import LiffContext from '@context/LiffContext'
 import { getOrigin } from '@utils/index'
 
 const GroupPath = `${getOrigin()}/api/line/groups`
+const SelectGroup = '#登録先グループ'
 
 export const useGroups = () => {
     const { lineProfile, idToken, closure } = useContext(LiffContext)
@@ -49,7 +50,7 @@ export const useGroups = () => {
         const data = (await response.json()) as BookmarkGroup
         await close({
             close : true,
-            sendMessage : `登録先グループを${data.name}に変更しました。`
+            sendMessage : `${SelectGroup} [${data.name}]に変更しました。`
         })
         setPosting(false)
     }, [idToken,defaultGroup, close])
