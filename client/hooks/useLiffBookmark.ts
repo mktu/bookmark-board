@@ -49,7 +49,7 @@ export const useGroups = () => {
         })
         const data = (await response.json()) as BookmarkGroup
         await close({
-            close : true,
+            close : false,
             sendMessage : `${SelectGroup} [${data.name}]に変更しました。`
         })
         setPosting(false)

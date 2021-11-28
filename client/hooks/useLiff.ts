@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { toast } from 'react-toastify';
 import { lineLogin, lineGroupsPage, getAccessToken } from './useLineLogin'
 
 const liffId = process.env.NEXT_PUBLIC_LIFF_ID
@@ -48,12 +49,7 @@ const useLiff = () => {
         setClosure({
             close : async (param:ClosureParam)=>{
                 if(param.sendMessage){
-                    await liff.sendMessages([
-                        {
-                            type: 'text',
-                            text: param.sendMessage,
-                        },
-                    ])
+                    toast.success(param.sendMessage)
                 }
                 if(param.close){
                     liff.closeWindow()
