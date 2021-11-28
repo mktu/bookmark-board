@@ -75,7 +75,6 @@ export const useGroups = () => {
         posting,
         setDefaultGroup,
         updateDefaultGroup,
-        onClose,
-        idToken
+        onClose
     }
 }
