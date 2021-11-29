@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { lineLogin, lineGroupsPage, getAccessToken } from './useLineLogin'
+import { lineLogin, getAccessToken } from './useLineLogin'
 
 const liffId = process.env.NEXT_PUBLIC_LIFF_ID
 type LineProfile = {
@@ -16,7 +16,7 @@ type ClosureParam = {
     sendMessage ?: string
 }
 
-const useLiff = () => {
+const useLiff = (pageUrl:string) => {
     const [hasInit, setInit] = useState(false)
     const [isLineClient, setLineClient] = useState(false)
     const [isLoggedIn, setLoggedIn] = useState(false)
@@ -62,17 +62,17 @@ const useLiff = () => {
         })
     }, [])
     useEffect(() => {
-        if(isLocalhost()){
-            getAccessToken(lineGroupsPage).then(setIdToken).catch(e=>{
+        if(isLocalhost() && pageUrl){
+            getAccessToken(pageUrl).then(setIdToken).catch(e=>{
                 console.error(e)
-                lineLogin(lineGroupsPage)
+                lineLogin(pageUrl)
             })
         }else{
             initLiff().then(() => {
                 setInit(true)
             })
         }
-    }, [initLiff])
+    }, [initLiff, pageUrl])
 
     return {
         hasInit,

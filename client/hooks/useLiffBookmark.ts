@@ -1,81 +1,95 @@
-import { useContext, useEffect, useCallback, useState } from 'react'
+import { useContext, useEffect, useCallback, useState, useMemo } from 'react'
+import { toast } from 'react-toastify';
 import LiffContext from '@context/LiffContext'
 import { getOrigin } from '@utils/index'
+import { initialBookmark } from '@modules/bookmarkSlice'
 
-const GroupPath = `${getOrigin()}/api/line/groups`
-const SelectGroup = '#登録先グループ'
+const BookmarkPath = `${getOrigin()}/api/line/bookmark`
 
-export const useGroups = () => {
+export const useBookmark = (groupId:string, bookmarkId:string ) => {
     const { lineProfile, idToken, closure } = useContext(LiffContext)
     const { close } = closure
-    const { userId } = lineProfile || {}
-    const [defaultGroup, setDefaultGroup] = useState('')
     const [error, setError] = useState('')
     const [fetching, setFetching] = useState(false)
-    const [posting,setPosting] = useState(false)
-    const [groups, setGroups] = useState<BookmarkGroup[]>([])
-    const fetchGroups = useCallback(async () => {
+    const [posting, setPosting] = useState(false)
+    const [base, setBookmark] = useState<Bookmark>()
+    const [colors,setColors] = useState<BookmarkColors>({})
+    const [update, setUpdate] = useState<Partial<Bookmark>>({})
+    const updateBookmark = useCallback((key: keyof Bookmark) => (value: string) => {
+        setUpdate(before => ({ ...before, ...{ [key]: value } }))
+    }, [])
+    const bookmark = useMemo(()=>({
+        ...initialBookmark,
+        ...base,
+        ...update
+    }),[base,update])
+    const fetchBookmark = useCallback(async () => {
         if (!idToken) {
             return
         }
         setFetching(true)
         const params = {
-            user: userId,
-            idToken
+            idToken,
+            groupId,
+            bookmarkId
         }
         const queryParams = new URLSearchParams(params)
-        const response = await fetch(`${GroupPath}?${queryParams}`)
+        const response = await fetch(`${BookmarkPath}?${queryParams}`)
         const json = await response.json() as {
-            groups: BookmarkGroup[],
-            defaultGroup?: string
+            bookmark : Bookmark,
+            colors : BookmarkColors
         }
-        const { groups, defaultGroup } = json
-        setGroups(groups)
-        setDefaultGroup(defaultGroup)
+        setBookmark(json.bookmark)
+        setColors(json.colors)
         setFetching(false)
 
-    }, [userId, idToken])
-    const updateDefaultGroup = useCallback(async () => {
+    }, [groupId, bookmarkId, idToken])
+    const submitBookmark = useCallback(async () => {
         setPosting(true)
-        const response = await fetch(GroupPath, {
+        const response = await fetch(BookmarkPath, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
                 idToken,
-                defaultGroup
+                update,
+                groupId,
+                bookmarkId
             })
         })
-        const data = (await response.json()) as BookmarkGroup
-        await close({
-            close : true,
-            sendMessage : `${SelectGroup} [${data.name}]に変更しました。`
-        })
+        if(!response.ok){
+            setError('ブックマークの更新に失敗しました')
+            return
+        }
+        toast.success('ブックマークを更新しました')
         setPosting(false)
-    }, [idToken,defaultGroup, close])
-    const onClose = useCallback(async ()=>{
+    }, [idToken, groupId, bookmarkId, update])
+    const onClose = useCallback(async () => {
         await close({
-            close : true,
+            close: true,
         })
-    },[close])
+    }, [close])
     useEffect(() => {
-        fetchGroups().catch(e => {
+        fetchBookmark().catch(e => {
             console.error(e)
-            setError('グループの取得に失敗しました')
+            setError('ブックマークの取得に失敗しました')
             setFetching(false)
         })
-    }, [fetchGroups])
+    }, [fetchBookmark])
+
+    const hasChange = Object.keys(update).length > 0
 
     return {
         lineProfile,
-        defaultGroup,
-        groups,
+        bookmark,
         error,
         fetching,
         posting,
-        setDefaultGroup,
-        updateDefaultGroup,
-        onClose
+        colors,
+        hasChange,
+        submitBookmark,
+        onClose,
+        updateBookmark
     }
 }

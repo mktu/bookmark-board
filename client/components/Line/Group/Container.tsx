@@ -1,4 +1,4 @@
-import { useGroups } from '@hooks/useLiffBookmark'
+import { useGroups } from '@hooks/useLiffBookmarkGroups'
 import Presenter from './Presenter'
 import ListItem from './ListItem'
 import ListPlaceholder from './ListPlaceholder'

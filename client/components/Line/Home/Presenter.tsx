@@ -1,8 +1,6 @@
 
 const Presenter : React.VFC = ()=> (
-    <div className=''>
-        HOME
-    </div>
+    <div />
 )
 
 export default Presenter
