@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 
 type Props = {
     title: React.ReactNode,
@@ -25,6 +25,10 @@ const Presenter: React.FC<Props> = ({
     submit,
     cancel,
 }) => {
+    // prevent scroll moving for liff browser
+    useEffect(()=>{
+        typeof window !== 'undefined' && window.scrollTo(0, 0)
+    },[])
     return (
         <div className='flex flex-col'>
             <div className='overflow-hidden p-4 w-full'>
