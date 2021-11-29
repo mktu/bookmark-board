@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 
 type Props = {
     title: React.ReactNode,
@@ -18,17 +18,12 @@ const Presenter: React.FC<Props> = ({
     description,
     comment,
     url,
-    refresh,
     color,
     date,
     image,
     submit,
     cancel,
 }) => {
-    // prevent scroll moving for liff browser
-    useEffect(()=>{
-        typeof window !== 'undefined' && window.scrollTo(0, 0)
-    },[])
     return (
         <div className='flex flex-col'>
             <div className='overflow-hidden p-4 w-full'>
@@ -38,10 +33,10 @@ const Presenter: React.FC<Props> = ({
                     </div>
                 </div>
             </div>
-            <div className='flex overflow-hidden justify-end items-center px-4 w-full'>
+            {/* <div className='flex overflow-hidden justify-end items-center px-4 w-full'>
                 <div className='ml-auto'>{refresh}</div>
                 <div className='mx-1 text-sm text-primary-main'>情報を再取得</div>
-            </div>
+            </div> */}
 
             <div className='overflow-hidden p-4 w-full'>
                 {image}
