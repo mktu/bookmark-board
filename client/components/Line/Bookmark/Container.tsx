@@ -87,14 +87,14 @@ const Container: React.FC<Props> = ({
         <ContainedButton className='text-sm' disabled={!hasChange} onClick={async () => {
             await submitBookmark()
         }}>更新</ContainedButton>
-    ), [hasChange, submitBookmark, onClose])
+    ), [hasChange, submitBookmark])
 
 
     const cancel = useMemo(() => (
         <OutlinedButton className='text-sm' onClick={onClose}>閉じる</OutlinedButton>
     ), [onClose])
 
-    if (fetching) {
+    if (fetching || !bookmark || !bookmark?.url) {
         return <Placeholder />
     }
     return (
