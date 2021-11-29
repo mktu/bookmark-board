@@ -184,8 +184,10 @@ const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, c
 		text: 'ブックマークの登録中です。しばらくお待ち下さい'
 	})
 	const { title, description, image, groupName, bookmarkId } = await registBookmark(url, groupId, owner)
-	const siteurl = functions.config().hosting.siteurl;
-	const editLink = `${siteurl}/bookmarks/${groupId}/${bookmarkId}`
+	// TODO REMOVE
+	//const siteurl = functions.config().hosting.siteurl;
+	const liffroot = functions.config().linebot.liffroot
+	const editLink = `${liffroot}/bookmarks/${groupId}/${bookmarkId}`
 	await client.pushMessage(events.source.userId || '', [{
 		type: "flex",
 		altText: "ブックマークの登録が完了しました",
