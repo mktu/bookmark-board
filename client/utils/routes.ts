@@ -10,5 +10,6 @@ export const parseBookmarkRoutes = (ids:string[]|string) => {
 
 export const LineLoginSettingPage = `${getOrigin()}/profile/line-setting`
 export const LineGroupsPage = `${getOrigin()}/line/groups`
-export const LineHomePage = `${getOrigin()}/line`
+export const LineRootPage = `${getOrigin()}/line`
+export const LineHomePage = `${getOrigin()}/line/home`
 export const LineBookmarkPage = (groupId:string,bookmarkId:string)=> `${getOrigin()}/line/bookmarks/${groupId}/${bookmarkId}`

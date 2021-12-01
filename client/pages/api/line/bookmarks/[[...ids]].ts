@@ -1,18 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getGroup, LineApiError, getBookmark, updateBookmark } from '../../../serverside/lineHelpers'
-import { getUser } from '../../../services/line'
+import { getGroup, getBookmarks, LineApiError, getBookmark, updateBookmark } from '../../../../serverside/lineHelpers'
+import { getUser } from '../../../../services/line'
+import { parseBookmarkRoutes } from '@utils/routes'
 
-const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (!req.query.groupId) {
-        throw new LineApiError(400, 'groupId parameter is undefined.')
-    }
-    if (!req.query.bookmarkId) {
-        throw new LineApiError(400, 'bookmarkId parameter is undefined.')
-    }
-
-    const groupId = req.query.groupId as string
-    const bookmarkId = req.query.bookmarkId as string
-
+const handleGetBookamrk = async (groupId:string, bookmarkId:string, res: NextApiResponse) => {
     const group = await getGroup(groupId)
 
     const bookmark = await getBookmark(groupId, bookmarkId)
@@ -23,9 +14,32 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     })
 }
 
+const handleGetBookmarks = async (groupId:string, res: NextApiResponse) => {
+    const bookmarks = await getBookmarks(groupId)
+
+    res.status(200).json({
+        bookmarks
+    })
+}
+
+const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
+    const { ids } = req.query
+    const { groupId, bookmarkId } = parseBookmarkRoutes(ids)
+    if (!groupId) {
+        throw new LineApiError(400, 'groupId parameter is undefined.')
+    }
+    if (!bookmarkId) {
+        await handleGetBookmarks(groupId, res)
+    }else{
+        await handleGetBookamrk(groupId, bookmarkId, res)
+    }
+}
+
 const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
-    const body = req.body as { idToken: string, update: Partial<Bookmark>, groupId: string, bookmarkId: string }
-    const { idToken, update, bookmarkId, groupId } = body
+    const { ids } = req.query
+    const { groupId, bookmarkId } = parseBookmarkRoutes(ids)
+    const body = req.body as { idToken: string, update: Partial<Bookmark> }
+    const { idToken, update } = body
     if (!idToken) {
         throw new LineApiError(400, 'idToken parameter is undefined.')
     }

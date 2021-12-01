@@ -1,0 +1,31 @@
+import React from 'react'
+import { Dropdowns } from '@components/Common/Input'
+
+type Props = {
+    handleUpdate: (value: string) => void,
+    selected?: string,
+    groups: BookmarkGroup[]
+}
+
+const Group: React.FC<Props> = ({
+    handleUpdate,
+    selected,
+    groups
+}) => (
+    <div className='flex flex-col items-end ml-auto'>
+        <Dropdowns
+            allowEmpty
+            placement='auto-end'
+            comboStyles={{
+                width: 160
+            }}
+            poperStyles={{
+                maxHeight: 200,
+            }}
+            options={groups.map(v => ({ label: v.name, value: v.id }))}
+            selected={selected}
+            onSelect={handleUpdate} />
+    </div>
+)
+
+export default Group

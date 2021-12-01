@@ -1,6 +1,6 @@
 import React from 'react'
 import Chat from '@components/Common/Icon/Chat'
-import Link from 'components/Common/Icon/Link'
+import Link from '@components//Common/Icon/Link'
 import { hex2rgb } from '@utils/rgb'
 
 type Props = {
@@ -13,7 +13,7 @@ type Props = {
     url: string
 }
 
-const Mobile: React.FC<Props> = ({
+const Default: React.FC<Props> = ({
     title,
     description,
     comment,
@@ -53,4 +53,4 @@ const Mobile: React.FC<Props> = ({
     )
 }
 
-export default Mobile
+export default Default

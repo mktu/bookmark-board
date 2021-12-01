@@ -4,10 +4,10 @@ import LiffContext from '@context/LiffContext'
 import { getOrigin } from '@utils/index'
 import { initialBookmark } from '@modules/bookmarkSlice'
 
-const BookmarkPath = `${getOrigin()}/api/line/bookmark`
+const BookmarkPath = `${getOrigin()}/api/line/bookmarks`
 
 export const useBookmark = (groupId:string, bookmarkId:string ) => {
-    const { lineProfile, idToken, closure } = useContext(LiffContext)
+    const { idToken, closure } = useContext(LiffContext)
     const { close } = closure
     const [error, setError] = useState('')
     const [fetching, setFetching] = useState(false)
@@ -30,11 +30,9 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
         setFetching(true)
         const params = {
             idToken,
-            groupId,
-            bookmarkId
         }
         const queryParams = new URLSearchParams(params)
-        const response = await fetch(`${BookmarkPath}?${queryParams}`)
+        const response = await fetch(`${BookmarkPath}/${groupId}/${bookmarkId}?${queryParams}`)
         const json = await response.json() as {
             bookmark : Bookmark,
             colors : BookmarkColors
@@ -46,7 +44,7 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
     }, [groupId, bookmarkId, idToken])
     const submitBookmark = useCallback(async () => {
         setPosting(true)
-        const response = await fetch(BookmarkPath, {
+        const response = await fetch(`${BookmarkPath}/${groupId}/${bookmarkId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -54,8 +52,6 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
             body: JSON.stringify({
                 idToken,
                 update,
-                groupId,
-                bookmarkId
             })
         })
         if(!response.ok){
@@ -81,7 +77,6 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
     const hasChange = Object.keys(update).length > 0
 
     return {
-        lineProfile,
         bookmark,
         error,
         fetching,
@@ -91,5 +86,49 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
         submitBookmark,
         onClose,
         updateBookmark
+    }
+}
+
+export const useBookmarks = (groupId:string) => {
+    const { idToken, closure } = useContext(LiffContext)
+    const { close } = closure
+    const [error, setError] = useState('')
+    const [fetching, setFetching] = useState(false)
+    const [bookmarks, setBookmarks] = useState<Bookmark[]>([])
+    const fetchBookmarks = useCallback(async () => {
+        if (!idToken || !groupId) {
+            return
+        }
+        setFetching(true)
+        const params = {
+            idToken,
+        }
+        const queryParams = new URLSearchParams(params)
+        const response = await fetch(`${BookmarkPath}/${groupId}?${queryParams}`)
+        const json = await response.json() as {
+            bookmarks : Bookmark[],
+        }
+        setBookmarks(json.bookmarks)
+        setFetching(false)
+
+    }, [groupId, idToken])
+    const onClose = useCallback(async () => {
+        await close({
+            close: true,
+        })
+    }, [close])
+    useEffect(() => {
+        fetchBookmarks().catch(e => {
+            console.error(e)
+            setError('ブックマーク一覧の取得に失敗しました')
+            setFetching(false)
+        })
+    }, [fetchBookmarks])
+
+    return {
+        bookmarks,
+        error,
+        fetching,
+        onClose,
     }
 }

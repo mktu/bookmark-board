@@ -44,7 +44,7 @@ export const getGroups = async (profileId: string) => {
         .get()
 
     if (docs.length === 0) {
-        throw new LineApiError(404, 'group is not found.')
+        throw new LineApiError(404, 'no groups found.')
     }
 
     return docs.filter(v => v.exists).map(v => ({
@@ -67,6 +67,22 @@ export const getGroup = async (groupId: string) => {
     }
 }
 
+export const getBookmarks = async (groupId: string) => {
+    const { docs } = await firebaseAdmin.firestore()
+        .collection('groups')
+        .doc(groupId)
+        .collection('bookmarks')
+        .get()
+
+    if (docs.length === 0) {
+        throw new LineApiError(404, 'no bookmarks found.')
+    }
+
+    return docs.filter(v => v.exists).map(v => ({
+        ...v.data() as Bookmark,
+        id: v.id
+    }))
+}
 
 export const getBookmark = async (groupId: string, bookmarkId: string) => {
     const doc = await firebaseAdmin.firestore()
