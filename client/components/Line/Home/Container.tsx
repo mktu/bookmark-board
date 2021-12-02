@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Presenter from './Presenter'
+import Presenter, { WaitForBookmarks, WaitForAll } from './Presenter'
 import { useProfile } from '@hooks/useLiffProfile'
 import { useBookmarks } from '@hooks/useLiffBookmark'
 import { useGroups } from '@hooks/useLiffBookmarkGroups'
@@ -10,20 +10,20 @@ import ListItem from './ListItem'
 import Group from './Group'
 
 const Container: React.VFC = () => {
-    const { profile } = useProfile()
+    const { profile, fetching: profileFetching } = useProfile()
     const { groups } = useGroups()
-    const [ selectedGroup, setGroup ] = useState('')
+    const [selectedGroup, setGroup] = useState('')
     const { bookmarks, fetching: bookmarkFetcing } = useBookmarks(selectedGroup)
-    const { name, lastUpdate, image } = profile || {}
+    const { name, image } = profile || {}
 
-    useEffect(()=>{
-        if(profile?.lineInfo?.defaultGroup){
+    useEffect(() => {
+        if (profile?.lineInfo?.defaultGroup) {
             setGroup(profile.lineInfo.defaultGroup)
         }
-    },[profile?.lineInfo?.defaultGroup])
+    }, [profile?.lineInfo?.defaultGroup])
 
-    if (!profile) {
-        return <div />
+    if (!profile || profileFetching) {
+        return <WaitForAll />
     }
 
     const bookmarkList = bookmarkFetcing ? <div /> : bookmarks.map(v => {
@@ -31,7 +31,7 @@ const Container: React.VFC = () => {
         const image = <UrlImage className='rounded' enableEndpoint={!v.disableEndpoint} width={BookmarkListImageSize} height={BookmarkListImageSize} src={v.image} name={v.title} />
         return (
             <li key={v.id} className='mb-2'>
-                <ListItem 
+                <ListItem
                     title={v.title}
                     url={v.url}
                     description={v.description}
@@ -44,7 +44,7 @@ const Container: React.VFC = () => {
     })
 
     const groupSelector = (
-        <Group groups={groups} selected={selectedGroup} handleUpdate={setGroup}/>
+        <Group groups={groups} selected={selectedGroup} handleUpdate={setGroup} />
     )
     const avatar = (
         <Avatar
@@ -53,12 +53,13 @@ const Container: React.VFC = () => {
             height={192}
             name={name} />
     )
-    return (
+    return bookmarkFetcing ? (
+        <WaitForBookmarks avatar={avatar} name={name} />
+    ) : (
         <Presenter
             {...{
                 name,
                 avatar,
-                updateDate: lastUpdate,
                 bookmarks: bookmarkList,
                 groupSelector
             }}
