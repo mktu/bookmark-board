@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import Presenter, { WaitForBookmarks, WaitForAll } from './Presenter'
+import Presenter, { WaitForAll } from './Presenter'
 import { useProfile } from '@hooks/useLiffProfile'
 import { useBookmarks } from '@hooks/useLiffBookmark'
 import { useGroups } from '@hooks/useLiffBookmarkGroups'
@@ -22,7 +22,7 @@ const Container: React.VFC = () => {
         }
     }, [profile?.lineInfo?.defaultGroup])
 
-    if (!profile || profileFetching) {
+    if (!profile || profileFetching || bookmarkFetcing) {
         return <WaitForAll />
     }
 
@@ -53,9 +53,7 @@ const Container: React.VFC = () => {
             height={192}
             name={name} />
     )
-    return bookmarkFetcing ? (
-        <WaitForBookmarks avatar={avatar} name={name} />
-    ) : (
+    return (
         <Presenter
             {...{
                 name,
