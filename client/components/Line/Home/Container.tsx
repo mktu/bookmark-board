@@ -9,6 +9,8 @@ import { BookmarkListImageSize } from '@utils/constants'
 import ListItem from './ListItem'
 import Group from './Group'
 
+const BookmarkLink = (groupId:string,bookmarkId:string)=> `https://liff.line.me/${process.env.NEXT_PUBLIC_LIFF_ID}/bookmarks/${groupId}/${bookmarkId}`
+
 const Container: React.VFC = () => {
     const { profile, fetching: profileFetching } = useProfile()
     const { groups } = useGroups()
@@ -38,6 +40,7 @@ const Container: React.VFC = () => {
                     comment={v.comment}
                     host={origin.host}
                     image={image}
+                    editLink={BookmarkLink(v.groupId,v.id)}
                 />
             </li>
         )
