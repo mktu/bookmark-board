@@ -1,6 +1,7 @@
 import React from 'react'
 import Chat from '@components/Common/Icon/Chat'
 import Link from '@components//Common/Icon/Link'
+import Edit from '@components//Common/Icon/EditFill'
 import { hex2rgb } from '@utils/rgb'
 
 type Props = {
@@ -24,8 +25,13 @@ const Default: React.FC<Props> = ({
 }) => {
     const [r, g, b] = hex2rgb(color)
     return (
-        <div className='py-2 px-2 rounded border border-primary-border'>
-            <a target='_blank' rel='noopener noreferrer' href={url} className='block overflow-hidden p-1 max-w-full text-sm text-primary-dark underline overflow-ellipsis'>{title}</a>
+        <div className='py-2 px-2 rounded border border-primary-border relative'>
+            <div className='flex'>
+                <div className='border rounded-full mr-2 p-2  bg-white fill-primary-main absolute -top-4 -left-5'>
+                    <Edit className='w-5 h-5'/>
+                </div>
+            <a target='_blank' rel='noopener noreferrer' href={url} className='flex-1 block overflow-hidden p-1 max-w-full text-sm text-primary-dark underline overflow-ellipsis'>{title}</a>
+            </div>
             <div className='my-2 border-b-2 border-primary-border' style={{ borderColor: color && `rgba(${r},${g},${b},0.5)` }} />
             <div className='flex py-2'>
                 <div className='flex justify-center items-center'>
