@@ -7,12 +7,13 @@ import Avatar from '@components/Common/Avatar/NextImage'
 import UrlImage from '@components/Common/Avatar/UrlImage'
 import { BookmarkListImageSize } from '@utils/constants'
 import ListItem from './ListItem'
+import ProfileNotFound from './ProfileNotFound'
 import Group from './Group'
 
 const BookmarkLink = (groupId:string,bookmarkId:string)=> `https://liff.line.me/${process.env.NEXT_PUBLIC_LIFF_ID}/bookmarks/${groupId}/${bookmarkId}`
 
 const Container: React.VFC = () => {
-    const { profile, fetching: profileFetching } = useProfile()
+    const { profile, fetching: profileFetching, error : profileError } = useProfile()
     const { groups } = useGroups()
     const [selectedGroup, setGroup] = useState('')
     const { bookmarks, fetching: bookmarkFetcing } = useBookmarks(selectedGroup)
@@ -24,6 +25,9 @@ const Container: React.VFC = () => {
         }
     }, [profile?.lineInfo?.defaultGroup])
 
+    if(profileError){
+        return <ProfileNotFound message={profileError}/>
+    }
     if (!profile || profileFetching || bookmarkFetcing) {
         return <WaitForAll />
     }

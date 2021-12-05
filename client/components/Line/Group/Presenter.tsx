@@ -3,12 +3,10 @@ type Props = {
     groups: React.ReactNode,
     submit: React.ReactNode,
     cancel: React.ReactNode,
-    error?: string
 }
 
 const Presenter: React.VFC<Props> = ({
     groups,
-    error,
     submit,
     cancel
 }) => {
@@ -16,9 +14,6 @@ const Presenter: React.VFC<Props> = ({
     return (
         <div>
             <p className='my-2 font-semibold text-primary-main'>登録先グループを選択してください</p>
-            {error && (
-                <div className='text-secondary-main'>{error}</div>
-            )}
             <ul>
                 {groups}
             </ul>

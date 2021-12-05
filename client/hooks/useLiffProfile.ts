@@ -26,6 +26,7 @@ export const useProfile = () => {
         const { profile } = json
         setProfile(profile)
         setFetching(false)
+        setError('')
 
     }, [idToken])
     const onClose = useCallback(async ()=>{
@@ -36,7 +37,7 @@ export const useProfile = () => {
     useEffect(() => {
         fetchGroups().catch(e => {
             console.error(e)
-            setError('プロファイルの取得に失敗しました')
+            setError('ユーザ情報の取得に失敗しました')
             setFetching(false)
         })
     }, [fetchGroups])
