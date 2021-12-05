@@ -1,3 +1,22 @@
+export type Bookmark = {
+    url: string,
+    title?: string,
+    description?: string,
+    comment?: string,
+    neighbors: [],
+    image?: string,
+    images?:string[],
+    groupId: string,
+    owner: string,
+    created: number,
+    lastUpdate?: number,
+    idx: number,
+    unacquired?: boolean,
+    reactions: { [key: string]: string[] },
+    color?: string,
+    disableEndpoint?:boolean
+}
+
 export type BookmarkGroup = {
     owner: string,
     name: string,
@@ -14,6 +33,12 @@ export type Profile = {
     comment?: string,
     image: string,
     twitter?: string,
+    lineid ?: string,
+    lineInfo ?: {
+        id : string,
+        name : string,
+        defaultGroup?: string
+    }
 }
 
 export type BookmarkGroupIndex = {

@@ -1,10 +1,13 @@
 import React from 'react'
 import Chat from '@components/Common/Icon/Chat'
-import Link from 'components/Common/Icon/Link'
+import Link from '@components//Common/Icon/Link'
+import Edit from '@components//Common/Icon/EditFill'
+import { SvgFillIconButton } from '@components//Common/Button'
 import { hex2rgb } from '@utils/rgb'
 
 type Props = {
     title: string,
+    editLink : string,
     description: string,
     comment?: string,
     image: React.ReactNode,
@@ -13,8 +16,9 @@ type Props = {
     url: string
 }
 
-const Mobile: React.FC<Props> = ({
+const Default: React.FC<Props> = ({
     title,
+    editLink,
     description,
     comment,
     image,
@@ -24,8 +28,15 @@ const Mobile: React.FC<Props> = ({
 }) => {
     const [r, g, b] = hex2rgb(color)
     return (
-        <div className='py-2 px-2 rounded border border-primary-border'>
-            <a target='_blank' rel='noopener noreferrer' href={url} className='block overflow-hidden p-1 max-w-full text-sm text-primary-dark underline overflow-ellipsis'>{title}</a>
+        <div className='relative py-2 px-2 rounded border border-primary-border'>
+            <div className='flex'>
+                <SvgFillIconButton className='absolute -top-4 -left-5 p-2 mr-2 bg-white rounded-full border fill-primary-400' onClick={()=>{
+                    window && window.open(editLink)
+                }}>
+                    <Edit className='w-5 h-5'/>
+                </SvgFillIconButton>
+            <a target='_blank' rel='noopener noreferrer' href={url} className='block overflow-hidden flex-1 p-1 max-w-full text-sm text-primary-dark underline overflow-ellipsis'>{title}</a>
+            </div>
             <div className='my-2 border-b-2 border-primary-border' style={{ borderColor: color && `rgba(${r},${g},${b},0.5)` }} />
             <div className='flex py-2'>
                 <div className='flex justify-center items-center'>
@@ -53,4 +64,4 @@ const Mobile: React.FC<Props> = ({
     )
 }
 
-export default Mobile
+export default Default

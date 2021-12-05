@@ -12,6 +12,7 @@
     "fix:lint": "next lint --fix"
   },
   "dependencies": {
+    "@line/liff": "^2.17.0",
     "@next/bundle-analyzer": "^9.5.5",
     "@popperjs/core": "^2.9.3",
     "@reduxjs/toolkit": "^1.4.0",
@@ -35,6 +36,7 @@
     "open-graph-scraper": "^4.7.1",
     "postcss": "^8.3.6",
     "react": "17.0.2",
+    "react-content-loader": "^6.0.3",
     "react-dnd": "^11.1.3",
     "react-dnd-html5-backend": "^11.1.3",
     "react-dnd-preview": "^6.0.2",

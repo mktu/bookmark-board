@@ -1,13 +1,20 @@
 import React from 'react'
+import { useRouter } from 'next/router'
 import { toast } from 'react-toastify';
 import TextInput from '../Common/Input/TextInput'
 import TextArea from '../Common/Input/TextArea'
 import { ContainedButton } from '../Common/Button'
 import Avatar from '../Common/Avatar/NextImage'
-import useProfileEditor from '../../hooks/useProfileEditor'
+import useProfileEditor from '@hooks/useProfileEditor'
+import { lineLogin, lineLoginSettingPage } from '@hooks/useLineLogin'
 import Presenter from './Presenter'
+import LineLogin from './LineLogin'
+import { LineAuthlDialog, LineAuth } from './LineAuth'
 
 const Container: React.FC = () => {
+    const router = useRouter()
+    const { option } = router.query
+    const lineSetting = option && option.length > 0 && option[0] === 'line-setting'
     const {
         profile,
         progress,
@@ -15,10 +22,16 @@ const Container: React.FC = () => {
         status,
         handleChangeFile,
         updateProfile,
+        registerLine,
         handleSubmit,
         hasChange
     } = useProfileEditor()
 
+    const lineLoginButton = (
+        <LineLogin onClickLogin={() => {
+            lineLogin(lineLoginSettingPage)
+        }} authed={Boolean(profile?.lineInfo)} name={profile?.lineInfo?.name} />
+    )
     const avatar = (
         <Avatar
             src={profile.image}
@@ -43,11 +56,11 @@ const Container: React.FC = () => {
         </label>
     )
 
-    const name = <TextInput className='my-2' label='NAME' id='name' value={profile.name} onChange={(e) => { updateProfile('name')(e.target.value) }} />
+    const name = <TextInput className='my-2' label='NAME' id='name' value={profile.name} onChange={(e) => { updateProfile('name',e.target.value) }} />
 
-    const twitterInput = <TextInput placeholder='@アカウント名' className='w-full' id='twitter' value={profile.twitter} onChange={(e) => { updateProfile('twitter')(e.target.value) }} />
+    const twitterInput = <TextInput placeholder='@アカウント名' className='w-full' id='twitter' value={profile.twitter} onChange={(e) => { updateProfile('twitter',e.target.value) }} />
 
-    const commentInput = <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} border='outlined' minRows={4} onChange={(e) => { updateProfile('comment')(e.target.value) }} />
+    const commentInput = <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} border='outlined' minRows={4} onChange={(e) => { updateProfile('comment',e.target.value) }} />
 
     const submit = (
         <ContainedButton disabled={!hasChange} className='my-2' onClick={() => {
@@ -56,6 +69,16 @@ const Container: React.FC = () => {
             })
         }}>更新する</ContainedButton>
     )
+
+    const onCloseAuth = ()=>{
+        router.push('/profile')
+    }
+
+    const lineAuth = lineSetting ? (
+        <LineAuthlDialog open={lineSetting} onClose={onCloseAuth}>
+            <LineAuth onClose={onCloseAuth} registLineId={registerLine}/>
+        </LineAuthlDialog>
+    ) : (<div />)
 
     const updateDate = profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`
 
@@ -69,7 +92,9 @@ const Container: React.FC = () => {
             twitterInput,
             commentInput,
             submit,
-            updateDate
+            updateDate,
+            lineLogin: lineLoginButton,
+            lineAuth
         }}
     />
 }

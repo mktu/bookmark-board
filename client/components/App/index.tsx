@@ -3,5 +3,5 @@ import RequireNotSigned from './RequireNotSignedIn'
 
 export {
     RequireSignedIn,
-    RequireNotSigned
+    RequireNotSigned,
 }

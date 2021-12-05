@@ -79,8 +79,8 @@ const Container: React.FC<Props> = ({
     ), [inputDisabled, handleRefetch])
 
     const color = useMemo(() => (
-        <Color color={bookmark.color} handleUpdate={updateBookmark('color')} group={group} />
-    ), [bookmark.color, updateBookmark, group])
+        <Color color={bookmark.color} handleUpdate={updateBookmark('color')} colors={group.colors} />
+    ), [bookmark.color, updateBookmark, group.colors])
 
     const move = useMemo(() => (
         <Move {...moveGroupProps} copy={moveGroupProps.copyGroup} disabled={moveGroupProps.moveDest?.id === bookmark.groupId} />

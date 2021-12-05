@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect, useCallback } from 'react'
 import { toast } from 'react-toastify';
 import { useProfile } from '@modules/profileSlice'
 import useUpload from './useUpload'
@@ -25,12 +25,20 @@ const useProfileContainer = () => {
         })
     }
 
-    const updateProfile = (key: keyof Profile) => (value: string) => {
+    const updateProfile = useCallback((key: keyof Profile, value: string ) => {
         setUpdate(before=>({
             ...before,
             [key] : key === 'twitter' ? value.replace(/\s/g, '') : value
         }))
-    }
+    },[])
+
+    const registerLine = useCallback((lineInfo : Profile['lineInfo'])=>{
+        clientService.updateProfile(profile.id, {
+            lineid : lineInfo.id,
+            lineInfo
+        })
+    },[clientService,profile.id])
+
     useEffect(()=>{
         return ()=>{
             setUpdate({})
@@ -61,6 +69,7 @@ const useProfileContainer = () => {
         error,
         handleChangeFile,
         updateProfile,
+        registerLine,
         handleSubmit,
         hasChange
     }

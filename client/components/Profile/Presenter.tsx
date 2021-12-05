@@ -13,6 +13,8 @@ type Props = {
     commentInput: React.ReactNode,
     submit: React.ReactNode,
     updateDate: React.ReactNode,
+    lineLogin: React.ReactNode,
+    lineAuth: React.ReactNode,
 }
 
 const Presenter: React.FC<Props> = ({
@@ -24,7 +26,9 @@ const Presenter: React.FC<Props> = ({
     twitterInput,
     commentInput,
     submit,
-    updateDate
+    updateDate,
+    lineLogin,
+    lineAuth
 }) => {
     return (
         <div className='p-6 w-full h-full'>
@@ -45,6 +49,9 @@ const Presenter: React.FC<Props> = ({
                         <div className='hidden md:block mx-2 text-primary-300'>{TwitterUrl}</div>
                         {twitterInput}
                     </div>
+                    <div className='my-3'>
+                        {lineLogin}
+                    </div>
                     {commentInput}
                     <div className='flex flex-col justify-center items-end my-2'>
                         {submit}
@@ -54,6 +61,7 @@ const Presenter: React.FC<Props> = ({
                     </div>
                 </div>
             </div>
+            {lineAuth}
         </div>
     )
 }
