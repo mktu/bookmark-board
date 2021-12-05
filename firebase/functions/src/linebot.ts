@@ -184,8 +184,6 @@ const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, c
 		text: 'ブックマークの登録中です。しばらくお待ち下さい'
 	})
 	const { title, description, image, groupName, bookmarkId } = await registBookmark(url, groupId, owner)
-	// TODO REMOVE
-	//const siteurl = functions.config().hosting.siteurl;
 	const liffroot = functions.config().linebot.liffroot
 	const editLink = `${liffroot}/bookmarks/${groupId}/${bookmarkId}`
 	await client.pushMessage(events.source.userId || '', [{
@@ -344,10 +342,7 @@ const parseEvents: (events: line.WebhookEvent, client: line.Client) => Promise<v
 			await handlePostback(events, client)
 		}
 		else {
-			await client.pushMessage(events.source.userId, {
-				type: 'text',
-				text: '未サポートのイベントです'
-			})
+			functions.logger.warn(`unsupported event : ${events.type}`)
 		}
 	} catch (e) {
 		if (e instanceof LineLogicError) {
