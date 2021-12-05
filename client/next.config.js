@@ -11,6 +11,7 @@ module.exports = withBundleAnalyzer({
       dest: 'public',
       runtimeCaching,
       disable: process.env.NODE_ENV === 'development',
+      buildExcludes: [/middleware-manifest\.json$/] // TBD need bugfix version (https://github.com/shadowwalker/next-pwa/issues/288)
     },
   },),
   images: {
