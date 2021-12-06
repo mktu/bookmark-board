@@ -25,10 +25,10 @@ const useProfileContainer = () => {
         })
     }
 
-    const updateProfile = useCallback((key: keyof Profile, value: string ) => {
+    const updateProfile = useCallback((key: keyof Profile, value: Profile[keyof Profile] ) => {
         setUpdate(before=>({
             ...before,
-            [key] : key === 'twitter' ? value.replace(/\s/g, '') : value
+            [key] : key === 'twitter' ? (value as string).replace(/\s/g, '') : value
         }))
     },[])
 
