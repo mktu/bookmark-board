@@ -131,7 +131,7 @@ const checkRegistration = async (events: line.FollowEvent, client: line.Client) 
 	}catch(e){
 		await client.replyMessage(events.replyToken, [{
 			type: 'text',
-			text: `Bookmark-Boardの連携が行われていません。このBotを有効にするにはWEBブラウザからBookmark-BoardにてLINE連携を行ってください。`
+			text: `Bookmark-Boardの連携が行われていません。このBotを有効にするにはWEBブラウザからBookmark-BoardのLINE連携を行ってください。`
 		},{
 			type: 'text',
 			text : functions.config().hosting.siteurl
