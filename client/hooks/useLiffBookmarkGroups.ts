@@ -11,7 +11,7 @@ export const useGroups = () => {
     const [defaultGroup, setDefaultGroup] = useState('')
     const [error, setError] = useState('')
     const [fetching, setFetching] = useState(false)
-    const [posting,setPosting] = useState(false)
+    const [posting, setPosting] = useState(false)
     const [groups, setGroups] = useState<BookmarkGroup[]>([])
     const fetchGroups = useCallback(async () => {
         if (!idToken) {
@@ -45,18 +45,25 @@ export const useGroups = () => {
                 defaultGroup
             })
         })
-        const data = (await response.json()) as BookmarkGroup
-        await close({
-            close : true,
-            sendMessage : `${SelectGroup} [${data.name}]に変更しました。`
-        })
+        if (defaultGroup) {
+            const data = (await response.json()) as BookmarkGroup
+            await close({
+                close: true,
+                sendMessage: `${SelectGroup} [${data.name}]に変更しました。`
+            })
+        }else{
+            await close({
+                close: true,
+                sendMessage: `${SelectGroup} [未設定]に変更しました。`
+            })
+        }
         setPosting(false)
-    }, [idToken,defaultGroup, close])
-    const onClose = useCallback(async ()=>{
+    }, [idToken, defaultGroup, close])
+    const onClose = useCallback(async () => {
         await close({
-            close : true,
+            close: true,
         })
-    },[close])
+    }, [close])
     useEffect(() => {
         fetchGroups().catch(e => {
             console.error(e)

@@ -33,6 +33,10 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
         }
         const queryParams = new URLSearchParams(params)
         const response = await fetch(`${BookmarkPath}/${groupId}/${bookmarkId}?${queryParams}`)
+        if(!response.ok){
+            setError('ブックマークの取得に失敗しました')
+            return
+        }
         const json = await response.json() as {
             bookmark : Bookmark,
             colors : BookmarkColors

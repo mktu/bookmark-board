@@ -28,9 +28,6 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     if (!idToken) {
         throw new LineApiError(400, 'idToken parameter is undefined.')
     }
-    if (!defaultGroup) {
-        throw new LineApiError(400, 'defaultGroup parameter is undefined.')
-    }
     const { id: userId } = await getUser(idToken)
 
     if (!userId) {
@@ -38,15 +35,21 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
     }
 
     const profile = await getProfile(userId)
-
-    const group = await getGroup(defaultGroup)
-
+    
     const { id: profileId, lineInfo } = profile
 
     const newLineInfo = {
         ...lineInfo,
-        defaultGroup
+        defaultGroup : defaultGroup || ''
     }
+
+    if(!defaultGroup){
+        await updateProfile(profileId, {lineInfo : newLineInfo})
+        res.status(200).end()
+        return
+    }
+
+    const group = await getGroup(defaultGroup)
 
     await updateProfile(profileId, {lineInfo : newLineInfo})
 

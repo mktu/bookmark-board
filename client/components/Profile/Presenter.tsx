@@ -1,6 +1,8 @@
 import React from 'react'
 import { Label } from '@components/Common/Label'
 import TwitterIcon from '@components/Common/Icon/Twitter'
+import { TooltipDivContainer } from '@components/Common/Tooltip'
+import Help from '@components/Common/Icon/Help'
 import { TwitterUrl } from '@utils/constants'
 
 type Props = {
@@ -15,6 +17,7 @@ type Props = {
     updateDate: React.ReactNode,
     lineLogin: React.ReactNode,
     lineAuth: React.ReactNode,
+    groupSelectorForLine: React.ReactNode,
 }
 
 const Presenter: React.FC<Props> = ({
@@ -28,7 +31,8 @@ const Presenter: React.FC<Props> = ({
     submit,
     updateDate,
     lineLogin,
-    lineAuth
+    lineAuth,
+    groupSelectorForLine
 }) => {
     return (
         <div className='p-6 w-full h-full'>
@@ -50,7 +54,15 @@ const Presenter: React.FC<Props> = ({
                         {twitterInput}
                     </div>
                     <div className='my-3'>
-                        {lineLogin}
+                        <div>{lineLogin}</div>
+                        <div className='flex justify-end items-center mt-2'>
+                            <div className='mr-2 mb-1 text-sm text-primary-main'>登録先グループ</div>
+                            {groupSelectorForLine}
+                            <TooltipDivContainer className='hidden md:block ml-2' content='Line Bot利用時のブックマーク登録先グループです。'>
+                                <Help className='w-5 h-5 stroke-primary-main' />
+                            </TooltipDivContainer>
+                        </div>
+
                     </div>
                     {commentInput}
                     <div className='flex flex-col justify-center items-end my-2'>

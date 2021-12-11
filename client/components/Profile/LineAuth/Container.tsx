@@ -5,12 +5,12 @@ import Presenter from './Presenter'
 
 type Props = {
     onClose : ()=>void,
-    registLineId: (line:ReturnType<typeof useLineAuth>['user'])=>void
+    registLineId: (line:ReturnType<typeof useLineAuth>['user'])=>void,
 }
 
 const Container: VFC<Props> = ({
     onClose,
-    registLineId
+    registLineId,
 }) => {
     const { user, error, addFriendLink } = useLineAuth(lineLoginSettingPage)
     const success = user && !error

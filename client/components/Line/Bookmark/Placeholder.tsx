@@ -3,7 +3,7 @@ import ContentLoader from "react-content-loader"
 
 const Placeholder = () => (
   <ContentLoader 
-    id='bookmark-placeholder'
+    uniqueKey='bookmark-placeholder'
     speed={2}
     width={400}
     height={800}

@@ -6,9 +6,11 @@ import TextArea from '../Common/Input/TextArea'
 import { ContainedButton } from '../Common/Button'
 import Avatar from '../Common/Avatar/NextImage'
 import useProfileEditor from '@hooks/useProfileEditor'
+import { useGroupsByUser } from '@modules/groupSlice'
 import { lineLogin, lineLoginSettingPage } from '@hooks/useLineLogin'
 import Presenter from './Presenter'
 import LineLogin from './LineLogin'
+import GroupSelector from './GroupSelector'
 import { LineAuthlDialog, LineAuth } from './LineAuth'
 
 const Container: React.FC = () => {
@@ -26,6 +28,7 @@ const Container: React.FC = () => {
         handleSubmit,
         hasChange
     } = useProfileEditor()
+    const groups = useGroupsByUser(profile?.id)
 
     const lineLoginButton = (
         <LineLogin onClickLogin={() => {
@@ -56,11 +59,11 @@ const Container: React.FC = () => {
         </label>
     )
 
-    const name = <TextInput className='my-2' label='NAME' id='name' value={profile.name} onChange={(e) => { updateProfile('name',e.target.value) }} />
+    const name = <TextInput className='my-2' label='NAME' id='name' value={profile.name||''} onChange={(e) => { updateProfile('name',e.target.value) }} />
 
-    const twitterInput = <TextInput placeholder='@アカウント名' className='w-full' id='twitter' value={profile.twitter} onChange={(e) => { updateProfile('twitter',e.target.value) }} />
+    const twitterInput = <TextInput placeholder='@アカウント名' className='w-full' id='twitter' value={profile.twitter||''} onChange={(e) => { updateProfile('twitter',e.target.value) }} />
 
-    const commentInput = <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment} border='outlined' minRows={4} onChange={(e) => { updateProfile('comment',e.target.value) }} />
+    const commentInput = <TextArea className='my-2' label='COMMENT' id='comment' value={profile.comment||''} border='outlined' minRows={4} onChange={(e) => { updateProfile('comment',e.target.value) }} />
 
     const submit = (
         <ContainedButton disabled={!hasChange} className='my-2' onClick={() => {
@@ -76,8 +79,14 @@ const Container: React.FC = () => {
 
     const lineAuth = lineSetting ? (
         <LineAuthlDialog open={lineSetting} onClose={onCloseAuth}>
-            <LineAuth onClose={onCloseAuth} registLineId={registerLine}/>
+            <LineAuth onClose={onCloseAuth} registLineId={registerLine} />
         </LineAuthlDialog>
+    ) : (<div />)
+
+    const groupSelectorForLine = profile?.lineInfo ? (
+        <GroupSelector groups={groups} selected={profile.lineInfo.defaultGroup} handleUpdate={(id)=>{
+            updateProfile('lineInfo', {...profile.lineInfo, defaultGroup : id})
+        }}/>
     ) : (<div />)
 
     const updateDate = profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`
@@ -94,7 +103,8 @@ const Container: React.FC = () => {
             submit,
             updateDate,
             lineLogin: lineLoginButton,
-            lineAuth
+            lineAuth,
+            groupSelectorForLine
         }}
     />
 }

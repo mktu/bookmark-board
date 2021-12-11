@@ -4,11 +4,9 @@ import * as line from '@line/bot-sdk';
 import firebaseAdmin from './admin'
 import { extractUrl } from './extractUrl'
 import scrape from './scrape'
-import { bookmarkMessage, groupMessage, EventTypes } from './lineMessage'
+import { bookmarkMessage, groupMessage, EventTypes, defaultGroupMessage } from './lineMessage'
 import { BookmarkGroup, Bookmark, Profile } from './types'
 
-// todo
-// * Adret registration show menu "Add Bookmark to GroupName! ==> show detail / use this group default" 
 type ProfileWithId = Profile & { id: string }
 type BookmarkGroupWithId = BookmarkGroup & { id: string }
 
@@ -26,8 +24,7 @@ class LineLogicError extends Error {
 	}
 }
 
-const loadProfile: (events: line.WebhookEvent) => Promise<ProfileWithId> = async (events) => {
-	const userId = events.source.userId
+const loadProfile: (userId: string | undefined) => Promise<ProfileWithId> = async (userId) => {
 	const { docs: profileDocs } = await firebaseAdmin.firestore()
 		.collection('profiles')
 		.where('lineid', '==', userId)
@@ -116,6 +113,32 @@ const saveBookmark = async (groupId: string, {
 	return result.id
 }
 
+const checkRegistration = async (events: line.FollowEvent, client: line.Client) => {
+	try{
+		const profile = await loadProfile(events.source.userId)
+		if(!profile.lineInfo?.defaultGroup){
+			const defaultGroupPage = `${functions.config().linebot.liffroot}/groups`
+			await client.replyMessage(events.replyToken, [{
+				type : 'text',
+				text : '💡 毎回グループを選択しなくて済むように、登録先グループを設定することをお勧めします'
+			},
+				{
+				type: 'flex',
+				altText: "グループを選択してください",
+				contents: defaultGroupMessage(defaultGroupPage)
+			} as line.FlexMessage])
+		}
+	}catch(e){
+		await client.replyMessage(events.replyToken, [{
+			type: 'text',
+			text: `Bookmark-Boardの連携が行われていません。このBotを有効にするにはWEBブラウザからBookmark-Boardのユーザ連携を行ってください。`
+		},{
+			type: 'text',
+			text : functions.config().hosting.siteurl
+		}])
+	}
+}
+
 const checkDupplicate = async (groupId: string, url: string) => {
 	const docs = await firebaseAdmin.firestore()
 		.collection('groups')
@@ -184,8 +207,6 @@ const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, c
 		text: 'ブックマークの登録中です。しばらくお待ち下さい'
 	})
 	const { title, description, image, groupName, bookmarkId } = await registBookmark(url, groupId, owner)
-	// TODO REMOVE
-	//const siteurl = functions.config().hosting.siteurl;
 	const liffroot = functions.config().linebot.liffroot
 	const editLink = `${liffroot}/bookmarks/${groupId}/${bookmarkId}`
 	await client.pushMessage(events.source.userId || '', [{
@@ -207,7 +228,7 @@ const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, c
 
 const handleRegisterDefaultGroup: (events: line.PostbackEvent, client: line.Client, groupId: string) => Promise<void> = async (events, client, groupId) => {
 	const { name } = await loadGroup(groupId)
-	const { id, lineInfo } = await loadProfile(events)
+	const { id, lineInfo } = await loadProfile(events.source.userId)
 	const newLineInfo = {
 		...lineInfo,
 		defaultGroup: groupId
@@ -219,7 +240,7 @@ const handleRegisterDefaultGroup: (events: line.PostbackEvent, client: line.Clie
 	})
 }
 const handleUnregisterDefaultGroup: (events: line.PostbackEvent, client: line.Client) => Promise<void> = async (events, client) => {
-	const { id, lineInfo } = await loadProfile(events)
+	const { id, lineInfo } = await loadProfile(events.source.userId)
 	const newLineInfo = {
 		...lineInfo,
 		defaultGroup: ''
@@ -248,27 +269,13 @@ const handleBookmark: (events: line.MessageEvent, client: line.Client) => Promis
 	if (!url) {
 		throw new LineLogicError('無効なアドレスです')
 	}
-	const { id, lineInfo } = await loadProfile(events)
+	const { id, lineInfo } = await loadProfile(events.source.userId)
 	if (lineInfo?.defaultGroup) {
 		await handleRegisterBookmark(events, client, url, lineInfo.defaultGroup, id)
 	} else {
 		await showGroupsBeforeRegisterBookmark(events, client, url, id)
 	}
 }
-
-// TBD replace by liff
-// const selectDefaultGroup: (events: line.MessageEvent, client: line.Client) => Promise<void> = async (events, client) => {
-// 	const { id, lineInfo } = await loadProfile(events)
-// 	const groups = await loadGroups(id)
-// 	const currentGroupName = groups.find(v => v.id === lineInfo?.defaultGroup)?.name
-// 	await client.replyMessage(events.replyToken, {
-// 		type: 'flex',
-// 		altText: "登録先グループを選択してください",
-// 		contents: groupSelector(groups.map(v => ({
-// 			id: v.id, label: v.name
-// 		})), currentGroupName)
-// 	} as line.FlexMessage)
-// }
 
 const handleMessage: (events: line.MessageEvent, client: line.Client) => Promise<void> = async (events, client) => {
 	const { type: messageType } = events.message
@@ -343,11 +350,11 @@ const parseEvents: (events: line.WebhookEvent, client: line.Client) => Promise<v
 		else if (events.type === 'postback') {
 			await handlePostback(events, client)
 		}
+		else if(events.type === 'follow') {
+			await checkRegistration(events, client)
+		}
 		else {
-			await client.pushMessage(events.source.userId, {
-				type: 'text',
-				text: '未サポートのイベントです'
-			})
+			functions.logger.warn(`unsupported event : ${events.type}`)
 		}
 	} catch (e) {
 		if (e instanceof LineLogicError) {

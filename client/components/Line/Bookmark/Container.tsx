@@ -1,6 +1,7 @@
 import React, { useMemo } from 'react'
 import Presenter from './Presenter'
 import Placeholder from './Placeholder'
+import NotFound from './NotFound'
 import { useBookmark } from '@hooks/useLiffBookmark'
 import TextInput from '@components/Common/Input/TextInput'
 import TextArea from '@components/Common/Input/TextArea'
@@ -28,6 +29,7 @@ const Container: React.FC<Props> = ({
 }) => {
     const {
         bookmark,
+        error,
         colors,
         hasChange,
         fetching,
@@ -94,6 +96,9 @@ const Container: React.FC<Props> = ({
         <OutlinedButton className='text-sm' onClick={onClose}>閉じる</OutlinedButton>
     ), [onClose])
 
+    if(error){
+        return <NotFound message={error}/>
+    }
     if (fetching || !bookmark || !bookmark?.url) {
         return <Placeholder />
     }

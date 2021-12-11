@@ -44,7 +44,7 @@ const Dropdowns: React.FC<Props> = ({
         e.preventDefault && e.preventDefault()
         setPopoverShow(before => !before)
     }, []);
-    const selectedLabel = options.find(v => v.value === selected)
+    const selectedLabel = options.find(v => v.value === selected) || (allowEmpty ? { label : '選択なし', value : '' } : {label : placeholder, value : ''})
     return (
         <div className={className}>
             <div className='w-full' ref={(value) => {
@@ -60,9 +60,6 @@ const Dropdowns: React.FC<Props> = ({
                     aria-haspopup="true"
                     aria-expanded="true">
                     <div className='overflow-x-hidden mr-2 max-w-full truncate'>{selectedLabel?.label}</div>
-                    {placeholder && !allowEmpty && !selectedLabel && (
-                        <div className='overflow-x-hidden mr-2 max-w-full text-primary-main truncate'>{placeholder}</div>
-                    )}
                     <ChevronDown className='ml-auto w-5' strokeWidth={2} />
                 </ButtonBase>
             </div>

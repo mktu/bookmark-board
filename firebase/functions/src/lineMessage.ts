@@ -7,7 +7,7 @@ export const EventTypes = {
 export const groupMessage = (groups: {
     label: string,
     id: string,
-}[], url: string, owner:string) => {
+}[], url: string, owner: string) => {
     return {
         "type": "bubble",
         "body": {
@@ -58,87 +58,9 @@ export const groupMessage = (groups: {
     }
 }
 
-// export const groupSelector = (groups: {
-//     label: string,
-//     id: string,
-// }[], currentGroupName ?: string) => {
-//     return {
-//         "type": "bubble",
-//         "body": {
-//             "type": "box",
-//             "layout": "vertical",
-//             "contents": [
-//                 {
-//                     "type": "text",
-//                     "text": "グループを選択してください",
-//                     "weight": "bold",
-//                     "size": "md"
-//                 },
-//                 {
-//                     "type": "box",
-//                     "layout": "baseline",
-//                     "spacing": "sm",
-//                     "margin": "md",
-//                     "contents": [
-//                       {
-//                         "type": "text",
-//                         "text": "現在の設定",
-//                         "color": "#aaaaaa",
-//                         "size": "sm",
-//                         "flex": 1
-//                       },
-//                       {
-//                         "type": "text",
-//                         "text": currentGroupName || '設定なし',
-//                         "wrap": true,
-//                         "color": "#666666",
-//                         "size": "sm",
-//                         "flex": 2
-//                       }
-//                     ]
-//                   },
-//                 {
-//                     "type": "box",
-//                     "layout": "vertical",
-//                     "margin": "lg",
-//                     "spacing": "sm",
-//                     "contents": groups.map((group) => ({
-//                         "type": "button",
-//                         "action": {
-//                             "type": "postback",
-//                             "label": group.label,
-//                             "data": `event=${EventTypes.defaultGroup},groupId=${group.id}`
-//                         },
-//                         "margin": "none",
-//                         "height": "sm",
-//                         "offsetStart": "none"
-//                     }))
-//                 }
-//             ]
-//         },
-//         "footer": {
-//             "type": "box",
-//             "layout": "vertical",
-//             "spacing": "sm",
-//             "contents": [
-//                 {
-//                     "type": "button",
-//                     "height": "sm",
-//                     "action": {
-//                         "type": "postback",
-//                         "label": "グループを設定しない",
-//                         "data": `event=${EventTypes.alwaysSelectGroup}`
-//                     }
-//                 }
-//             ],
-//             "flex": 0
-//         }
-//     }
-// }
-
 export const bookmarkMessage = ({
     url, title, description, group, image, editLink
-}: { url: string, title: string, description?: string, group?: string, image?: string, editLink:string }) => {
+}: { url: string, title: string, description?: string, group?: string, image?: string, editLink: string }) => {
     return {
         "type": "bubble",
         "hero": {
@@ -241,3 +163,27 @@ export const bookmarkMessage = ({
         }
     }
 }
+
+export const defaultGroupMessage = (editLink: string) => (
+    {
+        "type": "bubble",
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+                {
+                    "type": "button",
+                    "style": "link",
+                    "height": "sm",
+                    "action": {
+                        "type": "uri",
+                        "label": "登録先グループを設定する",
+                        "uri": editLink
+                    }
+                }
+            ],
+            "flex": 0
+        }
+    }
+)
