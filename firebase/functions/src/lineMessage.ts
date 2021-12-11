@@ -7,7 +7,7 @@ export const EventTypes = {
 export const groupMessage = (groups: {
     label: string,
     id: string,
-}[], url: string, owner:string) => {
+}[], url: string, owner: string) => {
     return {
         "type": "bubble",
         "body": {
@@ -60,7 +60,7 @@ export const groupMessage = (groups: {
 
 export const bookmarkMessage = ({
     url, title, description, group, image, editLink
-}: { url: string, title: string, description?: string, group?: string, image?: string, editLink:string }) => {
+}: { url: string, title: string, description?: string, group?: string, image?: string, editLink: string }) => {
     return {
         "type": "bubble",
         "hero": {
@@ -163,3 +163,27 @@ export const bookmarkMessage = ({
         }
     }
 }
+
+export const defaultGroupMessage = (editLink: string) => (
+    {
+        "type": "bubble",
+        "footer": {
+            "type": "box",
+            "layout": "vertical",
+            "spacing": "sm",
+            "contents": [
+                {
+                    "type": "button",
+                    "style": "link",
+                    "height": "sm",
+                    "action": {
+                        "type": "uri",
+                        "label": "登録先グループを設定する",
+                        "uri": editLink
+                    }
+                }
+            ],
+            "flex": 0
+        }
+    }
+)

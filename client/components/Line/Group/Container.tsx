@@ -1,31 +1,33 @@
 import { useGroups } from '@hooks/useLiffBookmarkGroups'
 import Presenter from './Presenter'
-import ListItem from './ListItem'
+import ListItem, { NoGroup } from './ListItem'
 import ListPlaceholder from './ListPlaceholder'
 import NotFound from './NotFound'
 import { ContainedButton, OutlinedButton } from '@components/Common/Button'
 
 
-const Container : React.VFC = ()=> {
+const Container: React.VFC = () => {
     const { groups, defaultGroup, error, setDefaultGroup, fetching, posting, updateDefaultGroup, onClose, } = useGroups()
-    const groupList = fetching ? <ListPlaceholder />  : groups.map(v=>(
-        <ListItem key={v.id}  onCheck={()=>{
+    const groupList = fetching ? <ListPlaceholder /> : groups.length > 0 ? [...groups.map(v => (
+        <ListItem key={v.id} onCheck={() => {
             setDefaultGroup(v.id)
-        }} checked={defaultGroup===v.id} group={v}/>
-    ))
+        }} checked={defaultGroup === v.id} group={v} />
+    )), <NoGroup key='no-group' checked={!defaultGroup} onCheck={() => {
+        setDefaultGroup('')
+    }} />] : []
     const submit = (
-        <ContainedButton disabled={posting} onClick={()=>{
+        <ContainedButton disabled={posting} onClick={() => {
             updateDefaultGroup()
         }} className='w-full h-16'>{posting ? '更新中...' : '更新'}</ContainedButton>
     )
     const cancel = (
         <OutlinedButton onClick={onClose} disabled={posting} className='w-full h-16 bg-white'>閉じる</OutlinedButton>
     )
-    if(error){
-        return <NotFound message={error}/>
+    if (error) {
+        return <NotFound message={error} />
     }
     return (
-        <Presenter groups={groupList} submit={submit} cancel={cancel}/>
+        <Presenter groups={groupList} submit={submit} cancel={cancel} />
     )
 }
 

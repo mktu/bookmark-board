@@ -4,7 +4,7 @@ import * as line from '@line/bot-sdk';
 import firebaseAdmin from './admin'
 import { extractUrl } from './extractUrl'
 import scrape from './scrape'
-import { bookmarkMessage, groupMessage, EventTypes } from './lineMessage'
+import { bookmarkMessage, groupMessage, EventTypes, defaultGroupMessage } from './lineMessage'
 import { BookmarkGroup, Bookmark, Profile } from './types'
 
 type ProfileWithId = Profile & { id: string }
@@ -115,7 +115,19 @@ const saveBookmark = async (groupId: string, {
 
 const checkRegistration = async (events: line.FollowEvent, client: line.Client) => {
 	try{
-		await loadProfile(events.source.userId)
+		const profile = await loadProfile(events.source.userId)
+		if(!profile.lineInfo?.defaultGroup){
+			const defaultGroupPage = `${functions.config().linebot.liffroot}/groups`
+			await client.replyMessage(events.replyToken, [{
+				type : 'text',
+				text : '💡 毎回グループを選択しなくて済むように、登録先グループを設定することをお勧めします'
+			},
+				{
+				type: 'flex',
+				altText: "グループを選択してください",
+				contents: defaultGroupMessage(defaultGroupPage)
+			} as line.FlexMessage])
+		}
 	}catch(e){
 		await client.replyMessage(events.replyToken, [{
 			type: 'text',
