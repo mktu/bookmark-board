@@ -5,7 +5,10 @@ import fetch from 'node-fetch'
 const doScrape = async (url:string) => {
     const options: Options = {
         url,
-        timeout: 10000
+        timeout: 10000,
+        headers: {
+            "user-agent": "bot",
+        },
     }
     try{
         return await ogs(options)
