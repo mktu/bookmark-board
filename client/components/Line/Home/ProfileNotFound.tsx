@@ -17,11 +17,11 @@ const ProfileNotFound: React.FC<Props> = ({ message }) => {
                         <Link href='/'>
                             <a href={'/'} className='inline-flex underline'>Bookmark-Board</a>
                         </Link>
-                        <span>にユーザ登録されていることを確認してください</span>
+                        <span>にてLINE連携されていることを確認してください</span>
                         <span role='img' aria-label='sorry'>🙇‍♂️</span>
                     </p>
                     <p className='mt-2 text-sm text-primary-dark'>
-                        ※ 登録はWEBブラウザ上から行っていただくようお願いします。
+                        ※ LINE連携はお手数ですがWEBブラウザ上から行っていただくようお願いします。
                     </p>
                 </div>
             </div>
