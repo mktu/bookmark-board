@@ -4,6 +4,7 @@ import ContentLoader from 'react-content-loader'
 const CheckboxList = props => (
     <div className='p-4'>
         <ContentLoader
+            uniqueKey='group-list-placeholder'
             speed={2}
             width={400}
             height={400}
