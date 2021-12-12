@@ -58,6 +58,7 @@ export const createMock = (func: (name: string) => (...args: []) => void) => {
         loginWithAnonymous : func('loginWithAnonymous'),
         listenAuthState : () => {func('listenAuthState')(); return ()=>{1}},
         linkWithGoogle : func('linkWithGoogle'),
+        getIdToken : async () => '',
         addProfile : func('addProfile'),
         listenProfile : () => {func('listenProfile')(); return ()=>{1}},
         getMyProfile : func('addProfile'),
