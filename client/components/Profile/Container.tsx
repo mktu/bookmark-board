@@ -33,6 +33,9 @@ const Container: React.FC = () => {
     const lineLoginButton = (
         <LineLogin onClickLogin={() => {
             lineLogin(lineLoginSettingPage)
+        }} onUnlink={()=>{
+            updateProfile('lineInfo',null)
+            updateProfile('lineid','')
         }} authed={Boolean(profile?.lineInfo)} name={profile?.lineInfo?.name} />
     )
     const avatar = (
@@ -83,11 +86,11 @@ const Container: React.FC = () => {
         </LineAuthlDialog>
     ) : (<div />)
 
-    const groupSelectorForLine = profile?.lineInfo ? (
+    const groupSelectorForLine = profile?.lineInfo && (
         <GroupSelector groups={groups} selected={profile.lineInfo.defaultGroup} handleUpdate={(id)=>{
             updateProfile('lineInfo', {...profile.lineInfo, defaultGroup : id})
         }}/>
-    ) : (<div />)
+    )
 
     const updateDate = profile.lastUpdate && `更新日時   ${(new Date(profile.lastUpdate).toLocaleString())}`
 

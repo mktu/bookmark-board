@@ -8,19 +8,34 @@ type ColorType = 'dark' | 'light' | 'none' | 'secondary'
 type SvgFillColorType = ColorType | 'dark-active' | 'secondary-active'
 type FontType = 'bold' | 'none'
 
-export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType}> = ({ className, disabled, colorType='dark', ...props }) => {
+
+export const ContainedButton: React.FC<ButtonProps & {colorType?:ColorType, paddings?:string, rounded?:string, border?:string}> = ({ 
+    className, 
+    disabled, 
+    colorType='dark',
+    paddings='py-2 px-4',
+    rounded = 'rounded',
+    border = 'border',
+    ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
-        dark : `bg-primary-main ${!disabled && 'hover:bg-primary-dark'} text-white`,
-        secondary : `bg-secondary-main ${!disabled && 'hover:bg-secondary-dark'} text-white`,
+        dark : `bg-primary-main border-primary-main ${!disabled && 'hover:bg-primary-dark hover:border-primary-dark'} text-white`,
+        secondary : `bg-secondary-main border-secondary-main ${!disabled && 'hover:bg-secondary-dark hover:border-secondary-dark'} text-white`,
         light : `bg-white text-primary-main ${!disabled && 'hover:text-primary-dark'}`,
         none : ''
     }
     return (
-        <ButtonBase disabled={disabled} className={classNames(`${colorClasses[colorType]} font-bold py-2 px-4 rounded`, className)} {...props} />
+        <ButtonBase disabled={disabled} className={classNames(`${colorClasses[colorType]} font-bold`, border, rounded, paddings, className)} {...props} />
     )
 }
 
-export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType, paddings?:string}> = ({ className, disabled, colorType='dark', paddings='py-2 px-4', ...props }) => {
+export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType, paddings?:string, rounded?:string, border?:string}> = ({ 
+    className, 
+    disabled, 
+    colorType='dark', 
+    paddings='py-2 px-4',
+    rounded = 'rounded',
+    border = 'border',
+    ...props }) => {
     const colorClasses : {[key in ColorType]:string}= {
         dark : `text-primary-main border-primary-300 ${!disabled && 'hover:text-primary-dark hover:border-primary-main'}`,
         secondary : `text-secondary-main border-secondary-main ${!disabled && 'hover:text-secondary-dark hover:border-secondary-dark'}`,
@@ -28,7 +43,7 @@ export const OutlinedButton: React.FC<ButtonProps & {colorType?:ColorType, paddi
         none : ''
     }
     return (
-        <ButtonBase disabled={disabled}  className={classNames(`rounded border focus:outline-none`,  colorClasses[colorType], paddings, className)} {...props} />
+        <ButtonBase disabled={disabled}  className={classNames(`focus:outline-none`, border, rounded, colorClasses[colorType], paddings, className)} {...props} />
     )
 }
 
