@@ -1,27 +1,24 @@
-import { VFC, useEffect } from 'react'
+import { VFC } from 'react'
 import { useLineAuth, lineLoginSettingPage } from '@hooks/useLineLogin'
 import { OutlinedButton } from '@components/Common/Button'
 import Presenter from './Presenter'
+import Loader from './Loader'
 
 type Props = {
     onClose : ()=>void,
-    registLineId: (line:ReturnType<typeof useLineAuth>['user'])=>void,
 }
 
 const Container: VFC<Props> = ({
     onClose,
-    registLineId,
 }) => {
-    const { user, error, addFriendLink } = useLineAuth(lineLoginSettingPage)
-    const success = user && !error
-    useEffect(()=>{
-        if(success){
-            registLineId(user)
-        }
-    },[user,registLineId, success])
+    const { registerStatus, error, addFriendLink } = useLineAuth(lineLoginSettingPage)
+    const success = registerStatus === 'complete' && !error
     const closeButton = (
         <OutlinedButton onClick={onClose}>閉じる</OutlinedButton>
     )
+    if(registerStatus === 'executing'){
+        return <Loader />
+    }
     return (
         <Presenter {...{
             success,

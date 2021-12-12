@@ -32,13 +32,6 @@ const useProfileContainer = () => {
         }))
     },[])
 
-    const registerLine = useCallback((lineInfo : Profile['lineInfo'])=>{
-        clientService.updateProfile(profile.id, {
-            lineid : lineInfo.id,
-            lineInfo
-        })
-    },[clientService,profile.id])
-
     useEffect(()=>{
         return ()=>{
             setUpdate({})
@@ -69,7 +62,6 @@ const useProfileContainer = () => {
         error,
         handleChangeFile,
         updateProfile,
-        registerLine,
         handleSubmit,
         hasChange
     }

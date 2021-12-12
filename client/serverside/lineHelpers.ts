@@ -13,7 +13,11 @@ export class LineApiError extends Error {
     }
 }
 
-export const getProfile = async (userId: string) => {
+export const verifyIdToken = async (idToken:string) => {
+    return await firebaseAdmin.auth().verifyIdToken(idToken);
+}
+
+export const getProfileByLineId = async (userId: string) => {
     const { docs: profileDocs } = await firebaseAdmin.firestore()
         .collection('profiles')
         .where('lineid', '==', userId)
@@ -27,6 +31,20 @@ export const getProfile = async (userId: string) => {
         id: profileId,
         ...profile
     }
+}
+
+export const isRegisterableLineId = async (userId: string, myUid: string) => {
+    const { docs: profileDocs } = await firebaseAdmin.firestore()
+        .collection('profiles')
+        .where('lineid', '==', userId)
+        .get()
+    if (profileDocs.length === 0) {
+        return true
+    }
+    if(profileDocs.length === 1 && profileDocs[0].id === myUid){
+        return true
+    }
+    return false
 }
 
 export const updateProfile = async (profileId: string, profile: Partial<Profile>) => {

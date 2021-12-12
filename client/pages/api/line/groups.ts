@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getProfile, updateProfile, LineApiError, getGroups, getGroup } from '../../../serverside/lineHelpers'
+import { getProfileByLineId, updateProfile, LineApiError, getGroups, getGroup } from '../../../serverside/lineHelpers'
 import { getUser } from '../../../services/line'
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -10,7 +10,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     const idToken = req.query.idToken as string
     const { id: userId } = await getUser(idToken)
 
-    const profile = await getProfile(userId)
+    const profile = await getProfileByLineId(userId)
 
     const { id: profileId, lineInfo } = profile
 
@@ -34,7 +34,7 @@ const handlePost = async (req: NextApiRequest, res: NextApiResponse) => {
         throw new LineApiError(404, 'userId is invalid.')
     }
 
-    const profile = await getProfile(userId)
+    const profile = await getProfileByLineId(userId)
     
     const { id: profileId, lineInfo } = profile
 

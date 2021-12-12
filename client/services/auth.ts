@@ -91,3 +91,5 @@ export const logout = (
 ) => {
     signOut(auth).then(onSucceeded).catch(onFailed);
 }
+
+export const getIdToken = async () => await auth.currentUser.getIdToken()

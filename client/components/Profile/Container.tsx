@@ -24,7 +24,6 @@ const Container: React.FC = () => {
         status,
         handleChangeFile,
         updateProfile,
-        registerLine,
         handleSubmit,
         hasChange
     } = useProfileEditor()
@@ -82,7 +81,7 @@ const Container: React.FC = () => {
 
     const lineAuth = lineSetting ? (
         <LineAuthlDialog open={lineSetting} onClose={onCloseAuth}>
-            <LineAuth onClose={onCloseAuth} registLineId={registerLine} />
+            <LineAuth onClose={onCloseAuth} />
         </LineAuthlDialog>
     ) : (<div />)
 

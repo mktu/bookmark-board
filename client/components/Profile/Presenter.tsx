@@ -2,6 +2,8 @@ import React from 'react'
 import { Label } from '@components/Common/Label'
 import TwitterIcon from '@components/Common/Icon/Twitter'
 import { TwitterUrl } from '@utils/constants'
+import styles from './index.module.scss'
+import classNames from 'classnames'
 
 type Props = {
     avatar: React.ReactNode,
@@ -33,7 +35,7 @@ const Presenter: React.FC<Props> = ({
     groupSelectorForLine
 }) => {
     return (
-        <div className='p-6 w-full md:w-1/2 h-full'>
+        <div className={classNames('p-6 w-full h-full',styles['wrapper'])}> {/** tbd tailwindcss 3.0 md:w-[768px] */}
             <div className='md:flex w-full'>
                 <div className='flex flex-col items-center'>
                     {avatar}

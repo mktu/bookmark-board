@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getProfile, LineApiError } from '../../../serverside/lineHelpers'
+import { getProfileByLineId, LineApiError } from '../../../serverside/lineHelpers'
 import { getUser } from '../../../services/line'
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
@@ -10,7 +10,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
     const idToken = req.query.idToken as string
     const { id: userId } = await getUser(idToken)
 
-    const profile = await getProfile(userId)
+    const profile = await getProfileByLineId(userId)
 
     res.status(200).json({
         profile
@@ -18,7 +18,7 @@ const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
 }
 
 
-const groups = async (req: NextApiRequest, res: NextApiResponse) => {
+const profile = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === 'POST') {
             res.status(500).end('POST is not supported.')
@@ -34,4 +34,4 @@ const groups = async (req: NextApiRequest, res: NextApiResponse) => {
         }
     }
 }
-export default groups
+export default profile
