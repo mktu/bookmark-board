@@ -92,6 +92,7 @@ const saveBookmark = async (groupId: string, {
 	owner,
 	unacquired = false,
 }: Pick<Bookmark, 'url' | 'description' | 'title' | 'images' | 'image' | 'unacquired' | 'owner'>) => {
+	const time = Date.now()
 	const result = await firebaseAdmin.firestore()
 		.collection('groups')
 		.doc(groupId)
@@ -107,7 +108,8 @@ const saveBookmark = async (groupId: string, {
 			neighbors: [],
 			reactions: {},
 			groupId,
-			created: Date.now()
+			created: time,
+			idx : time
 		} as Bookmark)
 
 	return result.id

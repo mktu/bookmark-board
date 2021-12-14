@@ -99,12 +99,14 @@ export async function moveGroupAsync(
         const sourceDoc = getBookmarkDoc(sourceGroupId, sourceId)
 
         const sourceData = await getDoc(sourceDoc)
+        const time = Date.now()
         const destData = {
             ...sourceData.data(),
             groupId: destGroupId,
             reactions: {},
-            lastUpdate: Date.now()
-        }
+            lastUpdate: time,
+            idx : time
+        } as Bookmark
         const destDoc = doc(getBookmarkCollection(destGroupId))
         batch.set(destDoc, destData)
         if (!copy) {
