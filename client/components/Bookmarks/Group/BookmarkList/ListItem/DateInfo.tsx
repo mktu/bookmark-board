@@ -16,7 +16,7 @@ const DateInfo: React.VFC<Props> = ({
         editDate.type === 'date' ? <span /> :
             (<span role='img' aria-label='create' className='mr-1'>🎉</span>)
     return (
-        <div className='flex items-center text-sm text-primary-main'>
+        <div className='flex items-center text-xs text-primary-main'>
             {icon}
             <span className='mx-1'>{editDate.msg}</span>
             <span className='mr-1'>{type}</span>
