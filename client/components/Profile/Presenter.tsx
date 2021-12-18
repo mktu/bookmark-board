@@ -18,6 +18,7 @@ type Props = {
     lineLogin: React.ReactNode,
     lineAuth: React.ReactNode,
     groupSelectorForLine?: React.ReactNode,
+    addFriendLink?: React.ReactNode,
 }
 
 const Presenter: React.FC<Props> = ({
@@ -32,7 +33,6 @@ const Presenter: React.FC<Props> = ({
     updateDate,
     lineLogin,
     lineAuth,
-    groupSelectorForLine
 }) => {
     return (
         <div className={classNames('p-6 w-full h-full',styles['wrapper'])}> {/** tbd tailwindcss 3.0 md:w-[768px] */}
@@ -53,19 +53,9 @@ const Presenter: React.FC<Props> = ({
                         <div className='hidden md:block mx-2 text-primary-300'>{TwitterUrl}</div>
                         {twitterInput}
                     </div>
-                    <div className='my-5'>
+                    <Label className='my-2'>LINE</Label>
+                    <div className='my-2'>
                         <div>{lineLogin}</div>
-                        {groupSelectorForLine && (
-                            <div className='flex justify-end items-center mt-2'>
-                                <div className='mr-2 mb-1 text-sm text-primary-main'>
-                                    <span className=''>登録先グループ</span>
-                                </div>
-
-                                {groupSelectorForLine}
-
-                            </div>
-                        )}
-
                     </div>
                     {commentInput}
                     <div className='flex flex-col justify-center items-end my-2'>
