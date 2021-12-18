@@ -1,15 +1,6 @@
 import { hex2rgb } from './rgb'
 import { copyToClipBoard } from './clipboard'
-
-export const numberToDateTime = (time?: number) => {
-    if (!time) return ''
-    return new Date(time).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })
-}
-
-export const numberToDate = (time?: number) => {
-    if (!time) return ''
-    return new Date(time).toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' })
-}
+import { numberToDateTime, numberToDate } from './date'
 
 export const removeUndefined = (obj: { [key: string]: unknown }) => {
     return Object.keys(obj).reduce((acc, key) => {
@@ -24,5 +15,7 @@ export const getOrigin = ()=> process.env.NEXT_PUBLIC_SITE_URL
 
 export {
     hex2rgb,
-    copyToClipBoard
+    copyToClipBoard,
+    numberToDateTime,
+    numberToDate
 }

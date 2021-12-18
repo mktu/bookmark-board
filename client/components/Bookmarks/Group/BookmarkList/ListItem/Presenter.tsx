@@ -20,7 +20,7 @@ type Props = {
     maskUrl?: boolean,
     description?: string,
     comment?: string,
-    lastUpdate?: string, // not use
+    dateInfo: React.ReactNode,
     copyIcon: React.ReactNode,
     openIcon: React.ReactNode,
     deleteIcon: React.ReactNode,
@@ -45,14 +45,16 @@ const Presenter: React.FC<Props> = ({
     deleteIcon,
     heartButton,
     colorButton,
-    checkButton
+    checkButton,
+    dateInfo
 }) => {
     const isTouch = checkIsTouch()
     return (
-        <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex items-center relative`}
+        <div ref={!isTouch ? attachDnDRef : undefined} className={`w-full ${dragging && 'hidden'} flex flex-col justify-center relative`}
             style={color ? { borderLeft: `${borderWidth}px solid ${color}`, opacity } : { opacity }} >
+
             <div className='flex p-2 w-full bg-white hover:bg-gray-50 shadow' >
-                <div className='flex absolute top-0 z-10 items-start' style={color ? {left : -borderWidth} : {left : 0}}>{checkButton}</div>
+                <div className='flex absolute top-0 z-10 items-start' style={color ? { left: -borderWidth } : { left: 0 }}>{checkButton}</div>
                 <div ref={isTouch ? attachDnDRef : undefined} style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
                     {image}
                 </div>
@@ -82,21 +84,38 @@ const Presenter: React.FC<Props> = ({
 
                     </a>
                 </Link>
-                <div className='flex flex-col justify-start ml-auto'>
+                <div className='hidden md:flex flex-col justify-start ml-auto'>
                     <div className='flex items-start'>
-                        <TooltipDivContainer content='コピー' placement='bottom' className='hidden md:block mx-1'>
+                        <TooltipDivContainer content='コピー' placement='bottom' className='mx-1'>
                             {copyIcon}
                         </TooltipDivContainer>
-                        <TooltipDivContainer content='URLを開く' placement='bottom' className='md:mx-1'>
+                        <TooltipDivContainer content='URLを開く' placement='bottom' className='mx-1'>
                             {openIcon}
                         </TooltipDivContainer>
-                        <TooltipDivContainer content='削除' placement='bottom' className='hidden md:block mx-1'>
+                        <TooltipDivContainer content='削除' placement='bottom' className='mx-1'>
                             {deleteIcon}
                         </TooltipDivContainer>
                     </div>
-                    <div className='flex justify-end items-center mt-auto'>
-                        <div className='hidden md:block mr-2'>{colorButton}</div>
+                    <div className='hidden md:flex justify-end items-center mt-auto'>
+                        <div className='mr-2'>{colorButton}</div>
                         <div>{heartButton}</div>
+                    </div>
+                </div>
+            </div>
+            <div className='flex md:hidden items-center py-1 px-2 w-full bg-white rounded-tr shadow' >
+                {dateInfo}
+                <div className='flex items-center px-2 ml-auto border-r border-l border-primary-border'>
+                    <div className='mx-2'>{colorButton}</div>
+                </div>
+                <div className='flex items-center pl-2'>
+                    <div className='pb-1 mx-2'>
+                        {heartButton}
+                    </div>
+                    <div className='mx-2'>
+                        {copyIcon}
+                    </div>
+                    <div className='mx-2'>
+                        {openIcon}
                     </div>
                 </div>
             </div>

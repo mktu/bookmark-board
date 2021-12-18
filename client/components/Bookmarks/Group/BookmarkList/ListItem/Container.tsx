@@ -6,7 +6,7 @@ import { PopoverDivContainer } from '@components/Common/Popover'
 import ColorSelector from '../ColorOption/Selector'
 import { useRefinementById } from '@modules/groupRefinementSlice'
 import { useProfile } from '@modules/profileSlice'
-import { copyToClipBoard, numberToDateTime } from '@utils/index'
+import { copyToClipBoard } from '@utils/index'
 import { BookmarkListImageSize } from '@utils/constants'
 import { toast } from 'react-toastify';
 import { useBookmark } from '@hooks/useBookmark'
@@ -15,6 +15,7 @@ import { useHoverable } from '@hooks/useBookmarkDnd'
 import BookmarkBulkContext from '@context/BookmarkBulkContext'
 import Presenter from './Presenter'
 import Checkbox from './Checkbox'
+import DateInfo from './DateInfo'
 
 type Props = {
     bookmarkId: string,
@@ -76,7 +77,7 @@ const ListItem: React.FC<Props> = ({
     )
     const copyButton = (
         <SvgIconButton aria-label='Copy URL' onClick={handleCopyUrl}>
-            <Duplicate className='w-5' strokeWidth={1.5} />
+            <Duplicate className='w-6 md:w-5' strokeWidth={1.5} />
         </SvgIconButton>)
     const openButton = (
         <SvgIconButton aria-label='Open URL in New Tab' onClick={handleOpenUrl}>
@@ -91,7 +92,7 @@ const ListItem: React.FC<Props> = ({
     const heartButton = (
         <HeartButton
             aria-label='Likes'
-            size='w-4'
+            size='w-5'
             active={sentLikes}
             onClick={handleClickLikes}
         />)
@@ -115,6 +116,9 @@ const ListItem: React.FC<Props> = ({
             color={color}
         />
     )
+    const dateInfo = (
+        <DateInfo created={bookmark.created} lastUpdate={bookmark.lastUpdate}/>
+    )
     const origin = new URL(bookmark.url)
     return (
         <Presenter
@@ -128,7 +132,7 @@ const ListItem: React.FC<Props> = ({
                 description: !listViewMask.includes('description') && bookmark.description,
                 url: !listViewMask.includes('url') && origin.host,
                 comment: !listViewMask.includes('comment') && bookmark.comment,
-                lastUpdate: !listViewMask.includes('lastUpdate') && numberToDateTime(bookmark.lastUpdate),
+                dateInfo,
                 copyIcon: copyButton,
                 openIcon: openButton,
                 deleteIcon: deleteButton,
