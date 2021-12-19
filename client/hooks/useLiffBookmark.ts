@@ -3,8 +3,15 @@ import { toast } from 'react-toastify';
 import LiffContext from '@context/LiffContext'
 import { getOrigin } from '@utils/index'
 import { initialBookmark } from '@modules/bookmarkSlice'
+import { getClientsideQueryStrings } from '@utils/routes'
 
-const BookmarkPath = `${getOrigin()}/api/line/bookmarks`
+const BookmarkApiPath = `${getOrigin()}/api/line/bookmarks`
+const SearchApiPath = `${getOrigin()}/api/line/search`
+
+export type Candidate = {
+    bookmark : Bookmark,
+    group : BookmarkGroup
+}
 
 export const useBookmark = (groupId:string, bookmarkId:string ) => {
     const { idToken, closure } = useContext(LiffContext)
@@ -13,16 +20,45 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
     const [fetching, setFetching] = useState(false)
     const [posting, setPosting] = useState(false)
     const [base, setBookmark] = useState<Bookmark>()
+    const [candidates,setCandidates] = useState<Candidate[]>([])
     const [colors,setColors] = useState<BookmarkColors>({})
     const [update, setUpdate] = useState<Partial<Bookmark>>({})
+
     const updateBookmark = useCallback((key: keyof Bookmark) => (value: string) => {
         setUpdate(before => ({ ...before, ...{ [key]: value } }))
     }, [])
+    
     const bookmark = useMemo(()=>({
         ...initialBookmark,
         ...base,
         ...update
     }),[base,update])
+
+    const searchBookmark = useCallback(async (target:string)=>{
+        if (!idToken) {
+            return
+        }
+        if(!target){
+            return
+        }
+        const params = {
+            idToken,
+            target
+        }
+        const queryParams = new URLSearchParams(params)
+        const response = await fetch(`${SearchApiPath}?${queryParams}`)
+        if(!response.ok){
+            return
+        }
+        const json = await response.json()
+        if(!json.results){
+            console.error('search response is not expected')
+            return
+        }
+        setCandidates(json.results as Candidate[])
+        setFetching(false)
+    },[idToken])
+    
     const fetchBookmark = useCallback(async () => {
         if (!idToken) {
             return
@@ -32,9 +68,11 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
             idToken,
         }
         const queryParams = new URLSearchParams(params)
-        const response = await fetch(`${BookmarkPath}/${groupId}/${bookmarkId}?${queryParams}`)
+        const response = await fetch(`${BookmarkApiPath}/${groupId}/${bookmarkId}?${queryParams}`)
         if(!response.ok){
             setError('ブックマークの取得に失敗しました')
+            const target = getClientsideQueryStrings('target') as string
+            await searchBookmark(target)
             return
         }
         const json = await response.json() as {
@@ -45,10 +83,11 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
         setColors(json.colors)
         setFetching(false)
 
-    }, [groupId, bookmarkId, idToken])
+    }, [groupId, bookmarkId, idToken, searchBookmark])
+
     const submitBookmark = useCallback(async () => {
         setPosting(true)
-        const response = await fetch(`${BookmarkPath}/${groupId}/${bookmarkId}`, {
+        const response = await fetch(`${BookmarkApiPath}/${groupId}/${bookmarkId}`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -87,6 +126,7 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
         posting,
         colors,
         hasChange,
+        candidates,
         submitBookmark,
         onClose,
         updateBookmark
@@ -108,7 +148,7 @@ export const useBookmarks = (groupId:string) => {
             idToken,
         }
         const queryParams = new URLSearchParams(params)
-        const response = await fetch(`${BookmarkPath}/${groupId}?${queryParams}`)
+        const response = await fetch(`${BookmarkApiPath}/${groupId}?${queryParams}`)
         const json = await response.json() as {
             bookmarks : Bookmark[],
         }

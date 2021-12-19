@@ -1,5 +1,5 @@
 import querystring from 'querystring';
-import url from 'url';
+import { getClientsideQueryStrings } from '@utils/routes'
 
 export const clientId = process.env.NEXT_PUBLIC_LINE_CLIENT_ID
 export const clientSecret = process.env.NEXT_PUBLIC_LINE_CLIENT_SECRET
@@ -43,16 +43,13 @@ export const getUser = async (idToken: string) => {
 
 
 export const getAccessToken = async (redirectUrl: string) => {
-    const currentLocation = window.location.href
-    const urlParts = url.parse(currentLocation, true);
-    const query = urlParts.query;
-    const hasCodeProperty = Object.prototype.hasOwnProperty.call(query, 'code');
-    if (!hasCodeProperty) {
+    const code = getClientsideQueryStrings('code')
+    if (!code) {
         throw new LineLogicError('認可コードを取得できませんでした')
     }
     const reqBody = {
         grant_type: 'authorization_code',
-        code: query.code,
+        code,
         redirect_uri: redirectUrl,
         client_id: clientId,
         client_secret: clientSecret
