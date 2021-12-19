@@ -49,8 +49,8 @@ const LineLogin: VFC<Props> = ({
             </div>
 
 
-            <div className='flex overflow-x-hidden flex-col justify-center p-2 my-4 w-full rounded border border-primary-border border-dotted'>
-                <div className='flex-1 mr-2 text-sm text-primary-400'>
+            <div className='flex overflow-x-hidden flex-col justify-center my-4 w-full'>
+                <div className='flex-1 p-2 mr-2 mb-2 w-full text-sm text-primary-400 rounded border border-primary-border border-dotted'>
                     <span role='img' aria-label='right' className='mr-1'>💡</span>
                     <span>Bookmark-Board公式アカウントを友達登録することで、LINE上からもブックマーク登録できるようになります</span>
                 </div>
