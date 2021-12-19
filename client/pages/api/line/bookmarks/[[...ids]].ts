@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getGroup, getBookmarks, LineApiError, getBookmark, updateBookmark } from '../../../../serverside/lineHelpers'
+import { getGroup, getBookmarks, LineApiError, getBookmark, updateBookmark, getProfileByLineId } from '../../../../serverside/lineHelpers'
 import { getUser } from '../../../../services/line'
 import { parseBookmarkRoutes } from '@utils/routes'
 
@@ -23,7 +23,12 @@ const handleGetBookmarks = async (groupId:string, res: NextApiResponse) => {
 }
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {
-    const { ids } = req.query
+    const { ids, idToken } = req.query
+    if (!idToken) {
+        throw new LineApiError(400, 'idToken parameter is undefined.')
+    }
+    const { id : userId } = await getUser(idToken as string)
+    await getProfileByLineId(userId)
     const { groupId, bookmarkId } = parseBookmarkRoutes(ids)
     if (!groupId) {
         throw new LineApiError(400, 'groupId parameter is undefined.')
