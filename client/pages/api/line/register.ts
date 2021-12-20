@@ -1,12 +1,14 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { isRegisterableLineId, updateProfile, verifyIdToken, LineApiError } from '../../../serverside/lineHelpers'
-import { getUser } from '../../../services/line'
+import { isRegisterableLineId, updateProfile, LineApiError } from '../../../serverside/lineHelpers'
+import { getFirebaseUid, getIdToken } from '../../../serverside/auth'
+import { ApiError } from '../../../serverside/error'
+import { getUser } from '@services/line'
 
 const registerLineId = async (req: NextApiRequest, res: NextApiResponse, uid: string) => {
     const body = req.body as { idToken: string, defaultGroup: string }
     const { idToken } = body
     if (!idToken) {
-        throw new LineApiError(400, 'idToken parameter is undefined.')
+        throw new ApiError(400, 'idToken parameter is undefined.')
     }
     const { id: lineid, name } = await getUser(idToken)
 
@@ -27,38 +29,22 @@ const registerLineId = async (req: NextApiRequest, res: NextApiResponse, uid: st
 }
 
 const register = async (req: NextApiRequest, res: NextApiResponse) => {
-    if (
-        !req.headers.authorization ||
-        !req.headers.authorization.startsWith("Bearer ")
-    ) {
-        res.status(403).send("Unauthorized");
-        return;
-    }
-    const idToken = req.headers.authorization.split("Bearer ")[1];
-    try {
-        const decodedIdToken = await verifyIdToken(idToken);
-        if (!decodedIdToken?.uid) {
-            throw new LineApiError(403, 'uid is not found')
-        }
-        await registerLineId(req, res, decodedIdToken.uid)
-
-    } catch (e) {
-        console.error(e)
-        throw new LineApiError(403, 'Unauthorized')
-    }
+    const idToken = getIdToken(req)
+    const uid = await getFirebaseUid(idToken);
+    await registerLineId(req, res, uid)
 }
 
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     try {
         if (req.method === 'POST') {
-            await register(req,res)
+            await register(req, res)
         } else {
             res.status(500).end('only POST is supported.')
         }
     } catch (e) {
         console.error(e)
-        if (e instanceof LineApiError) {
+        if (e instanceof ApiError) {
             res.status(e.status).end(e.message)
         } else {
             res.status(500).end('Internal error occurred.')

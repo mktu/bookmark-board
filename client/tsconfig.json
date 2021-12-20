@@ -25,7 +25,8 @@
       "@modules/*": ["modules/*"],
       "@context/*": ["context/*"],
       "@services/*": ["services/*"],
-      "@public/*": ["public/*"]
+      "@public/*": ["public/*"],
+      "@serverside":["serverside/*"]
     }
   },
   "include": [

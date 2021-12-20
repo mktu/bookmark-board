@@ -34,6 +34,7 @@ const Container: React.FC<Props> = ({
         hasChange,
         fetching,
         posting,
+        candidates,
         updateBookmark,
         submitBookmark,
         onClose
@@ -97,7 +98,7 @@ const Container: React.FC<Props> = ({
     ), [onClose])
 
     if(error){
-        return <NotFound message={error}/>
+        return <NotFound message={error} candidates={candidates}/>
     }
     if (fetching || !bookmark || !bookmark?.url) {
         return <Placeholder />

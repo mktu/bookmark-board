@@ -1,3 +1,4 @@
+import url from 'url';
 import {getOrigin} from './'
 
 export const parseBookmarkRoutes = (ids:string[]|string) => {
@@ -6,6 +7,20 @@ export const parseBookmarkRoutes = (ids:string[]|string) => {
     return {
         groupId, bookmarkId
     }
+}
+
+export const getClientsideQueryStrings = (key:string)=>{
+    if(typeof window === undefined){
+        return null
+    }
+    const currentLocation = window.location.href
+    const urlParts = url.parse(currentLocation, true);
+    const query = urlParts.query;
+    const hasCodeProperty = Object.prototype.hasOwnProperty.call(query, key);
+    if (!hasCodeProperty) {
+        null
+    }
+    return query[key]
 }
 
 export const LineLoginSettingPage = `${getOrigin()}/profile/line-setting`

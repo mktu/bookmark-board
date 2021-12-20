@@ -1,21 +1,7 @@
 import { firebaseAdmin } from '../services/firebaseServer'
+import {ApiError} from './error'
 
-export class LineApiError extends Error {
-    status: number
-    constructor(status: number, e?: string) {
-        super(e);
-        this.name = new.target.name;
-        this.status = status
-        // Maintains proper stack trace for where our error was thrown (only available on V8)
-        if (Error.captureStackTrace) {
-            Error.captureStackTrace(this, this.constructor);
-        }
-    }
-}
-
-export const verifyIdToken = async (idToken:string) => {
-    return await firebaseAdmin.auth().verifyIdToken(idToken);
-}
+export class LineApiError extends ApiError { }
 
 export const getProfileByLineId = async (userId: string) => {
     const { docs: profileDocs } = await firebaseAdmin.firestore()
@@ -41,7 +27,7 @@ export const isRegisterableLineId = async (userId: string, myUid: string) => {
     if (profileDocs.length === 0) {
         return true
     }
-    if(profileDocs.length === 1 && profileDocs[0].id === myUid){
+    if (profileDocs.length === 1 && profileDocs[0].id === myUid) {
         return true
     }
     return false
@@ -58,7 +44,7 @@ export const getGroups = async (profileId: string) => {
 
     const { docs } = await firebaseAdmin.firestore()
         .collection('groups')
-        .where('owner', '==', profileId)
+        .where('users', 'array-contains', profileId)
         .get()
 
     if (docs.length === 0) {
@@ -90,6 +76,21 @@ export const getBookmarks = async (groupId: string) => {
         .collection('groups')
         .doc(groupId)
         .collection('bookmarks')
+        .get()
+
+    if (docs.length === 0) {
+        throw new LineApiError(404, 'no bookmarks found.')
+    }
+
+    return docs.filter(v => v.exists).map(v => ({
+        ...v.data() as Bookmark,
+        id: v.id
+    }))
+}
+
+export const searchBookmark = async (url: string,) => {
+    const { docs } = await firebaseAdmin.firestore().collectionGroup('bookmarks')
+        .where('url', '==', url)
         .get()
 
     if (docs.length === 0) {

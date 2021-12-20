@@ -1,6 +1,7 @@
 import * as functions from 'firebase-functions';
 import * as crypto from 'crypto';
 import * as line from '@line/bot-sdk';
+import querystring from 'querystring'
 import firebaseAdmin from './admin'
 import { extractUrl } from './extractUrl'
 import scrape from './scrape'
@@ -210,7 +211,10 @@ const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, c
 	})
 	const { title, description, image, groupName, bookmarkId } = await registBookmark(url, groupId, owner)
 	const liffroot = functions.config().linebot.liffroot
-	const editLink = `${liffroot}/bookmarks/${groupId}/${bookmarkId}`
+	const q = querystring.stringify({
+		target : url
+	})
+	const editLink = `${liffroot}/bookmarks/${groupId}/${bookmarkId}?${q}`
 	await client.pushMessage(events.source.userId || '', [{
 		type: "flex",
 		altText: "ブックマークの登録が完了しました",

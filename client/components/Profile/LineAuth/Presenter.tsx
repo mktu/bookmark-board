@@ -1,4 +1,5 @@
 import { VFC } from 'react'
+import AddFriend from './AddFriend'
 
 type Props = {
     closeButton: React.ReactNode,
@@ -32,7 +33,7 @@ const Presenter: VFC<Props> = ({
             <div className='flex justify-end items-center mt-2'>
                 {success && (
                     <div className='mr-2'>
-                        <a href={addFriendLink} target='_blank' rel='noopener noreferrer'><img src="https://scdn.line-apps.com/n/line_add_friends/btn/ja.png" alt="友だち追加" height={24} width={128} /></a>
+                        <AddFriend link={addFriendLink} width={128} height={24}/>
                     </div>
                 )}
                 {closeButton}
