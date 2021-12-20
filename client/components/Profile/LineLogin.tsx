@@ -42,7 +42,7 @@ const LineLogin: VFC<Props> = ({
                     <SvgIconButton className='absolute -top-1 -right-1 w-5 h-5' onClick={() => {
                         setMessageVisibility('line-integration', true)
                         setVisibility(true)
-                    }} ><XCircle className='bg-white stroke-primary-400' /></SvgIconButton>
+                    }} ><XCircle className='bg-white rounded-full stroke-primary-400' /></SvgIconButton>
                 </div>
             )}
         </div>
