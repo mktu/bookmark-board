@@ -6,7 +6,7 @@ export type ContextType = ReturnType<typeof useLiff>
 
 export const initialService : ContextType = {
     hasInit : false,
-    isLineClient : false,
+    clientType : 'none',
     isLoggedIn : false,
     idToken : '',
     lineProfile : undefined,

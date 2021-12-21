@@ -5,7 +5,7 @@ import { getOrigin } from '@utils/index'
 const ProfilePath = `${getOrigin()}/api/line/profile`
 
 export const useProfile = () => {
-    const { idToken, closure } = useContext(LiffContext)
+    const { idToken, closure, clientType } = useContext(LiffContext)
     const { close } = closure
     const [error, setError] = useState('')
     const [fetching, setFetching] = useState(false)
@@ -43,6 +43,7 @@ export const useProfile = () => {
     }, [fetchGroups])
 
     return {
+        clientType,
         profile,
         error,
         fetching,

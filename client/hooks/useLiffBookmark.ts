@@ -14,7 +14,7 @@ export type Candidate = {
 }
 
 export const useBookmark = (groupId:string, bookmarkId:string ) => {
-    const { idToken, closure } = useContext(LiffContext)
+    const { idToken, closure, clientType } = useContext(LiffContext)
     const { close } = closure
     const [error, setError] = useState('')
     const [fetching, setFetching] = useState(false)
@@ -127,6 +127,7 @@ export const useBookmark = (groupId:string, bookmarkId:string ) => {
         colors,
         hasChange,
         candidates,
+        clientType,
         submitBookmark,
         onClose,
         updateBookmark

@@ -18,7 +18,7 @@ type ClosureParam = {
 
 const useLiff = (pageUrl:string) => {
     const [hasInit, setInit] = useState(false)
-    const [isLineClient, setLineClient] = useState(false)
+    const [clientType, setLineClient] = useState<'none'|'line'|'other'>('none')
     const [isLoggedIn, setLoggedIn] = useState(false)
     const [lineProfile, setLineProfile] = useState<LineProfile>()
     const [idToken, setIdToken] = useState('')
@@ -35,7 +35,7 @@ const useLiff = (pageUrl:string) => {
         await liff.init({
             liffId
         });
-        setLineClient(liff.isInClient())
+        setLineClient(liff.isInClient() ? 'line' : 'other')
         const isLoggedIn = liff.isLoggedIn()
         setLoggedIn(isLoggedIn)
         if (!liff.isLoggedIn()) {
@@ -76,7 +76,7 @@ const useLiff = (pageUrl:string) => {
 
     return {
         hasInit,
-        isLineClient,
+        clientType,
         isLoggedIn,
         lineProfile,
         idToken,
