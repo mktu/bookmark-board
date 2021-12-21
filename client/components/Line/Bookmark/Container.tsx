@@ -46,7 +46,7 @@ const Container: React.FC<Props> = ({
 
     useEffect(()=>{
         if(clientType === 'other' && groupId && bookmarkId){
-            router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}/${bookmarkId}`, { shallow: true })
+            router.push(`/bookmarks/${groupId}/${bookmarkId}`)
         }
     },[clientType, router, groupId, bookmarkId])
 
