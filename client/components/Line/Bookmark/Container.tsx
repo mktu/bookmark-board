@@ -1,4 +1,5 @@
-import React, { useMemo } from 'react'
+import React, { useMemo, useEffect } from 'react'
+import { useRouter } from 'next/router'
 import Presenter from './Presenter'
 import Placeholder from './Placeholder'
 import NotFound from './NotFound'
@@ -27,6 +28,7 @@ const Container: React.FC<Props> = ({
     groupId,
     bookmarkId
 }) => {
+    const router = useRouter()
     const {
         bookmark,
         error,
@@ -35,11 +37,18 @@ const Container: React.FC<Props> = ({
         fetching,
         posting,
         candidates,
+        clientType,
         updateBookmark,
         submitBookmark,
         onClose
     } = useBookmark(groupId, bookmarkId)
     const inputDisabled = fetching || posting
+
+    useEffect(()=>{
+        if(clientType === 'other' && groupId && bookmarkId){
+            router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${groupId}/${bookmarkId}`, { shallow: true })
+        }
+    },[clientType, router, groupId, bookmarkId])
 
     const title = useMemo(() => (
         <TextInput label='Title' disabled={inputDisabled} id='title' value={bookmark.title} onChange={(e) => { updateBookmark('title')(e.target.value) }} />

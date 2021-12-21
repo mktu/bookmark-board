@@ -6,7 +6,7 @@ const GroupPath = `${getOrigin()}/api/line/groups`
 const SelectGroup = '#登録先グループ'
 
 export const useGroups = () => {
-    const { idToken, closure } = useContext(LiffContext)
+    const { idToken, closure, clientType } = useContext(LiffContext)
     const { close } = closure
     const [defaultGroup, setDefaultGroup] = useState('')
     const [error, setError] = useState('')
@@ -78,6 +78,7 @@ export const useGroups = () => {
         error,
         fetching,
         posting,
+        clientType,
         setDefaultGroup,
         updateDefaultGroup,
         onClose
