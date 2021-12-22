@@ -10,7 +10,7 @@ export const lineGroupsPage = `${getOrigin()}/line/groups`
 const useLineAuth = (redirectUrl: string) => {
   const { clientService } = useContext(FirebaseContext)
   const [idToken, setIdToken] = useState('')
-  const [registerStatus, setStatus] = useState<'executing'|'error'|'complete'>('executing')
+  const [registerStatus, setStatus] = useState<'executing' | 'error' | 'complete'>('executing')
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -41,9 +41,16 @@ const useLineAuth = (redirectUrl: string) => {
         idToken,
       })
     });
-    if(!res.ok){
-      setError('LINE連携登録に失敗しました.')
-      setStatus('error')
+
+    if (!res.ok) {
+      if (res.status === 409) {
+        setError('既に別のアカウントで利用されています.')
+        setStatus('error')
+      }
+      else {
+        setError('LINE連携登録に失敗しました.')
+        setStatus('error')
+      }
       return
     }
     setError('')
@@ -52,7 +59,7 @@ const useLineAuth = (redirectUrl: string) => {
   }, [clientService, idToken])
 
   useEffect(() => {
-    register().catch(e=>{
+    register().catch(e => {
       console.error(e)
       setStatus('error')
     })
