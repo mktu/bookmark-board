@@ -1,0 +1,11 @@
+.pluginImage{
+    @screen md {
+       width: 545px;
+    }
+    height: 400px;
+}
+.nextImageWrapper{
+    span {
+        display: block !important;
+    }
+}

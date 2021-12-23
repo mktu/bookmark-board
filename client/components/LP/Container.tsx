@@ -41,7 +41,7 @@ const LP = () => {
                     <Layout.SideBySide
                         title={Sections.Plugin.Title}
                         content={Sections.Plugin.Content}
-                        image={Sections.Plugin.Image}
+                        image={Sections.Plugin.LineImage}
                         imageLeft
                     />
                 </ScrollFadein>
