@@ -7,6 +7,7 @@ import LineIcon from '@components/Common/Icon/LineLogin'
 import styles from './Image.module.scss'
 import classNames from 'classnames'
 import { Carousel } from 'react-responsive-carousel';
+import { addFriendLink } from '@services/line'
 import { renderArrowNext, renderArrowPrev } from '../Layout/Crousel'
 
 
@@ -33,7 +34,11 @@ export const Content: React.ReactNode = (
             <span>また、</span>
             <LineIcon className='inline-block mx-1 w-6 h-6' />
             <span>LINEアカウントをお持ちの方はLINE連携の設定を行うことで、
-                公式アカウントへのチャットを通じてブックマーク登録を行うことができるようになります。
+                公式アカウント
+            </span>
+            <a href={addFriendLink} target='_blank' rel='noopener noreferrer' className='mx-2 underline'>公式アカウント</a>
+            <span>
+                へのチャットを通じてブックマーク登録を行うことができるようになります。
             </span>
         </p>
     </div>
