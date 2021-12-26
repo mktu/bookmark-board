@@ -27,7 +27,7 @@ const Presenter: React.FC<Props> = ({
     )
     return (
         <div className='flex flex-col w-full h-full bg-primary-light md:bg-white border-r border-primary-border'>
-            <div ref={ref} className='p-2 md:p-1 text-primary-main bg-white md:border-0 border-b border-primary-border'>
+            <div ref={ref} className='p-2 md:p-1 text-primary-main bg-white shadow md:shadow-none'>
                 {groupInput}
                 {showError}
             </div>
@@ -35,7 +35,7 @@ const Presenter: React.FC<Props> = ({
                 {groupList}
             </div>
             {!inView && (
-                <div className='fixed top-0 left-0 z-20 p-2 w-full text-primary-main bg-white border-b border-primary-border' >
+                <div className='fixed top-0 left-0 z-20 p-2 w-full text-primary-main bg-white border-primary-border shadow' >
                     {groupInput}
                     {showError}
                 </div>
