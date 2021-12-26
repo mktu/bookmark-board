@@ -41,7 +41,7 @@ const LeftImageLayout: React.FC<ContentProps> = ({
             <h1 className='my-4 text-xl md:text-2xl font-bold text-primary-700'>{title}</h1>
             {content}
         </div>
-        <div className='overflow-hidden my-8 md:my-0 shadow-lg'>
+        <div className='my-8 md:my-0'>
             {image}
         </div>
         <div className='hidden md:flex flex-col justify-center mx-12 w-1/3 break-words'>
