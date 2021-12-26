@@ -24,7 +24,7 @@ const Refinements: React.FC<Props> = ({
     const { checkState, disabled } = useContext(BookmarkBulkContext)
     const hasSelection = !disabled && checkState !== 'none'
     const sortSucceeded = useCallback((hidePopover: () => void) => () => {
-        toast.success('並び替えが完了しました！')
+        toast.success('並び替えが完了しました')
         hidePopover()
     }, [])
     const { ref, inView } = useInView()
