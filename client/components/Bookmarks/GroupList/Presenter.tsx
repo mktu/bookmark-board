@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useInView } from 'react-intersection-observer'
 
 type Props = {
     input: React.ReactNode,
@@ -13,39 +13,34 @@ const Presenter: React.FC<Props> = ({
     groupList,
     error
 }) => {
-    const [footerHeight, setFooter] = useState<number>()
+    const { ref, inView } = useInView()
+    const showError = error && (<div className='py-2 px-4 text-xs text-secondary-main'>{error}</div>)
+    const groupInput = (
+        <div className='flex justify-between items-center'>
+            <div className='p-1 w-full'>
+                {input}
+            </div>
+            <div>
+                {addButton}
+            </div>
+        </div>
+    )
     return (
         <div className='flex flex-col w-full h-full bg-primary-light md:bg-white border-r border-primary-border'>
-            <div className='hidden md:flex flex-row justify-between items-center p-1 text-primary-main border-primary-border'>
-                <div className='p-1 w-full'>
-                    {input}
-                </div>
-                <div>
-                    {addButton}
-                </div>
+            <div ref={ref} className='p-2 md:p-1 text-primary-main bg-white md:border-0 border-b border-primary-border'>
+                {groupInput}
+                {showError}
             </div>
-            {error && (<div className='hidden md:block py-2 px-4 text-xs text-secondary-main'>{error}</div>)}
             <div className='overflow-y-auto md:bg-white'>
                 {groupList}
             </div>
-            <div className='md:hidden' style={{
-                height: footerHeight ? footerHeight : undefined
-            }} />
-            <div className='flex md:hidden fixed bottom-0 z-20 items-center p-4 w-full text-primary-main bg-white border-t border-primary-border' ref={(r) => {
-                if (r) {
-                    // set height only once because input height may change when url image shows
-                    setFooter(b => !b ? r.clientHeight : b)
-                }
-            }}>
-                <div className='w-full'>
-                    {input}
-                    {error && (<div className='md:hidden px-4 text-xs text-secondary-main'>{error}</div>)}
+            {!inView && (
+                <div className='fixed top-0 left-0 z-20 p-2 w-full text-primary-main bg-white border-b border-primary-border' >
+                    {groupInput}
+                    {showError}
                 </div>
-                <div className='mx-1 ml-auto'>
-                    {addButton}
-                </div>
+            )}
 
-            </div>
         </div>
     )
 }
