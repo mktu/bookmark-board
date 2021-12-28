@@ -34,9 +34,8 @@ export const Content: React.ReactNode = (
             <span>また、</span>
             <LineIcon className='inline-block mx-1 w-6 h-6' />
             <span>LINEアカウントをお持ちの方はLINE連携の設定を行うことで、
-                公式アカウント
             </span>
-            <a href={addFriendLink} target='_blank' rel='noopener noreferrer' className='mx-2 underline'>公式アカウント</a>
+            <a href={addFriendLink} target='_blank' rel='noopener noreferrer' className='underline'>公式アカウント</a>
             <span>
                 へのチャットを通じてブックマーク登録を行うことができるようになります。
             </span>
