@@ -13,10 +13,33 @@ const VisibilityOption: React.FC<Props> = ({
     const { colors } = useBookmarkColor(groupId)
     const { colorMasks, updateColorFilters } = useRefinements(groupId)
     const colorSettingPath = `/bookmarks/${groupId}/colors`
+    const allMasked = colors.filter(v => colorMasks.includes(v.id)).length === 0
     return (
         <div className='flex flex-col justify-start p-4 align-middle bg-white rounded border border-primary-border shadow-lg'>
             <p className='text-sm font-semibold text-primary-main'>表示する項目を選択</p>
-            
+            {colors.length > 0 && (
+                <div>
+                    <label className='flex items-center mt-2 text-sm font-semibold cursor-pointer' htmlFor='allcolor'>
+                        <input id='allcolor' type='checkbox' className='block mr-2 hover:bg-primary-50'
+                            checked={allMasked}
+                            onChange={(e) => {
+                                if (e.target.checked) {
+                                    updateColorFilters(colors.map(v => ({
+                                        color: v.id,
+                                        show: true
+                                    })))
+                                } else {
+                                    updateColorFilters(colors.map(v => ({
+                                        color: v.id,
+                                        show: false
+                                    })))
+                                }
+
+                            }} />
+                        <span className='mr-2'>全て選択</span>
+                    </label>
+                </div>
+            )}
             {colors.map(c => {
                 const [r, g, b] = hex2rgb(c.color)
                 const show = !colorMasks.includes(c.id)
@@ -37,8 +60,8 @@ const VisibilityOption: React.FC<Props> = ({
                                         </svg>
                                     </div>
                                 ) : (
-                                        <div className='w-4 h-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b})`, border: `1px solid ${c.color}` }} />
-                                    )}
+                                    <div className='w-4 h-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b})`, border: `1px solid ${c.color}` }} />
+                                )}
                             </div>
                         </label>
                     </div>
