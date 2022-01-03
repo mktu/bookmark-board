@@ -37,7 +37,7 @@ const Presenter: React.FC<Props> = ({
         <div className='flex flex-col'>
             <div className='overflow-hidden p-4 w-full'>
                 <div className='flex items-center'>
-                    <div className='md:hidden mr-2'>{back}</div>
+                    <div className='mr-2 md:hidden'>{back}</div>
                     <div className='flex-1 w-full'>
                         {title}
                     </div>
@@ -69,7 +69,7 @@ const Presenter: React.FC<Props> = ({
             <div className='overflow-hidden p-4 w-full'>
                 {move}
             </div>
-            <div className='md:flex p-2 mt-8'>
+            <div className='p-2 mt-8 md:flex'>
                 <div >
                     {trash}
                 </div>

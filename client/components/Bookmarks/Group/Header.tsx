@@ -46,7 +46,7 @@ const Header: React.FC<Props> = ({
                     <div className='overflow-hidden max-w-full font-semibold truncate' >
                         {group.name}
                     </div>
-                    <div className='hidden md:block overflow-hidden max-w-full text-sm truncate'>
+                    <div className='hidden overflow-hidden max-w-full text-sm truncate md:block'>
                         {group.description}
                     </div>
                 </ButtonBase>

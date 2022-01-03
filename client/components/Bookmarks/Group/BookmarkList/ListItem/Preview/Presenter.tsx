@@ -63,18 +63,18 @@ const ListItem: React.FC<Props> = ({
             </div>
             <div className='flex flex-col justify-start ml-auto'>
                 <div className='flex items-start'>
-                    <div className='hidden md:block mx-1'>
+                    <div className='hidden mx-1 md:block'>
                         {copyIcon}
                     </div>
                     <div className='md:mx-1'>
                         {openIcon}
                     </div>
-                    <div className='hidden md:block mx-1'>
+                    <div className='hidden mx-1 md:block'>
                         {deleteIcon}
                     </div>
                 </div>
                 <div className='flex justify-end items-center mt-auto'>
-                    <div className='hidden md:block mr-2'>{colorButton}</div>
+                    <div className='hidden mr-2 md:block'>{colorButton}</div>
                     <div>{heartButton}</div>
                 </div>
             </div>

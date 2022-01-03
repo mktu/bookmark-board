@@ -10,13 +10,13 @@ const Input: React.FC<InputProps & {
 }) => {
         return (
             <div>
-                <div className="hidden md:flex relative flex-wrap items-stretch w-full">
+                <div className="hidden relative flex-wrap items-stretch w-full md:flex">
                     <span className="absolute z-10 justify-center items-center py-3 pl-3 w-8 h-full text-base font-normal leading-snug text-center text-primary-700 bg-transparent rounded">
                         {icon}
                     </span>
-                    <input {...props} type="text" className="relative py-3 px-3 pl-10 w-full md:text-sm placeholder-primary-200 text-primary-700 bg-white rounded focus:ring shadow outline-none focus:outline-none" />
+                    <input {...props} type="text" className="relative py-3 px-3 pl-10 w-full text-primary-700 placeholder:text-primary-200 bg-white rounded outline-none focus:outline-none focus:ring shadow md:text-sm" />
                 </div>
-                <div className='flex md:hidden overflow-hidden flex-row items-center max-w-full'>
+                <div className='flex overflow-hidden flex-row items-center max-w-full md:hidden'>
                     <span className="justify-center items-center w-8 h-full text-base font-normal leading-snug text-center text-primary-700 bg-transparent rounded">
                         {icon}
                     </span>

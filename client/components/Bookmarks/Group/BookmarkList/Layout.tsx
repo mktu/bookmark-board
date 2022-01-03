@@ -36,7 +36,7 @@ const Layout: React.FC<Props> = ({
             <div className='md:hidden' style={{
                 height: footerHeight ? footerHeight : undefined
             }} />
-            <div className='fixed md:relative bottom-0 z-20 md:pt-1 md:mt-auto w-full' ref={(r) => {
+            <div className='fixed bottom-0 z-20 w-full md:relative md:pt-1 md:mt-auto' ref={(r) => {
                 if (r) {
                     // set height only once because input height may change when url image shows
                     setFooter(b => !b ? r.clientHeight : b)

@@ -21,11 +21,11 @@ const RightImageLayout: React.FC<ContentProps> = ({
     image,
 }) => (
     <>
-        <div className='flex flex-col justify-center md:mx-12 md:w-1/3 break-words'>
-            <h1 className='my-4 text-xl md:text-2xl font-bold text-primary-700'>{title}</h1>
+        <div className='flex flex-col justify-center break-words md:mx-12 md:w-1/3'>
+            <h1 className='my-4 text-xl font-bold text-primary-700 md:text-2xl'>{title}</h1>
             {content}
         </div>
-        <div className='overflow-hidden my-8 md:my-0 shadow-lg'>
+        <div className='overflow-hidden my-8 shadow-lg md:my-0'>
             {image}
         </div>
     </>
@@ -37,15 +37,15 @@ const LeftImageLayout: React.FC<ContentProps> = ({
     image,
 }) => (
     <>
-        <div className='flex md:hidden flex-col justify-center break-words'>
-            <h1 className='my-4 text-xl md:text-2xl font-bold text-primary-700'>{title}</h1>
+        <div className='flex flex-col justify-center break-words md:hidden'>
+            <h1 className='my-4 text-xl font-bold text-primary-700 md:text-2xl'>{title}</h1>
             {content}
         </div>
         <div className='my-8 md:my-0'>
             {image}
         </div>
-        <div className='hidden md:flex flex-col justify-center mx-12 w-1/3 break-words'>
-            <h1 className='my-4 text-xl md:text-2xl font-bold text-primary-700'>{title}</h1>
+        <div className='hidden flex-col justify-center mx-12 w-1/3 break-words md:flex'>
+            <h1 className='my-4 text-xl font-bold text-primary-700 md:text-2xl'>{title}</h1>
             {content}
         </div>
     </>

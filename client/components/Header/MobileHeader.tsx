@@ -30,7 +30,7 @@ const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean, fixed?: boole
         </MenuIconButton>
     )
     const mobileMenu = (
-        <SvgIconButton aria-label='Open Menu' colorType='none' className={'bg-primary-light rounded-full stroke-primary-main p-2 border border-primary-main'} onClick={onOpen}>
+        <SvgIconButton aria-label='Open Menu' colorType='none' className={'p-2 bg-primary-light rounded-full border border-primary-main stroke-primary-main'} onClick={onOpen}>
             <MenuIcon strokeWidth={1.5} className='w-10 h-10' />
         </SvgIconButton>
     )

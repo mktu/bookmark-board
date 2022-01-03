@@ -25,7 +25,7 @@ const Move: React.FC<Props> = ({
 }) => (
     <div>
         <Label className='mb-4'>グループを移動</Label>
-        <div className='md:flex items-center'>
+        <div className='items-center md:flex'>
             <Dropdowns
                 comboStyles={{
                     width : 160

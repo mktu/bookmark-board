@@ -3,7 +3,7 @@ module.exports = {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  purge: ['./components/**/*.tsx', './pages/**/*.tsx'],
+  content: ['./components/**/*.tsx', './pages/**/*.tsx'],
   theme: {
     extend: {
       maxHeight: {
@@ -189,10 +189,6 @@ module.exports = {
       }
     }
 
-  },
-  variants: {
-    fill: ['responsive', 'hover', 'focus'],
-    stroke: ['responsive', 'hover', 'focus'],
   },
   plugins: [],
 }

@@ -32,7 +32,7 @@ const BulkMove: React.VFC<Parameters<typeof TextButton>[0]> = ({ className, ...p
 )
 
 const Confirm: React.VFC<{ onSubmit: () => void, onCancel: () => void, text: string }> = ({ onCancel, onSubmit, text }) => (
-    <div className='p-4 md:text-sm bg-white border border-primary-border'>
+    <div className='p-4 bg-white border border-primary-border md:text-sm'>
         <div className=' text-primary-dark'>選択アイテムを削除します</div>
         <div className='flex items-center my-2'>
             <ContainedButton onClick={onSubmit} className='mx-1'>{text}</ContainedButton>

@@ -72,7 +72,7 @@ const Dropdowns: React.FC<Props> = ({
                         if (!value) return;
                         setPopperElement(value)
                     }} style={styles.popper} {...attributes.popper}>
-                        <div className={'rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 overflow-hidden overflow-y-auto'} style={{ width: referenceElement.clientWidth, ...poperStyles }}>
+                        <div className={'overflow-hidden overflow-y-auto bg-white rounded-md ring-1 ring-black/5 shadow-lg'} style={{ width: referenceElement.clientWidth, ...poperStyles }}>
                             <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 {options.map(o => (
                                     <TextButton onClick={() => {

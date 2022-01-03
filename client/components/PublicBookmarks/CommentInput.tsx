@@ -19,7 +19,7 @@ const CommentInput: React.FC<Props> = ({
         <div className={className}>
             <h2 className='mb-2 text-primary-main'>コメントする</h2>
             <div className='flex relative items-center pb-2 pl-2 rounded border border-primary-border'>
-                <ResizableTextAreaBase aria-label='New Comment' minRows={4} className='text-sm placeholder-primary-200 text-primary-700 bg-white resize-none' value={input} onChange={(e)=>{
+                <ResizableTextAreaBase aria-label='New Comment' minRows={4} className='text-sm placeholder:text-primary-200 text-primary-700 bg-white resize-none' value={input} onChange={(e)=>{
                     setInput(e.target.value)
                 }}/>
             </div>

@@ -26,8 +26,8 @@ const Presenter: React.FC<Props> = ({
         </div>
     )
     return (
-        <div className='flex flex-col w-full h-full bg-primary-light md:bg-white border-r border-primary-border'>
-            <div ref={ref} className='p-2 md:p-1 text-primary-main bg-white shadow md:shadow-none'>
+        <div className='flex flex-col w-full h-full bg-primary-light border-r border-primary-border md:bg-white'>
+            <div ref={ref} className='p-2 text-primary-main bg-white shadow md:p-1 md:shadow-none'>
                 {groupInput}
                 {showError}
             </div>

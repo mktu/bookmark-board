@@ -44,7 +44,7 @@ const Presenter: React.FC<Props> = ({
                 </div>
                 <div className='flex flex-col justify-start ml-auto'>
                     <div className='flex items-start'>
-                        <TooltipDivContainer content='コピー' placement='bottom' className='hidden md:block mx-1'>
+                        <TooltipDivContainer content='コピー' placement='bottom' className='hidden mx-1 md:block'>
                             {copyIcon}
                         </TooltipDivContainer>
                         <TooltipDivContainer content='URLを開く' placement='bottom' className='md:mx-1'>

@@ -36,7 +36,7 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <div className={classNames('p-6 w-full h-full',styles['wrapper'])}> {/** tbd tailwindcss 3.0 md:w-[768px] */}
-            <div className='md:flex w-full'>
+            <div className='w-full md:flex'>
                 <div className='flex flex-col items-center'>
                     {avatar}
                     <div className='flex justify-center items-center p-4'>
@@ -50,7 +50,7 @@ const Presenter: React.FC<Props> = ({
                     <Label className='my-2'>SNS</Label>
                     <div className='flex items-center'>
                         <div><TwitterIcon width={48} height={48} /></div>
-                        <div className='hidden md:block mx-2 text-primary-300'>{TwitterUrl}</div>
+                        <div className='hidden mx-2 text-primary-300 md:block'>{TwitterUrl}</div>
                         {twitterInput}
                     </div>
                     <Label className='my-2'>LINE</Label>

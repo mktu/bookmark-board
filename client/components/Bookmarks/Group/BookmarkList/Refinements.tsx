@@ -34,7 +34,7 @@ const Refinements: React.FC<Props> = ({
             <div>
                 <BulkCheckBox />
             </div>
-            <div className='md:flex items-center ml-auto'>
+            <div className='items-center ml-auto md:flex'>
                 <div className={`${hasSelection ? 'border-r opacity-100' : 'w-0 overflow-hidden h-0 opacity-0'} hidden md:block mr-2 pr-2 transition-all ease-in-out duration-500`}>
                     <BulkMenuWeb groupId={groupId} />
                 </div>

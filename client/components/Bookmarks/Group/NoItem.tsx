@@ -51,7 +51,7 @@ const NoItem: React.FC<Props> = ({
     }
     const shareLink = `/bookmarks/${groupId}/share`
     return (
-        <div className='flex flex-col justify-center md:items-center p-4 w-full h-full bg-primary-light'>
+        <div className='flex flex-col justify-center p-4 w-full h-full bg-primary-light md:items-center'>
             <p className='text-lg font-semibold text-primary-main'>
                 ブックマークを追加しましょう！
             </p>
@@ -61,7 +61,7 @@ const NoItem: React.FC<Props> = ({
                 </li>
                 <li className='text-sm'>
                     <Link href={shareLink}>
-                        <a href={shareLink} className='inline-flex underline'>共有設定<Share className='hidden md:inline-block w-4 h-5 stroke-primary-dark' strokeWidth={1.5} /></a>
+                        <a href={shareLink} className='inline-flex underline'>共有設定<Share className='hidden w-4 h-5 stroke-primary-dark md:inline-block' strokeWidth={1.5} /></a>
                     </Link>
                     <span className='ml-1'>でこのグループの公開設定や共同編集設定を行うことができます</span>
                 </li>
