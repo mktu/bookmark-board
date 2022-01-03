@@ -14,7 +14,7 @@ const Welcome = () => {
             }}>
                 <Logo theme='dark' size='lg' />
             </ButtonBase>
-            <p className='p-4 my-8 md:w-6/12 text-sm'>
+            <p className='p-4 my-8 text-sm md:w-6/12'>
                 <span>{AppName}では、気に入ったWEBサイトなどのリンクを保存し、管理することができます。</span>
                 <span>保存したURLは友達や仕事仲間と共有し、ブックマークリストを一緒に充実させましょう！</span>
             </p>

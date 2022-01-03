@@ -33,22 +33,22 @@ const Default: React.FC<Props> = ({
             <div className='py-8 w-full md:w-7/12'>
                 <div className='flex px-4'>
                     <div>
-                        <h1 className='text-xl md:text-2xl font-semibold'>
+                        <h1 className='text-xl font-semibold md:text-2xl'>
                             {name}
                         </h1>
-                        <div className='md:hidden mt-1 text-xs text-primary-main'>
+                        <div className='mt-1 text-xs text-primary-main md:hidden'>
                             <span>更新 {updated}</span>
                         </div>
                     </div>
-                    <div className='flex flex-col md:flex-row items-center ml-auto'>
+                    <div className='flex flex-col items-center ml-auto md:flex-row'>
                         <PopoverDivContainer placement='bottom' content={editorPopover}>
                             {editorIcon}
                         </PopoverDivContainer>
-                        <div className='md:ml-2 text-sm md:text-base text-primary-main'>
+                        <div className='text-sm text-primary-main md:ml-2 md:text-base'>
                             <div>
                                 {editorName}
                             </div>
-                            <div className='hidden md:block text-xs'>
+                            <div className='hidden text-xs md:block'>
                                 {updated}
                             </div>
                         </div>

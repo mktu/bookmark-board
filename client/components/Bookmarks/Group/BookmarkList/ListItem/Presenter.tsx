@@ -64,7 +64,7 @@ const Presenter: React.FC<Props> = ({
                         <div className='overflow-hidden max-w-full truncate'>{title || url}</div>
                         {description && (<div className='overflow-hidden max-w-full text-xs text-primary-main truncate' key={description} > {description}</div>)}
                         {url && (
-                            <div className='md:flex overflow-hidden items-center pt-1 mt-auto max-w-full text-xs text-primary-main truncate' >
+                            <div className='overflow-hidden items-center pt-1 mt-auto max-w-full text-xs text-primary-main truncate md:flex' >
                                 {url && (
                                     <div className='flex items-center'>
                                         <span>
@@ -84,7 +84,7 @@ const Presenter: React.FC<Props> = ({
 
                     </a>
                 </Link>
-                <div className='hidden md:flex flex-col justify-start ml-auto'>
+                <div className='hidden flex-col justify-start ml-auto md:flex'>
                     <div className='flex items-start'>
                         <TooltipDivContainer content='コピー' placement='bottom' className='mx-1'>
                             {copyIcon}
@@ -96,13 +96,13 @@ const Presenter: React.FC<Props> = ({
                             {deleteIcon}
                         </TooltipDivContainer>
                     </div>
-                    <div className='hidden md:flex justify-end items-center mt-auto'>
+                    <div className='hidden justify-end items-center mt-auto md:flex'>
                         <div className='mr-2'>{colorButton}</div>
                         <div>{heartButton}</div>
                     </div>
                 </div>
             </div>
-            <div className='flex md:hidden items-center py-1 px-2 w-full bg-white rounded-tr shadow' >
+            <div className='flex items-center py-1 px-2 w-full bg-white rounded-tr shadow md:hidden' >
                 {dateInfo}
                 <div className='flex items-center px-2 ml-auto border-r border-l border-primary-border'>
                     <div className='mx-2'>{colorButton}</div>

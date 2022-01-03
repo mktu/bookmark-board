@@ -53,7 +53,7 @@ const Presenter: React.FC<Props> = ({
             <div className='overflow-hidden p-4 w-full'>
                 {color}
             </div>
-            <div className='md:flex p-2 mt-8'>
+            <div className='p-2 mt-8 md:flex'>
                 <div className='flex flex-col items-end ml-auto'>
                     <div className='flex items-center p-2'>
                         <div className='mx-2'>{cancel}</div>

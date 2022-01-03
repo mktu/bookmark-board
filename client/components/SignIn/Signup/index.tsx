@@ -40,11 +40,11 @@ const Signup: React.FC<Props> = ({
         }
     }
     return (
-        <div className='md:flex justify-center p-4 md:p-0 w-screen h-screen'>
-            <div className='flex flex-col md:justify-center w-full md:w-1/2 h-full'>
-                <p className='md:mb-4 text-lg font-bold text-primary-main'>ユーザー登録</p>
+        <div className='justify-center p-4 w-screen h-screen md:flex md:p-0'>
+            <div className='flex flex-col w-full h-full md:justify-center md:w-1/2'>
+                <p className='text-lg font-bold text-primary-main md:mb-4'>ユーザー登録</p>
                 <p className='mb-4 text-base text-primary-main'>ニックネームを登録し、早速始めましょう</p>
-                <div className='md:flex w-full'>
+                <div className='w-full md:flex'>
                     <div className='flex flex-col items-center p-2'>
                         <Avatar width={128} height={128} src={fileUrl} disableNextImage />
                         <label className='py-2 px-4 my-2 text-primary-main hover:text-primary-dark rounded border border-primary-main hover:border-primary-dark cursor-pointer' htmlFor='file-upload'>
@@ -73,7 +73,7 @@ const Signup: React.FC<Props> = ({
                     )}
                 </div>
             </div>
-            <div className='hidden md:flex items-end p-10 ml-4'>
+            <div className='hidden items-end p-10 ml-4 md:flex'>
                 <SigninImg width='256px' height='256px' />
             </div>
         </div>

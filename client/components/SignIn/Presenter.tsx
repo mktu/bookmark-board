@@ -12,14 +12,14 @@ const Presenter = ({
     mobileLogin
 }: Props) => {
     return (
-        <div className='flex flex-col md:flex-row w-screen h-screen'>
-            <div className='hidden md:block w-full md:w-7/12 h-full'>
+        <div className='flex flex-col w-screen h-screen md:flex-row'>
+            <div className='hidden w-full h-full md:block md:w-7/12'>
                 {welcome}
             </div>
-            <div className='hidden md:block w-full md:w-5/12 h-full'>
+            <div className='hidden w-full h-full md:block md:w-5/12'>
                 {webLogin}
             </div>
-            <div className='md:hidden w-full md:w-5/12 h-full'>
+            <div className='w-full h-full md:hidden md:w-5/12'>
                 {mobileLogin}
             </div>
         </div>

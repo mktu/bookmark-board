@@ -41,14 +41,14 @@ const PublicLink: React.FC<Props> = ({
             <div className='flex items-center my-2'>
                 <p className='hidden md:block'>閲覧用リンク</p>
                 <div className='flex flex-1 items-center'>
-                    <div className='hidden md:block mx-2'>
+                    <div className='hidden mx-2 md:block'>
                         <Link href={publicPath} shallow>
                             {// eslint-disable-next-line jsx-a11y/anchor-is-valid
                                 (<a className='text-blue-700 underline'>{publicUrl}</a>)
                             }
                         </Link>
                     </div>
-                    <div className='md:hidden mx-2'>
+                    <div className='mx-2 md:hidden'>
                         <Link href={publicPath} shallow>
                             {// eslint-disable-next-line jsx-a11y/anchor-is-valid
                                 (<a className='text-blue-700 underline'>閲覧用リンク</a>)
