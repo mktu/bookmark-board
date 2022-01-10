@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { searchBookmark, getGroups, getProfileByLineId } from '../../../serverside/lineHelpers'
+import { searchBookmark, getGroups, getProfileByLineId } from '../../../serverside/firestore'
 import { ApiError } from '../../../serverside/error'
 import { getUser } from '@services/line'
 

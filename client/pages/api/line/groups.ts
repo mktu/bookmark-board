@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getProfileByLineId, updateProfile, LineApiError, getGroups, getGroup } from '../../../serverside/lineHelpers'
+import { getProfileByLineId, updateProfile, LineApiError, getGroups, getGroup } from '../../../serverside/firestore'
 import { getUser } from '../../../services/line'
 
 const handleGet = async (req: NextApiRequest, res: NextApiResponse) => {

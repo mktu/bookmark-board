@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { getGroup, getBookmarks, LineApiError, getBookmark, updateBookmark, getProfileByLineId } from '../../../../serverside/lineHelpers'
+import { getGroup, getBookmarks, LineApiError, getBookmark, updateBookmark, getProfileByLineId } from '../../../../serverside/firestore'
 import { getUser } from '../../../../services/line'
 import { parseBookmarkRoutes } from '@utils/routes'
 
