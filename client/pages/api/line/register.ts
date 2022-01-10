@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { isRegisterableLineId, updateProfile, LineApiError } from '../../../serverside/lineHelpers'
+import { isRegisterableLineId, updateProfile, LineApiError } from '../../../serverside/firestore'
 import { getFirebaseUid, getIdToken } from '../../../serverside/auth'
 import { ApiError } from '../../../serverside/error'
 import { getUser } from '@services/line'
