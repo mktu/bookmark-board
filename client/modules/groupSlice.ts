@@ -65,6 +65,13 @@ const selectGroupByOwner = createSelector(
     }
 )
 
+export const useGroups = () => {
+    return useSelector(
+        (state: { groups: ReturnType<typeof groupSlice.reducer> }) =>
+        selectAll(state.groups)
+    )
+}
+
 export const useGroupsByUser = (uid:string) => {
     return useSelector(
         (state: { groups: ReturnType<typeof groupSlice.reducer> }) =>

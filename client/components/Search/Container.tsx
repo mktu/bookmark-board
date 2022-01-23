@@ -4,13 +4,14 @@ import useBookmarkSearch from '../../hooks/useBookmarkSearch'
 import Presenter from './Presenter'
 import ListItem from './ListItem'
 import Refinements from './Refinements'
+import GroupItem from './GroupItem'
 
 type Props = {
 
 }
 
 const Container: React.FC<Props> = () => {
-    const { bookmarks, hasMore, loadMore, keyword, setKeyword } = useBookmarkSearch()
+    const { searchTargets, hasMore, loadMore, keyword, setKeyword } = useBookmarkSearch()
     const globalLink = '/public-search'
     return (
         <Presenter
@@ -28,11 +29,15 @@ const Container: React.FC<Props> = () => {
                         loadMore
                     }}
                 >
-                    <div>
-                        {bookmarks.map(b => (
-                            <ListItem key={b.id} bookmark={b} />
+                    <ul>
+                        {searchTargets.map(g => (
+                            <GroupItem className='my-2' key={g.id} group={g}>
+                                {g.bookmarks.map(b => (
+                                    <ListItem key={b.id} bookmark={b} />
+                                ))}
+                            </GroupItem>
                         ))}
-                    </div>
+                    </ul>
                 </SimpleInfiniteScroller>
             )}
         />

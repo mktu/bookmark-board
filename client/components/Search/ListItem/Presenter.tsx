@@ -26,7 +26,7 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <Link href={bookmarkDetailUrl}>
-            <a href={bookmarkDetailUrl} className='flex p-2 w-full bg-white hover:bg-gray-50 shadow cursor-pointer'>
+            <a href={bookmarkDetailUrl} className='flex p-2 w-full bg-white hover:bg-gray-50 border-b border-primary-border cursor-pointer'>
                 <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
                     {image}
                 </div>
