@@ -1,0 +1,33 @@
+type Props = {
+    input: React.ReactNode,
+    description: React.ReactNode,
+    submit: React.ReactNode,
+    cancel: React.ReactNode,
+    error ?: string
+}
+
+const Presenter: React.VFC<Props> = ({
+    input,
+    description,
+    submit,
+    cancel,
+    error
+}) => {
+    const showError = error && (<div className='py-2 px-4 text-xs text-secondary-main'>{error}</div>)
+    return (
+        <div>
+            <div className='mb-4 text-primary-main'>新しいグループを追加します</div>
+            {input}
+            {showError}
+            <div className='mt-2'>
+                {description}
+            </div>
+            <div className="flex justify-end items-center mt-4">
+                {cancel}
+                {submit}
+            </div>
+        </div>
+    )
+}
+
+export default Presenter
