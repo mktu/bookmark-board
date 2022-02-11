@@ -40,7 +40,7 @@ const Container: React.VFC<Props> = ({onClose}) => {
         >作成</ContainedButton>
     )
     const cancel = (
-        <OutlinedButton className='text-sm'rounded='rounded-tl rounded-bl' onClick={onClose}>キャンセル</OutlinedButton>
+        <OutlinedButton className='text-sm' border='border-t border-b border-l' rounded='rounded-tl rounded-bl' onClick={onClose}>キャンセル</OutlinedButton>
     )
     return (
         <Presenter
