@@ -35,7 +35,7 @@ const Header: React.FC<Props> = ({
     }
 
     return (
-        <div className='flex items-center py-2 px-2 w-full h-full border-b border-primary-border' >
+        <div className='flex items-center py-2 px-2 w-full h-full bg-white border-b border-primary-border' >
             <div className='flex overflow-hidden items-center max-w-full' >
                 <div className='flex items-center'>
                     <SvgIconButton className='md:hidden' onClick={handleBack}>

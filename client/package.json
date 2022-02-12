@@ -50,6 +50,7 @@
     "react-responsive-carousel": "^3.2.22",
     "react-responsive-modal": "^6.0.0",
     "react-simple-infinite-scroller": "^0.0.8",
+    "react-split": "^2.0.14",
     "react-textarea-autosize": "^8.3.0",
     "react-toastify": "^6.1.0",
     "sass": "^1.26.11",

@@ -23,7 +23,6 @@ const Container: React.FC = () => {
     const onCloseNewGroup = () => {
         setShowNewGroup(false)
     }
-
     const groupList = groups.map((group, idx) => {
         return (
             <React.Fragment key={group.id}>

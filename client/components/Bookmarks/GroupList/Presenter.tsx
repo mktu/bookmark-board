@@ -11,7 +11,7 @@ const Presenter: React.FC<Props> = ({
 }) => {
     const { ref, inView } = useInView()
     return (
-        <div className='flex flex-col w-full h-full bg-primary-light border-r border-primary-border md:bg-white'>
+        <div className='flex flex-col w-full h-full bg-primary-light md:bg-white'>
             <div ref={ref} className='py-1 px-0 text-primary-main bg-white'>
                 {refinements}
             </div>
