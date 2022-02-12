@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useMemo } from 'react'
 import FirebaseContext from '@context/FirebaseContext'
 import { useProfile } from '@modules/profileSlice'
 import { useGroupsByUser } from '@modules/groupSlice'
+import { useBookmarks } from '@modules/bookmarkSlice'
 import { spliceAndInsert } from '../../../logics'
 import ListItem from './ListItem'
 import Presenter from './Presenter'
@@ -14,7 +15,12 @@ const Container: React.FC = () => {
     const [showNewGroup, setShowNewGroup] = useState(false)
     const { clientService } = useContext(FirebaseContext)
     const profile = useProfile()
-    const groups = useGroupsByUser(profile.id)
+    const groupsBase = useGroupsByUser(profile.id)
+    const bookmarks = useBookmarks()
+    const groups = useMemo(()=>groupsBase.map(v=>({
+        ...v,
+        bookmarkCount : bookmarks.filter(b=>b.groupId === v.id).length
+    })),[groupsBase, bookmarks])
 
     const onChangeOrder = (next: number) => (id: string) => {
         const ordered = spliceAndInsert(groups.map(g => g.id), next, id)
