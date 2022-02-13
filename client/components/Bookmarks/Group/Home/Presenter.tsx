@@ -16,7 +16,7 @@ const Presenter: React.FC<Props> = ({
     recentCreated
 }) => {
     return (
-        <div className='flex justify-center items-center w-full h-full'>
+        <div className='flex justify-center items-center w-full h-full bg-white'>
             <div className='p-4 w-full text-primary-main lg:w-4/5'>
                 <div className='flex flex-col justify-center items-center'>
                     <div className='mb-12 text-xl text-primary-main'>

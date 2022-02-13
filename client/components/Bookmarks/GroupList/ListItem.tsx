@@ -6,7 +6,7 @@ import classNames from 'classnames'
 import { checkIsTouch } from '@utils/dnd'
 
 type Props = {
-    bookmarkGroup: BookmarkGroup,
+    bookmarkGroup: BookmarkGroup & { bookmarkCount : number },
     onHover: Parameters<typeof useHoverable>[1],
     listIndex: Parameters<typeof useHoverable>[2],
 }
@@ -34,7 +34,8 @@ const ListItem: React.FC<Props> = ({
             <div ref={isTouch ? attachDnDRef : undefined}>
                 <FolderOpen className='w-8 stroke-primary-main' strokeWidth={1} />
             </div>
-            <div className='ml-2 truncate'>{bookmarkGroup.name}</div>
+            <div className='mr-1 ml-2 truncate'>{bookmarkGroup.name}</div>
+            <div className='text-sm'>({bookmarkGroup.bookmarkCount})</div>
         </button>
     )
 }

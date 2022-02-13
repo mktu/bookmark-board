@@ -14,12 +14,14 @@ type Props = Parameters<typeof ResizableTextAreaBase>[0] & {
     border?: keyof typeof borderVariants
     label?: string,
     className?: string
+    paddings?: string
 }
 
 const TextArea: React.FC<Props> = ({
     id,
     label,
     border = 'underline',
+    paddings = 'pl-2 pb-2',
     className,
     clear,
     onFocus,
@@ -48,7 +50,7 @@ const TextArea: React.FC<Props> = ({
                 <Label htmlFor={id} className='mb-2'>
                     {label}
                 </Label>}
-            <div className={classNames('relative flex items-center border-primary-border pl-2 pb-2', borderClasses)}>
+            <div className={classNames('relative flex items-center border-primary-border', paddings, borderClasses)}>
                 <ResizableTextAreaBase id={id} {...props} className='placeholder:text-primary-200 text-primary-700 bg-white resize-none md:text-sm'
                     onFocus={handleFocus}
                     onBlur={handleBlur} />

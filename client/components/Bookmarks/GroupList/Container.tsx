@@ -1,51 +1,34 @@
-import React, { useState, useContext } from 'react'
-import { SvgIconButton } from '@components/Common/Button'
-import { Add, Folder } from '@components/Common/Icon'
+import React, { useState, useContext, useMemo } from 'react'
 import FirebaseContext from '@context/FirebaseContext'
 import { useProfile } from '@modules/profileSlice'
 import { useGroupsByUser } from '@modules/groupSlice'
-import useNewBookmarkGroup from '@hooks/useNewBookmarkGroup'
+import { useBookmarks } from '@modules/bookmarkSlice'
 import { spliceAndInsert } from '../../../logics'
 import ListItem from './ListItem'
 import Presenter from './Presenter'
 import Droppable from './Droppable'
-import Input from './Input'
+import Refinements from './Refinements'
+import NewGroup, { Dialog as NewGroupDialog } from './NewGroup'
 
 const Container: React.FC = () => {
     const [hover, setHover] = useState(-1)
+    const [showNewGroup, setShowNewGroup] = useState(false)
     const { clientService } = useContext(FirebaseContext)
     const profile = useProfile()
-    const groups = useGroupsByUser(profile.id)
-    const { newGroup, setNewGroup, submit, error } = useNewBookmarkGroup()
+    const groupsBase = useGroupsByUser(profile.id)
+    const bookmarks = useBookmarks()
+    const groups = useMemo(()=>groupsBase.map(v=>({
+        ...v,
+        bookmarkCount : bookmarks.filter(b=>b.groupId === v.id).length
+    })),[groupsBase, bookmarks])
 
     const onChangeOrder = (next: number) => (id: string) => {
         const ordered = spliceAndInsert(groups.map(g => g.id), next, id)
         clientService.changeGroupOrder(ordered)
     }
-
-    const input = (
-        <Input
-            aria-label='Input New Group'
-            value={newGroup}
-            onChange={(e) => {
-                setNewGroup(e.target.value)
-            }} 
-            onKeyPress={(e)=>{
-                if (e.key == 'Enter') {
-                    submit()
-                    e.preventDefault()
-                }
-            }}
-            placeholder='新しいグループ' icon={<Folder />} />)
-
-    const addButton = (
-        <SvgIconButton
-            disabled={Boolean(error) || !newGroup}
-            aria-label='Add Group'
-            onClick={submit}>
-            <Add strokeWidth={1.5} className='w-10' />
-        </SvgIconButton>
-    )
+    const onCloseNewGroup = () => {
+        setShowNewGroup(false)
+    }
     const groupList = groups.map((group, idx) => {
         return (
             <React.Fragment key={group.id}>
@@ -57,15 +40,22 @@ const Container: React.FC = () => {
             </React.Fragment>
         )
     })
+
+    const refinements = (
+        <Refinements onClickNewGroup={() => { setShowNewGroup(true) }} />
+    )
     return (
-        <Presenter
-            {...{
-                error,
-                input,
-                addButton,
-                groupList,
-            }}
-        />
+        <>
+            <Presenter
+                {...{
+                    groupList,
+                    refinements
+                }}
+            />
+            <NewGroupDialog open={showNewGroup} onClose={onCloseNewGroup}>
+                <NewGroup onClose={onCloseNewGroup}/>
+            </NewGroupDialog>
+        </>
     )
 }
 
