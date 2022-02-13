@@ -30,7 +30,6 @@ const Container: React.VFC<Props> = ({onClose}) => {
     const submit = (
         <ContainedButton 
         className='text-sm' 
-        rounded='rounded-tr rounded-br' 
         disabled={Boolean(error) || !newGroup}
         onClick={()=>{
             handleSubmit().then(()=>{
@@ -40,7 +39,7 @@ const Container: React.VFC<Props> = ({onClose}) => {
         >作成</ContainedButton>
     )
     const cancel = (
-        <OutlinedButton className='text-sm' border='border-t border-b border-l' rounded='rounded-tl rounded-bl' onClick={onClose}>キャンセル</OutlinedButton>
+        <OutlinedButton className='mr-2 text-sm'  onClick={onClose}>キャンセル</OutlinedButton>
     )
     return (
         <Presenter
