@@ -53,6 +53,15 @@ export const useBookmarkGroup = (groupId?: string) => {
         Object.keys(update).some(key => update[key] !== base[key])
         , [update, base])
 
+    // update immediately
+    const leaveGroup = useCallback(()=>new Promise<void>((resolve, reject) => {
+        profile?.id && clientService.modifyGroup(groupId, {
+            users: group.users.filter(u => u !== profile?.id)
+        }, () => {
+            resolve()
+        }, reject)
+    }),[profile?.id,clientService,group,groupId])
+
     const handleSubmit = useCallback((partial?: Partial<BookmarkGroup>) =>
         new Promise<{ after: Partial<BookmarkGroup>, before: Partial<BookmarkGroup> }>((resolve, reject) => {
             if (!hasChange && !partial) {
@@ -65,6 +74,7 @@ export const useBookmarkGroup = (groupId?: string) => {
                 return acc
             }, {})
             clientService.modifyGroup(groupId, saveFirestore, () => {
+                // Because algolia is updated only if the name and description change (other property is ignored!)
                 resolve({
                     after: data,
                     before: base
@@ -82,6 +92,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         updatePartial,
         handleDeleteGroup,
         handleSubmit,
+        leaveGroup,
         hasChange,
         hasOwnership
     }
