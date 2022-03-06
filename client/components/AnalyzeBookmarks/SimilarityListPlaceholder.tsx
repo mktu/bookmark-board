@@ -20,10 +20,10 @@ const Placeholder = (props) => (
             {...props}
         >
             {[...Array(12)].map((_, i) => (
-                <>
+                <React.Fragment key={i}>
                     <rect x={XOffset} y={YOffset + BoxHeight * i + YSpacing * i} rx="3" ry="3" width={BoxWidth} height={BoxHeight} />
                     <rect x={XOffset + BoxWidth + XSpacing} y={YOffset + BoxHeight * i + YSpacing * i} rx="3" ry="3" width="90%" height={BoxHeight} />
-                </>
+                </React.Fragment>
             ))}
         </ContentLoader>
     </div>
