@@ -60,6 +60,31 @@ describe('permissionTest', ()=>{
         })
     })
 
+    describe('similarityPermissionTest', ()=>{
+        test('hasOwnerPrivilege', async ()=>{
+            const db = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
+            const similaritydoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
+            await firebase.assertSucceeds(similaritydoc.set({count: 1}))
+            const bookamrkSimDoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('bookmarkSimilarities').doc('similarityTestId')
+            await firebase.assertSucceeds(bookamrkSimDoc.set({diff: 1}))
+            await firebase.assertSucceeds(bookamrkSimDoc.set({diff: 2.5}))
+            const ignoreSimDoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('ignoreList').doc('ignoreId')
+            await firebase.assertSucceeds(ignoreSimDoc.set({bookmarkId: 'b1'}))
+            await firebase.assertSucceeds(bookamrkSimDoc.delete())
+            await firebase.assertSucceeds(similaritydoc.delete())
+            await firebase.assertSucceeds(ignoreSimDoc.delete())
+        })
+        test('notAuthed', async ()=>{
+            const db = unAuthedApp();
+            const similaritydoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
+            await firebase.assertFails(similaritydoc.set({count: 1}))
+            const bookamrkSimDoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('bookmarkSimilarities').doc('similarityTestId')
+            await firebase.assertFails(bookamrkSimDoc.set({diff: 1}))
+            const ignoreSimDoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('ignoreList').doc('ignoreId')
+            await firebase.assertFails(ignoreSimDoc.set({bookmarkId: 'b1'}))
+        })
+    })
+
     describe('notificationPermissionTest', ()=>{
         test('hasProfilePrivilege', async ()=>{
             const db = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });

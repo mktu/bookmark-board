@@ -39,6 +39,15 @@ service cloud.firestore {
         allow update, read, create, delete : if isLoggedIn() && request.auth.uid == profileId;
       }
     }
+    match /similarities/{profileId} {
+      allow read, create, update, delete : if isLoggedIn() && request.auth.uid == profileId;
+      match /bookmarkSimilarities/{bookmarkId}{
+        allow update, create, read, delete : if isLoggedIn() && request.auth.uid == profileId;
+      }
+      match /ignoreList/{ignoreId}{
+        allow update, create, read, delete : if isLoggedIn() && request.auth.uid == profileId;
+      }
+    }
     match /groups/{groupId} {
       allow create : if hasGroupCreaterPrivilege();
       allow update : if hasGroupEditorPrivilege(resource);
