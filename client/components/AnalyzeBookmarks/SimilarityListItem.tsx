@@ -37,6 +37,7 @@ const SimilarityListItem: React.VFC<Props> = ({
                     <div>{bookmark.title}</div>
                     <div className='my-1 max-w-full text-xs'>
                         <span className='inline-flex p-1 text-sm text-secondary-main rounded border border-secondary-border'>
+                            <Search className='w-4 h-4 stroke-secondary-300' strokeWidth={2} />
                             <span className='mx-1 font-semibold'>{targetGroup.name}</span>
                             <span>と類似性が高い</span>
                         </span>
