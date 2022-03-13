@@ -33,7 +33,7 @@ const Mobile: React.FC<Props> = ({
                 </div>
                 <div className='flex overflow-hidden flex-col flex-1 pl-2 ml-2 w-full border-l border-primary-border' >
                     <div className='overflow-hidden max-w-full text-xs text-primary-main text-ellipsis'>
-                        {(description && description.length > 100) ? description.substr(0, 100) + '...' : description}
+                        {(description && description.length > 100) ? description.substring(0, 100) + '...' : description}
                     </div>
                     <div  className='flex overflow-hidden justify-end items-center mt-auto max-w-full text-xs text-primary-main text-ellipsis'>
                         <Link className='mr-1 w-4 stroke-primary-main'/>

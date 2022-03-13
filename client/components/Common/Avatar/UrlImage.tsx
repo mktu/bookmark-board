@@ -1,4 +1,4 @@
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties, useState, useEffect } from 'react'
 import { PlaceHolderImg } from '../Image'
 
 type ObjectFit = 'cover' | 'contain' 
@@ -98,6 +98,10 @@ const UrlImage: React.FC<Props> = ({
     const [useEndpoint, setUseEndpoint] = useState(enableEndpoint)
     const [loading,setLoading] = useState(true)
     const [error, setError] = useState(false)
+    useEffect(()=>{
+        setLoading(true)
+        setError(false)
+    },[src])
     const { srcset } = cAtMax ? makeCAtMaxSrcSet(useEndpoint, width, height, src)
         : makeDefaultSrcSet(useEndpoint, width, height, src)
 

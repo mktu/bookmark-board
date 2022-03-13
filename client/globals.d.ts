@@ -16,11 +16,11 @@ declare type Profile = {
     image: string,
     lastUpdate?: number,
     twitter?: string,
-    lineid ?: string,
-    lineInfo ?: {
-        id : string,
-        name : string,
-        defaultGroup :? string
+    lineid?: string,
+    lineInfo?: {
+        id: string,
+        name: string,
+        defaultGroup: ?string
     }
 }
 
@@ -34,13 +34,13 @@ declare type Reaction = {
 declare type ListViewMask = 'description' | 'url' | 'comment' | 'lastUpdate'
 
 declare type BookmarkColorDescription = {
-    color :string,
+    color: string,
     name: string,
     idx: number,
 }
 
 declare type BookmarkColors = {
-    [key: string]:BookmarkColorDescription
+    [key: string]: BookmarkColorDescription
 }
 
 declare type BookmarkGroupIndex = {
@@ -53,7 +53,7 @@ declare type BookmarkGroupIndex = {
     objectID: string,
     ownerId: string,
     created: number,
-    numberOfLikes?:number,
+    numberOfLikes?: number,
 }
 
 declare type BookmarkGroup = {
@@ -65,16 +65,16 @@ declare type BookmarkGroup = {
     id: string,
     idx: number,
     sharable?: boolean, // todo requires,
-    searchable?:boolean,
+    searchable?: boolean,
     imageUrl?: string,
     lastUpdate?: number,
     colors?: BookmarkColors
 }
 
 declare type BookmarkRefinement = {
-    id:string,
-    likeMask?:string,
-    colorMasks ?: string[],
+    id: string,
+    likeMask?: string,
+    colorMasks?: string[],
     listViewMask?: ListViewMask[],
 }
 
@@ -86,7 +86,7 @@ declare type Bookmark = {
     comment?: string,
     neighbors: [],
     image?: string,
-    images?:string[],
+    images?: string[],
     groupId: string,
     owner: string,
     created: number,
@@ -95,7 +95,35 @@ declare type Bookmark = {
     unacquired?: boolean,
     reactions: { [key: string]: string[] },
     color?: string,
-    disableEndpoint?:boolean
+    disableEndpoint?: boolean
+}
+
+declare type BookmarkSimilarity = {
+    id : string,
+    originalSimilarity: number,
+    targetSimilarity: number,
+    targetGroupId: string,
+    currentGroupId: string,
+    bookmarkId: string,
+    diff: number,
+    profileId: string,
+    updated: number
+}
+
+declare type IgnoreSimilarity = {
+    id : string,
+    bookmarkId: string,
+    title?: string,
+    image?:string,
+    targetGroupId: string,
+    targetGroupName?:string,
+    currentGroupId: string,
+}
+
+declare type Similarity = {
+    id : string,
+    count : number,
+    updated : number
 }
 
 declare type BookmarkComment = {
@@ -119,7 +147,7 @@ declare type BookmarkRequest = {
 }
 
 declare type Information = {
-    id : string,
+    id: string,
     content: string,
     priority?: Priority,
     contentUrl?: string,
@@ -128,14 +156,14 @@ declare type Information = {
 }
 
 declare type UserNotification = {
-    id : string,
-    type : 'information',
+    id: string,
+    type: 'information',
     content: string,
     priority: Priority,
     contentUrl?: string,
     created: number,
     read: boolean,
-    sourceId?:string,
+    sourceId?: string,
     lastUpdate?: number,
 }
 
