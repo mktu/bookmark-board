@@ -15,7 +15,7 @@ const SimilarityDetail: React.VFC<Props> = ({
 }) => {
     const router = useRouter()
     const { bookmark, targetGroup, originalSimilarity, targetSimilarity, currentGroupId, currentGroup } = bookmarkSimilarity
-    if (!bookmark) {
+    if (!bookmark || !targetGroup) {
         return <div>NOT FOUND</div>
     }
     const imageStyle: CSSProperties = {

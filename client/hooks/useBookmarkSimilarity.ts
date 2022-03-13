@@ -79,7 +79,7 @@ const useBookmarkSimilarity = (selectedBookmarkId?: string) => {
             ...b,
             targetGroup: groups.find(v => v.id === b.targetGroupId),
             bookmark: bookmarks.find(v => v.id === b.bookmarkId)
-        }))
+        })).filter(v=>Boolean(v.targetGroup) && Boolean(v.bookmark))
     })).filter(b => b.similarities.length > 0), [bookmarkSimilaritiesBaseWithoutIgnoreList, groups, bookmarks])
     const selectedBookmarkSimilarity = useMemo(() => {
         const found = bookmarkSimilaritiesBaseWithoutIgnoreList?.find(v => v.bookmarkId === selectedBookmarkId)
