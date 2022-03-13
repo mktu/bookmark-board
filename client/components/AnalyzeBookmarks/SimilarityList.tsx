@@ -25,7 +25,6 @@ const SimilarityList: React.VFC<Props> = ({
             <h2 className='my-1 font-semibold text-primary-main'>Bookmark Advice</h2>
             <div className='text-sm text-primary-main'>
                 <span>タイトル・コメントの類似度に基づき、グルーピングの手助けします</span>
-                <span role='img' aria-label='help' className='mx-1'>💪</span>
                 ({similarity?.updated} 分析)</div>
         </div>
     ),[similarity])
@@ -39,7 +38,7 @@ const SimilarityList: React.VFC<Props> = ({
                     </div>
                     <ul className='px-2 max-w-full'>{g.similarities.map(b => b.bookmark && (
                         <li key={b.bookmarkId} className='mt-1'>
-                            <ListItem moveBookmark={moveBookmark} addIgnore={addIgnore} bookmark={b.bookmark} detailPath={`/analyze/${b.bookmarkId}`} targetGroup={b.targetGroup} />
+                            <ListItem diff={b.diff} moveBookmark={moveBookmark} addIgnore={addIgnore} bookmark={b.bookmark} detailPath={`/analyze/${b.bookmarkId}`} targetGroup={b.targetGroup} />
                         </li>
                     ))}</ul>
                 </li>

@@ -10,15 +10,11 @@ const SimilarityHelp: React.VFC = () => {
             </div>
             <h3 className='my-2 font-semibold text-primary-main'>
                 <span role='img' aria-label='suprise'>✨</span>
-                <span>ブックマークの分類をお手伝いします</span>
+                <span>ブックマークの分類を手助けします</span>
             </h3>
             <ul className='px-16 text-sm'>
-                <li>
-                    <span>■ 気付かぬ間に類似するグループが2つできていた</span>
-                    <span role='img' aria-label='suprise'>😲</span></li>
-                <li>
-                    <span>■ 適当なグループに登録したブックマークを放置したまま埋もれてしまった</span>
-                    <span role='img' aria-label='confuse'>😥</span></li>
+                <li>■ 気付かぬ間に類似するグループが2つできていた</li>
+                <li>■ 適当なグループに登録したブックマークを放置したまま埋もれてしまった</li>
             </ul>
             <p className='px-16 my-2 text-sm'>...ブックマーク間の類似度をもとに、そういった類似グループや外れたブックマークを抽出し、相応しいグループを提案します</p>
             <p className='flex justify-end px-16 w-full text-sm'>
