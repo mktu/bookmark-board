@@ -11,7 +11,7 @@ const Footer = () => {
                 </div>
                 <div className="flex flex-wrap justify-center items-center md:justify-end">
                     <span className='hidden mr-1 md:inline'>©︎ </span>
-                    <a href={TwitterLink} target='_blank' rel='noopener noreferrer' className='hidden mr-4 md:inline'>mktu 2021</a>
+                    <a href={TwitterLink} target='_blank' rel='noopener noreferrer' className='hidden mr-4 md:inline'>mktu 2021 - 2022</a>
                     <a href={InqueryLink} target='_blank' rel='noopener noreferrer' className='block pr-4 mr-4 underline border-r border-white'>問い合わせ</a>
                     <a href={PrivactPolicyLink} target='_blank' rel='noopener noreferrer' className='block pr-4 mr-4 underline border-r border-white'>プライバシーポリシー</a>
                     <a href={TermLink} target='_blank' rel='noopener noreferrer' className='block underline'>利用規約</a>
