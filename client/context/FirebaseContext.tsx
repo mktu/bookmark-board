@@ -1,18 +1,12 @@
 import React from 'react'
 
 const createFirebaseService = async () => {
+    const auth = await import('../services/auth')
+    const others = await import('./LazyLoads')
+
     return {
-        ...await import('../services/auth'),
-        ...await import('../services/profile'),
-        ...await import('../services/group'),
-        ...await import('../services/bookmark'),
-        ...await import('../services/comment'),
-        ...await import('../services/reaction'),
-        ...await import('../services/request'),
-        ...await import('../services/storage'),
-        ...await import('../services/notification'),
-        ...await import('../services/callable'),
-        ...await import('../services/similarity'),
+        ...auth,
+        ...others.services,
         mock : false,
         auth : true
     }
@@ -30,18 +24,10 @@ export const createInitialService : ()=> Promise<FirebaseClientServiceType> = as
 }
 
 export const upgradeAuthedService = async (original : FirebaseClientServiceType) => {
+    const others = await import('./LazyLoads')
     return {
         ...original,
-        ...await import('../services/profile'),
-        ...await import('../services/group'),
-        ...await import('../services/bookmark'),
-        ...await import('../services/comment'),
-        ...await import('../services/reaction'),
-        ...await import('../services/request'),
-        ...await import('../services/storage'),
-        ...await import('../services/notification'),
-        ...await import('../services/callable'),
-        ...await import('../services/similarity'),
+        ...others.services,
         mock : false,
         auth : true
     }
