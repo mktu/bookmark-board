@@ -1,11 +1,12 @@
 import React from 'react'
 import Presenter from './Presenter'
 import { toast } from 'react-toastify';
-import { UrlImage } from '../../Common/Avatar'
-import { ExternalLink, Duplicate } from '../../Common/Icon'
-import { SvgIconButton } from '../../Common/Button'
-import { BookmarkListImageSize } from '../../../utils/constants'
-import { copyToClipBoard } from '../../../utils'
+import { UrlImage } from '@components/Common/Avatar'
+import { ExternalLink, Duplicate } from '@components/Common/Icon'
+import { SvgIconButton } from '@components/Common/Button'
+import { BookmarkListImageSize } from '@utils/constants'
+import { copyToClipBoard } from '@utils/index'
+import { getRelativeDate } from '@utils/date'
 
 type Props = {
     bookmark: Bookmark
@@ -59,7 +60,12 @@ const Container: React.FC<Props> = ({
                 title : bookmark.title,
                 description : bookmark.description,
                 comment : bookmark.comment,
-                bookmarkDetailUrl : `/bookmarks/${bookmark.groupId}/${bookmark.id}`
+                bookmarkDetailUrl : `/bookmarks/${bookmark.groupId}/${bookmark.id}`,
+                created : getRelativeDate(bookmark.created, {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",}).msg,
+                urlLink : bookmark.url
             }}
 
         />

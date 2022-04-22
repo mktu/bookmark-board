@@ -13,7 +13,7 @@ export const numberToDate = (time?: number) => {
     return new Date(time).toLocaleDateString('ja-JP', { timeZone: 'Asia/Tokyo' })
 }
 
-export const getRelativeDate = (time:number) : {msg:string, type: 'justnow' | 'minutes' | 'hours' | 'date'} => {
+export const getRelativeDate = (time:number, option : Intl.DateTimeFormatOptions = {}) : {msg:string, type: 'justnow' | 'minutes' | 'hours' | 'date'} => {
     const now = Date.now()
     const diff = now-time
     const minuteInMsec = 1000 * 60
@@ -40,7 +40,7 @@ export const getRelativeDate = (time:number) : {msg:string, type: 'justnow' | 'm
         }
     }
     return {
-        msg : `${numberToDateWithOption(time)}`,
+        msg : `${numberToDateWithOption(time,option)}`,
         type : 'date'
     }
 }
