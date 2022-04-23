@@ -114,7 +114,7 @@ const selectBookmarksByKeyword = createSelector(
                 || matchDescription
                 || matchComment
 
-        })
+        }).sort((a,b)=>b.created - a.created) // sort by desc
     }
 )
 
