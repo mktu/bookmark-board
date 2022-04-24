@@ -1,5 +1,6 @@
 import React from 'react'
-import SimpleInfiniteScroller from 'react-simple-infinite-scroller';
+import { checkIsTouch } from '@utils/dnd'
+import InfiniteScroll from 'react-infinite-scroller';
 import useBookmarkSearch from '../../hooks/useBookmarkSearch'
 import Presenter from './Presenter'
 import ListItem from './ListItem'
@@ -23,10 +24,12 @@ const Container: React.FC<Props> = () => {
                 />
             }
             bookmarkList={(
-                <SimpleInfiniteScroller
+                <InfiniteScroll
                     {...{
-                        canScrollDown: hasMore,
-                        loadMore
+                        pageStart : 0,
+                        hasMore,
+                        loadMore,
+                        useWindow : checkIsTouch()
                     }}
                 >
                     <ul>
@@ -38,7 +41,7 @@ const Container: React.FC<Props> = () => {
                             </GroupItem>
                         ))}
                     </ul>
-                </SimpleInfiniteScroller>
+                </InfiniteScroll>
             )}
         />
     )
