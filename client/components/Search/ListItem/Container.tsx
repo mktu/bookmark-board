@@ -9,11 +9,15 @@ import { copyToClipBoard } from '@utils/index'
 import { getRelativeDate } from '@utils/date'
 
 type Props = {
-    bookmark: Bookmark
+    bookmark: Bookmark,
+    grouping : boolean,
+    groupName ?: string,
 }
 
 const Container: React.FC<Props> = ({
-    bookmark
+    bookmark,
+    grouping,
+    groupName
 }) => {
     const handleCopyUrl = (e: React.MouseEvent<HTMLButtonElement>) => {
         copyToClipBoard(bookmark.url, () => {
@@ -50,11 +54,15 @@ const Container: React.FC<Props> = ({
             <ExternalLink className='w-5' strokeWidth={1.5} />
         </SvgIconButton>
     )
+    const groupLink = `/bookmarks/${bookmark.groupId}`
 
     return (
         <Presenter
             {...{
                 image,
+                grouping,
+                groupName,
+                groupLink,
                 copyIcon,
                 openIcon,
                 title : bookmark.title,

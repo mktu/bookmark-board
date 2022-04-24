@@ -20,7 +20,7 @@ const Presenter : React.FC<Props> = ({
                     <a className='underline' href={globalLink}>こちら</a>
                 </Link>
             </div> */}
-            <div className='p-4'>
+            <div className='px-4 pt-4'>
                 {searchRefinements}
             </div>
             <div className='overflow-y-auto flex-1 p-4'>

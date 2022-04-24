@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from 'react'
+import { useState, useMemo, useCallback, useEffect } from 'react'
 import { useBookmarksByKeyword } from '@modules/bookmarkSlice'
 import { useGroups } from '@modules/groupSlice'
 import { combineGroups } from '@utils/searchLogic'
@@ -11,6 +11,10 @@ const useBookmarkSearch = () => {
     const groups = useGroups()
     const [size, setSize] = useState(LoadCount)
     const bookmarks = useBookmarksByKeyword(confirmed)
+    const ungroupedTargets = useMemo(() => bookmarks.slice(0, size).map(b=>({
+        ...b,
+        groupName : groups.find(g=>g.id === b.groupId)?.name
+    })), [bookmarks, size, groups]);
     const searchTargets = useMemo(() => {
         return combineGroups(groups, bookmarks, size).filter(g => g.bookmarks.length > 0)
     }, [bookmarks, groups, size])
@@ -26,7 +30,8 @@ const useBookmarkSearch = () => {
         bookmarks,
         loadMore,
         hasMore,
-        searchTargets
+        searchTargets,
+        ungroupedTargets
     }
 }
 

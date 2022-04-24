@@ -1,24 +1,30 @@
 import React from 'react'
 import Link from 'next/link'
-import { Chat } from '../../Common/Icon'
-import { TooltipDivContainer } from '../../Common/Tooltip'
-import { BookmarkListImageSize } from '../../../utils/constants'
+import Chat from '@components/Common/Icon/Chat'
+import FolderOpen from '@components/Common/Icon/FolderOpen'
+import { TooltipDivContainer } from '@components/Common/Tooltip'
+import { BookmarkListImageSize } from '@utils/constants'
 
 
 type Props = {
     image: React.ReactNode,
+    groupName?: string,
     title?: string,
+    groupLink?: string,
     bookmarkDetailUrl: string,
     description?: string,
     comment?: string,
     copyIcon: React.ReactNode,
     openIcon: React.ReactNode,
     created: string,
-    urlLink: string
+    urlLink: string,
+    grouping: boolean
 }
 
 const Presenter: React.FC<Props> = ({
     image,
+    groupName,
+    groupLink,
     title,
     bookmarkDetailUrl,
     description,
@@ -26,10 +32,21 @@ const Presenter: React.FC<Props> = ({
     copyIcon,
     openIcon,
     created,
-    urlLink
+    urlLink,
+    grouping
 }) => {
     return (
         <>
+            {!grouping && (
+                <div className='hidden overflow-hidden items-center mt-2 w-full text-primary-main md:flex'>
+                    <FolderOpen className='mr-1 w-5 h-5' strokeWidth={1.5} />
+                    <Link href={groupLink}>
+                        <a href={groupLink} className='underline truncate'>
+                            {groupName}
+                        </a>
+                    </Link>
+                </div>
+            )}
             <Link href={bookmarkDetailUrl}>
                 <a href={bookmarkDetailUrl} className='block p-2 w-full bg-white hover:bg-gray-50 border-b border-primary-border cursor-pointer'>
                     <div className='flex'>
@@ -38,10 +55,14 @@ const Presenter: React.FC<Props> = ({
                         </div>
                         <div style={{ minHeight: BookmarkListImageSize }} className='mx-2' />
                         <div className='flex overflow-hidden flex-col flex-1 justify-center items-start max-w-full'>
-                            <div className='overflow-hidden max-w-full truncate'>{title}</div>
+                            <div className='overflow-hidden max-w-full truncate'>
+                                <span>
+                                    {title}
+                                </span>
+                            </div>
                             {description && (<div className='overflow-hidden max-w-full text-xs text-primary-main truncate' key={description} > {description}</div>)}
                             {comment && (
-                                <div className='flex items-center py-1 max-w-full text-xs font-thin text-primary-main' >
+                                <div className='flex items-center py-1 max-w-full text-xs text-primary-main' >
                                     <Chat className='mr-1 w-6 stroke-primary-300' strokeWidth={2} />
                                     <div className='overflow-hidden flex-1 truncate'>
                                         {comment}
@@ -65,15 +86,27 @@ const Presenter: React.FC<Props> = ({
 
                 </a>
             </Link>
-            <div className='flex justify-end items-center pb-1 mt-2 md:hidden'>
-                <div className='mr-2 text-sm text-primary-main'>
-                    {created} |
-                </div>
-                <div className='flex items-center text-sm text-primary-main'>
-                    <a href={urlLink} target='_blank' rel='noopener noreferrer'>
-                        リンクを開く
-                    </a>
-                    {openIcon}
+            <div className='pb-1 mt-2 md:hidden'>
+                <div className='flex justify-end items-center'>
+                    {!grouping && (
+                        <div className='flex overflow-hidden flex-1 items-center mr-1 text-sm text-primary-main'>
+                            <FolderOpen className='mr-1 w-5 h-5' strokeWidth={1.5} />
+                            <Link href={groupLink}>
+                                <a href={groupLink} className='underline truncate'>
+                                    {groupName}
+                                </a>
+                            </Link>
+                        </div>
+                    )}
+                    <div className='mr-2 text-sm text-primary-main whitespace-nowrap'>
+                        {created} |
+                    </div>
+                    <div className='flex items-center text-sm text-primary-main whitespace-nowrap'>
+                        <a href={urlLink} target='_blank' rel='noopener noreferrer'>
+                            リンクを開く
+                        </a>
+                        {openIcon}
+                    </div>
                 </div>
             </div>
         </>
