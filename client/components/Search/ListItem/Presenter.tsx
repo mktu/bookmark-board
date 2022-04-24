@@ -39,7 +39,7 @@ const Presenter: React.FC<Props> = ({
         <>
             {!grouping && (
                 <div className='hidden overflow-hidden items-center mt-2 w-full text-primary-main md:flex'>
-                    <FolderOpen className='mr-1 w-5 h-5' strokeWidth={1.5} />
+                    <FolderOpen className='mr-1 w-5 h-5' />
                     <Link href={groupLink}>
                         <a href={groupLink} className='underline truncate'>
                             {groupName}
