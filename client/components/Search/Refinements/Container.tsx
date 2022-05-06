@@ -1,17 +1,22 @@
 import React from 'react'
-import TextInput from '../../Common/Input/TextInput'
-import Search from '../../Common/Icon/Search'
+import TextInput from '@components/Common/Input/TextInput'
+import Checkbox from '@components/Common/Input/Checkbox'
+import Search from '@components/Common/Icon/Search'
 import Presenter from './Presenter'
-import useBookmarkSearch from '../../../hooks/useBookmarkSearch'
+import useBookmarkSearch from '@hooks/useBookmarkSearch'
 
 type Props = {
     setKeyword: ReturnType<typeof useBookmarkSearch>['setKeyword'],
     keyword: ReturnType<typeof useBookmarkSearch>['keyword'],
+    grouping : boolean,
+    onChangeGroupng : (grouping:boolean)=>void
 }
 
 const Container: React.FC<Props> = ({
     keyword,
-    setKeyword
+    setKeyword,
+    grouping,
+    onChangeGroupng
 }) => {
     return <Presenter
         input={
@@ -25,6 +30,13 @@ const Container: React.FC<Props> = ({
                     setKeyword(e.target.value)
                 }}
             />
+        }
+        groupCheckbox={
+            <Checkbox label='グループ化して表示' checked={grouping} labelProps={{
+                color : 'text-primary-400'
+            }} onChange={(e)=>{
+                onChangeGroupng(e.target.checked)
+            }}/>
         }
 
     />

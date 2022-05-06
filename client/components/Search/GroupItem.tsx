@@ -1,6 +1,6 @@
 import React from 'react'
 import Link from 'next/link'
-import Folder from '@components/Common/Icon/Folder'
+import FolderOpen from '@components/Common/Icon/FolderOpen'
 
 type Props = {
     children: React.ReactNode,
@@ -18,7 +18,7 @@ const GroupItem: React.VFC<Props> = ({
         <li key={group.id} className={className}>
             <Link href={link}>
                 <a href={link} className='flex items-center'>
-                    <Folder className='mr-2 w-5 h-5 stroke-primary-main' />
+                    <FolderOpen className='mr-1 w-5 h-5 stroke-primary-main' />
                     <p className='text-primary-main underline'>{group.name}</p>
                 </a>
             </Link>

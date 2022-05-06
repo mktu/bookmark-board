@@ -1,6 +1,6 @@
 import React from 'react'
 import { InfiniteHitsProvided, Hit } from 'react-instantsearch-core'
-import SimpleInfiniteScroller from 'react-simple-infinite-scroller'
+import InfiniteScroll from 'react-infinite-scroller';
 import ListItem from './ListItem'
 
 type Props = {
@@ -13,9 +13,9 @@ const Hits: React.FC<Props> = ({
     hits,
 }) => {
     return (
-        <SimpleInfiniteScroller
+        <InfiniteScroll
             {...{
-                canScrollDown: hasMore,
+                hasMore,
                 loadMore: refineNext
             }}
         >
@@ -24,7 +24,7 @@ const Hits: React.FC<Props> = ({
                     <ListItem key={b.objectID} hit={b} />
                 ))}
             </div>
-        </SimpleInfiniteScroller>
+        </InfiniteScroll>
     )
 }
 
