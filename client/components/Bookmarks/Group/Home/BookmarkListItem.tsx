@@ -21,7 +21,13 @@ const BookmarkListItem: React.FC<Props> = ({
                 </a>
             </Link>
             <div className='ml-3 text-xs'>
-                <span>{numberToDateTime(bookmark.created)}</span>
+                <span>{numberToDateTime(bookmark.created, {
+                    year: "numeric",
+                    month: "2-digit",
+                    day: "2-digit",
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    })}</span>
             </div>
         </div>
     )
