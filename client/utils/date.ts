@@ -1,6 +1,6 @@
-export const numberToDateTime = (time?: number) => {
+export const numberToDateTime = (time?: number, option : Intl.DateTimeFormatOptions = {}) => {
     if (!time) return ''
-    return new Date(time).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })
+    return new Date(time).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo', ...option })
 }
 
 const numberToDateWithOption = (time?: number, option : Intl.DateTimeFormatOptions = {}) => {

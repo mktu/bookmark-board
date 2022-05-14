@@ -4,6 +4,7 @@ import { useGroupsByUser } from '@modules/groupSlice'
 import { useProfile } from '@modules/profileSlice'
 import { useBookmarks } from '@modules/bookmarkSlice'
 import BookmarkListItem from './BookmarkListItem'
+import ShowMore from '../RecentList/ShowMore'
 
 const Container: React.FC = () => {
     const profile = useProfile()
@@ -19,6 +20,7 @@ const Container: React.FC = () => {
         groups={groups.length}
         bookmarks={bookmarks.length}
         recentCreated={recentCreated}
+        showMore={<ShowMore />}
     />
 }
 

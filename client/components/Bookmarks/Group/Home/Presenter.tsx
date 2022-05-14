@@ -9,7 +9,8 @@ type Props = {
     userName: string,
     groups: number,
     bookmarks: number,
-    recentCreated: React.ReactNode
+    recentCreated: React.ReactNode,
+    showMore : React.ReactNode,
 }
 
 const profileUrl = '/profile'
@@ -18,7 +19,8 @@ const Presenter: React.FC<Props> = ({
     userName,
     groups,
     bookmarks,
-    recentCreated
+    recentCreated,
+    showMore
 }) => {
     return (
         <div className='flex justify-center items-center w-full h-full bg-white'>
@@ -60,6 +62,9 @@ const Presenter: React.FC<Props> = ({
                     <h6 className='my-2 text-sm font-semibold'>最近登録したブックマーク</h6>
                     <div className='px-2'>
                         {recentCreated}
+                    </div>
+                    <div className='flex py-4 text-sm text-primary-main'>
+                        {showMore}
                     </div>
                 </div>
             </div>
