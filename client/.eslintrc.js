@@ -35,6 +35,9 @@ module.exports = {
         "@typescript-eslint/explicit-module-boundary-types": "off",
     },
     "settings": {
+        "react": {
+            "version": "detect"
+        },
         "tailwindcss": {
           "whitelist": ["stroke\\-[a-z]+\\-[0-9a-z]+", "fill\\-[a-z]+\\-[0-9a-z]+"]
         }
