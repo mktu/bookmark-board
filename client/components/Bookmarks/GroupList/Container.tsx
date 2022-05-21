@@ -2,7 +2,7 @@ import React, { useState, useContext, useMemo } from 'react'
 import FirebaseContext from '@context/FirebaseContext'
 import { useProfile } from '@modules/profileSlice'
 import { useGroupsByUser } from '@modules/groupSlice'
-import { useBookmarks } from '@modules/bookmarkSlice'
+import { useBookmarks, useBookmarkStatus } from '@modules/bookmarkSlice'
 import { spliceAndInsert } from '../../../logics'
 import ListItem from './ListItem'
 import Presenter from './Presenter'
@@ -17,6 +17,7 @@ const Container: React.FC = () => {
     const profile = useProfile()
     const groupsBase = useGroupsByUser(profile.id)
     const bookmarks = useBookmarks()
+    const bookmarkLoadStatus = useBookmarkStatus()
     const groups = useMemo(()=>groupsBase.map(v=>({
         ...v,
         bookmarkCount : bookmarks.filter(b=>b.groupId === v.id).length
@@ -35,7 +36,7 @@ const Container: React.FC = () => {
                 {idx === 0 && (
                     <Droppable droppable={hover != -1} onChangeOrder={onChangeOrder(0)} open={hover === 0} />
                 )}
-                <ListItem bookmarkGroup={group} onHover={setHover} listIndex={idx} />
+                <ListItem bookmarkLoaded={bookmarkLoadStatus === 'loaded'} bookmarkGroup={group} onHover={setHover} listIndex={idx} />
                 <Droppable droppable={hover != -1} onChangeOrder={onChangeOrder(idx + 1)} open={hover === idx + 1} />
             </React.Fragment>
         )

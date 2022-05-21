@@ -9,12 +9,14 @@ type Props = {
     bookmarkGroup: BookmarkGroup & { bookmarkCount : number },
     onHover: Parameters<typeof useHoverable>[1],
     listIndex: Parameters<typeof useHoverable>[2],
+    bookmarkLoaded : boolean
 }
 
 const ListItem: React.FC<Props> = ({
     bookmarkGroup,
     onHover,
     listIndex,
+    bookmarkLoaded
 }) => {
     const isTouch = checkIsTouch()
     const { attachDnDRef, isBookmarkOver, dragging } = useHoverable(bookmarkGroup, onHover, listIndex)
@@ -35,7 +37,7 @@ const ListItem: React.FC<Props> = ({
                 <FolderOpen className='w-8 stroke-primary-main' strokeWidth={1} />
             </div>
             <div className='mr-1 ml-2 truncate'>{bookmarkGroup.name}</div>
-            <div className='text-sm'>({bookmarkGroup.bookmarkCount})</div>
+            <div className={`text-sm ${bookmarkLoaded ? 'opacity-100' : 'opacity-0'}`}>({bookmarkGroup.bookmarkCount})</div>
         </button>
     )
 }
