@@ -3,9 +3,7 @@ import { InfiniteHitsProvided, Hit } from 'react-instantsearch-core'
 import InfiniteScroll from 'react-infinite-scroller';
 import ListItem from './ListItem'
 
-type Props = {
-
-} & InfiniteHitsProvided<Hit<BookmarkGroupIndex>>
+type Props = InfiniteHitsProvided<Hit<BookmarkGroupIndex>>
 
 const Hits: React.FC<Props> = ({
     hasMore,

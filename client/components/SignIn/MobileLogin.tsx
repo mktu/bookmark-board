@@ -48,7 +48,7 @@ const CommonSection = ({
                 ) : (
                     <button className='flex items-center p-1 mb-16 bg-white rounded shadow' onClick={handleMobileSignin}>
                         <GoogleSignInImg className='inline-block' />
-                        <div className='inline-block pr-4 pl-4 text-primary-main'>Sign in with Google</div>
+                        <div className='inline-block px-4 text-primary-main'>Sign in with Google</div>
                     </button>
                 )
             }

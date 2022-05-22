@@ -28,7 +28,7 @@ const Default: React.FC<Props> = ({
 }) => {
     const [r, g, b] = hex2rgb(color)
     return (
-        <div className='relative py-2 px-2 rounded border border-primary-border'>
+        <div className='relative p-2 rounded border border-primary-border'>
             <div className='flex'>
                 <SvgFillIconButton className='absolute -top-4 -left-5 p-2 mr-2 bg-white rounded-full border fill-primary-400' onClick={()=>{
                     window && window.open(editLink)
