@@ -38,7 +38,7 @@ const ListItem: React.FC<Props> = ({
                     updateColor(id, { name: e.target.value })
                 }} />
             </div>
-            <label className='text-xs text-primary-main underline cursor-pointer' htmlFor={id}>色を変更</label>
+            <label className='text-xs text-primary-main underline whitespace-nowrap cursor-pointer' htmlFor={id}>色を変更</label>
             <input id={id} type='color' className='w-0 opacity-0' value={color} onChange={(e) => {
                 updateColor(id, { color: e.target.value })
             }} />
