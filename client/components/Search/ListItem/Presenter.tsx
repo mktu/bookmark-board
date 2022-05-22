@@ -38,7 +38,7 @@ const Presenter: React.FC<Props> = ({
     return (
         <>
             {!grouping && (
-                <div className='hidden overflow-hidden items-center mt-2 w-full text-primary-main md:flex'>
+                <div className='flex overflow-hidden items-center mt-2 w-full text-primary-main'>
                     <FolderOpen className='mr-1 w-5 h-5' />
                     <Link href={groupLink}>
                         <a href={groupLink} className='underline truncate'>
@@ -88,16 +88,6 @@ const Presenter: React.FC<Props> = ({
             </Link>
             <div className='pb-1 mt-2 md:hidden'>
                 <div className='flex justify-end items-center'>
-                    {!grouping && (
-                        <div className='flex overflow-hidden flex-1 items-center mr-1 text-sm text-primary-main'>
-                            <FolderOpen className='mr-1 w-5 h-5' strokeWidth={1.5} />
-                            <Link href={groupLink}>
-                                <a href={groupLink} className='underline truncate'>
-                                    {groupName}
-                                </a>
-                            </Link>
-                        </div>
-                    )}
                     <div className='mr-2 text-sm text-primary-main whitespace-nowrap'>
                         {created} |
                     </div>
