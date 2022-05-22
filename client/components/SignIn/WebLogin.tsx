@@ -37,7 +37,7 @@ const WebLoginSection = ({
                     <div className='flex justify-center'>
                         <button className='p-0 bg-white' onClick={handleSignin}>
                             <GoogleSignInImg className='inline-block' />
-                            <span className='inline-block pr-4 pl-4 text-primary-main'>Sign in with Google</span>
+                            <span className='inline-block px-4 text-primary-main'>Sign in with Google</span>
                         </button>
                         {/* <button className='border border-primary-light p-2 mt-2' onClick={handleAnonymous}>
                         Anonymous

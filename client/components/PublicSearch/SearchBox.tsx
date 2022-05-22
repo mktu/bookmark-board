@@ -3,9 +3,7 @@ import { SearchBoxProvided } from 'react-instantsearch-core'
 import TextInput from '@components/Common/Input/TextInput'
 import Search from '@components/Common/Icon/Search'
 
-type Props = {
-
-} & SearchBoxProvided
+type Props = SearchBoxProvided
 
 const SearchBox: React.FC<Props> = ({
     refine,

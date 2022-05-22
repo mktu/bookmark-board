@@ -1,8 +1,7 @@
 import React from 'react';
 import {  HighlightProps } from 'react-instantsearch-core';
 
-export type PropsType = {
-} & HighlightProps<BookmarkGroupIndex>;
+export type PropsType = HighlightProps<BookmarkGroupIndex>;
 
 const HighlightHit: React.FC<PropsType> = ({
     hit,

@@ -13,11 +13,7 @@ const Hits = connectInfiniteHits(HitsBase)
 const searchClient = process.env.NEXT_PUBLIC_ALGOLIA_APPID && process.env.NEXT_PUBLIC_ALGOLIA_SEARCHONLY_KEY &&
     algoliasearch(process.env.NEXT_PUBLIC_ALGOLIA_APPID, process.env.NEXT_PUBLIC_ALGOLIA_SEARCHONLY_KEY)
 
-type Props = {
-
-}
-
-const Container: React.FC<Props> = () => {
+const Container: React.FC = () => {
 
     return (
         <InstantSearch searchClient={searchClient} indexName='bookmark-group'>

@@ -24,7 +24,7 @@ const Mobile: React.FC<Props> = ({
 }) => {
     const [r, g, b] = hex2rgb(color)
     return (
-        <div className='py-2 px-2 rounded border border-primary-border'>
+        <div className='p-2 rounded border border-primary-border'>
             <a target='_blank' rel='noopener noreferrer' href={url} className='block overflow-hidden p-1 max-w-full text-sm text-primary-dark underline text-ellipsis'>{title}</a>
             <div className='my-2 border-b-2 border-primary-border' style={{ borderColor: color && `rgba(${r},${g},${b},0.5)` }} />
             <div className='flex py-2'>

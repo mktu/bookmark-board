@@ -1,4 +1,4 @@
-module.exports = {
+{
     "env": {
         "browser": true,
         "es2021": true
@@ -42,4 +42,4 @@ module.exports = {
           "whitelist": ["stroke\\-[a-z]+\\-[0-9a-z]+", "fill\\-[a-z]+\\-[0-9a-z]+"]
         }
     }
-};
+}

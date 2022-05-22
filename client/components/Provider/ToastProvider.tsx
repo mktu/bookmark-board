@@ -1,10 +1,6 @@
 import React from 'react'
 import { ToastContainer, Slide } from 'react-toastify';
 
-type Props = {
-
-}
-
 const contextClass = {
     success: "bg-blue-500",
     error: "bg-red-500",
@@ -14,7 +10,7 @@ const contextClass = {
     dark: "bg-white-600 font-gray-300",
 };
 
-const ToastProvider: React.FC<Props> = () => (
+const ToastProvider: React.FC = () => (
     <ToastContainer
         toastClassName={({ type }) => contextClass[type || "default"] +
             " flex p-2 md:p-1 min-h-10 md:rounded-md justify-between overflow-hidden cursor-pointer"
