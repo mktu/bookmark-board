@@ -125,7 +125,7 @@ const UrlImage: React.FC<Props> = ({
     //width: 100%; height: auto
     // https://parashuto.com/rriver/development/img-size-attributes-are-back
     return (
-        <img className={className} alt={name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
+        <img className={className} alt={loading ? '' : name} src={useEndpoint ? `${UrlEndpoint}${src}` : src} loading='lazy' onError={() => {
             if (useEndpoint) {
                 setUseEndpoint(false)
                 onError && onError(true)
