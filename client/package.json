@@ -8,6 +8,7 @@
     "postbuild": "next-sitemap",
     "start": "next start",
     "test": "jest",
+    "test:playwright": "playwright test",
     "lint": "eslint components/** --ext .ts,.tsx",
     "fix:lint": "next lint --fix"
   },
