@@ -1,0 +1,57 @@
+name: Bookmark-board develop CI
+
+on:
+  push:
+    branches: [develop]
+  pull_request:
+    branches: [develop]
+
+env:
+  NEXT_PUBLIC_FIREBASE_DATABASE_URL : ${{ secrets.NEXT_PUBLIC_FIREBASE_DATABASE_URL }}
+  NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+  NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN: ${{ secrets.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN }}
+  NEXT_PUBLIC_FIREBASE_PROJECT_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_PROJECT_ID }}
+  NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID }}
+  NEXT_PUBLIC_FIRESTORE_STORAGE_BUCKET: ${{ secrets.NEXT_PUBLIC_FIRESTORE_STORAGE_BUCKET }}
+  NEXT_PUBLIC_FIRESTORE_STORAGE_IMAGE_BUCKET: ${{ secrets.NEXT_PUBLIC_FIRESTORE_STORAGE_IMAGE_BUCKET }}
+  NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+  NEXT_PUBLIC_IMGKIT_ID: ${{ secrets.NEXT_PUBLIC_IMGKIT_ID }}
+  NEXT_PUBLIC_ALGOLIA_SEARCHONLY_KEY: ${{ secrets.NEXT_PUBLIC_ALGOLIA_SEARCHONLY_KEY }}
+  NEXT_PUBLIC_ALGOLIA_APPID: ${{ secrets.NEXT_PUBLIC_ALGOLIA_APPID }}
+  NEXT_PUBLIC_LINE_CLIENT_ID: ${{ secrets.NEXT_PUBLIC_LINE_CLIENT_ID }}
+  NEXT_PUBLIC_LINE_CLIENT_SECRET: ${{ secrets.NEXT_PUBLIC_LINE_CLIENT_SECRET }}
+  NEXT_PUBLIC_LINE_ADD_FRIEND_LINK: ${{ secrets.NEXT_PUBLIC_LINE_ADD_FRIEND_LINK }}
+  NEXT_PUBLIC_LIFF_ID: ${{ secrets.NEXT_PUBLIC_LIFF_ID }}
+  FIREBASE_PRIVATE_KEY: ${{ secrets.FIREBASE_PRIVATE_KEY }}
+  FIREBASE_CLIENT_EMAIL: ${{ secrets.FIREBASE_CLIENT_EMAIL }}
+  FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
+  NEXT_PUBLIC_VERCEL_URL: ${{ secrets.NEXT_PUBLIC_VERCEL_URL }}
+  NEXT_PUBLIC_SITE_URL: ${{ secrets.NEXT_PUBLIC_SITE_URL }}
+  NEXT_PUBLIC_GA_ID: ${{ secrets.NEXT_PUBLIC_GA_ID }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./client
+
+    strategy:
+      matrix:
+        node-version: [16.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'yarn'
+          cache-dependency-path: ./client/yarn.lock
+
+      - run: yarn
+
+      - name: run jest
+        run: yarn test
+
+      - run: yarn build
