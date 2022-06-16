@@ -35,7 +35,7 @@ const WebLoginSection = ({
                     </div>
                 ) : (
                     <div className='flex justify-center'>
-                        <button className='p-0 bg-white' onClick={handleSignin}>
+                        <button className='p-0 bg-white' id='google-login' onClick={handleSignin}>
                             <GoogleSignInImg className='inline-block' />
                             <span className='inline-block px-4 text-primary-main'>Sign in with Google</span>
                         </button>
