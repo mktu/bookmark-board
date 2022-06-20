@@ -8419,10 +8419,10 @@ react-responsive-carousel@3.2.22:
     prop-types "^15.5.8"
     react-easy-swipe "^0.0.21"
 
-react-responsive-modal@6.0.0:
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/react-responsive-modal/-/react-responsive-modal-6.0.0.tgz#734974a594670f7c75c342812d1e9f528a08c69d"
-  integrity sha512-Ekzn8fzI9E6kZDkr0hVA6FSXvneAxin/o8mnPlrM4V8V2Sugs5NtGHD+AR02O36kixzjNENdZPMwKr73OAivcA==
+react-responsive-modal@6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/react-responsive-modal/-/react-responsive-modal-6.0.1.tgz#d27ecf5c4689e57f611297282cae89e00638874e"
+  integrity sha512-9p1qPhs9C3G3l3zA2E9yCImZ/99AmdQu0WIbiE6/rLehsdiPsMQP7RyhySy7RHanTbpPZp5dRQt7iEJMFk5z6Q==
   dependencies:
     body-scroll-lock "^3.1.5"
     classnames "^2.2.6"
