@@ -7,7 +7,7 @@ const doScrape = async (url:string) => {
         url,
         timeout: 10000,
         headers: {
-            "user-agent": "bot",
+            "user-agent": 'bot' ,
         },
     }
     try{
@@ -25,7 +25,14 @@ const scrape = async (url: string, validate?: boolean) => {
         throw new https.HttpsError('invalid-argument', ret.result.error)
     }
     const successData = ret as SuccessResult
-    let images = successData.result.ogImage ? [successData.result.ogImage.url] : []
+    let images : string[] = []
+    if(successData.result.ogImage){
+        if(Array.isArray(successData.result.ogImage)){
+            images = successData.result.ogImage.map(v => typeof v === 'string' ? v : v.url)
+        } else {
+            images = [successData.result.ogImage.url]
+        }
+    }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const twData: any = successData.result
     if (twData.twitterImage) {
