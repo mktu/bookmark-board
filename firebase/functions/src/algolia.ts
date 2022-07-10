@@ -1,7 +1,10 @@
 import * as functions from "firebase-functions";
 import algoliasearch from 'algoliasearch'
-import firebaseAdmin from './admin'
+import app from './admin'
+import { getFirestore } from 'firebase-admin/firestore'
 import { BookmarkGroup, Profile, BookmarkGroupIndex } from './types'
+
+const firestore = getFirestore(app)
 
 const ALGOLIA_ID = functions.config().algolia.appid;
 const ALGOLIA_ADMIN_KEY = functions.config().algolia.adminkey;
@@ -10,11 +13,11 @@ const client = algoliasearch(ALGOLIA_ID, ALGOLIA_ADMIN_KEY)
 const index = client.initIndex(ALGOLIA_INDEX_NAME);
 
 const createIndex = async (groupId: string) => {
-    const groupDoc = firebaseAdmin.firestore()
+    const groupDoc = firestore
         .collection('groups')
         .doc(groupId)
     const group = (await groupDoc.get()).data() as BookmarkGroup
-    const owner = (await firebaseAdmin.firestore()
+    const owner = (await firestore
         .collection('profiles')
         .doc(group.owner)
         .get()).data() as Profile
@@ -37,7 +40,7 @@ const createIndex = async (groupId: string) => {
 
 const deleteIndex = async (groupId: string) => {
     await index.deleteObject(groupId)
-    const groupDoc = firebaseAdmin.firestore()
+    const groupDoc = firestore
         .collection('groups')
         .doc(groupId)
     await groupDoc.update({

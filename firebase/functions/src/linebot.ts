@@ -2,7 +2,8 @@ import * as functions from 'firebase-functions';
 import * as crypto from 'crypto';
 import * as line from '@line/bot-sdk';
 import querystring from 'querystring'
-import firebaseAdmin from './admin'
+import { getFirestore } from 'firebase-admin/firestore';
+import app from './admin'
 import { extractUrl } from './extractUrl'
 import scrape from './scrape'
 import { bookmarkMessage, groupMessage, EventTypes, defaultGroupMessage } from './lineMessage'
@@ -11,6 +12,7 @@ import { BookmarkGroup, Bookmark, Profile } from './types'
 type ProfileWithId = Profile & { id: string }
 type BookmarkGroupWithId = BookmarkGroup & { id: string }
 
+const firestore = getFirestore(app)
 const SelectGroup = '#登録先グループ'
 
 class LineLogicError extends Error {
@@ -26,7 +28,7 @@ class LineLogicError extends Error {
 }
 
 const loadProfile: (userId: string | undefined) => Promise<ProfileWithId> = async (userId) => {
-	const { docs: profileDocs } = await firebaseAdmin.firestore()
+	const { docs: profileDocs } = await firestore
 		.collection('profiles')
 		.where('lineid', '==', userId)
 		.get()
@@ -48,7 +50,7 @@ const loadProfile: (userId: string | undefined) => Promise<ProfileWithId> = asyn
 }
 
 const loadGroups: (profileId: string) => Promise<BookmarkGroupWithId[]> = async (profileId) => {
-	const { docs: groupDocs } = await firebaseAdmin.firestore()
+	const { docs: groupDocs } = await firestore
 		.collection('groups')
 		.where('owner', '==', profileId)
 		.get()
@@ -64,7 +66,7 @@ const loadGroups: (profileId: string) => Promise<BookmarkGroupWithId[]> = async 
 }
 
 const loadGroup: (groupId: string) => Promise<BookmarkGroup> = async (groupId) => {
-	const groupDoc = await firebaseAdmin.firestore()
+	const groupDoc = await firestore
 		.collection('groups')
 		.doc(groupId)
 		.get()
@@ -75,7 +77,7 @@ const loadGroup: (groupId: string) => Promise<BookmarkGroup> = async (groupId) =
 }
 
 const saveLineInfo = async (profileId: string, lineInfo: Profile['lineInfo']) => {
-	const profileDoc = firebaseAdmin.firestore()
+	const profileDoc = firestore
 		.collection('profiles')
 		.doc(profileId)
 
@@ -94,7 +96,7 @@ const saveBookmark = async (groupId: string, {
 	unacquired = false,
 }: Pick<Bookmark, 'url' | 'description' | 'title' | 'images' | 'image' | 'unacquired' | 'owner'>) => {
 	const time = Date.now()
-	const result = await firebaseAdmin.firestore()
+	const result = await firestore
 		.collection('groups')
 		.doc(groupId)
 		.collection('bookmarks')
@@ -110,40 +112,40 @@ const saveBookmark = async (groupId: string, {
 			reactions: {},
 			groupId,
 			created: time,
-			idx : time
+			idx: time
 		} as Bookmark)
 
 	return result.id
 }
 
 const checkRegistration = async (events: line.FollowEvent, client: line.Client) => {
-	try{
+	try {
 		const profile = await loadProfile(events.source.userId)
-		if(!profile.lineInfo?.defaultGroup){
+		if (!profile.lineInfo?.defaultGroup) {
 			const defaultGroupPage = `${functions.config().linebot.liffroot}/groups`
 			await client.replyMessage(events.replyToken, [{
-				type : 'text',
-				text : '💡 毎回グループを選択しなくて済むように、登録先グループを設定することをお勧めします'
+				type: 'text',
+				text: '💡 毎回グループを選択しなくて済むように、登録先グループを設定することをお勧めします'
 			},
-				{
+			{
 				type: 'flex',
 				altText: "グループを選択してください",
 				contents: defaultGroupMessage(defaultGroupPage)
 			} as line.FlexMessage])
 		}
-	}catch(e){
+	} catch (e) {
 		await client.replyMessage(events.replyToken, [{
 			type: 'text',
 			text: `Bookmark-Boardの連携が行われていません。このBotを有効にするにはWEBブラウザからBookmark-BoardのLINE連携を行ってください。`
-		},{
+		}, {
 			type: 'text',
-			text : functions.config().hosting.siteurl
+			text: functions.config().hosting.siteurl
 		}])
 	}
 }
 
 const checkDupplicate = async (groupId: string, url: string) => {
-	const docs = await firebaseAdmin.firestore()
+	const docs = await firestore
 		.collection('groups')
 		.doc(groupId)
 		.collection('bookmarks')
@@ -158,26 +160,26 @@ const checkDupplicate = async (groupId: string, url: string) => {
 	return dupplicates.length > 0
 }
 
-const scrapeNoThrow = async (url:string) => {
-	try{
+const scrapeNoThrow = async (url: string) => {
+	try {
 		return await scrape(url, true)
-	}catch(e){
+	} catch (e) {
 		console.error(e)
 		return null
 	}
 }
 
-const registBookmark = async (url: string, groupId: string, owner:string) => {
-	const isDupplicate = await checkDupplicate(groupId,url)
-	if(isDupplicate){
+const registBookmark = async (url: string, groupId: string, owner: string) => {
+	const isDupplicate = await checkDupplicate(groupId, url)
+	if (isDupplicate) {
 		throw new LineLogicError('すでに登録済みのブックマークです')
 	}
 	const scrapePromise = scrapeNoThrow(url)
 	const loadPromise = loadGroup(groupId)
-	const [result, group] = await Promise.all([scrapePromise,loadPromise])
+	const [result, group] = await Promise.all([scrapePromise, loadPromise])
 	const { name } = group
 	if (!result) {
-		const bookmarkId = await saveBookmark(groupId, { url, title : url, owner })
+		const bookmarkId = await saveBookmark(groupId, { url, title: url, owner })
 		return {
 			title: url,
 			description: undefined,
@@ -204,7 +206,7 @@ const registBookmark = async (url: string, groupId: string, owner:string) => {
 	}
 }
 
-const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, client: line.Client, url: string, groupId: string, owner:string) => Promise<void> = async (events, client, url, groupId, owner) => {
+const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, client: line.Client, url: string, groupId: string, owner: string) => Promise<void> = async (events, client, url, groupId, owner) => {
 	await client.replyMessage(events.replyToken, {
 		type: 'text',
 		text: 'ブックマークの登録中です。しばらくお待ち下さい'
@@ -212,7 +214,7 @@ const handleRegisterBookmark: (events: line.PostbackEvent | line.MessageEvent, c
 	const { title, description, image, groupName, bookmarkId } = await registBookmark(url, groupId, owner)
 	const liffroot = functions.config().linebot.liffroot
 	const q = querystring.stringify({
-		target : url
+		target: url
 	})
 	const editLink = `${liffroot}/bookmarks/${groupId}/${bookmarkId}?${q}`
 	await client.pushMessage(events.source.userId || '', [{
@@ -356,7 +358,7 @@ const parseEvents: (events: line.WebhookEvent, client: line.Client) => Promise<v
 		else if (events.type === 'postback') {
 			await handlePostback(events, client)
 		}
-		else if(events.type === 'follow') {
+		else if (events.type === 'follow') {
 			await checkRegistration(events, client)
 		}
 		else {
