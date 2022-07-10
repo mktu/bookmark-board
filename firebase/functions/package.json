@@ -25,12 +25,12 @@
     "get-urls": "10.0.1",
     "node-fetch": "2.6.7",
     "open-graph-scraper": "4.11.1",
-    "puppeteer": "15.0.0",
+    "puppeteer": "15.0.2",
     "uuid": "8.3.2"
   },
   "devDependencies": {
-    "@babel/core": "7.18.5",
-    "@babel/preset-env": "7.18.2",
+    "@babel/core": "7.18.6",
+    "@babel/preset-env": "7.18.6",
     "@babel/preset-typescript": "7.17.12",
     "@typescript-eslint/eslint-plugin": "5.29.0",
     "@typescript-eslint/parser": "5.29.0",
