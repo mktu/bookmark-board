@@ -3,10 +3,12 @@ import scrape from './scrape'
 import capture from './capture'
 import { lineBot } from './linebot'
 import { createIndex, updateIndex, deleteIndex } from './algolia'
-import firebaseAdmin from './admin'
+import app from './admin'
+import { getFirestore } from 'firebase-admin/firestore'
 import { onWriteReactions } from './triggers'
 import { onCreateInformations, onUpdateInformations, onDeleteInformations } from './information'
 
+const firestore = getFirestore(app)
 type PromiseResolvedType<T> = T extends Promise<infer R> ? R : never;
 
 export const scrapeUrl = functions
@@ -64,7 +66,7 @@ export const completeBookmark = functions
       }
     }
 
-    const bookmarkDoc = firebaseAdmin.firestore()
+    const bookmarkDoc = firestore
       .collection('groups')
       .doc(groupId)
       .collection('bookmarks')

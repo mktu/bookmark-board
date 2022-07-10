@@ -1,3 +1,3 @@
-import * as admin from 'firebase-admin';
-admin.initializeApp();
-export default admin;
+import { initializeApp } from 'firebase-admin/app'
+const app = initializeApp();
+export default app;
