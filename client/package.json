@@ -69,7 +69,7 @@
     "eslint-plugin-jsx-a11y": "6.6.0",
     "eslint-plugin-react": "7.30.1",
     "eslint-plugin-react-hooks": "4.5.0",
-    "eslint-plugin-tailwindcss": "3.5.2",
+    "eslint-plugin-tailwindcss": "3.6.0",
     "jest": "28.1.2",
     "next-sitemap": "1.6.261",
     "postcss-preset-env": "6.7.1",
