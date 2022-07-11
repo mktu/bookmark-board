@@ -13,9 +13,9 @@
     "fix:lint": "next lint --fix"
   },
   "dependencies": {
-    "@line/liff": "2.17.0",
+    "@line/liff": "2.20.3",
     "@next/bundle-analyzer": "9.5.5",
-    "@popperjs/core": "2.9.3",
+    "@popperjs/core": "2.11.5",
     "@reduxjs/toolkit": "1.8.3",
     "@types/linkifyjs": "2.1.4",
     "@types/open-graph-scraper": "4.3.0",
