@@ -19,15 +19,32 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "paths": {
-      "@components/*": ["components/*"],
-      "@hooks/*": ["hooks/*"],
-      "@utils/*": ["utils/*"],
-      "@modules/*": ["modules/*"],
-      "@context/*": ["context/*"],
-      "@services/*": ["services/*"],
-      "@public/*": ["public/*"],
-      "@serverside":["serverside/*"]
-    }
+      "@components/*": [
+        "components/*"
+      ],
+      "@hooks/*": [
+        "hooks/*"
+      ],
+      "@utils/*": [
+        "utils/*"
+      ],
+      "@modules/*": [
+        "modules/*"
+      ],
+      "@context/*": [
+        "context/*"
+      ],
+      "@services/*": [
+        "services/*"
+      ],
+      "@public/*": [
+        "public/*"
+      ],
+      "@serverside": [
+        "serverside/*"
+      ]
+    },
+    "incremental": true
   },
   "include": [
     "globals.d.ts",
