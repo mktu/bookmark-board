@@ -11,7 +11,7 @@ type Props = {
     children: React.ReactNode
 }
 const BookmarkDndProvider: React.FC<Props> = ({ children }) => {
-    const isTouch = (('ontouchstart' in window) || (navigator.msMaxTouchPoints > 0))
+    const isTouch = (('ontouchstart' in window) || (navigator.maxTouchPoints > 0))
     const hasNative = document && (document.elementsFromPoint)
 
     function getDropTargetElementsAtPoint(x, y, dropTargets) {
@@ -40,9 +40,9 @@ const BookmarkDndProvider: React.FC<Props> = ({ children }) => {
             const description = item as BookmarkColorDescription
             return <ColorPreview description={description} style={style} />
         }
-        if(itemType === 'GROUP'){
-            const bookmarkGroup =item as BookmarkGroup
-            return <BookmarkGroupPreview bookmarkGroup={bookmarkGroup} style={style}/>
+        if (itemType === 'GROUP') {
+            const bookmarkGroup = item as BookmarkGroup
+            return <BookmarkGroupPreview bookmarkGroup={bookmarkGroup} style={style} />
         }
         const bookmark = item as Bookmark
         return itemType === 'LIST' && (

@@ -1,1 +1,1 @@
-export const checkIsTouch = ()=> ((typeof window !== 'undefined'  && 'ontouchstart' in window) || ( typeof navigator !=='undefined' && navigator.msMaxTouchPoints > 0))
+export const checkIsTouch = () => ((typeof window !== 'undefined' && 'ontouchstart' in window) || (typeof navigator !== 'undefined' && navigator.maxTouchPoints > 0))
