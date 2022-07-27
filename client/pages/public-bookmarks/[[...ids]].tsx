@@ -1,7 +1,5 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import { firebaseAdmin } from '../../services/firebaseServer'
-import { getFirestore } from 'firebase-admin/firestore'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import { PublicLayout } from '@components/Layout'
 import PublicPageHeader from '@components/Header/PublicPageHeader'
@@ -10,6 +8,8 @@ import PublicBookmarks from '@components/PublicBookmarks'
 import PublicBookmarkMeta from '@components/Meta/PublicBookmarkMeta'
 
 const importFireStore = async () => {
+  const { firebaseAdmin } = await import('../../services/firebaseServer')
+  const { getFirestore } = await import('firebase-admin/firestore')
   return getFirestore(firebaseAdmin)
 }
 
@@ -100,7 +100,7 @@ export const getStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths<{ ids: string[] }> = async () => {
 
-  const firestore = getFirestore(firebaseAdmin)
+  const firestore = await importFireStore()
 
   const groupDocs = await firestore
     .collection('groups')
