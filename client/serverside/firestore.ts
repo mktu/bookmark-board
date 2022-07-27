@@ -1,10 +1,13 @@
 import { firebaseAdmin } from '../services/firebaseServer'
-import {ApiError} from './error'
+import { getFirestore } from 'firebase-admin/firestore'
+import { ApiError } from './error'
+
+const firestore = getFirestore(firebaseAdmin)
 
 export class LineApiError extends ApiError { }
 
 export const getProfileByLineId = async (userId: string) => {
-    const { docs: profileDocs } = await firebaseAdmin.firestore()
+    const { docs: profileDocs } = await firestore
         .collection('profiles')
         .where('lineid', '==', userId)
         .get()
@@ -20,7 +23,7 @@ export const getProfileByLineId = async (userId: string) => {
 }
 
 export const isRegisterableLineId = async (userId: string, myUid: string) => {
-    const { docs: profileDocs } = await firebaseAdmin.firestore()
+    const { docs: profileDocs } = await firestore
         .collection('profiles')
         .where('lineid', '==', userId)
         .get()
@@ -34,7 +37,7 @@ export const isRegisterableLineId = async (userId: string, myUid: string) => {
 }
 
 export const updateProfile = async (profileId: string, profile: Partial<Profile>) => {
-    await firebaseAdmin.firestore()
+    await firestore
         .collection('profiles')
         .doc(profileId)
         .update(profile)
@@ -42,7 +45,7 @@ export const updateProfile = async (profileId: string, profile: Partial<Profile>
 
 export const getGroups = async (profileId: string) => {
 
-    const { docs } = await firebaseAdmin.firestore()
+    const { docs } = await firestore
         .collection('groups')
         .where('users', 'array-contains', profileId)
         .get()
@@ -58,7 +61,7 @@ export const getGroups = async (profileId: string) => {
 }
 
 export const getGroup = async (groupId: string) => {
-    const doc = await firebaseAdmin.firestore()
+    const doc = await firestore
         .collection('groups')
         .doc(groupId)
         .get()
@@ -72,7 +75,7 @@ export const getGroup = async (groupId: string) => {
 }
 
 export const getBookmarks = async (groupId: string) => {
-    const { docs } = await firebaseAdmin.firestore()
+    const { docs } = await firestore
         .collection('groups')
         .doc(groupId)
         .collection('bookmarks')
@@ -89,7 +92,7 @@ export const getBookmarks = async (groupId: string) => {
 }
 
 export const searchBookmark = async (url: string,) => {
-    const { docs } = await firebaseAdmin.firestore().collectionGroup('bookmarks')
+    const { docs } = await firestore.collectionGroup('bookmarks')
         .where('url', '==', url)
         .get()
 
@@ -104,7 +107,7 @@ export const searchBookmark = async (url: string,) => {
 }
 
 export const getBookmark = async (groupId: string, bookmarkId: string) => {
-    const doc = await firebaseAdmin.firestore()
+    const doc = await firestore
         .collection('groups')
         .doc(groupId)
         .collection('bookmarks')
@@ -121,7 +124,7 @@ export const getBookmark = async (groupId: string, bookmarkId: string) => {
 }
 
 export const updateBookmark = async (groupId: string, bookmarkId: string, update: Partial<Bookmark>) => {
-    await firebaseAdmin.firestore()
+    await firestore
         .collection('groups')
         .doc(groupId)
         .collection('bookmarks')

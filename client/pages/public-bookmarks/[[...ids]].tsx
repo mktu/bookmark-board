@@ -1,11 +1,17 @@
 import React from 'react'
 import { useRouter } from 'next/router'
+import { firebaseAdmin } from '../../services/firebaseServer'
+import { getFirestore } from 'firebase-admin/firestore'
 import { GetStaticPaths, InferGetStaticPropsType } from 'next'
 import { PublicLayout } from '@components/Layout'
 import PublicPageHeader from '@components/Header/PublicPageHeader'
 import Footer from '@components/Footer'
 import PublicBookmarks from '@components/PublicBookmarks'
 import PublicBookmarkMeta from '@components/Meta/PublicBookmarkMeta'
+
+const importFireStore = async () => {
+  return getFirestore(firebaseAdmin)
+}
 
 const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProps>> = ({
   group,
@@ -25,7 +31,7 @@ const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProp
       <PublicBookmarkMeta {...{ group, profile }} />
       <PublicLayout
         header={<PublicPageHeader />}
-        main={<PublicBookmarks group={group} bookmarks={bookmarks} editor={profile} initReactions={reactions}/>}
+        main={<PublicBookmarks group={group} bookmarks={bookmarks} editor={profile} initReactions={reactions} />}
         footer={<Footer />}
       />
     </div>
@@ -36,8 +42,8 @@ export const getStaticProps = async ({
   params
 }) => {
   const { ids } = params
-  const { firebaseAdmin } = await import('../../services/firebaseServer')
-  const groupDoc = await firebaseAdmin.firestore()
+  const firestore = await importFireStore()
+  const groupDoc = await firestore
     .collection('groups')
     .doc(ids[0])
     .get()
@@ -45,7 +51,7 @@ export const getStaticProps = async ({
     id: groupDoc.id,
     ...(groupDoc.data() as BookmarkGroup)
   }
-  const profileDoc = await firebaseAdmin.firestore()
+  const profileDoc = await firestore
     .collection('profiles')
     .doc(group.owner)
     .get()
@@ -54,13 +60,13 @@ export const getStaticProps = async ({
     ...(profileDoc.data() as Profile)
   }
 
-  const bookmarkDocs = await firebaseAdmin.firestore()
+  const bookmarkDocs = await firestore
     .collection('groups')
     .doc(ids[0])
     .collection('bookmarks')
     .get()
 
-  const reactionDocs = await firebaseAdmin.firestore()
+  const reactionDocs = await firestore
     .collection('groups')
     .doc(ids[0])
     .collection('reactions')
@@ -74,7 +80,7 @@ export const getStaticProps = async ({
       ...(b.data() as Bookmark)
     })
   })
-  reactionDocs.forEach(r=>{
+  reactionDocs.forEach(r => {
     reactions.push({
       id: r.id,
       ...(r.data() as Reaction)
@@ -94,8 +100,9 @@ export const getStaticProps = async ({
 
 export const getStaticPaths: GetStaticPaths<{ ids: string[] }> = async () => {
 
-  const { firebaseAdmin } = await import('../../services/firebaseServer')
-  const groupDocs = await firebaseAdmin.firestore()
+  const firestore = getFirestore(firebaseAdmin)
+
+  const groupDocs = await firestore
     .collection('groups')
     .where('sharable', '==', true)
     .get()
