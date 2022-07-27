@@ -1,11 +1,13 @@
 import React from 'react'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { TouchBackend } from 'react-dnd-touch-backend'
-import { DndProvider } from 'react-dnd'
+import { DndProvider as DndProvider_ } from 'react-dnd'
 import { usePreview } from 'react-dnd-preview'
 import BookmarkPreview from '../Bookmarks/Group/BookmarkList/ListItem/Preview'
 import BookmarkGroupPreview from '../Bookmarks/GroupList/Preview'
 import ColorPreview from '../Bookmarks/Group/BookmarkList/ColorOption/ListItem/Preview'
+
+const DndProvider: any = DndProvider_ // TODO
 
 type Props = {
     children: React.ReactNode
