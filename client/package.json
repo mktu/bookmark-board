@@ -22,7 +22,7 @@
     "@types/react-instantsearch-dom": "6.12.3",
     "@types/react-redux": "7.1.24",
     "@types/uuid": "8.3.4",
-    "autoprefixer": "10.4.7",
+    "autoprefixer": "10.4.8",
     "classnames": "2.3.1",
     "compressorjs": "1.1.1",
     "firebase": "9.9.1",
