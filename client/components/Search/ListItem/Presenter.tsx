@@ -38,39 +38,39 @@ const Presenter: React.FC<Props> = ({
     return (
         <>
             {!grouping && (
-                <div className='flex overflow-hidden items-center mt-2 w-full text-primary-main'>
-                    <FolderOpen className='mr-1 w-5 h-5' />
+                <div className='mt-2 flex w-full items-center overflow-hidden text-primary-main'>
+                    <FolderOpen className='mr-1 h-5 w-5' />
                     <Link href={groupLink}>
-                        <a href={groupLink} className='underline truncate'>
+                        <a href={groupLink} className='truncate underline'>
                             {groupName}
                         </a>
                     </Link>
                 </div>
             )}
             <Link href={bookmarkDetailUrl}>
-                <a href={bookmarkDetailUrl} className='block p-2 w-full bg-white hover:bg-gray-50 border-b border-primary-border cursor-pointer'>
+                <a href={bookmarkDetailUrl} className='block w-full cursor-pointer border-b border-primary-border bg-white p-2 hover:bg-gray-50'>
                     <div className='flex'>
-                        <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
+                        <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex items-center overflow-hidden'>
                             {image}
                         </div>
                         <div style={{ minHeight: BookmarkListImageSize }} className='mx-2' />
-                        <div className='flex overflow-hidden flex-col flex-1 justify-center items-start max-w-full'>
-                            <div className='overflow-hidden max-w-full truncate'>
+                        <div className='flex max-w-full flex-1 flex-col items-start justify-center overflow-hidden'>
+                            <div className='max-w-full overflow-hidden truncate'>
                                 <span>
                                     {title}
                                 </span>
                             </div>
-                            {description && (<div className='overflow-hidden max-w-full text-xs text-primary-main truncate' key={description} > {description}</div>)}
+                            {description && (<div className='max-w-full overflow-hidden truncate text-xs text-primary-main' key={description} > {description}</div>)}
                             {comment && (
-                                <div className='flex items-center py-1 max-w-full text-xs text-primary-main' >
+                                <div className='flex max-w-full items-center py-1 text-xs text-primary-main' >
                                     <Chat className='mr-1 w-6 stroke-primary-300' strokeWidth={2} />
-                                    <div className='overflow-hidden flex-1 truncate'>
+                                    <div className='flex-1 overflow-hidden truncate'>
                                         {comment}
                                     </div>
                                 </div>)}
                         </div>
-                        <div className='hidden flex-col justify-start ml-auto md:flex'>
-                            <div className='flex justify-end items-start'>
+                        <div className='ml-auto hidden flex-col justify-start md:flex'>
+                            <div className='flex items-start justify-end'>
                                 <TooltipDivContainer content='コピー' placement='bottom' className='mx-1'>
                                     {copyIcon}
                                 </TooltipDivContainer>
@@ -78,7 +78,7 @@ const Presenter: React.FC<Props> = ({
                                     {openIcon}
                                 </TooltipDivContainer>
                             </div>
-                            <div className='hidden mt-auto text-sm text-primary-main md:block'>
+                            <div className='mt-auto hidden text-sm text-primary-main md:block'>
                                 {created}
                             </div>
                         </div>
@@ -86,12 +86,12 @@ const Presenter: React.FC<Props> = ({
 
                 </a>
             </Link>
-            <div className='pb-1 mt-2 md:hidden'>
-                <div className='flex justify-end items-center'>
-                    <div className='mr-2 text-sm text-primary-main whitespace-nowrap'>
+            <div className='mt-2 pb-1 md:hidden'>
+                <div className='flex items-center justify-end'>
+                    <div className='mr-2 whitespace-nowrap text-sm text-primary-main'>
                         {created} |
                     </div>
-                    <div className='flex items-center text-sm text-primary-main whitespace-nowrap'>
+                    <div className='flex items-center whitespace-nowrap text-sm text-primary-main'>
                         <a href={urlLink} target='_blank' rel='noopener noreferrer'>
                             リンクを開く
                         </a>

@@ -28,7 +28,7 @@ const Move: React.FC<Props> = ({
         <div className='items-center md:flex'>
             <Dropdowns
                 comboStyles={{
-                    width : 160
+                    width: 160
                 }}
                 poperStyles={{
                     maxHeight: 200,
@@ -40,7 +40,7 @@ const Move: React.FC<Props> = ({
             <Checkbox label='コピーを作成' className='mt-2 ml-2' id='copy' onChange={(e) => { handleCheckCopy(e.target.checked) }} />
             <OutlinedButton
                 disabled={disabled}
-                className='block ml-auto'
+                className='ml-auto block'
                 colorType='secondary'
                 onClick={handleMove}>
                 {copy ? 'コピーする' : '移動する'}

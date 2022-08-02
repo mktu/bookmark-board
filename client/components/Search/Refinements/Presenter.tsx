@@ -2,7 +2,7 @@ import React from 'react'
 
 type Props = {
     input: React.ReactNode
-    groupCheckbox : React.ReactNode
+    groupCheckbox: React.ReactNode
 }
 
 const Presenter: React.FC<Props> = ({
@@ -12,7 +12,7 @@ const Presenter: React.FC<Props> = ({
     return (
         <div>
             {input}
-            <div className='flex justify-end items-center mt-2'>
+            <div className='mt-2 flex items-center justify-end'>
                 {groupCheckbox}
             </div>
         </div>

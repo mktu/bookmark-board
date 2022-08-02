@@ -18,22 +18,22 @@ const Selector: React.FC<Props> = ({
     const { colorMasks } = useRefinements(groupId)
     const colorSettingPath = `/bookmarks/${groupId}/colors`
     return (
-        <div className='flex flex-col justify-start p-4 align-middle bg-white rounded border border-primary-border shadow-lg'>
+        <div className='flex flex-col justify-start rounded border border-primary-border bg-white p-4 align-middle shadow-lg'>
             {colors.map(c => {
                 const [r, g, b] = hex2rgb(c.color)
                 const show = !colorMasks.includes(c.color)
                 return (
                     <div key={c.color}>
-                        <label className='flex items-center mb-2 text-sm underline cursor-pointer' htmlFor={c.color}>
+                        <label className='mb-2 flex cursor-pointer items-center text-sm underline' htmlFor={c.color}>
                             <div className='mr-2'>
                                 {!show ? (
-                                    <div className='w-4 h-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b},0.1)`, border: `1px solid ${c.color}` }}>
-                                        <svg className='w-full h-full' style={{ stroke: c.color }}>
+                                    <div className='h-4 w-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b},0.1)`, border: `1px solid ${c.color}` }}>
+                                        <svg className='h-full w-full' style={{ stroke: c.color }}>
                                             <line stroke="4, 4" x1="0" y1="100%" x2="100%" y2="0" strokeWidth={1} />
                                         </svg>
                                     </div>
                                 ) : (
-                                    <div className='w-4 h-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b})`, border: `1px solid ${c.color}` }} />
+                                    <div className='h-4 w-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b})`, border: `1px solid ${c.color}` }} />
                                 )}
                             </div>
                             <TextButton className='mr-2' id={c.id}
@@ -44,9 +44,9 @@ const Selector: React.FC<Props> = ({
                 )
             })}
             <div>
-                <label className='flex items-center mb-2 text-sm underline cursor-pointer' htmlFor='none-color'>
-                    <div className='mr-2 w-4 h-4 bg-white rounded border border-secondary-500' >
-                        <svg className='w-full h-full stroke-secondary-500'>
+                <label className='mb-2 flex cursor-pointer items-center text-sm underline' htmlFor='none-color'>
+                    <div className='mr-2 h-4 w-4 rounded border border-secondary-500 bg-white' >
+                        <svg className='h-full w-full stroke-secondary-500'>
                             <line stroke="4, 4" x1="0" y1="100%" x2="100%" y2="0" strokeWidth={1} />
                         </svg>
                     </div>
@@ -57,7 +57,7 @@ const Selector: React.FC<Props> = ({
             </div>
             <div>
                 <Link href={colorSettingPath}>
-                    <a href={colorSettingPath} className='text-sm text-link-main hover:text-link-hover underline'>色設定へ</a>
+                    <a href={colorSettingPath} className='text-sm text-link-main underline hover:text-link-hover'>色設定へ</a>
                 </Link>
 
             </div>

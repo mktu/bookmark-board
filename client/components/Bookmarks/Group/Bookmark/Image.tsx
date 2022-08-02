@@ -25,17 +25,18 @@ const Image: React.FC<Props> = ({
         setCurrentImage(image)
     }, [image])
     const otherImages = images && Array.from(new Set(images)).filter(Boolean) || []
-    const imageStyle : CSSProperties = {
-        width : `min(${BookmarkLargeImageSize}px,90vw)`,
-        height : `calc(min(${BookmarkLargeImageSize}px,90vw)/1.91)` }
+    const imageStyle: CSSProperties = {
+        width: `min(${BookmarkLargeImageSize}px,90vw)`,
+        height: `calc(min(${BookmarkLargeImageSize}px,90vw)/1.91)`
+    }
     return (
         <>
             <Label className=''>Icons</Label>
-            <div className='overflow-hidden items-end m-2 w-full md:flex'>
+            <div className='m-2 w-full items-end overflow-hidden md:flex'>
                 {loading ? (<LoadingImg className='w-32' />) : (
                     <>
-                        <div className='flex overflow-hidden justify-center text-xs md:block'>
-                            <UrlImage className='p-1 rounded border-primary-border md:border' enableEndpoint={false} objectFit='cover' src={currentImage}
+                        <div className='flex justify-center overflow-hidden text-xs md:block'>
+                            <UrlImage className='rounded border-primary-border p-1 md:border' enableEndpoint={false} objectFit='cover' src={currentImage}
                                 style={imageStyle}
                                 fallback={(
                                     <div className='w-full text-xs text-secondary-main'>
@@ -45,10 +46,10 @@ const Image: React.FC<Props> = ({
                         {otherImages.length > 0 && (
                             <div className='mr-1 ml-auto'>
                                 <div className='hidden text-xs text-primary-main md:block'>選択可能なアイコン</div>
-                                <div className='flex items-end mt-4'>
+                                <div className='mt-4 flex items-end'>
                                     {otherImages.map((i) => (
-                                        <div className='flex flex-col items-center mx-1' key={i} >
-                                            <ButtonBase className={`rounded block p-1 ${i === currentImage ? 'border-2 border-primary-main' : 'border border-primary-border'}`} onClick={() => {
+                                        <div className='mx-1 flex flex-col items-center' key={i} >
+                                            <ButtonBase className={`block rounded p-1 ${i === currentImage ? 'border-2 border-primary-main' : 'border border-primary-border'}`} onClick={() => {
                                                 i !== currentImage && onChangeImage(i)
                                             }}>
                                                 <UrlImage width={BookmarkListImageSize} height={BookmarkListImageSize} src={i} enableEndpoint={!disableEndpoint} />
@@ -61,7 +62,7 @@ const Image: React.FC<Props> = ({
                     </>
                 )}
             </div>
-            {currentImage && (<a className='inline-block overflow-hidden px-2 w-full text-xs text-lightslategray-600 underline truncate' href={currentImage} target='_blank' rel='noopener noreferrer'>画像を別タブで開く</a>)}
+            {currentImage && (<a className='inline-block w-full overflow-hidden truncate px-2 text-xs text-lightslategray-600 underline' href={currentImage} target='_blank' rel='noopener noreferrer'>画像を別タブで開く</a>)}
         </>
     )
 }

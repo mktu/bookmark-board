@@ -33,7 +33,7 @@ const Container: React.FC<Props> = ({
         hasChange,
         group
     } = useBookmarkGroup(groupId)
-    const { handleUpdateAlgolia } = useAlgoliaRegister(groupId,group?.searchable)
+    const { handleUpdateAlgolia } = useAlgoliaRegister(groupId, group?.searchable)
     const onUpdate = useCallback(async () => {
         try {
             const { after, before } = await handleSubmit()
@@ -43,7 +43,7 @@ const Container: React.FC<Props> = ({
             console.error(error)
             toast.error('更新に失敗しました')
         }
-    },[handleSubmit,handleUpdateAlgolia,onClose])
+    }, [handleSubmit, handleUpdateAlgolia, onClose])
 
 
     const editorComponents = useMemo(() => {
@@ -53,7 +53,7 @@ const Container: React.FC<Props> = ({
                     src={e.image}
                     width={48}
                     height={48}
-                    className='block my-2 mr-2'
+                    className='my-2 mr-2 block'
                     name={e.name}
                     fallback={<Initial
                         width={48}
@@ -62,27 +62,27 @@ const Container: React.FC<Props> = ({
                 />
                 <p className='text-center text-primary-main'>{e.name}</p>
                 {group.owner !== e.id && (profile.id === e.id ? (
-                    <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-nowrap' onClick={async ()=>{
+                    <OutlinedButton colorType='secondary' className='ml-auto whitespace-nowrap text-sm' onClick={async () => {
                         await leaveGroup()
                         onClose()
-                        }}>
+                    }}>
                         離脱する
                     </OutlinedButton>
                 ) : profile.id === group.owner && (
-                        <OutlinedButton colorType='secondary' className='ml-auto text-sm whitespace-nowrap' onClick={() => { handleRemoveUser(e.id) }}>
-                            除外
-                        </OutlinedButton>
-                    ))}
+                    <OutlinedButton colorType='secondary' className='ml-auto whitespace-nowrap text-sm' onClick={() => { handleRemoveUser(e.id) }}>
+                        除外
+                    </OutlinedButton>
+                ))}
             </div>
         ))
-    }, [editors, handleRemoveUser, profile, group.owner,onClose,leaveGroup])
+    }, [editors, handleRemoveUser, profile, group.owner, onClose, leaveGroup])
 
     const dangerZone = useMemo(() => profile.id === group.owner && (
-        <DangerZone className='mt-6' groupName={group.name} handleDelete={async ()=>{
-            try{
+        <DangerZone className='mt-6' groupName={group.name} handleDelete={async () => {
+            try {
                 await handleDeleteGroup()
                 toast.success('グループを削除しました')
-            }catch(error){
+            } catch (error) {
                 console.error(error)
                 toast.error('削除に失敗しました')
             }
@@ -109,7 +109,7 @@ const Container: React.FC<Props> = ({
 
     const back = (
         <SvgIconButton onClick={onClose}>
-            <ArrowLeft className='w-5 h-5'/>
+            <ArrowLeft className='h-5 w-5' />
         </SvgIconButton>
     )
 

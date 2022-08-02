@@ -21,7 +21,7 @@ export const Topics = [
                     目的や分野に応じたブックマークグループを最大50まで作成することができます。
                     また、それぞれのグループに対して50までのブックマークを登録することが可能です。一度登録したブックマークを別のグループに移動させることも可能です
                 </p>
-                <div className='flex relative justify-end mt-4' style={{ width: '100%', height: '300px' }}>
+                <div className='relative mt-4 flex justify-end' style={{ width: '100%', height: '300px' }}>
                     <Image src={LpGroup} layout='fill' objectFit='contain' alt='LpGroup' objectPosition='left top'/>
                 </div>
             </div>
@@ -35,7 +35,7 @@ export const Topics = [
                 <p>
                     共有したい人をブックマークリストの共同編集者として招待することで、一緒にそのブックマークを充実させることができます。誰かと一緒に情報を収集したい際などに便利です
                 </p>
-                <div className='flex relative justify-end mt-4' style={{ width: '100%', height: '300px' }}>
+                <div className='relative mt-4 flex justify-end' style={{ width: '100%', height: '300px' }}>
                     <Image src={LpShare}  layout='fill' objectFit='contain' alt='LpShare'/>
                 </div>
             </div>

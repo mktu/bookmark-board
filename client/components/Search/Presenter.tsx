@@ -2,17 +2,17 @@ import React from 'react'
 //import Link from 'next/link'
 
 type Props = {
-    searchRefinements : React.ReactNode,
-    bookmarkList : React.ReactNode,
-    globalLink:string
+    searchRefinements: React.ReactNode,
+    bookmarkList: React.ReactNode,
+    globalLink: string
 }
 
-const Presenter : React.FC<Props> = ({
+const Presenter: React.FC<Props> = ({
     searchRefinements,
     bookmarkList,
 }) => {
     return (
-        <div className='flex flex-col p-4 w-full h-full'>
+        <div className='flex h-full w-full flex-col p-4'>
             {/* <div className='p-2 text-sm text-primary-main inline-flex items-center'>
                 <span className='mr-1'>▶︎</span>
                 <span>グローバル検索は</span>
@@ -23,7 +23,7 @@ const Presenter : React.FC<Props> = ({
             <div className='px-4 pt-4'>
                 {searchRefinements}
             </div>
-            <div className='overflow-y-auto flex-1 p-4'>
+            <div className='flex-1 overflow-y-auto p-4'>
                 {bookmarkList}
             </div>
         </div>

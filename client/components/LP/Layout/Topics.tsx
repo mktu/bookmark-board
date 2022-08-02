@@ -28,12 +28,12 @@ const Topic = React.forwardRef<HTMLElement, Props>(function topic({
             <div className='mb-4'>{description}</div>
             <div className='justify-between md:flex'>
                 {topics.map((v, i) => (
-                    <div key={i} className='flex flex-col p-4 w-full max-w-screen-md bg-primary-light shadow-lg md:mx-4 md:rounded-lg'>
-                        <div className='flex items-center p-2 text-primary-dark bg-white md:text-primary-700 md:rounded-lg'>
+                    <div key={i} className='flex w-full max-w-screen-md flex-col bg-primary-light p-4 shadow-lg md:mx-4 md:rounded-lg'>
+                        <div className='flex items-center bg-white p-2 text-primary-dark md:rounded-lg md:text-primary-700'>
                             <div className='mx-2'>{v.icon}</div>
                             <div>{v.name}</div>
                         </div>
-                        <div className='flex-1 p-4 my-2 h-full text-primary-dark bg-white md:text-primary-main md:rounded-lg'>
+                        <div className='my-2 h-full flex-1 bg-white p-4 text-primary-dark md:rounded-lg md:text-primary-main'>
                             {v.content}
                         </div>
                     </div>

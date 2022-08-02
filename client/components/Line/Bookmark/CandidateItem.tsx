@@ -13,7 +13,7 @@ const CandidateItem: React.VFC<Props> = ({
     bookmark
 }) => {
     return (
-        <li className='flex items-center p-1 w-full text-primary-main'>
+        <li className='flex w-full items-center p-1 text-primary-main'>
             {bookmark.image ? (
                 <UrlImage
                     className='rounded border border-primary-border'
@@ -25,12 +25,12 @@ const CandidateItem: React.VFC<Props> = ({
                 width={64}
                 height={64}
             />)}
-            <div className='overflow-x-hidden ml-2 w-full'>
-                <a className='block underline truncate' href={LineBookmarkPage(group.id, bookmark.id)}>
+            <div className='ml-2 w-full overflow-x-hidden'>
+                <a className='block truncate underline' href={LineBookmarkPage(group.id, bookmark.id)}>
                     {bookmark.title}
                 </a>
-                <div className='flex items-center mt-1 text-sm text-primary-main'>
-                    <Folder className='mr-2 w-4 h-4 stroke-primary-main'/>
+                <div className='mt-1 flex items-center text-sm text-primary-main'>
+                    <Folder className='mr-2 h-4 w-4 stroke-primary-main'/>
                     {group.name}
                 </div>
             </div>

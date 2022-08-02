@@ -23,7 +23,7 @@ const Droppable: React.FC<Props> = ({
     return (
         <div ref={drop} className={`w-full`}>
             <div className='py-1' >
-                <div className={`${open ? 'w-full h-8' : 'h-0'} ${droppable && 'transition-all ease-in-out duration-200 transform'}`} />
+                <div className={`${open ? 'h-8 w-full' : 'h-0'} ${droppable && 'transition-all duration-200 ease-in-out'}`} />
             </div>
         </div>
     )

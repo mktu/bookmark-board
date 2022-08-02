@@ -13,9 +13,9 @@ const BookmarkListItem: React.FC<Props> = ({
     const path = `/bookmarks/${bookmark.groupId}/${bookmark.id}`
     const { group } = useBookmarkGroup(bookmark.groupId)
     return (
-        <div className='flex overflow-hidden items-end w-full'>
+        <div className='flex w-full items-end overflow-hidden'>
             <Link href={path}>
-                <a href={path} className='overflow-hidden flex-1 max-w-full text-sm truncate'>
+                <a href={path} className='max-w-full flex-1 overflow-hidden truncate text-sm'>
                     <span className='mr-2 underline'>{bookmark.title}</span>
                     <span className='mr-2'>[{group.name}]</span>
                 </a>
@@ -27,7 +27,7 @@ const BookmarkListItem: React.FC<Props> = ({
                     day: "2-digit",
                     hour: '2-digit',
                     minute: '2-digit',
-                    })}</span>
+                })}</span>
             </div>
         </div>
     )

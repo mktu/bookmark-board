@@ -4,7 +4,7 @@ import { OutlinedButton } from '../../../../../Common/Button'
 
 type Props = {
     description: BookmarkColorDescription,
-    style : React.CSSProperties
+    style: React.CSSProperties
 }
 
 const Preview: React.FC<Props> = ({
@@ -15,12 +15,12 @@ const Preview: React.FC<Props> = ({
     return (
         <div className={`flex items-center opacity-50`} style={style} >
             <div className='mx-2'>
-                <div className='w-5 h-5 rounded' style={{ backgroundColor: color }} />
+                <div className='h-5 w-5 rounded' style={{ backgroundColor: color }} />
             </div>
-            <div className='flex items-center w-full'>
+            <div className='flex w-full items-center'>
                 <TextInput aria-label='Color Name' className={`w-full`} value={name} />
             </div>
-            <OutlinedButton className='ml-2 text-xs whitespace-nowrap' paddings='px-1'>×</OutlinedButton>
+            <OutlinedButton className='ml-2 whitespace-nowrap text-xs' paddings='px-1'>×</OutlinedButton>
         </div>
     )
 }

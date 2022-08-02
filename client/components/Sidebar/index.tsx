@@ -12,8 +12,8 @@ import { HelpLink } from '@utils/constants'
 const Sidebar = () => {
     const router = useRouter()
     return (
-        <div className={`flex flex-row h-full bg-primary-dark`}>
-            <nav className="flex flex-col items-center p-4 h-full">
+        <div className={`flex h-full flex-row bg-primary-dark`}>
+            <nav className="flex h-full flex-col items-center p-4">
                 <div>
                     <Popover
                         content={<ProfileMenu />}
@@ -37,7 +37,7 @@ const Sidebar = () => {
                     </MenuIconButton>
                 </div>
                 <div className='mt-auto'>
-                    <Notification className='mb-6' placement='auto-end' notificationPos={{right : '10px', top : '-10px'}}/>
+                    <Notification className='mb-6' placement='auto-end' notificationPos={{ right: '10px', top: '-10px' }} />
                     <MenuIconButton aria-label='Help' colorType='none' className='mb-6' onClick={() => {
                         window && window.open(HelpLink, '_blank')
                     }}>

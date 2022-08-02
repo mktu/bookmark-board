@@ -9,7 +9,7 @@ const Layout = ({
     children
 }: Props) => {
     return (
-        <div className='flex flex-col justify-center items-center p-4 w-screen'>
+        <div className='flex w-screen flex-col items-center justify-center p-4'>
             <Logo theme='dark' size='md' />
             <div className='mt-4 w-full'>
                 {children}

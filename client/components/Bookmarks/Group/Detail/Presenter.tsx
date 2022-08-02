@@ -8,7 +8,7 @@ type Props = {
     dangerZone: React.ReactNode,
     cancel: React.ReactNode,
     update: React.ReactNode,
-    back : React.ReactNode,
+    back: React.ReactNode,
     lastUpdate: string
 
 }
@@ -24,12 +24,12 @@ const Presenter: React.FC<Props> = ({
     lastUpdate
 }) => {
     return (
-        <div className='p-2 w-full'>
-            <div className='flex items-center w-full'>
+        <div className='w-full p-2'>
+            <div className='flex w-full items-center'>
                 <div className='mx-1 md:hidden'>
                     {back}
                 </div>
-                <div className='overflow-hidden flex-1'>
+                <div className='flex-1 overflow-hidden'>
                     {title}
                 </div>
             </div>
@@ -42,18 +42,18 @@ const Presenter: React.FC<Props> = ({
                 <div className='w-full'>
                     <Label textSize='text-xs'>編集者</Label>
                 </div>
-                <div className='p-2 w-full'>
+                <div className='w-full p-2'>
                     {editorComponents}
                 </div>
             </div>
             {dangerZone}
-            <div className='flex justify-end mt-4 text-primary-main'>
+            <div className='mt-4 flex justify-end text-primary-main'>
                 <div className='mx-2'>
                     {cancel}
                 </div>
                 {update}
             </div>
-            <div className='flex justify-end mt-2 text-xs text-primary-main'>
+            <div className='mt-2 flex justify-end text-xs text-primary-main'>
                 <div>
                     {lastUpdate}
                 </div>

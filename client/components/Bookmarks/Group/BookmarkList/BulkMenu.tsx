@@ -32,9 +32,9 @@ const BulkMove: React.VFC<Parameters<typeof TextButton>[0]> = ({ className, ...p
 )
 
 const Confirm: React.VFC<{ onSubmit: () => void, onCancel: () => void, text: string }> = ({ onCancel, onSubmit, text }) => (
-    <div className='p-4 bg-white border border-primary-border md:text-sm'>
+    <div className='border border-primary-border bg-white p-4 md:text-sm'>
         <div className=' text-primary-dark'>選択アイテムを削除します</div>
-        <div className='flex items-center my-2'>
+        <div className='my-2 flex items-center'>
             <ContainedButton onClick={onSubmit} className='mx-1'>{text}</ContainedButton>
             <TextButton onClick={onCancel}>キャンセル</TextButton>
         </div>
@@ -43,31 +43,31 @@ const Confirm: React.VFC<{ onSubmit: () => void, onCancel: () => void, text: str
 
 type Toggle = () => void
 
-const BulkDeletePopoverContainer: React.VFC<{ className?: string, onSubmit: (toggle: Toggle) => void, disabled?:boolean }> = ({ onSubmit, className, disabled }) => (
+const BulkDeletePopoverContainer: React.VFC<{ className?: string, onSubmit: (toggle: Toggle) => void, disabled?: boolean }> = ({ onSubmit, className, disabled }) => (
     <PopoverDivContainer disabled={disabled} className={className} render={(toggle) => (
         <Confirm text='削除する' onCancel={() => {
             toggle()
         }} onSubmit={() => { onSubmit(toggle) }} />
     )}>
-        <BulkDelete disabled={disabled}/>
+        <BulkDelete disabled={disabled} />
     </PopoverDivContainer>
 )
 
-const BulkColorOptionContainer: React.VFC<{ className?: string, groupId: string, handleSelectColor: (color: string, toggle: Toggle) => void, disabled?:boolean }> =
+const BulkColorOptionContainer: React.VFC<{ className?: string, groupId: string, handleSelectColor: (color: string, toggle: Toggle) => void, disabled?: boolean }> =
     ({ className, groupId, handleSelectColor, disabled }) => (
         <PopoverDivContainer disabled={disabled} className={className} render={(toggle) => (
             <Selector groupId={groupId} handleSelectColor={(color) => { handleSelectColor(color, toggle) }} />
         )}>
-            <BulkColor disabled={disabled}/>
+            <BulkColor disabled={disabled} />
         </PopoverDivContainer>
     )
 
-const BulkMoveOptionContainer: React.VFC<{ className?: string, groupId: string, handleMove: (destGroupId : string) => void, disabled?:boolean }> =
+const BulkMoveOptionContainer: React.VFC<{ className?: string, groupId: string, handleMove: (destGroupId: string) => void, disabled?: boolean }> =
     ({ className, groupId, handleMove, disabled }) => (
         <PopoverDivContainer disabled={disabled} className={className} render={(toggle) => (
-            <BulkMoveMenu groupId={groupId} handleClose={toggle} handleMove={handleMove}/>
+            <BulkMoveMenu groupId={groupId} handleClose={toggle} handleMove={handleMove} />
         )}>
-            <BulkMove disabled={disabled}/>
+            <BulkMove disabled={disabled} />
         </PopoverDivContainer>
     )
 
@@ -76,14 +76,14 @@ const useBulkMenu = () => {
     const onDelete = (toggle: () => void) => {
         deleteBookmarks().finally(toggle)
     }
-    const onUpdateColors = (color : string, toggle: () => void) => {
+    const onUpdateColors = (color: string, toggle: () => void) => {
         updateColors(color).finally(toggle)
     }
     return {
         onDelete,
         onUpdateColors,
         moveGroup,
-        disabled : disabled || checkState === 'none'
+        disabled: disabled || checkState === 'none'
     }
 }
 
@@ -102,25 +102,25 @@ export const BulkCheckBox: React.VFC<{ className?: string }> = ({ className }) =
 }
 
 export const BulkMenuFixedHeader: React.VFC<{ className?: string, groupId: string }> = ({ className, groupId }) => {
-    const { onDelete, onUpdateColors, disabled ,moveGroup } = useBulkMenu()
+    const { onDelete, onUpdateColors, disabled, moveGroup } = useBulkMenu()
 
     return (
         <div className={classNames('flex items-center', className)}>
-            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
-            <BulkColorOptionContainer className='ml-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
-            <BulkMoveOptionContainer className='mx-4' groupId={groupId} handleMove={moveGroup} disabled={disabled}/>
+            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled} />
+            <BulkColorOptionContainer className='ml-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled} />
+            <BulkMoveOptionContainer className='mx-4' groupId={groupId} handleMove={moveGroup} disabled={disabled} />
         </div>
     )
 }
 
 export const BulkMenuMobile: React.VFC<{ className?: string, groupId: string }> = ({ className, groupId }) => {
-    const { onDelete, onUpdateColors, disabled ,moveGroup } = useBulkMenu()
+    const { onDelete, onUpdateColors, disabled, moveGroup } = useBulkMenu()
 
     return (
         <div className={classNames('w-full flex items-center', className)}>
-            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
-            <BulkColorOptionContainer className='ml-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
-            <BulkMoveOptionContainer className='mx-4' groupId={groupId} handleMove={moveGroup} disabled={disabled}/>
+            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled} />
+            <BulkColorOptionContainer className='ml-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled} />
+            <BulkMoveOptionContainer className='mx-4' groupId={groupId} handleMove={moveGroup} disabled={disabled} />
         </div>
     )
 }
@@ -130,9 +130,9 @@ export const BulkMenuWeb: React.VFC<{ className?: string, groupId: string }> = (
 
     return (
         <div className={classNames('w-full flex items-center', className)}>
-            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled}/>
-            <BulkColorOptionContainer className='ml-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled}/>
-            <BulkMoveOptionContainer className='mx-4' groupId={groupId} handleMove={moveGroup} disabled={disabled}/>
+            <BulkDeletePopoverContainer onSubmit={onDelete} disabled={disabled} />
+            <BulkColorOptionContainer className='ml-4' groupId={groupId} handleSelectColor={onUpdateColors} disabled={disabled} />
+            <BulkMoveOptionContainer className='mx-4' groupId={groupId} handleMove={moveGroup} disabled={disabled} />
         </div>
     )
 }

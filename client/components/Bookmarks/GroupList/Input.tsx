@@ -10,18 +10,18 @@ const Input: React.FC<InputProps & {
 }) => {
         return (
             <div>
-                <div className="hidden relative flex-wrap items-stretch w-full md:flex">
-                    <span className="absolute z-10 justify-center items-center py-3 pl-3 w-8 h-full text-base font-normal leading-snug text-center text-primary-700 bg-transparent rounded">
+                <div className="relative hidden w-full flex-wrap items-stretch md:flex">
+                    <span className="absolute z-10 h-full w-8 items-center justify-center rounded bg-transparent py-3 pl-3 text-center text-base font-normal leading-snug text-primary-700">
                         {icon}
                     </span>
-                    <input {...props} type="text" className="relative p-3 pl-10 w-full text-primary-700 placeholder:text-primary-200 bg-white rounded outline-none focus:outline-none focus:ring shadow md:text-sm" />
+                    <input {...props} type="text" className="relative w-full rounded bg-white p-3 pl-10 text-primary-700 shadow outline-none placeholder:text-primary-200 focus:outline-none focus:ring md:text-sm" />
                 </div>
-                <div className='flex overflow-hidden flex-row items-center max-w-full md:hidden'>
-                    <span className="justify-center items-center w-8 h-full text-base font-normal leading-snug text-center text-primary-700 bg-transparent rounded">
+                <div className='flex max-w-full flex-row items-center overflow-hidden md:hidden'>
+                    <span className="h-full w-8 items-center justify-center rounded bg-transparent text-center text-base font-normal leading-snug text-primary-700">
                         {icon}
                     </span>
-                    <div className='overflow-hidden flex-1 w-full'>
-                        <div className='bg-white rounded focus:ring shadow'>
+                    <div className='w-full flex-1 overflow-hidden'>
+                        <div className='rounded bg-white shadow focus:ring'>
                             <BookmarkInputBase aria-label='Input Bookmark URL' padding='px-3' {...props} />
                         </div>
                     </div>

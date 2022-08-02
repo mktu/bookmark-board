@@ -9,7 +9,7 @@ type Props = {
 
 const NotFound: React.FC<Props> = ({ message, candidates }) => {
     return (
-        <div className='flex flex-col items-center w-full h-full'>
+        <div className='flex h-full w-full flex-col items-center'>
             <div className='mt-4 w-full'>
                 <h3 className='flex justify-center font-semibold text-primary-main'>
                     {message}
@@ -26,7 +26,7 @@ const NotFound: React.FC<Props> = ({ message, candidates }) => {
                 </div>
             )}
             {candidates.length > 0 && (
-                <ul className='overflow-x-hidden w-full'>
+                <ul className='w-full overflow-x-hidden'>
                     {candidates.map(v => (
                         <CandidateListItem key={v.bookmark.id} bookmark={v.bookmark} group={v.group} />
                     ))}

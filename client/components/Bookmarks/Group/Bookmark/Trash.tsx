@@ -12,7 +12,7 @@ const Trash: React.FC<Props> = ({
     const [select, setSelect] = useState(false)
     return (
         <div>
-            <TextButton fontType='none' colorType='secondary' className='flex items-center text-sm stroke-secondary-500 hover:stroke-secondary-dark' aria-label='Delete Bookmark' onClick={(e) => {
+            <TextButton fontType='none' colorType='secondary' className='flex items-center stroke-secondary-500 text-sm hover:stroke-secondary-dark' aria-label='Delete Bookmark' onClick={(e) => {
                 setSelect(true)
                 e.stopPropagation()
             }} >
@@ -22,9 +22,9 @@ const Trash: React.FC<Props> = ({
             {select && (
                 <div className='mt-2 text-sm text-secondary-main'>
                     <div>元に戻せませんがよろしいですか?</div>
-                    <div className='flex items-center mt-2'>
-                        <TextButton fontType='none' className='ml-auto' colorType='secondary' onClick={()=>{setSelect(false)}}>Cancel</TextButton>
-                        <OutlinedButton colorType='secondary' className='mx-2' onClick={()=>{handleDelete()}}>削除</OutlinedButton>
+                    <div className='mt-2 flex items-center'>
+                        <TextButton fontType='none' className='ml-auto' colorType='secondary' onClick={() => { setSelect(false) }}>Cancel</TextButton>
+                        <OutlinedButton colorType='secondary' className='mx-2' onClick={() => { handleDelete() }}>削除</OutlinedButton>
                     </div>
                 </div>
             )}

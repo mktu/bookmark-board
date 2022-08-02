@@ -12,7 +12,7 @@ const Group: React.FC<Props> = ({
     selected,
     groups
 }) => (
-    <div className='flex flex-col items-end ml-auto'>
+    <div className='ml-auto flex flex-col items-end'>
         <Dropdowns
             allowEmpty
             placement='auto-end'

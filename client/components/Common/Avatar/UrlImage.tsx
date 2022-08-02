@@ -1,7 +1,7 @@
 import React, { CSSProperties, useState, useEffect } from 'react'
 import { PlaceHolderImg } from '../Image'
 
-type ObjectFit = 'cover' | 'contain' 
+type ObjectFit = 'cover' | 'contain'
 
 type Props = {
     src?: string,
@@ -54,14 +54,14 @@ export const NotFound: React.FC<{
     width?: number,
     height?: number,
     text?: string
-    style?:CSSProperties
+    style?: CSSProperties
 }> = ({
     width,
     height,
     style,
     text = '画像が見つかりません'
 }) => (
-        <div className='flex justify-center items-center text-sm text-white' style={{
+        <div className='flex items-center justify-center text-sm text-white' style={{
             width,
             height,
             backgroundImage: `url('/Placeholder.svg')`,
@@ -73,13 +73,13 @@ export const NotFound: React.FC<{
         </div>
     )
 
-const objectFits : {[type in ObjectFit] : React.CSSProperties} = {
-    cover : {
+const objectFits: { [type in ObjectFit]: React.CSSProperties } = {
+    cover: {
         objectFit: 'cover', objectPosition: '50% 50%'
     },
-    contain : {
+    contain: {
         objectFit: 'contain',
-    } 
+    }
 }
 
 const UrlImage: React.FC<Props> = ({
@@ -96,12 +96,12 @@ const UrlImage: React.FC<Props> = ({
     enableEndpoint = true,
 }) => {
     const [useEndpoint, setUseEndpoint] = useState(enableEndpoint)
-    const [loading,setLoading] = useState(true)
+    const [loading, setLoading] = useState(true)
     const [error, setError] = useState(false)
-    useEffect(()=>{
+    useEffect(() => {
         setLoading(true)
         setError(false)
-    },[src])
+    }, [src])
     const { srcset } = cAtMax ? makeCAtMaxSrcSet(useEndpoint, width, height, src)
         : makeDefaultSrcSet(useEndpoint, width, height, src)
 
@@ -134,11 +134,13 @@ const UrlImage: React.FC<Props> = ({
                 setLoading(false)
                 onError && onError()
             }
-        }} srcSet={srcset} style={{ width, height,
+        }} srcSet={srcset} style={{
+            width, height,
             backgroundImage: loading ? 'url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mPMkwQAAPsAiUBY9G8AAAAASUVORK5CYII=)' : 'none',
-            ...objectFits[objectFit], ...style }} onLoad={()=>{
-                setLoading(false)
-            }} />
+            ...objectFits[objectFit], ...style
+        }} onLoad={() => {
+            setLoading(false)
+        }} />
     )
 }
 

@@ -30,7 +30,7 @@ const Presenter: VFC<Props> = ({
             {error && (
                 <div className='text-lg text-secondary-main'>{error}</div>
             )}
-            <div className='flex justify-end items-center mt-2'>
+            <div className='mt-2 flex items-center justify-end'>
                 {success && (
                     <div className='mr-2'>
                         <AddFriend link={addFriendLink} width={128} height={24}/>

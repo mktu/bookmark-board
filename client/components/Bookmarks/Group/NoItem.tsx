@@ -36,10 +36,10 @@ const NoItem: React.FC<Props> = ({
             </div>
         )
     }
-    else if(warn){
+    else if (warn) {
         preview = (
             <div className='flex items-center p-2 text-sm text-coral-500' >
-                <span><Exclamation className='mr-2 w-5 h-5 stroke-coral-500' fill='none'/></span>
+                <span><Exclamation className='mr-2 h-5 w-5 stroke-coral-500' fill='none' /></span>
                 {warn}
             </div>
         )
@@ -51,7 +51,7 @@ const NoItem: React.FC<Props> = ({
     }
     const shareLink = `/bookmarks/${groupId}/share`
     return (
-        <div className='flex flex-col justify-center p-4 w-full h-full bg-primary-light md:items-center'>
+        <div className='flex h-full w-full flex-col justify-center bg-primary-light p-4 md:items-center'>
             <p className='text-lg font-semibold text-primary-main'>
                 ブックマークを追加しましょう！
             </p>
@@ -61,13 +61,13 @@ const NoItem: React.FC<Props> = ({
                 </li>
                 <li className='text-sm'>
                     <Link href={shareLink}>
-                        <a href={shareLink} className='inline-flex underline'>共有設定<Share className='hidden w-4 h-5 stroke-primary-dark md:inline-block' strokeWidth={1.5} /></a>
+                        <a href={shareLink} className='inline-flex underline'>共有設定<Share className='hidden h-5 w-4 stroke-primary-dark md:inline-block' strokeWidth={1.5} /></a>
                     </Link>
                     <span className='ml-1'>でこのグループの公開設定や共同編集設定を行うことができます</span>
                 </li>
             </ul>
-            <div className='flex justify-center items-center my-4 w-full'>
-                <div className='flex justify-center items-center bg-white rounded-full' style={{
+            <div className='my-4 flex w-full items-center justify-center'>
+                <div className='flex items-center justify-center rounded-full bg-white' style={{
                     width: 300, height: 300
                 }}>
                     <NoItemImg width={200} height={200} />
@@ -81,7 +81,7 @@ const NoItem: React.FC<Props> = ({
                         onChange={onChangeBookmarkInput}
                         onKeyPress={onKeyPress}
                     />
-                    <SvgIconButton className='block ml-2' onClick={submit} disabled={Boolean(error) || !url}>
+                    <SvgIconButton className='ml-2 block' onClick={submit} disabled={Boolean(error) || !url}>
                         <Add strokeWidth='1.5px' className='w-10' />
                     </SvgIconButton>
                 </div>

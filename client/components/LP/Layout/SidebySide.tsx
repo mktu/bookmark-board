@@ -25,7 +25,7 @@ const RightImageLayout: React.FC<ContentProps> = ({
             <h1 className='my-4 text-xl font-bold text-primary-700 md:text-2xl'>{title}</h1>
             {content}
         </div>
-        <div className='overflow-hidden my-8 shadow-lg md:my-0'>
+        <div className='my-8 overflow-hidden shadow-lg md:my-0'>
             {image}
         </div>
     </>
@@ -44,7 +44,7 @@ const LeftImageLayout: React.FC<ContentProps> = ({
         <div className='my-8 md:my-0'>
             {image}
         </div>
-        <div className='hidden flex-col justify-center mx-12 w-1/3 break-words md:flex'>
+        <div className='mx-12 hidden w-1/3 flex-col justify-center break-words md:flex'>
             <h1 className='my-4 text-xl font-bold text-primary-700 md:text-2xl'>{title}</h1>
             {content}
         </div>

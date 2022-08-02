@@ -26,9 +26,9 @@ const SimilarityDetail: React.VFC<Props> = ({
     const targetGroupLink = `/bookmarks/${targetGroup.id}`
     return (
         <div className='w-full'>
-            <a className='flex py-2 px-4 w-full text-primary-main underline md:overflow-x-hidden' href={bookmark.url}>
+            <a className='flex w-full py-2 px-4 text-primary-main underline md:overflow-x-hidden' href={bookmark.url}>
                 <SvgIconButton className='mr-2'>
-                    <ExternalLink className='w-5 h-5' strokeWidth={2} />
+                    <ExternalLink className='h-5 w-5' strokeWidth={2} />
                 </SvgIconButton>
                 <span className='text-primary-dark md:truncate'>
                     {bookmark.title}
@@ -36,14 +36,14 @@ const SimilarityDetail: React.VFC<Props> = ({
 
             </a>
             <div className='flex justify-center py-2 px-4'>
-                <UrlImage className='p-1 rounded border-primary-border md:border' enableEndpoint={false} objectFit='cover' src={bookmark?.image || ''}
+                <UrlImage className='rounded border-primary-border p-1 md:border' enableEndpoint={false} objectFit='cover' src={bookmark?.image || ''}
                     style={imageStyle}
                     fallback={(
                         <div className='w-full text-xs text-secondary-main'>
                             <NotFound style={imageStyle} text={`画像が見つかりません`} />
                         </div>)} />
             </div>
-            <div className='py-2 px-4 w-full text-sm'>
+            <div className='w-full py-2 px-4 text-sm'>
                 <div className='font-semibold text-primary-main'>説明:</div>
                 <div className='mb-2'>{bookmark.description || '-'}</div>
                 <div className='font-semibold text-primary-main'>ひとこと:</div>
@@ -57,18 +57,18 @@ const SimilarityDetail: React.VFC<Props> = ({
                     <Link href={targetGroupLink}><a className='text-primary-main underline' href={targetGroupLink}>{targetGroup.name}</a></Link>
                     <span className='mx-2'>{Math.floor(targetSimilarity * 100)}%</span>
                 </div>
-                
+
             </div>
             <div className='flex justify-end p-2'>
-                <OutlinedButton className='mr-2 md:hidden' onClick={()=>{
+                <OutlinedButton className='mr-2 md:hidden' onClick={() => {
                     router.push(`/analyze`)
                 }}>
                     戻る
                 </OutlinedButton>
-                <OutlinedButton className='' onClick={()=>{
+                <OutlinedButton className='' onClick={() => {
                     router.push(`/bookmarks/${currentGroup.id}/${bookmark.id}`)
                 }}>ブックマークを編集する</OutlinedButton>
-                </div>
+            </div>
         </div>
     )
 }

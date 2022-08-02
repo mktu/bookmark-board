@@ -12,7 +12,7 @@ const GroupSelector: React.FC<Props> = ({
     selected,
     groups
 }) => (
-    <div className='flex justify-end items-center ml-auto'>
+    <div className='ml-auto flex items-center justify-end'>
         <Dropdowns
             allowEmpty
             placeholder='登録先グループを選択'

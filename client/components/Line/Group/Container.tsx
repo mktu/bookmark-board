@@ -18,10 +18,10 @@ const Container: React.VFC = () => {
     const submit = (
         <ContainedButton disabled={posting} onClick={() => {
             updateDefaultGroup()
-        }} className='w-full h-16'>{posting ? '更新中...' : '更新'}</ContainedButton>
+        }} className='h-16 w-full'>{posting ? '更新中...' : '更新'}</ContainedButton>
     )
     const cancel = (
-        <OutlinedButton onClick={onClose} disabled={posting} className='w-full h-16 bg-white'>閉じる</OutlinedButton>
+        <OutlinedButton onClick={onClose} disabled={posting} className='h-16 w-full bg-white'>閉じる</OutlinedButton>
     )
     if (error) {
         return <NotFound message={error} />

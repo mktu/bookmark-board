@@ -12,7 +12,7 @@ const Refinements: React.VFC<Props> = ({
     return (
         <div className='flex items-center py-2 px-4 text-sm shadow'>
             <TextButton className='flex items-center py-2' aria-label='New Group' fontType='none' onClick={onClickNewGroup}>
-                <Folder strokeWidth={1.5} className='mr-2 w-5 h-5' />
+                <Folder strokeWidth={1.5} className='mr-2 h-5 w-5' />
                 <div>新しいグループ</div>
             </TextButton>
             {/* <PopoverDivContainer placement='left-start' className='flex items-center ml-auto' content={<SortOption />}>

@@ -15,9 +15,9 @@ const SimilarityListItem: React.VFC<Props> = ({
 }) => {
     const { title, image, disableEndpoint } = bookmark
     return (
-        <div className='p-2 max-w-full text-primary-dark bg-white border-b border-primary-border'>
+        <div className='max-w-full border-b border-primary-border bg-white p-2 text-primary-dark'>
             <div className='flex'>
-                <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
+                <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex items-center overflow-hidden'>
                     <UrlImage
                         className='rounded border border-primary-border'
                         src={image}
@@ -26,11 +26,11 @@ const SimilarityListItem: React.VFC<Props> = ({
                         height={BookmarkListImageSize}
                         name={title} />
                 </div>
-                <div className='flex overflow-x-hidden flex-col justify-center mx-3 w-full'>
+                <div className='mx-3 flex w-full flex-col justify-center overflow-x-hidden'>
                     <div>{bookmark.title}</div>
                     <div className='my-1 max-w-full text-xs'>
-                        <span className='inline-flex p-1 text-sm text-secondary-main rounded border border-secondary-border'>
-                            <Search className='w-4 h-4 stroke-secondary-300' strokeWidth={2} />
+                        <span className='inline-flex rounded border border-secondary-border p-1 text-sm text-secondary-main'>
+                            <Search className='h-4 w-4 stroke-secondary-300' strokeWidth={2} />
                             <span className='mx-1 font-semibold'>{targetGroup.name}</span>
                             <span>と類似性が高い</span>
                         </span>
@@ -38,15 +38,15 @@ const SimilarityListItem: React.VFC<Props> = ({
                 </div>
 
             </div>
-            <div className='flex items-center my-2 ml-auto text-xs whitespace-nowrap'>
+            <div className='my-2 ml-auto flex items-center whitespace-nowrap text-xs'>
                 <Link href={detailPath}><a className='underline' href={detailPath}>詳細を見る</a></Link>
-                <TextButton className='block px-2 ml-auto border-r border-primary-border' onClick={async (e) => {
+                <TextButton className='ml-auto block border-r border-primary-border px-2' onClick={async (e) => {
                     e.stopPropagation()
                     e.preventDefault()
                     await moveBookmark(bookmark, targetGroup)
                     toast.success('ブックマークを移動しました')
                 }}>移動する</TextButton>
-                <TextButton className='block mx-2' colorType='secondary' onClick={async (e) => {
+                <TextButton className='mx-2 block' colorType='secondary' onClick={async (e) => {
                     e.stopPropagation()
                     e.preventDefault()
                     await addIgnore(bookmark, targetGroup)

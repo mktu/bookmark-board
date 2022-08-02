@@ -3,7 +3,7 @@ type Props = {
     description: React.ReactNode,
     submit: React.ReactNode,
     cancel: React.ReactNode,
-    error ?: string
+    error?: string
 }
 
 const Presenter: React.VFC<Props> = ({
@@ -22,7 +22,7 @@ const Presenter: React.VFC<Props> = ({
             <div className='mt-2'>
                 {description}
             </div>
-            <div className="flex justify-end items-center mt-4">
+            <div className="mt-4 flex items-center justify-end">
                 {cancel}
                 {submit}
             </div>
