@@ -51,7 +51,7 @@
     "react-split": "2.0.14",
     "react-textarea-autosize": "8.3.4",
     "react-toastify": "6.2.0",
-    "sass": "1.53.0",
+    "sass": "1.54.3",
     "uuid": "8.3.2"
   },
   "devDependencies": {
