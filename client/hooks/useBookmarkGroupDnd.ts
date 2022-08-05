@@ -10,17 +10,17 @@ export const useHoverable = (
 ) => {
     const { clientService } = useContext(FirebaseContext)
     const [{ dragging, opacity }, drag, preview] = useDrag({
-        item: {
-            ...bookmarkGroup,
-            type: 'GROUP'
+        type: 'GROUP',
+        item: () => {
+            onHover(listIndex)
+            return {
+                ...bookmarkGroup,
+            }
         },
         collect: (monitor) => ({
             dragging: monitor.isDragging(),
             opacity: monitor.isDragging() ? 0.1 : 1,
         }),
-        begin: () => {
-            onHover(listIndex)
-        },
         end: () => {
             onHover(-1)
         }
@@ -29,8 +29,8 @@ export const useHoverable = (
         accept: ['LIST', 'GROUP'],
         drop: (_, monitor) => {
             if (monitor.getItemType() === 'LIST') {
-                const i = monitor.getItem()
-                clientService.moveGroup([i], bookmarkGroup.id, ()=>{
+                const i = monitor.getItem<Bookmark & { hasOwnership: boolean }>()
+                clientService.moveGroup([i], bookmarkGroup.id, () => {
                     toast.success(`ブックマークを${i.hasOwnership ? '移動しました' : 'コピーしました'}`)
                 }, !i.hasOwnership)
             }

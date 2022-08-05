@@ -15,7 +15,7 @@ const Droppable: React.FC<Props> = ({
     const [, drop] = useDrop({
         accept: 'GROUP',
         drop: (_, monitor) => {
-            const i = monitor.getItem()
+            const i = monitor.getItem<BookmarkGroup>()
             onChangeOrder(i.id)
         }
     })
