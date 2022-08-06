@@ -31,14 +31,14 @@ const LineLogin: VFC<Props> = ({
     }, [])
     return (
         <div>
-            <div className='flex overflow-x-hidden justify-between items-center w-full text-primary-main'>
-                <LoginIcon className='mr-2 w-8 h-8' />
-                <div className='mr-auto text-primary-400 truncate'>{name}</div>
+            <div className='flex w-full items-center justify-between overflow-x-hidden text-primary-main'>
+                <LoginIcon className='mr-2 h-8 w-8' />
+                <div className='mr-auto truncate text-primary-400'>{name}</div>
                 <OutlinedButton className='text-sm' border='border-t border-l border-b' rounded='rounded-l' paddings='py-1 px-2' onClick={onClickLogin}>再認証</OutlinedButton>
                 <ContainedButton className='text-sm' rounded='rounded-r' paddings='py-1 px-2' colorType='secondary' onClick={onUnlink}>解除</ContainedButton>
             </div>
-            <div className='flex items-center my-2 ml-auto'>
-                <div className='mr-2 text-primary-400 whitespace-nowrap'>登録先グループ</div>
+            <div className='my-2 ml-auto flex items-center'>
+                <div className='mr-2 whitespace-nowrap text-primary-400'>登録先グループ</div>
                 <Dropdowns
                     className='ml-auto'
                     allowEmpty
@@ -56,22 +56,22 @@ const LineLogin: VFC<Props> = ({
             </div>
 
 
-            <div className='flex flex-col justify-center my-4 w-full'>
+            <div className='my-4 flex w-full flex-col justify-center'>
                 {!hideMessage && (
-                    <div className='relative flex-1 p-2 mr-2 mb-2 w-full text-sm text-primary-400 rounded border border-primary-border border-dotted'>
+                    <div className='relative mr-2 mb-2 w-full flex-1 rounded border border-dotted border-primary-border p-2 text-sm text-primary-400'>
                         <span role='img' aria-label='right' className='mr-1'>💡</span>
                         <span>Bookmark-Board公式アカウントを友達登録することで、LINE上からもブックマーク登録できるようになります</span>
-                        <SvgIconButton className='absolute -top-1 -right-1 w-5 h-5' onClick={() => {
+                        <SvgIconButton className='absolute -top-1 -right-1 h-5 w-5' onClick={() => {
                             setMessageVisibility('line-add-friend', true)
                             setVisibility(true)
-                        }} ><XCircle className='bg-white rounded-full stroke-primary-400' /></SvgIconButton>
+                        }} ><XCircle className='rounded-full bg-white stroke-primary-400' /></SvgIconButton>
                     </div>
                 )}
 
-                <div className='flex items-center ml-auto'>
+                <div className='ml-auto flex items-center'>
                     {hideMessage && (
-                        <div className='flex justify-end items-center mr-2'>
-                            <Help className='w-5 h-5 stroke-primary-main' />
+                        <div className='mr-2 flex items-center justify-end'>
+                            <Help className='h-5 w-5 stroke-primary-main' />
                             <TextButton fontType='none' className='text-sm underline' onClick={() => {
                                 setMessageVisibility('line-add-friend', false)
                                 setVisibility(false)

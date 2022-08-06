@@ -12,7 +12,7 @@ const DateInfo: React.VFC<Props> = ({
 }) => {
     const type = lastUpdate ? '更新' : '作成'
     const editDate = getRelativeDate(lastUpdate || created)
-    const icon = lastUpdate ? (<Refresh className='w-4 h-4 stroke-primary-main' />) :
+    const icon = lastUpdate ? (<Refresh className='h-4 w-4 stroke-primary-main' />) :
         editDate.type === 'date' ? <span /> :
             (<span role='img' aria-label='create' className='mr-1'>🎉</span>)
     return (

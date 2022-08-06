@@ -21,9 +21,9 @@ const Refresh: React.FC<Props> = ({
     disabled,
     handleRefetch
 }) => (
-        <SvgIconButton aria-label='Refresh' disabled={disabled} className='flex justify-center items-center' onClick={handleRefetch}>
-            <Icon className='w-6' strokeWidth={2} />
-        </SvgIconButton>
-    )
+    <SvgIconButton aria-label='Refresh' disabled={disabled} className='flex items-center justify-center' onClick={handleRefetch}>
+        <Icon className='w-6' strokeWidth={2} />
+    </SvgIconButton>
+)
 
 export default Refresh

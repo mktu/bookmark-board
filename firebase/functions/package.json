@@ -20,7 +20,7 @@
     "@types/open-graph-scraper": "4.8.1",
     "@types/uuid": "8.3.4",
     "algoliasearch": "4.13.1",
-    "firebase-admin": "11.0.0",
+    "firebase-admin": "11.0.1",
     "firebase-functions": "3.22.0",
     "get-urls": "10.0.1",
     "node-fetch": "2.6.7",

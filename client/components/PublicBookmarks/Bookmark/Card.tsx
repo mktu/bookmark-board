@@ -22,22 +22,22 @@ const ListCard: React.FC<Props> = ({
 }) => {
     const [r, g, b] = hex2rgb(bookmark.color)
     return (
-        <div className='flex py-1 px-2 rounded border border-primary-border'>
+        <div className='flex rounded border border-primary-border py-1 px-2'>
             <div style={{ minWidth: BookmarkListImageSize }}>
                 <UrlImage className='rounded' width={BookmarkListImageSize} height={BookmarkListImageSize} src={bookmark.image} />
             </div>
-            <div className='overflow-hidden px-1 pl-2 ml-2 w-full text-primary-main border-l-2 border-primary-border' style={{ borderColor: bookmark.color && `rgba(${r},${g},${b},0.5)` }}>
+            <div className='ml-2 w-full overflow-hidden border-l-2 border-primary-border px-1 pl-2 text-primary-main' style={{ borderColor: bookmark.color && `rgba(${r},${g},${b},0.5)` }}>
                 <Label htmlFor='title' textSize='text-xs'>タイトル</Label>
-                <div id='title' className='p-1 max-w-full text-sm break-words'>{bookmark.title}</div>
+                <div id='title' className='max-w-full break-words p-1 text-sm'>{bookmark.title}</div>
                 <Label htmlFor='description' textSize='text-xs'>説明</Label>
-                <div id='description' className='p-1 max-w-full text-xs break-words'>{bookmark.description}</div>
+                <div id='description' className='max-w-full break-words p-1 text-xs'>{bookmark.description}</div>
                 <Label htmlFor='url' textSize='text-xs'>URL</Label>
-                <a target='_blank' rel='noopener noreferrer' href={bookmark.url} id='url' className='block p-1 max-w-full text-sm underline break-words'>{bookmark.url}</a>
+                <a target='_blank' rel='noopener noreferrer' href={bookmark.url} id='url' className='block max-w-full break-words p-1 text-sm underline'>{bookmark.url}</a>
                 {bookmark.comment && (
-                    <div className='flex overflow-hidden items-center py-1 max-w-full text-xs text-primary-main'>
-                        <div className='flex items-center p-1 mr-2 rounded border border-primary-200'>
+                    <div className='flex max-w-full items-center overflow-hidden py-1 text-xs text-primary-main'>
+                        <div className='mr-2 flex items-center rounded border border-primary-200 p-1'>
                             <Chat className='w-6 stroke-primary-300' />
-                            <div className='flex-1 mx-2 whitespace-pre-wrap'>
+                            <div className='mx-2 flex-1 whitespace-pre-wrap'>
                                 {bookmark.comment}
                             </div>
                         </div>
@@ -47,7 +47,7 @@ const ListCard: React.FC<Props> = ({
             </div>
             <div className='flex flex-col items-end'>
                 <TooltipDivContainer className='flex items-center' content='URLをコピー' placement='bottom'>
-                    <SvgIconButton aria-label='Copy' className='block ml-2' onClick={(e) => {
+                    <SvgIconButton aria-label='Copy' className='ml-2 block' onClick={(e) => {
                         copyToClipBoard(bookmark.url, () => {
                             toast.success('クリップボードにURLをコピーしました',)
                         })

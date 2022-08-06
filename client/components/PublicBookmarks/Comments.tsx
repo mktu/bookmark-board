@@ -37,7 +37,7 @@ const Comments: React.FC<Props> = ({
             {comments.map(c => {
                 const myReaction = c.reactions.find(r => r.user === myProfile.id)
                 return (
-                    <div key={c.id} className='flex items-center p-2 border-b'>
+                    <div key={c.id} className='flex items-center border-b p-2'>
                         <PopoverDivContainer content={senders[c.sender] && <UserPopover user={senders[c.sender]} />}>
                             <SvgIconButton aria-label='User'>
                                 <Avatar

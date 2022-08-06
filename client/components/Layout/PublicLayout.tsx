@@ -13,9 +13,9 @@ const Layout = ({
     fixedHeader
 }: Props) => {
     return (
-        <div className='flex flex-col w-screen min-h-screen'>
+        <div className='flex min-h-screen w-screen flex-col'>
             <header
-                className={`w-full ${fixedHeader ? 'shadow-xl fixed z-50' : ''}`}
+                className={`w-full ${fixedHeader ? 'fixed z-50 shadow-xl' : ''}`}
                 style={fixedHeader && { opacity: 0.98 }}
             >
                 {header}

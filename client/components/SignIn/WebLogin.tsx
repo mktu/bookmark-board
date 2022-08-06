@@ -17,9 +17,9 @@ const WebLoginSection = ({
     privactPolicyLink
 }: Props) => {
     return (
-        <div className='flex flex-col justify-center items-center py-4 px-2 h-full text-white bg-primary-dark'>
+        <div className='flex h-full flex-col items-center justify-center bg-primary-dark py-4 px-2 text-white'>
             <div className='w-7/12'>
-                <h1 className='flex justify-center mb-8 text-2xl font-bold'>Sign In</h1>
+                <h1 className='mb-8 flex justify-center text-2xl font-bold'>Sign In</h1>
                 <div className='mb-6 text-sm'>
                     <p className='my-2'>
                         <span>新規登録・ログインともにGoogleアカウントを用いて行えます。</span>
@@ -30,12 +30,12 @@ const WebLoginSection = ({
                     </p>
                 </div>
                 {signining ? (
-                    <div className='flex justify-center items-center'>
+                    <div className='flex items-center justify-center'>
                         <LoadingImg />
                     </div>
                 ) : (
                     <div className='flex justify-center'>
-                        <button className='p-0 bg-white' id='google-login' onClick={handleSignin}>
+                        <button className='bg-white p-0' id='google-login' onClick={handleSignin}>
                             <GoogleSignInImg className='inline-block' />
                             <span className='inline-block px-4 text-primary-main'>Sign in with Google</span>
                         </button>

@@ -30,21 +30,21 @@ const ListItem: React.FC<Props> = ({
             attachPreviewRef(v)
         }}>
             <div className='mx-2 cursor-move' ref={attachDragRef}>
-                <div className='w-5 h-5 rounded' style={{ backgroundColor: color }} />
+                <div className='h-5 w-5 rounded' style={{ backgroundColor: color }} />
 
             </div>
-            <div className='flex items-center w-full'>
+            <div className='flex w-full items-center'>
                 <TextInput aria-label='Color Name' className={`w-full`} value={name} onChange={(e) => {
                     updateColor(id, { name: e.target.value })
                 }} />
             </div>
-            <label className='text-xs text-primary-main underline whitespace-nowrap cursor-pointer' htmlFor={id}>色を変更</label>
+            <label className='cursor-pointer whitespace-nowrap text-xs text-primary-main underline' htmlFor={id}>色を変更</label>
             <input id={id} type='color' className='w-0 opacity-0' value={color} onChange={(e) => {
                 updateColor(id, { color: e.target.value })
             }} />
             <OutlinedButton onClick={() => {
                 handleDelete(id)
-            }} className='ml-2 text-xs whitespace-nowrap' paddings='px-1'>×</OutlinedButton>
+            }} className='ml-2 whitespace-nowrap text-xs' paddings='px-1'>×</OutlinedButton>
         </div>
     )
 }

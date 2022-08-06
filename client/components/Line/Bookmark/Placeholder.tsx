@@ -2,7 +2,7 @@ import React from "react"
 import ContentLoader from "react-content-loader"
 
 const Placeholder = () => (
-  <div className='flex justify-center items-center w-full'>
+  <div className='flex w-full items-center justify-center'>
     <ContentLoader
       uniqueKey='bookmark-placeholder'
       speed={2}

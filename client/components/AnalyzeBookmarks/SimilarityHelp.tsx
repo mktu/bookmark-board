@@ -3,7 +3,7 @@ import AnalysisImage from 'public/undraw_file_analysis_8k9b.svg'
 
 const SimilarityHelp: React.VFC = () => {
     return (
-        <div className='flex flex-col items-center p-6 w-full'>
+        <div className='flex w-full flex-col items-center p-6'>
             <h1 className='text-2xl font-bold text-primary-main'>Bookmark Advice</h1>
             <div className=''>
                 <Image width={300} height={350} src={AnalysisImage} />
@@ -16,11 +16,11 @@ const SimilarityHelp: React.VFC = () => {
                 <li>■ 気付かぬ間に類似するグループが2つできていた</li>
                 <li>■ 適当なグループに登録したブックマークを放置したまま埋もれてしまった</li>
             </ul>
-            <p className='px-16 my-2 text-sm'>...ブックマーク間の類似度をもとに、そういった類似グループや外れたブックマークを抽出し、相応しいグループを提案します</p>
-            <p className='flex justify-end px-16 w-full text-sm'>
-                    <span role='img' aria-label='details' className='mr-2'>👉</span>
-                    <a href='#dsf'>詳細はこちら</a>
-                
+            <p className='my-2 px-16 text-sm'>...ブックマーク間の類似度をもとに、そういった類似グループや外れたブックマークを抽出し、相応しいグループを提案します</p>
+            <p className='flex w-full justify-end px-16 text-sm'>
+                <span role='img' aria-label='details' className='mr-2'>👉</span>
+                <a href='#dsf'>詳細はこちら</a>
+
             </p>
         </div>
     )

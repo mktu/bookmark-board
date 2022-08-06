@@ -15,12 +15,12 @@ const VisibilityOption: React.FC<Props> = ({
     const colorSettingPath = `/bookmarks/${groupId}/colors`
     const allMasked = colors.filter(v => colorMasks.includes(v.id)).length === 0
     return (
-        <div className='flex flex-col justify-start p-4 align-middle bg-white rounded border border-primary-border shadow-lg'>
+        <div className='flex flex-col justify-start rounded border border-primary-border bg-white p-4 align-middle shadow-lg'>
             <p className='text-sm font-semibold text-primary-main'>表示する項目を選択</p>
             {colors.length > 0 && (
                 <div>
-                    <label className='flex items-center mt-2 text-sm font-semibold cursor-pointer' htmlFor='allcolor'>
-                        <input id='allcolor' type='checkbox' className='block mr-2 hover:bg-primary-50'
+                    <label className='mt-2 flex cursor-pointer items-center text-sm font-semibold' htmlFor='allcolor'>
+                        <input id='allcolor' type='checkbox' className='mr-2 block hover:bg-primary-50'
                             checked={allMasked}
                             onChange={(e) => {
                                 if (e.target.checked) {
@@ -45,8 +45,8 @@ const VisibilityOption: React.FC<Props> = ({
                 const show = !colorMasks.includes(c.id)
                 return (
                     <div key={c.color}>
-                        <label className='flex items-center mt-2 text-sm font-semibold cursor-pointer' htmlFor={c.color}>
-                            <input id={c.color} type='checkbox' className='block mr-2 hover:bg-primary-50'
+                        <label className='mt-2 flex cursor-pointer items-center text-sm font-semibold' htmlFor={c.color}>
+                            <input id={c.color} type='checkbox' className='mr-2 block hover:bg-primary-50'
                                 checked={show}
                                 onChange={(e) => {
                                     updateColorFilters([{ color: c.id, show: e.target.checked }])
@@ -54,23 +54,23 @@ const VisibilityOption: React.FC<Props> = ({
                             <span className='mr-2'>{c.name}</span>
                             <div className='ml-auto'>
                                 {!show ? (
-                                    <div className='w-4 h-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b},0.1)`, border: `1px solid ${c.color}` }}>
-                                        <svg className='w-full h-full' style={{ stroke: c.color }}>
+                                    <div className='h-4 w-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b},0.1)`, border: `1px solid ${c.color}` }}>
+                                        <svg className='h-full w-full' style={{ stroke: c.color }}>
                                             <line stroke="4, 4" x1="0" y1="100%" x2="100%" y2="0" strokeWidth={1} />
                                         </svg>
                                     </div>
                                 ) : (
-                                    <div className='w-4 h-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b})`, border: `1px solid ${c.color}` }} />
+                                    <div className='h-4 w-4 rounded' style={{ backgroundColor: `rgba(${r},${g},${b})`, border: `1px solid ${c.color}` }} />
                                 )}
                             </div>
                         </label>
                     </div>
                 )
             })}
-            <div className='flex justify-end mt-2'>
+            <div className='mt-2 flex justify-end'>
                 <Link href={colorSettingPath} shallow>
                     {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                        (<a className='inline-block text-sm text-link-main hover:text-link-hover underline'>色設定へ</a>)
+                        (<a className='inline-block text-sm text-link-main underline hover:text-link-hover'>色設定へ</a>)
                     }
                 </Link>
             </div>

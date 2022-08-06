@@ -16,13 +16,13 @@ const Layout = ({
     showGroup
 }: Props) => {
     return isTouch ? (
-        <div className='flex flex-row w-full h-full'>
+        <div className='flex h-full w-full flex-row'>
             <div className={`h-full w-full ${showGroup && 'hidden'}`}>{groups}</div>
             <div className={`h-full w-full ${!showGroup && 'hidden'}`}>{group}</div>
         </div>
     ) : (
         <>
-            <Split className='flex flex-row w-full h-full bg-primary-light' gutterAlign="center" sizes={[25, 75]} minSize={[256, 512]}
+            <Split className='flex h-full w-full flex-row bg-primary-light' gutterAlign="center" sizes={[25, 75]} minSize={[256, 512]}
                 gutter={(_, direction) => {
                     const gutterElement = document.createElement('div')
                     gutterElement.className = `gutter gutter-${direction} w-[2px] bg-primary-border hover:cursor-col-resize hover:w-4 hover:border-x hover:border-secondary-border hover:bg-secondary-light transition-all delay-300 duration-300 ease-in-out`

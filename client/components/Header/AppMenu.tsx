@@ -28,22 +28,22 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
     }
 
     const app = (
-        <div className='flex items-center my-2'>
-            <TextButton aria-label='Open Bookmark' className='flex items-center w-full' onClick={() => {
+        <div className='my-2 flex items-center'>
+            <TextButton aria-label='Open Bookmark' className='flex w-full items-center' onClick={() => {
                 push('/bookmarks')
             }}>
-                <Book strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
+                <Book strokeWidth={1.5} className='mr-2 h-10 w-10 stroke-primary-main' />
                 <div>Bookmarkアプリ</div>
             </TextButton>
         </div>
     )
 
     const search = (
-        <div className='flex items-center mr-4'>
-            <TextButton aria-label='Open Search' colorType='none' className='flex items-center w-full text-primary-main' onClick={() => {
+        <div className='mr-4 flex items-center'>
+            <TextButton aria-label='Open Search' colorType='none' className='flex w-full items-center text-primary-main' onClick={() => {
                 push('/search')
             }}>
-                <Search strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
+                <Search strokeWidth={1.5} className='mr-2 h-10 w-10 stroke-primary-main' />
                 <div>検索</div>
             </TextButton>
         </div>
@@ -69,10 +69,10 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
     const profileMenu = (
         <div className='my-2'>
             <div className='flex items-center text-primary-main' >
-                <TextButton aria-label='Login Menu' colorType='none' className='flex items-center w-full text-primary-main' onClick={() => {
+                <TextButton aria-label='Login Menu' colorType='none' className='flex w-full items-center text-primary-main' onClick={() => {
                     push('/profile')
                 }}>
-                    <Setting strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
+                    <Setting strokeWidth={1.5} className='mr-2 h-10 w-10 stroke-primary-main' />
                     <div>アカウント設定</div>
                 </TextButton>
             </div>
@@ -80,11 +80,11 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
     )
 
     const help = (
-        <div className='flex items-center my-2'>
-            <TextButton aria-label='How to use Bookmark' colorType='none' className='flex items-center w-full text-primary-main' onClick={() => {
+        <div className='my-2 flex items-center'>
+            <TextButton aria-label='How to use Bookmark' colorType='none' className='flex w-full items-center text-primary-main' onClick={() => {
                 window && window.open(HelpLink, '_blank')
             }}>
-                <Help strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
+                <Help strokeWidth={1.5} className='mr-2 h-10 w-10 stroke-primary-main' />
                 <div>ヘルプ</div>
             </TextButton>
         </div>
@@ -92,24 +92,24 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
 
     const logout = (
         <div className='flex items-center'>
-            <TextButton aria-label='Logout' colorType='none' className='flex items-center w-full text-primary-main' onClick={() => {
+            <TextButton aria-label='Logout' colorType='none' className='flex w-full items-center text-primary-main' onClick={() => {
                 clientService.logout(() => {
                     push('/signin')
                 })
             }}>
-                <Logout strokeWidth={1.5} className='mr-2 w-10 h-10 stroke-primary-main' />
+                <Logout strokeWidth={1.5} className='mr-2 h-10 w-10 stroke-primary-main' />
                 <div>ログアウト</div>
             </TextButton>
         </div>
     )
 
     const close = (
-        <SvgIconButton aria-label='Close dialog' colorType='none' className='flex absolute top-0 right-0 items-center p-2 mr-2 bg-primary-light rounded-full border border-primary-dark opacity-75'
+        <SvgIconButton aria-label='Close dialog' colorType='none' className='absolute top-0 right-0 mr-2 flex items-center rounded-full border border-primary-dark bg-primary-light p-2 opacity-75'
             onClick={() => {
                 onClose()
 
             }}>
-            <X strokeWidth={1} className='w-6 h-6 stroke-primary-dark' />
+            <X strokeWidth={1} className='h-6 w-6 stroke-primary-dark' />
         </SvgIconButton>
     )
 

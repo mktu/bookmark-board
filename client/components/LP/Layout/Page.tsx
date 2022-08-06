@@ -17,7 +17,7 @@ const Page : React.FC<Props> = ({
     siginin
 }) => {
     return (
-        <article className='flex overflow-hidden flex-col py-12 w-screen'>
+        <article className='flex w-screen flex-col overflow-hidden py-12'>
             {top}
             {topics}
             {publish}

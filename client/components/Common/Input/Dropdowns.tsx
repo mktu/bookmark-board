@@ -55,11 +55,11 @@ const Dropdowns: React.FC<Props> = ({
                     onClick={toggle}
                     style={comboStyles}
                     type="button"
-                    className="flex justify-start items-center py-2 px-4 w-full text-sm font-medium text-primary-700 hover:bg-primary-hover rounded-md border border-primary-border focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100 shadow-sm stroke-primary-main hover:stroke-primary-dark"
+                    className="flex w-full items-center justify-start rounded-md border border-primary-border stroke-primary-main py-2 px-4 text-sm font-medium text-primary-700 shadow-sm hover:bg-primary-hover hover:stroke-primary-dark focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
                     id="options-menu"
                     aria-haspopup="true"
                     aria-expanded="true">
-                    <div className='overflow-x-hidden mr-2 max-w-full truncate'>{selectedLabel?.label}</div>
+                    <div className='mr-2 max-w-full overflow-x-hidden truncate'>{selectedLabel?.label}</div>
                     <ChevronDown className='ml-auto w-5' strokeWidth={2} />
                 </ButtonBase>
             </div>
@@ -72,19 +72,19 @@ const Dropdowns: React.FC<Props> = ({
                         if (!value) return;
                         setPopperElement(value)
                     }} style={styles.popper} {...attributes.popper}>
-                        <div className={'overflow-hidden overflow-y-auto bg-white rounded-md ring-1 ring-black/5 shadow-lg'} style={{ width: referenceElement.clientWidth, ...poperStyles }}>
+                        <div className={'overflow-hidden overflow-y-auto rounded-md bg-white shadow-lg ring-1 ring-black/5'} style={{ width: referenceElement.clientWidth, ...poperStyles }}>
                             <div className="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
                                 {options.map(o => (
                                     <TextButton onClick={() => {
                                         onSelect(o.value)
                                         setPopoverShow(false)
-                                    }} className="block py-2 px-4 w-full text-sm text-left text-primary-700 hover:text-primary-dark truncate hover:bg-primary-hover" role="menuitem" key={o.value}>{o.label}</TextButton>
+                                    }} className="block w-full truncate py-2 px-4 text-left text-sm text-primary-700 hover:bg-primary-hover hover:text-primary-dark" role="menuitem" key={o.value}>{o.label}</TextButton>
                                 ))}
                                 {allowEmpty && (
                                     <TextButton onClick={() => {
                                         onSelect('')
                                         setPopoverShow(false)
-                                    }} className="block py-2 px-4 w-full text-sm text-left text-primary-700 hover:text-primary-dark hover:bg-primary-hover" role="menuitem" key={'empty'}>選択なし</TextButton>
+                                    }} className="block w-full py-2 px-4 text-left text-sm text-primary-700 hover:bg-primary-hover hover:text-primary-dark" role="menuitem" key={'empty'}>選択なし</TextButton>
                                 )}
                             </div>
                         </div>

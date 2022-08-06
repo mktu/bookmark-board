@@ -14,9 +14,9 @@ const Layout: React.FC<Props> = ({
 }) => {
     return (
         <>
-            <div className={`${alternative ? 'hidden' : 'flex'} md:flex flex-col w-full box-border h-full`}>
+            <div className={`${alternative ? 'hidden' : 'flex'} box-border h-full w-full flex-col md:flex`}>
                 <div >{header}</div>
-                <div className='overflow-hidden flex-1'>{contents}</div>
+                <div className='flex-1 overflow-hidden'>{contents}</div>
             </div>
             <div>
                 {alternativeContent}

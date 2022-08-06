@@ -35,50 +35,50 @@ const ListItem: React.FC<Props> = ({
     style
 }) => {
     return (
-        <div className={`w-full flex items-center cursor-pointer opacity-50`} style={color ? { borderLeft: `5px solid ${color}`, ...style } : { ...style }} >
-            <div className='flex p-2 w-full bg-white hover:bg-gray-50 shadow'>
-            <div className='flex p-2 w-full bg-white hover:bg-gray-50 shadow'>
-            <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex overflow-hidden items-center'>
-                {image}
-            </div>
-            <div style={{ minHeight: BookmarkListImageSize }} className='mx-2 border-r border-primary-border' />
-            <div className='flex overflow-hidden flex-col flex-1 justify-center items-start max-w-full'>
-                <div className='overflow-hidden max-w-full truncate'>{title || url}</div>
-                {description && (<div className='overflow-hidden max-w-full text-xs text-primary-main truncate' key={description} > {description}</div>)}
-                {url && (<div className='overflow-hidden max-w-full text-xs font-thin text-primary-main truncate' > {url}</div>)}
-                {comment && (
-                    <div className='flex items-center py-1 max-w-full text-xs font-thin text-primary-main' >
-                        <Chat className='mr-1 w-6 stroke-primary-300' strokeWidth={2} />
-                        <div className='overflow-hidden flex-1 truncate'>
-                            {comment}
+        <div className={`flex w-full cursor-pointer items-center opacity-50`} style={color ? { borderLeft: `5px solid ${color}`, ...style } : { ...style }} >
+            <div className='flex w-full bg-white p-2 shadow hover:bg-gray-50'>
+                <div className='flex w-full bg-white p-2 shadow hover:bg-gray-50'>
+                    <div style={{ minWidth: BookmarkListImageSize, minHeight: BookmarkListImageSize }} className='flex items-center overflow-hidden'>
+                        {image}
+                    </div>
+                    <div style={{ minHeight: BookmarkListImageSize }} className='mx-2 border-r border-primary-border' />
+                    <div className='flex max-w-full flex-1 flex-col items-start justify-center overflow-hidden'>
+                        <div className='max-w-full overflow-hidden truncate'>{title || url}</div>
+                        {description && (<div className='max-w-full overflow-hidden truncate text-xs text-primary-main' key={description} > {description}</div>)}
+                        {url && (<div className='max-w-full overflow-hidden truncate text-xs font-thin text-primary-main' > {url}</div>)}
+                        {comment && (
+                            <div className='flex max-w-full items-center py-1 text-xs font-thin text-primary-main' >
+                                <Chat className='mr-1 w-6 stroke-primary-300' strokeWidth={2} />
+                                <div className='flex-1 overflow-hidden truncate'>
+                                    {comment}
+                                </div>
+                            </div>)}
+                        {lastUpdate && (
+                            <div className='mt-auto flex max-w-full items-center overflow-hidden truncate pt-1 text-xs font-thin text-primary-main' >
+                                <span className='mr-1'>
+                                    <Refresh className='w-4 stroke-primary-main' />
+                                </span>
+                                <span>{lastUpdate}</span>
+                            </div>)}
+                    </div>
+                    <div className='ml-auto flex flex-col justify-start'>
+                        <div className='flex items-start'>
+                            <div className='mx-1 hidden md:block'>
+                                {copyIcon}
+                            </div>
+                            <div className='md:mx-1'>
+                                {openIcon}
+                            </div>
+                            <div className='mx-1 hidden md:block'>
+                                {deleteIcon}
+                            </div>
                         </div>
-                    </div>)}
-                {lastUpdate && (
-                    <div className='flex overflow-hidden items-center pt-1 mt-auto max-w-full text-xs font-thin text-primary-main truncate' >
-                        <span className='mr-1'>
-                            <Refresh className='w-4 stroke-primary-main' />
-                        </span>
-                        <span>{lastUpdate}</span>
-                    </div>)}
-            </div>
-            <div className='flex flex-col justify-start ml-auto'>
-                <div className='flex items-start'>
-                    <div className='hidden mx-1 md:block'>
-                        {copyIcon}
-                    </div>
-                    <div className='md:mx-1'>
-                        {openIcon}
-                    </div>
-                    <div className='hidden mx-1 md:block'>
-                        {deleteIcon}
+                        <div className='mt-auto flex items-center justify-end'>
+                            <div className='mr-2 hidden md:block'>{colorButton}</div>
+                            <div>{heartButton}</div>
+                        </div>
                     </div>
                 </div>
-                <div className='flex justify-end items-center mt-auto'>
-                    <div className='hidden mr-2 md:block'>{colorButton}</div>
-                    <div>{heartButton}</div>
-                </div>
-            </div>
-        </div>
             </div>
         </div>
     )

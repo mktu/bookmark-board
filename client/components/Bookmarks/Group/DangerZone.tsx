@@ -18,7 +18,7 @@ const DangerZone: React.FC<Props> = ({
     const enableDelete = groupName === input
     return (
         <div className={classNames('p-4 relative border border-secondary-200 rounded', className)}>
-            <div className='absolute px-2 text-sm text-secondary-main bg-white' style={{ top: '-0.7rem', left: '1rem' }}>
+            <div className='absolute bg-white px-2 text-sm text-secondary-main' style={{ top: '-0.7rem', left: '1rem' }}>
                 DANGER ZONE
             </div>
             <div className='text-xs text-secondary-300'>
@@ -28,8 +28,8 @@ const DangerZone: React.FC<Props> = ({
             <div className='flex justify-end p-2'>
                 <TextInputBase value={input} onChange={(e) => {
                     setInput(e.target.value)
-                }} className='block px-2 mr-1 placeholder:text-primary-100 rounded border border-primary-50' placeholder='グループ名を入力' />
-                <OutlinedButton className='text-sm whitespace-nowrap' disabled={!enableDelete} colorType='secondary' onClick={handleDelete}>
+                }} className='mr-1 block rounded border border-primary-50 px-2 placeholder:text-primary-100' placeholder='グループ名を入力' />
+                <OutlinedButton className='whitespace-nowrap text-sm' disabled={!enableDelete} colorType='secondary' onClick={handleDelete}>
                     グループを削除
                 </OutlinedButton>
             </div>

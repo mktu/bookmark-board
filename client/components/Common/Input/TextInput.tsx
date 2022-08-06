@@ -67,10 +67,10 @@ const TextInput: React.FC<Props> = ({
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     id={id}
-                    className='block relative p-3 placeholder:text-primary-200 text-primary-700 bg-white md:text-sm'
+                    className='relative block bg-white p-3 text-primary-700 placeholder:text-primary-200 md:text-sm'
                 />
                 {clear && (
-                    <div className='px-2 ml-auto'>
+                    <div className='ml-auto px-2'>
                         {clear}
                     </div>
                 )}

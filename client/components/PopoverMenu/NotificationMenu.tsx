@@ -12,19 +12,19 @@ const NotificationMenu = () => {
         }
     }, [unreadCount, setReadFlag])
     return (
-        <div className='flex overflow-hidden flex-col justify-start pb-1 align-middle bg-white rounded border border-primary-border shadow-lg' style={{width:256}}>
-            <div className='flex justify-center items-center p-2 w-full text-primary-main bg-primary-light border-b border-primary-border'>
-                <span><Info className='mr-2 w-6 h-6 fill-white stroke-primary-main' /></span>
+        <div className='flex flex-col justify-start overflow-hidden rounded border border-primary-border bg-white pb-1 align-middle shadow-lg' style={{width:256}}>
+            <div className='flex w-full items-center justify-center border-b border-primary-border bg-primary-light p-2 text-primary-main'>
+                <span><Info className='mr-2 h-6 w-6 fill-white stroke-primary-main' /></span>
                 <span>お知らせ</span>
             </div>
             <ul className='overflow-y-auto text-sm text-primary-main' style={{minHeight : 128, maxHeight : 256}}>
                 {notifications.length === 0 && (
-                    <div className='flex justify-center items-center w-full h-full' style={{height:128}}>
+                    <div className='flex h-full w-full items-center justify-center' style={{height:128}}>
                         新しいお知らせはありません
                     </div>
                 )}
                 {notifications.map(v => (
-                    <li className={`border-b border-primary-border py-2 flex items-center ${v.contentUrl && 'hover:bg-primary-hover'}`} key={v.id}>
+                    <li className={`flex items-center border-b border-primary-border py-2 ${v.contentUrl && 'hover:bg-primary-hover'}`} key={v.id}>
                         <div className='pl-2'>
                             {v.contentUrl ? (
                                 <a href={v.contentUrl} target='_blank' rel='noopener noreferrer' className=''>

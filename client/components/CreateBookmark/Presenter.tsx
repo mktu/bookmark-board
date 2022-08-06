@@ -19,13 +19,13 @@ const Presenter: VFC<Props> = ({
     Cancel,
     errorMessage
 }) => (
-    <div className='flex justify-center items-center w-full h-full' >
+    <div className='flex h-full w-full items-center justify-center' >
         <div style={{ width: Width }}>
             <h3 className=' mt-8 text-lg font-bold text-primary-main'>ブックマークを新規追加</h3>
             <div className='mt-8 w-full'>
                 {GroupDropdown}
             </div>
-            <div className='mt-4 w-full bg-white rounded border border-primary-border focus:ring shadow' >
+            <div className='mt-4 w-full rounded border border-primary-border bg-white shadow focus:ring' >
                 {Input}
             </div>
             {errorMessage ? (
@@ -37,7 +37,7 @@ const Presenter: VFC<Props> = ({
                     {Preview}
                 </div>
             )}
-            <div className='flex justify-end items-end mt-4 w-full'>
+            <div className='mt-4 flex w-full items-end justify-end'>
                 <div>{Cancel}</div>
                 <div className='ml-2'>{Submit}</div>
             </div>

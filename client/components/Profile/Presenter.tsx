@@ -39,18 +39,18 @@ const Presenter: React.FC<Props> = ({
             <div className='w-full md:flex'>
                 <div className='flex flex-col items-center'>
                     {avatar}
-                    <div className='flex justify-center items-center p-4'>
+                    <div className='flex items-center justify-center p-4'>
                         {modifyImage}
                         {uploadingImage}
                         {failedUpload}
                     </div>
                 </div>
-                <div className='overflow-x-hidden p-4 w-full'>
+                <div className='w-full overflow-x-hidden p-4'>
                     {name}
                     <Label className='my-2'>SNS</Label>
                     <div className='flex items-center'>
                         <div><TwitterIcon width={48} height={48} /></div>
-                        <div className='hidden mx-2 text-primary-300 md:block'>{TwitterUrl}</div>
+                        <div className='mx-2 hidden text-primary-300 md:block'>{TwitterUrl}</div>
                         {twitterInput}
                     </div>
                     <Label className='my-2'>LINE</Label>
@@ -58,7 +58,7 @@ const Presenter: React.FC<Props> = ({
                         <div>{lineLogin}</div>
                     </div>
                     {commentInput}
-                    <div className='flex flex-col justify-center items-end my-2'>
+                    <div className='my-2 flex flex-col items-end justify-center'>
                         {submit}
                         <p className='text-xs text-primary-400'>
                             {updateDate}

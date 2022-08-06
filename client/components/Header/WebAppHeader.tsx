@@ -15,7 +15,7 @@ import Layout from './Layout'
 
 
 const Header: React.VFC = () => {
-    const { ref, inView } = useInView({initialInView:true})
+    const { ref, inView } = useInView({ initialInView: true })
     const router = useRouter()
     const push = (path: string) => {
         router.push(path)
@@ -30,7 +30,7 @@ const Header: React.VFC = () => {
     const App: React.VFC<{ root?: string, svg?: string }> = ({ root, svg }) => (
         <TooltipDivContainer content='Bookmarkアプリ' placement='bottom' className={`${root} flex items-center`}>
             <SvgIconButton aria-label='Open Bookmark' colorType='none' className={svg} onClick={onClickBookmark}>
-                <Book className='w-10 h-10 stroke-primary-400' />
+                <Book className='h-10 w-10 stroke-primary-400' />
             </SvgIconButton>
         </TooltipDivContainer>
     )
@@ -42,7 +42,7 @@ const Header: React.VFC = () => {
             content={<ProfileMenu />}>
             <TooltipDivContainer content='プロファイル' placement='bottom' className={`flex items-center`}>
                 <SvgIconButton aria-label='Login Menu' colorType='none' className={svg}>
-                    <User className='w-10 h-10 stroke-primary-400' />
+                    <User className='h-10 w-10 stroke-primary-400' />
                 </SvgIconButton>
             </TooltipDivContainer>
 
@@ -52,7 +52,7 @@ const Header: React.VFC = () => {
     const Search: React.VFC<{ root?: string, svg?: string }> = ({ root, svg }) => (
         <TooltipDivContainer content='検索' placement='bottom' className={`${root} flex items-center`}>
             <SvgIconButton aria-label='Open Search' colorType='none' className={svg} onClick={onClickSearch}>
-                <SearchIcon strokeWidth={1.5} className='w-10 h-10 stroke-primary-400' />
+                <SearchIcon strokeWidth={1.5} className='h-10 w-10 stroke-primary-400' />
             </SvgIconButton>
         </TooltipDivContainer>
     )
@@ -60,7 +60,7 @@ const Header: React.VFC = () => {
     const Help: React.VFC<{ root?: string, svg?: string }> = ({ root, svg }) => (
         <TooltipDivContainer content='使い方' placement='bottom' className={`${root} flex items-center`}>
             <SvgIconButton aria-label='How to use Bookmark' colorType='none' className={svg} onClick={onClickHelp}>
-                <HelpIcon className='w-10 h-10 stroke-primary-400' />
+                <HelpIcon className='h-10 w-10 stroke-primary-400' />
             </SvgIconButton>
         </TooltipDivContainer>
     )
@@ -75,7 +75,7 @@ const Header: React.VFC = () => {
                     <Profile root={mainRootStyle} svg={mainSvgStyle} />
                 </div>
             </Layout>
-            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-100 p-2 border border-primary-400 rounded-full '} m-8 fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
+            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'rounded-full border border-primary-400 p-2 opacity-100 '} fixed top-0 right-0 z-50 m-8 transition-all duration-500 ease-in-out`}>
                 <App root={sideRootStyle} />
                 <Search root={sideRootStyle} />
                 <Help root={sideRootStyle} />

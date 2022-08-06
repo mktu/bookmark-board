@@ -26,12 +26,12 @@ const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean, fixed?: boole
     }
     const menu = (
         <MenuIconButton aria-label='Open Menu' colorType='none' onClick={onOpen}>
-            <MenuIcon strokeWidth={1.5} className='w-10 h-10' />
+            <MenuIcon strokeWidth={1.5} className='h-10 w-10' />
         </MenuIconButton>
     )
     const mobileMenu = (
-        <SvgIconButton aria-label='Open Menu' colorType='none' className={'p-2 bg-primary-light rounded-full border border-primary-main stroke-primary-main'} onClick={onOpen}>
-            <MenuIcon strokeWidth={1.5} className='w-10 h-10' />
+        <SvgIconButton aria-label='Open Menu' colorType='none' className={'rounded-full border border-primary-main bg-primary-light stroke-primary-main p-2'} onClick={onOpen}>
+            <MenuIcon strokeWidth={1.5} className='h-10 w-10' />
         </SvgIconButton>
     )
     return (
@@ -45,7 +45,7 @@ const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean, fixed?: boole
                 </div>
             </Layout>
             {fixed && (
-                <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-75 p-2'} fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
+                <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'p-2 opacity-75'} fixed top-0 right-0 z-50 transition-all duration-500 ease-in-out`}>
                     {mobileMenu}
                 </div>
             )}

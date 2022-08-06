@@ -120,7 +120,7 @@ const Container: React.FC<Props> = ({
         <SvgIconButton onClick={() => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
         }}>
-            <ArrowLeft className='w-5 h-5' />
+            <ArrowLeft className='h-5 w-5' />
         </SvgIconButton>
     ), [router, group.id])
 

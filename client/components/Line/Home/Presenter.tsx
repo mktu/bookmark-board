@@ -16,18 +16,18 @@ const Presenter: React.FC<Props> = ({
     groupSelector
 }) => {
     return (
-        <div className=' flex justify-center w-full h-full'>
+        <div className=' flex h-full w-full justify-center'>
             <div className='mt-4 w-full'>
                 <div className='flex justify-center'>
                     {avatar}
                 </div>
-                <div className='flex justify-center my-2 font-semibold text-primary-main'>{name}</div>
+                <div className='my-2 flex justify-center font-semibold text-primary-main'>{name}</div>
                 <div className='p-4'>
                     <div className='flex items-center'>
                         <p className='text-primary-main'>ブックマーク一覧</p>
-                        <hr className='flex-1 ml-2 border-primary-border border-dotted' />
+                        <hr className='ml-2 flex-1 border-dotted border-primary-border' />
                     </div>
-                    <div className='flex justify-end my-2'>
+                    <div className='my-2 flex justify-end'>
                         {groupSelector}
                     </div>
                     <ul>
@@ -40,7 +40,7 @@ const Presenter: React.FC<Props> = ({
 }
 
 export const WaitForAll: React.VFC = () => (
-    <div className=' flex justify-center w-full h-full'>
+    <div className=' flex h-full w-full justify-center'>
         <div className='mt-4 w-full'>
             <ProfilePlaceholder />
             <BookmarkPlaceholder />
@@ -53,12 +53,12 @@ export const WaitForBookmarks: React.FC<Omit<Props, 'bookmarks'|'groupSelector'>
     name,
 }) => {
     return (
-        <div className=' flex justify-center w-full h-full'>
+        <div className=' flex h-full w-full justify-center'>
             <div className='mt-4 w-full'>
                 <div className='flex justify-center'>
                     {avatar}
                 </div>
-                <div className='flex justify-center my-2 font-semibold text-primary-main'>{name}</div>
+                <div className='my-2 flex justify-center font-semibold text-primary-main'>{name}</div>
                 <div className='p-4'>
                     <BookmarkPlaceholder />
                 </div>

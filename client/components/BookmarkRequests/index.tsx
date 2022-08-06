@@ -19,28 +19,28 @@ const BookmarkRequests: React.VFC = () => {
         }, () => {
             setError(new Error('グループは見つかりませんでした'))
         }, setError)
-    }, [clientService,groupId])
+    }, [clientService, groupId])
 
     useEffect(() => {
         if (latestStatus === 'accepted' && latestRequest?.id) {
             clientService.removeRequest(groupId, latestRequest.id)
             router.push(`/bookmarks/${groupId}`)
         }
-    }, [latestStatus,groupId,latestRequest?.id,router,clientService])
+    }, [latestStatus, groupId, latestRequest?.id, router, clientService])
 
     if (!group) {
         return <div />
     }
     if (error) {
         return (
-            <div className='flex flex-col justify-center items-center w-full h-full text-secondary-main'>
+            <div className='flex h-full w-full flex-col items-center justify-center text-secondary-main'>
                 {error.name}
             </div>
         )
     }
     return (
-        <div className='flex flex-col justify-center items-center w-full h-full'>
-            <div className='flex flex-col justify-center items-center w-3/5'>
+        <div className='flex h-full w-full flex-col items-center justify-center'>
+            <div className='flex w-3/5 flex-col items-center justify-center'>
                 {latestStatus === 'none' && (
                     <div className='text-lg text-primary-main'>
                         <span>グループ </span>
@@ -68,7 +68,7 @@ const BookmarkRequests: React.VFC = () => {
                     </div>
                 )}
                 <div className=''><WelcomeImg width='480px' height='480px' /></div>
-                <div className='flex justify-center items-center'>
+                <div className='flex items-center justify-center'>
                     <ContainedButton className='mr-2 whitespace-nowrap' disabled={latestStatus === 'requesting' || exceededLimit} onClick={() => {
                         clientService.addRequest({
                             groupId

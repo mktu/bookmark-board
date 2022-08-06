@@ -30,7 +30,7 @@ const Container: VFC = () => {
 
     const Preview = useMemo(() => warn ? (
         <div className='flex items-center p-2 text-sm text-coral-500' >
-            <span><Exclamation className='mr-2 w-5 h-5 stroke-coral-500' fill='none' /></span>
+            <span><Exclamation className='mr-2 h-5 w-5 stroke-coral-500' fill='none' /></span>
             {warn}
         </div>
     ) : (

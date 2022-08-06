@@ -10,7 +10,7 @@ type Props = {
     groups: number,
     bookmarks: number,
     recentCreated: React.ReactNode,
-    showMore : React.ReactNode,
+    showMore: React.ReactNode,
 }
 
 const profileUrl = '/profile'
@@ -23,9 +23,9 @@ const Presenter: React.FC<Props> = ({
     showMore
 }) => {
     return (
-        <div className='flex justify-center items-center w-full h-full bg-white'>
-            <div className='p-4 w-full text-primary-main lg:w-4/5'>
-                <div className='flex flex-col justify-center items-center'>
+        <div className='flex h-full w-full items-center justify-center bg-white'>
+            <div className='w-full p-4 text-primary-main lg:w-4/5'>
+                <div className='flex flex-col items-center justify-center'>
                     <div className='mb-12 text-xl text-primary-main'>
                         <span className='mx-1'>{userName}</span>
                         <span>さんのBookmarks</span>
@@ -38,18 +38,18 @@ const Presenter: React.FC<Props> = ({
                         <div>登録ブックマーク数 : <span className='text-primary-dark'>{bookmarks} / {MaxGroupNumber * MaxBookmarkNumber}</span></div>
                         <div >
                             連携機能 :
-                            <ul className='px-2 list-disc list-inside'>
+                            <ul className='list-inside list-disc px-2'>
                                 <li>
                                     <a href={PluginUrl} target='_blank' rel='noopener noreferrer' className='inline-flex items-center text-sm text-primary-dark underline'>
                                         <span>Chrome拡張を利用する</span>
-                                        <ExternalLink className='ml-1 w-5 h-5 stroke-primary-dark' strokeWidth={1.5} />
+                                        <ExternalLink className='ml-1 h-5 w-5 stroke-primary-dark' strokeWidth={1.5} />
                                     </a>
 
                                 </li>
                                 <li>
                                     <Link href={profileUrl}>
                                         <a href={profileUrl} className='inline-flex items-center text-sm text-primary-dark underline'>
-                                            <LoginIcon strokeWidth={1.5} className='mr-1 w-5 h-5' />
+                                            <LoginIcon strokeWidth={1.5} className='mr-1 h-5 w-5' />
                                             <span>LINE連携を行う</span>
                                         </a>
                                     </Link>

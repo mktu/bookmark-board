@@ -40,19 +40,19 @@ const Signup: React.FC<Props> = ({
         }
     }
     return (
-        <div className='justify-center p-4 w-screen h-screen md:flex md:p-0'>
-            <div className='flex flex-col w-full h-full md:justify-center md:w-1/2'>
+        <div className='h-screen w-screen justify-center p-4 md:flex md:p-0'>
+            <div className='flex h-full w-full flex-col md:w-1/2 md:justify-center'>
                 <p className='text-lg font-bold text-primary-main md:mb-4'>ユーザー登録</p>
                 <p className='mb-4 text-base text-primary-main'>ニックネームを登録し、早速始めましょう</p>
                 <div className='w-full md:flex'>
                     <div className='flex flex-col items-center p-2'>
                         <Avatar width={128} height={128} src={fileUrl} disableNextImage />
-                        <label className='py-2 px-4 my-2 text-primary-main hover:text-primary-dark rounded border border-primary-main hover:border-primary-dark cursor-pointer' htmlFor='file-upload'>
+                        <label className='my-2 cursor-pointer rounded border border-primary-main py-2 px-4 text-primary-main hover:border-primary-dark hover:text-primary-dark' htmlFor='file-upload'>
                             画像を変更
-                        <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />
+                            <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />
                         </label>
                     </div>
-                    <div className='p-4 w-full'>
+                    <div className='w-full p-4'>
                         <TextInput label='NAME' required id='name' value={name} onChange={(e) => { setName(e.target.value) }} />
                         <TextArea className='mt-4' label='COMMENT' id='comment' border='outlined' value={comment} minRows={4} onChange={(e) => { setComment(e.target.value) }} />
                     </div>
@@ -73,7 +73,7 @@ const Signup: React.FC<Props> = ({
                     )}
                 </div>
             </div>
-            <div className='hidden items-end p-10 ml-4 md:flex'>
+            <div className='ml-4 hidden items-end p-10 md:flex'>
                 <SigninImg width='256px' height='256px' />
             </div>
         </div>

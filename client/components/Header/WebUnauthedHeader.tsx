@@ -28,7 +28,7 @@ const WebUnauthedHeader = () => {
 
     const LoginMain: React.VFC = () => (
         <TextButton aria-label='Login' colorType='none' className={classNames(styles['heroicon-button'], 'flex items-center', mainRootStyle)} onClick={onClickLogin}>
-            <LoginIcon className='w-10 h-10 stroke-primary-400' />
+            <LoginIcon className='h-10 w-10 stroke-primary-400' />
             <p>LOGIN</p>
         </TextButton>
     )
@@ -36,7 +36,7 @@ const WebUnauthedHeader = () => {
     const LoginSide: React.VFC = () => (
         <TooltipDivContainer content='ログイン' placement='bottom' className={sideRootStyle}>
             <SvgIconButton aria-label='Login' colorType='none' className='flex items-center' onClick={onClickLogin}>
-                <LoginIcon className='w-10 h-10 stroke-primary-400' />
+                <LoginIcon className='h-10 w-10 stroke-primary-400' />
             </SvgIconButton>
         </TooltipDivContainer>
 
@@ -45,17 +45,17 @@ const WebUnauthedHeader = () => {
     const Help: React.VFC<{ root?: string, svg?: string }> = ({ root, svg }) => (
         <TooltipDivContainer content='使い方' placement='bottom' className={`${root} flex items-center`}>
             <SvgIconButton aria-label='How to use Bookmark' colorType='none' className={svg} onClick={onClickHelp}>
-                <HelpIcon className='w-10 h-10 stroke-primary-400'/>
+                <HelpIcon className='h-10 w-10 stroke-primary-400'/>
             </SvgIconButton>
         </TooltipDivContainer>
     )
     return (
         <Layout ref={ref} onClickHome={onClickHome}>
-            <div className='flex items-center mr-2'>
+            <div className='mr-2 flex items-center'>
                 <Help root={mainRootStyle} svg={mainSvgStyle} />
                 <LoginMain />
             </div>
-            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'opacity-100 p-2 border border-primary-400 rounded-full'} m-8 fixed top-0 right-0 transition-all ease-in-out duration-500 transform z-50`}>
+            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'rounded-full border border-primary-400 p-2 opacity-100'} fixed top-0 right-0 z-50 m-8 transition-all duration-500 ease-in-out`}>
                 <LoginSide />
                 <Help root={sideRootStyle} />
             </div>

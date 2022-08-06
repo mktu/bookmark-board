@@ -5,9 +5,9 @@ type Props = {
 const Presenter: React.FC<Props> = ({
     bookmarkList
 }) => (
-    <div className='p-4 mb-4 w-full'  style={{ height: 512 }}>
-        <div className='font-semibold text-primary-main border-b border-primary-border'>最近登録したブックマーク</div>
-        <div className='overflow-y-auto relative w-full h-full'>
+    <div className='mb-4 w-full p-4' style={{ height: 512 }}>
+        <div className='border-b border-primary-border font-semibold text-primary-main'>最近登録したブックマーク</div>
+        <div className='relative h-full w-full overflow-y-auto'>
             {bookmarkList}
         </div>
     </div>

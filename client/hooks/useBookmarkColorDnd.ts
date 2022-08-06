@@ -1,19 +1,20 @@
 import { useDrag, useDrop } from 'react-dnd'
 
-export const useHoverable = (id:string, color: BookmarkColorDescription, listIndex: number, onHover: (index: number) => void) => {
+export const useHoverable = (id: string, color: BookmarkColorDescription, listIndex: number, onHover: (index: number) => void) => {
     const [{ dragging, opacity }, drag, preview] = useDrag({
-        item: {
-            ...color,
-            id,
-            type: 'COLOR'
+        type: 'COLOR',
+        item: () => {
+            onHover(listIndex)
+            return {
+                ...color,
+                id,
+
+            }
         },
         collect: (monitor) => ({
             dragging: monitor.isDragging(),
             opacity: monitor.isDragging() ? 0.1 : 1,
         }),
-        begin: () => {
-            onHover(listIndex)
-        },
         end: () => {
             onHover(-1)
         }

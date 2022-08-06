@@ -7,7 +7,7 @@ type Props = {
 
 const ProfileNotFound: React.FC<Props> = ({ message }) => {
     return (
-        <div className=' flex justify-center w-full h-full'>
+        <div className=' flex h-full w-full justify-center'>
             <div className='mt-4 w-full'>
                 <h3 className='flex justify-center font-semibold text-primary-main'>
                     {message}

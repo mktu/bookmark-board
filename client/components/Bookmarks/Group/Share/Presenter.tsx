@@ -20,7 +20,7 @@ const Share: React.FC<Props> = ({
                 リストの共有
             </h1>
             <div className='flex items-center p-2'>
-                <ShareIcon className='block mr-2 w-6 fill-primary-main stroke-0' />
+                <ShareIcon className='mr-2 block w-6 fill-primary-main stroke-0' />
                 <p>
                     閲覧用のページ
                 </p>
@@ -33,7 +33,7 @@ const Share: React.FC<Props> = ({
             </div>
             <div className='my-8 w-full' />
             <div className='flex items-center p-2'>
-                <EditFill className='block mr-2 w-6 fill-primary-main stroke-0' />
+                <EditFill className='mr-2 block w-6 fill-primary-main stroke-0' />
                 <p>
                     共同編集リンク
                 </p>
@@ -44,12 +44,12 @@ const Share: React.FC<Props> = ({
             <p className='px-2 text-sm text-secondary-main'>
                 ※ 共同編集者はアカウント登録している必要があります
             </p>
-            <div className='p-2 w-full'>
+            <div className='w-full p-2'>
                 <div className='text-sm'>
                     {privateLink}
                 </div>
             </div>
-            <div className='flex justify-end items-center p-2 w-full'>
+            <div className='flex w-full items-center justify-end p-2'>
                 <div className='mr-2'>
                     {cancel}
                 </div>

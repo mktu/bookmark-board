@@ -29,8 +29,8 @@ const Default: React.FC<Props> = ({
     signup
 }) => {
     return (
-        <div className='flex justify-center w-screen'>
-            <div className='py-8 w-full md:w-7/12'>
+        <div className='flex w-screen justify-center'>
+            <div className='w-full py-8 md:w-7/12'>
                 <div className='flex px-4'>
                     <div>
                         <h1 className='text-xl font-semibold md:text-2xl'>
@@ -40,7 +40,7 @@ const Default: React.FC<Props> = ({
                             <span>更新 {updated}</span>
                         </div>
                     </div>
-                    <div className='flex flex-col items-center ml-auto md:flex-row'>
+                    <div className='ml-auto flex flex-col items-center md:flex-row'>
                         <PopoverDivContainer placement='bottom' content={editorPopover}>
                             {editorIcon}
                         </PopoverDivContainer>
@@ -54,16 +54,16 @@ const Default: React.FC<Props> = ({
                         </div>
                     </div>
                 </div>
-                <div className='flex py-2 px-4 mt-2 text-base text-primary-main whitespace-pre-wrap'>
+                <div className='mt-2 flex whitespace-pre-wrap py-2 px-4 text-base text-primary-main'>
                     {description}
                 </div>
-                <div className='flex justify-end items-end px-2'>
+                <div className='flex items-end justify-end px-2'>
                     {heartIcon}
                 </div>
                 <div className='flex flex-col justify-center p-2'>
                     {bookmarks}
                 </div>
-                <div className='p-2 mt-4'>
+                <div className='mt-4 p-2'>
                     {comments}
                     {commentInput}
                     {signup && (

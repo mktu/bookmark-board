@@ -18,11 +18,11 @@ const GroupItem: React.VFC<Props> = ({
         <li key={group.id} className={className}>
             <Link href={link}>
                 <a href={link} className='flex items-center'>
-                    <FolderOpen className='mr-1 w-5 h-5 stroke-primary-main' />
+                    <FolderOpen className='mr-1 h-5 w-5 stroke-primary-main' />
                     <p className='text-primary-main underline'>{group.name}</p>
                 </a>
             </Link>
-    
+
             {children}
         </li>
     )

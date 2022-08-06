@@ -21,22 +21,22 @@ const SimilarityList: React.VFC<Props> = ({
     moveBookmark
 }) => {
     const header = useMemo(() => (
-        <div className='z-10 p-2 w-full bg-white border-b border-primary-border shadow'>
+        <div className='z-10 w-full border-b border-primary-border bg-white p-2 shadow'>
             <h2 className='my-1 font-semibold text-primary-main'>Bookmark Advice</h2>
             <div className='text-sm text-primary-main'>
                 <span>タイトル・コメントの類似度に基づき、グルーピングの手助けします</span>
                 ({similarity?.updated} 分析)</div>
         </div>
-    ),[similarity])
+    ), [similarity])
     const listView = useMemo(() => allFetched ? bookmarkSimilarities.length > 0 ? (
-        <ul className='overflow-y-auto p-2 max-w-full h-full bg-white'>
+        <ul className='h-full max-w-full overflow-y-auto bg-white p-2'>
             {bookmarkSimilarities.map(g => (
                 <li key={g.groupId} className='py-2'>
                     <div className='flex items-center text-primary-main'>
-                        <FolderOpen className='mr-2 w-5 h-5 stroke-primary-main' />
+                        <FolderOpen className='mr-2 h-5 w-5 stroke-primary-main' />
                         <div>{g.groupName}</div>
                     </div>
-                    <ul className='px-2 max-w-full'>{g.similarities.map(b => b.bookmark && (
+                    <ul className='max-w-full px-2'>{g.similarities.map(b => b.bookmark && (
                         <li key={b.bookmarkId} className='mt-1'>
                             <ListItem diff={b.diff} moveBookmark={moveBookmark} addIgnore={addIgnore} bookmark={b.bookmark} detailPath={`/analyze/${b.bookmarkId}`} targetGroup={b.targetGroup} />
                         </li>
@@ -44,11 +44,11 @@ const SimilarityList: React.VFC<Props> = ({
                 </li>
             ))}
         </ul>
-    ): <NotFound /> : (
+    ) : <NotFound /> : (
         <SimilarityListPlaceholder />
     ), [bookmarkSimilarities, addIgnore, allFetched, moveBookmark])
     return (
-        <div className='flex flex-col w-full h-full'>
+        <div className='flex h-full w-full flex-col'>
             {header}
             {listView}
         </div>

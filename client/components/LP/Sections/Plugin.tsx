@@ -32,7 +32,7 @@ export const Content: React.ReactNode = (
         </div>
         <p className='mt-6 align-middle'>
             <span>また、</span>
-            <LineIcon className='inline-block mx-1 w-6 h-6' />
+            <LineIcon className='mx-1 inline-block h-6 w-6' />
             <span>LINEアカウントをお持ちの方はLINE連携の設定を行うことで、
             </span>
             <a href={addFriendLink} target='_blank' rel='noopener noreferrer' className='underline'>公式アカウント</a>

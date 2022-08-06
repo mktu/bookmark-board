@@ -3,7 +3,7 @@ import { FolderOpen } from '../../Common/Icon'
 
 type Props = {
     bookmarkGroup: BookmarkGroup,
-    style : React.CSSProperties
+    style: React.CSSProperties
 }
 
 const Preview: React.FC<Props> = ({
@@ -11,7 +11,7 @@ const Preview: React.FC<Props> = ({
     style
 }) => {
     return (
-        <button className=' flex items-center p-2 w-full text-primary-main' style={style}>
+        <button className=' flex w-full items-center p-2 text-primary-main' style={style}>
             <div>
                 <FolderOpen className='w-8 stroke-primary-main' strokeWidth={1} />
             </div>
