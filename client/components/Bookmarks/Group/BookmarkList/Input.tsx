@@ -60,7 +60,7 @@ const Input: React.FC<Props> = ({
 
     return (
         <div className='relative w-full border-t border-primary-border bg-white'>
-            <div className={`overflow-hidden transition-all duration-200 ease-in-out${show ? 'p-4' : 'h-0'}`}>
+            <div className={`overflow-hidden transition-all duration-200 ease-in-out ${show ? 'p-4' : 'h-0'}`}>
                 <div className='flex max-w-full flex-row items-center overflow-hidden'>
                     <div>
                         <SvgIconButton aria-label='Hide Input' className='mx-1 hidden md:block' onClick={() => { toggle(false) }}>
