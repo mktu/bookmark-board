@@ -32,7 +32,7 @@
     "linkifyjs": "2.1.9",
     "next": "12.2.4",
     "next-pwa": "5.5.4",
-    "postcss": "8.4.14",
+    "postcss": "8.4.16",
     "react": "18.2.0",
     "react-content-loader": "6.2.0",
     "react-dnd": "16.0.0",
