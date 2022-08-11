@@ -1,245 +1,243 @@
 import { config } from 'dotenv';
 config();
-import * as firebase from '@firebase/rules-unit-testing';
+import {
+    assertFails,
+    assertSucceeds,
+    initializeTestEnvironment,
+    RulesTestEnvironment,
+} from '@firebase/rules-unit-testing';
+import { setDoc, doc, collection, deleteDoc, getDoc } from "firebase/firestore";
 import * as fs from 'fs';
 
-describe('permissionTest', ()=>{
+describe('permissionTest', () => {
     const projectId = process.env.FIREBASE_PROJECT_ID || 'error';
+    const rules = fs.readFileSync('./firestore.rules', 'utf8');
+    let testEnv: RulesTestEnvironment;
 
-    beforeAll(
-        async () => {
-            const rules = fs.readFileSync('./firestore.rules', 'utf8');
-            await firebase.loadFirestoreRules({
-                projectId,
-                rules,
-            });
-        }
-    );
+    beforeAll(async () => {
+        testEnv = await initializeTestEnvironment({
+            projectId,
+            firestore: {
+                rules
+            },
+        });
+    })
 
     afterAll(
         async () => {
-            await firebase.clearFirestoreData({
-                projectId
-               });
-            await Promise.all(
-                firebase.apps().map((app) => app.delete()) 
-            );
+            await testEnv.clearFirestore()
+            await testEnv.cleanup()
         }
     );
 
-    function authedApp(auth:object) {
-        return firebase.initializeTestApp({
-            projectId,
-            auth,
-        }).firestore();
+    function authedApp(auth: { uid: string }) {
+        return testEnv.authenticatedContext(auth.uid).firestore();
     }
 
     function unAuthedApp() {
-        return firebase.initializeTestApp({
-            projectId,
-        }).firestore();
+        return testEnv.unauthenticatedContext().firestore();
     }
-    describe('profilePermissionTest', ()=>{
-        test('hasEditorPrivilege', async ()=>{
+    describe('profilePermissionTest', () => {
+        test('hasEditorPrivilege', async () => {
             const db = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
-            const doc = db.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
-            await firebase.assertSucceeds(doc.set({name: 'reds'}))
-            await firebase.assertSucceeds(doc.set({name: 'reds2'}))
-            await firebase.assertSucceeds(doc.delete())
+            const pDoc = doc(collection(db, 'profiles'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
+            await assertSucceeds(setDoc(pDoc, { name: 'reds' }))
+            await assertSucceeds(setDoc(pDoc, { name: 'reds2' }))
+            await assertSucceeds(deleteDoc(pDoc))
         })
-        test('notHaveAnyPrivilege', async ()=>{
+        test('notHaveAnyPrivilege', async () => {
             const db = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
-            const doc = db.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG2');
-            await firebase.assertSucceeds(doc.set({name: 'reds'}))
-            await firebase.assertFails(doc.set({name: 'reds2'}))
+            const pDoc = doc(collection(db, 'profiles'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2')
+            await assertSucceeds(setDoc(pDoc, { name: 'reds' }))
+            await assertFails(setDoc(pDoc, { name: 'reds2' }))
         })
-        test('notAuthed', async ()=>{
+        test('notAuthed', async () => {
             const db = unAuthedApp();
-            const doc = db.collection('profiles').doc('nullUid');
-            await firebase.assertFails(doc.set({roomName: 'reds'}))
+            const pDoc = doc(collection(db, 'profiles'), 'nullUid');
+            await assertFails(setDoc(pDoc, { roomName: 'reds' }))
         })
     })
 
-    describe('similarityPermissionTest', ()=>{
-        test('hasOwnerPrivilege', async ()=>{
+    describe('similarityPermissionTest', () => {
+        test('hasOwnerPrivilege', async () => {
             const db = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
-            const similaritydoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
-            await firebase.assertSucceeds(similaritydoc.set({count: 1}))
-            const bookamrkSimDoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('bookmarkSimilarities').doc('similarityTestId')
-            await firebase.assertSucceeds(bookamrkSimDoc.set({diff: 1}))
-            await firebase.assertSucceeds(bookamrkSimDoc.set({diff: 2.5}))
-            const ignoreSimDoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('ignoreList').doc('ignoreId')
-            await firebase.assertSucceeds(ignoreSimDoc.set({bookmarkId: 'b1'}))
-            await firebase.assertSucceeds(bookamrkSimDoc.delete())
-            await firebase.assertSucceeds(similaritydoc.delete())
-            await firebase.assertSucceeds(ignoreSimDoc.delete())
+            const similaritydoc = doc(collection(db, 'similarities'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
+            await assertSucceeds(setDoc(similaritydoc, { count: 1 }))
+            const bookamrkSimDoc = doc(collection(doc(collection(db, 'similarities'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'), 'bookmarkSimilarities'), 'similarityTestId')
+            await assertSucceeds(setDoc(bookamrkSimDoc, { diff: 1 }))
+            await assertSucceeds(setDoc(bookamrkSimDoc, { diff: 2.5 }))
+            const ignoreSimDoc = doc(collection(doc(collection(db, 'similarities'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'), 'ignoreList'), 'ignoreId')
+            await assertSucceeds(setDoc(ignoreSimDoc, { bookmarkId: 'b1' }))
+            await assertSucceeds(deleteDoc(bookamrkSimDoc))
+            await assertSucceeds(deleteDoc(similaritydoc))
+            await assertSucceeds(deleteDoc(ignoreSimDoc))
         })
-        test('notAuthed', async ()=>{
+        test('notAuthed', async () => {
             const db = unAuthedApp();
-            const similaritydoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
-            await firebase.assertFails(similaritydoc.set({count: 1}))
-            const bookamrkSimDoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('bookmarkSimilarities').doc('similarityTestId')
-            await firebase.assertFails(bookamrkSimDoc.set({diff: 1}))
-            const ignoreSimDoc = db.collection('similarities').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('ignoreList').doc('ignoreId')
-            await firebase.assertFails(ignoreSimDoc.set({bookmarkId: 'b1'}))
+            const similaritydoc = doc(collection(db, 'similarities'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
+            await assertFails(setDoc(similaritydoc, { count: 1 }))
+            const bookamrkSimDoc = doc(collection(doc(collection(db, 'similarities'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'), 'bookmarkSimilarities'), 'similarityTestId')
+            await assertFails(setDoc(bookamrkSimDoc, { diff: 1 }))
+            const ignoreSimDoc = doc(collection(doc(collection(db, 'similarities'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'), 'ignoreList'), 'ignoreId')
+            await assertFails(setDoc(ignoreSimDoc, { bookmarkId: 'b1' }))
         })
     })
 
-    describe('notificationPermissionTest', ()=>{
-        test('hasProfilePrivilege', async ()=>{
+    describe('notificationPermissionTest', () => {
+        test('hasProfilePrivilege', async () => {
             const db = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
-            const profileDoc = db.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3')
-            await profileDoc.set({name: 'reds'})
-            const notificationDoc = db.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc()
-            await firebase.assertSucceeds(notificationDoc.set({name: 'reds'}))
-            await firebase.assertSucceeds(notificationDoc.set({name: 'reds2'}))
-            await firebase.assertSucceeds(notificationDoc.delete())
+            const profileDoc = doc(collection(db, 'profiles'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3')
+            await setDoc(profileDoc, { name: 'reds' })
+            const notificationDoc = doc(collection(doc(collection(db, 'profiles'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'), 'notifications'))
+            await assertSucceeds(setDoc(notificationDoc, { name: 'reds' }))
+            await assertSucceeds(setDoc(notificationDoc, { name: 'reds2' }))
+            await assertSucceeds(deleteDoc(notificationDoc))
         })
-        test('onlyHaveOwnsPrivilege', async ()=>{
+        test('onlyHaveOwnsPrivilege', async () => {
             const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
             const editorDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' });
             const profileDoc = ownerDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
-            await profileDoc.set({name: 'reds'})
+            await setDoc(profileDoc, { name: 'reds' })
             const notificationDocFromOwner = ownerDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc('test')
-            await firebase.assertSucceeds(notificationDocFromOwner.set({name: 'reds'}))
+            await assertSucceeds(setDoc(notificationDocFromOwner, { name: 'reds' }))
             // access to the other's document 
             const notificationDoc = editorDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc('test')
-            await firebase.assertFails(notificationDoc.get())
-            await firebase.assertFails(notificationDoc.set({name: 'reds2'}))
+            await assertFails(getDoc(notificationDoc))
+            await assertFails(setDoc(notificationDoc, { name: 'reds2' }))
         })
-        test('notAuthed', async ()=>{
+        test('notAuthed', async () => {
             const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
-            const profileDoc = ownerDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
-            await profileDoc.set({name: 'reds'})
-            const notificationDoc = ownerDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc('test')
-            await firebase.assertSucceeds(notificationDoc.set({name: 'reds'}))
+            const profileDoc = doc(collection(ownerDb, 'profiles'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3');
+            await setDoc(profileDoc, { name: 'reds' })
+            const notificationDoc = doc(collection(doc(collection(ownerDb, 'profiles'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'), 'notifications'), 'test')
+            await assertSucceeds(setDoc(notificationDoc, { name: 'reds' }))
             const unauthedDb = unAuthedApp();
             // access to the other's document 
-            const doc = unauthedDb.collection('profiles').doc('tAFWJ8p1jQXFWG4p5GAa5nrwxgG3').collection('notifications').doc('test')
-            await firebase.assertFails(doc.get())
-            await firebase.assertFails(doc.set({roomName: 'reds'}))
+            const nDoc = doc(collection(doc(collection(unauthedDb, 'profiles'), 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'), 'notifications'), 'test')
+            await assertFails(getDoc(nDoc))
+            await assertFails(setDoc(nDoc, { roomName: 'reds' }))
         })
     })
 
-    describe('bookmarkPermissionTest', ()=>{
-        test('group', async ()=>{
+    describe('bookmarkPermissionTest', () => {
+        test('group', async () => {
             const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
             const editorDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' });
             const outsiderDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG0' });
             const unAuthedDb = unAuthedApp();
-            const ownerGroupDoc = ownerDb.collection('groups').doc('somegroup');
-            const editorGroupDoc = editorDb.collection('groups').doc('somegroup');
-            const outsiderGroupDoc = outsiderDb.collection('groups').doc('somegroup');
-            const unAuthedGroupDoc = unAuthedDb.collection('groups').doc('somegroup');
-            await firebase.assertFails(editorGroupDoc.set({name: 'reds', users : ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3','tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner : 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'}))
-            await firebase.assertFails(outsiderGroupDoc.set({name: 'reds', users : ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3','tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner : 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'}))
-            await firebase.assertFails(unAuthedGroupDoc.set({name: 'reds', users : ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3','tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner : 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'}))
-            await firebase.assertSucceeds(ownerGroupDoc.set({name: 'reds', users : ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3','tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner : 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'}))
-            await firebase.assertSucceeds(ownerGroupDoc.get())
-            await firebase.assertSucceeds(editorGroupDoc.get())
-            await firebase.assertSucceeds(outsiderGroupDoc.get()) 
-            await firebase.assertFails(unAuthedGroupDoc.get())
-            await firebase.assertSucceeds(ownerGroupDoc.set({name: 'reds2'}, {merge:true}))
-            await firebase.assertSucceeds(editorGroupDoc.set({name: 'reds2'}, {merge:true}))
-            await firebase.assertFails(outsiderGroupDoc.set({name: 'reds2'}, {merge:true}))
-            await firebase.assertFails(unAuthedGroupDoc.set({name: 'reds2'}, {merge:true}))
-            await firebase.assertFails(unAuthedGroupDoc.delete())
-            await firebase.assertFails(outsiderGroupDoc.delete())
-            await firebase.assertFails(editorGroupDoc.delete())
-            await firebase.assertSucceeds(ownerGroupDoc.delete())
+            const ownerGroupDoc = doc(collection(ownerDb, 'groups'), 'somegroup');
+            const editorGroupDoc = doc(collection(editorDb, 'groups'), 'somegroup');
+            const outsiderGroupDoc = doc(collection(outsiderDb, 'groups'), 'somegroup');
+            const unAuthedGroupDoc = doc(collection(unAuthedDb, 'groups'), 'somegroup');
+            await assertFails(setDoc(editorGroupDoc, { name: 'reds', users: ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3', 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' }))
+            await assertFails(setDoc(outsiderGroupDoc, { name: 'reds', users: ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3', 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' }))
+            await assertFails(setDoc(unAuthedGroupDoc, { name: 'reds', users: ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3', 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' }))
+            await assertSucceeds(setDoc(ownerGroupDoc, { name: 'reds', users: ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3', 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' }))
+            await assertSucceeds(getDoc(ownerGroupDoc))
+            await assertSucceeds(getDoc(editorGroupDoc))
+            await assertSucceeds(getDoc(outsiderGroupDoc))
+            await assertFails(getDoc(unAuthedGroupDoc))
+            await assertSucceeds(setDoc(ownerGroupDoc, { name: 'reds2' }, { merge: true }))
+            await assertSucceeds(setDoc(editorGroupDoc, { name: 'reds2' }, { merge: true }))
+            await assertFails(setDoc(outsiderGroupDoc, { name: 'reds2' }, { merge: true }))
+            await assertFails(setDoc(unAuthedGroupDoc, { name: 'reds2' }, { merge: true }))
+            await assertFails(deleteDoc(unAuthedGroupDoc))
+            await assertFails(deleteDoc(outsiderGroupDoc))
+            await assertFails(deleteDoc(editorGroupDoc))
+            await assertSucceeds(deleteDoc(ownerGroupDoc))
         })
-        test('bookmark', async ()=>{
+        test('bookmark', async () => {
             const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
             const editorDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' });
             const outsiderDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG0' });
             const unAuthedDb = unAuthedApp();
-            const ownerGroupDoc = ownerDb.collection('groups').doc('somegroup');
-            await firebase.assertSucceeds(ownerGroupDoc.set({name: 'reds', users : ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3','tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner : 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'}))
-            const ownerBookmarkDoc = ownerDb.collection('groups').doc('somegroup').collection('bookmarks').doc('somebookmarks');
-            const editorBookmarkDoc = editorDb.collection('groups').doc('somegroup').collection('bookmarks').doc('somebookmarks2');
-            const outsiderBookmarkDoc = outsiderDb.collection('groups').doc('somegroup').collection('bookmarks').doc('somebookmarks');
-            const unAuthedBookmarkDoc = unAuthedDb.collection('groups').doc('somegroup').collection('bookmarks').doc('somebookmarks');
-            await firebase.assertFails(unAuthedBookmarkDoc.set({name: 'bookmark'}, {merge:true}))
-            await firebase.assertFails(outsiderBookmarkDoc.set({name: 'bookmark'}, {merge:true}))
-            await firebase.assertSucceeds(ownerBookmarkDoc.set({name: 'bookmark'}, {merge:true}))
-            await firebase.assertSucceeds(editorBookmarkDoc.set({name: 'bookmark2'}, {merge:true}))
-            await firebase.assertFails(unAuthedBookmarkDoc.get())
-            await firebase.assertSucceeds(outsiderBookmarkDoc.get()) // for snapshot listener issue
-            await firebase.assertSucceeds(ownerBookmarkDoc.get())
-            await firebase.assertSucceeds(editorBookmarkDoc.get())
-            await firebase.assertFails(unAuthedBookmarkDoc.set({name: 'bookmark-2'}, {merge:true}))
-            await firebase.assertFails(outsiderBookmarkDoc.set({name: 'bookmark-2'}, {merge:true}))
-            await firebase.assertSucceeds(ownerBookmarkDoc.set({name: 'bookmark-2'}, {merge:true}))
-            await firebase.assertSucceeds(editorBookmarkDoc.set({name: 'bookmark2-2'}, {merge:true}))
-            await firebase.assertFails(unAuthedBookmarkDoc.delete())
-            await firebase.assertFails(outsiderBookmarkDoc.delete())
-            await firebase.assertSucceeds(ownerBookmarkDoc.delete())
-            await firebase.assertSucceeds(editorBookmarkDoc.delete())
+            const ownerGroupDoc = doc(collection(ownerDb, 'groups'), 'somegroup');
+            await assertSucceeds(setDoc(ownerGroupDoc, { name: 'reds', users: ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3', 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' }))
+            const ownerBookmarkDoc = doc(collection(doc(collection(ownerDb, 'groups'), 'somegroup'), 'bookmarks'), 'somebookmarks');
+            const editorBookmarkDoc = doc(collection(doc(collection(editorDb, 'groups'), 'somegroup'), 'bookmarks'), 'somebookmarks2');
+            const outsiderBookmarkDoc = doc(collection(doc(collection(outsiderDb, 'groups'), 'somegroup'), 'bookmarks'), 'somebookmarks');
+            const unAuthedBookmarkDoc = doc(collection(doc(collection(unAuthedDb, 'groups'), 'somegroup'), 'bookmarks'), 'somebookmarks');
+            await assertFails(setDoc(unAuthedBookmarkDoc, { name: 'bookmark' }, { merge: true }))
+            await assertFails(setDoc(outsiderBookmarkDoc, { name: 'bookmark' }, { merge: true }))
+            await assertSucceeds(setDoc(ownerBookmarkDoc, { name: 'bookmark' }, { merge: true }))
+            await assertSucceeds(setDoc(editorBookmarkDoc, { name: 'bookmark2' }, { merge: true }))
+            await assertFails(getDoc(unAuthedBookmarkDoc))
+            await assertSucceeds(getDoc(outsiderBookmarkDoc)) // for snapshot listener issue
+            await assertSucceeds(getDoc(ownerBookmarkDoc))
+            await assertSucceeds(getDoc(editorBookmarkDoc))
+            await assertFails(setDoc(unAuthedBookmarkDoc, { name: 'bookmark-2' }, { merge: true }))
+            await assertFails(setDoc(outsiderBookmarkDoc, { name: 'bookmark-2' }, { merge: true }))
+            await assertSucceeds(setDoc(ownerBookmarkDoc, { name: 'bookmark-2' }, { merge: true }))
+            await assertSucceeds(setDoc(editorBookmarkDoc, { name: 'bookmark2-2' }, { merge: true }))
+            await assertFails(deleteDoc(unAuthedBookmarkDoc))
+            await assertFails(deleteDoc(outsiderBookmarkDoc))
+            await assertSucceeds(deleteDoc(ownerBookmarkDoc))
+            await assertSucceeds(deleteDoc(editorBookmarkDoc))
         })
 
-        test('request', async ()=>{
+        test('request', async () => {
             const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
             const editorDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' });
             const requesterDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG1' });
             const outsiderDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG0' });
             const unAuthedDb = unAuthedApp();
-            const ownerGroupDoc = ownerDb.collection('groups').doc('somegroup');
-            await firebase.assertSucceeds(ownerGroupDoc.set({name: 'reds', users : ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3','tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner : 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'}))
-            const ownerRequestDoc = ownerDb.collection('groups').doc('somegroup').collection('requests').doc('somerequests');
-            const editorRequestDoc = editorDb.collection('groups').doc('somegroup').collection('requests').doc('somerequests');
-            const requesterRequestDoc = requesterDb.collection('groups').doc('somegroup').collection('requests').doc('somerequests');
-            const outsiderRequestDoc = outsiderDb.collection('groups').doc('somegroup').collection('requests').doc('somerequests');
-            const unAuthedRequestDoc = unAuthedDb.collection('groups').doc('somegroup').collection('requests').doc('somerequests');
-            await firebase.assertFails(ownerRequestDoc.set({sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'}, {merge:true}))
-            await firebase.assertFails(editorRequestDoc.set({sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'}, {merge:true}))
-            await firebase.assertFails(unAuthedRequestDoc.set({sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'}, {merge:true}))
-            await firebase.assertFails(outsiderRequestDoc.set({sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'}, {merge:true}))
-            await firebase.assertSucceeds(requesterRequestDoc.set({sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG1'}, {merge:true}))
-            await firebase.assertSucceeds(ownerRequestDoc.get())
-            await firebase.assertSucceeds(editorRequestDoc.get())
-            await firebase.assertFails(unAuthedRequestDoc.get())
-            await firebase.assertSucceeds(outsiderRequestDoc.get()) // for snapshot listener issue
-            await firebase.assertSucceeds(ownerRequestDoc.get())
-            await firebase.assertFails(editorRequestDoc.set({status: 'accepted'}, {merge:true}))
-            await firebase.assertFails(unAuthedRequestDoc.set({status: 'accepted'}, {merge:true}))
-            await firebase.assertFails(outsiderRequestDoc.set({status: 'accepted'}, {merge:true}))
-            await firebase.assertFails(requesterRequestDoc.set({status: 'accepted'}, {merge:true}))
-            await firebase.assertSucceeds(ownerRequestDoc.set({status: 'accepted'}, {merge:true}))
-            await firebase.assertFails(editorRequestDoc.delete())
-            await firebase.assertFails(unAuthedRequestDoc.delete())
-            await firebase.assertFails(outsiderRequestDoc.delete())
-            await firebase.assertFails(ownerRequestDoc.delete())
-            await firebase.assertSucceeds(requesterRequestDoc.delete())
+            const ownerGroupDoc = doc(collection(ownerDb, 'groups'), 'somegroup');
+            await assertSucceeds(setDoc(ownerGroupDoc, { name: 'reds', users: ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3', 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' }))
+            const ownerRequestDoc = doc(collection(doc(collection(ownerDb, 'groups'), 'somegroup'), 'requests'), 'somerequests');
+            const editorRequestDoc = doc(collection(doc(collection(editorDb, 'groups'), 'somegroup'), 'requests'), 'somerequests');
+            const requesterRequestDoc = doc(collection(doc(collection(requesterDb, 'groups'), 'somegroup'), 'requests'), 'somerequests');
+            const outsiderRequestDoc = doc(collection(doc(collection(outsiderDb, 'groups'), 'somegroup'), 'requests'), 'somerequests');
+            const unAuthedRequestDoc = doc(collection(doc(collection(unAuthedDb, 'groups'), 'somegroup'), 'requests'), 'somerequests');
+            await assertFails(setDoc(ownerRequestDoc, { sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' }, { merge: true }))
+            await assertFails(setDoc(editorRequestDoc, { sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' }, { merge: true }))
+            await assertFails(setDoc(unAuthedRequestDoc, { sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' }, { merge: true }))
+            await assertFails(setDoc(outsiderRequestDoc, { sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' }, { merge: true }))
+            await assertSucceeds(setDoc(requesterRequestDoc, { sender: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG1' }, { merge: true }))
+            await assertSucceeds(getDoc(ownerRequestDoc))
+            await assertSucceeds(getDoc(editorRequestDoc))
+            await assertFails(getDoc(unAuthedRequestDoc))
+            await assertSucceeds(getDoc(outsiderRequestDoc)) // for snapshot listener issue
+            await assertSucceeds(getDoc(ownerRequestDoc))
+            await assertFails(setDoc(editorRequestDoc, { status: 'accepted' }, { merge: true }))
+            await assertFails(setDoc(unAuthedRequestDoc, { status: 'accepted' }, { merge: true }))
+            await assertFails(setDoc(outsiderRequestDoc, { status: 'accepted' }, { merge: true }))
+            await assertFails(setDoc(requesterRequestDoc, { status: 'accepted' }, { merge: true }))
+            await assertSucceeds(setDoc(ownerRequestDoc, { status: 'accepted' }, { merge: true }))
+            await assertFails(deleteDoc(editorRequestDoc))
+            await assertFails(deleteDoc(unAuthedRequestDoc))
+            await assertFails(deleteDoc(outsiderRequestDoc))
+            await assertFails(deleteDoc(ownerRequestDoc))
+            await assertSucceeds(deleteDoc(requesterRequestDoc))
         })
 
-        test('comment', async ()=>{
+        test('comment', async () => {
             const ownerDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' });
             const editorDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2' });
             const outsiderDb = authedApp({ uid: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG0' });
             const unAuthedDb = unAuthedApp();
-            const ownerGroupDoc = ownerDb.collection('groups').doc('somegroup');
-            await firebase.assertSucceeds(ownerGroupDoc.set({name: 'reds', users : ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3','tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner : 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3'}))
-            const ownerCommentDoc = ownerDb.collection('groups').doc('somegroup').collection('comments').doc('somecomment1');
-            const editorCommentDoc = editorDb.collection('groups').doc('somegroup').collection('comments').doc('somecomment2');
-            const outsiderCommentDoc = outsiderDb.collection('groups').doc('somegroup').collection('comments').doc('somecomment3');
-            const unAuthedCommentDoc = unAuthedDb.collection('groups').doc('somegroup').collection('comments').doc('somecomment1');
-            await firebase.assertFails(unAuthedCommentDoc.set({comment: 'hello'}, {merge:true}))
-            await firebase.assertSucceeds(outsiderCommentDoc.set({comment: 'hello'}, {merge:true}))
-            await firebase.assertSucceeds(editorCommentDoc.set({comment: 'hello'}, {merge:true}))
-            await firebase.assertSucceeds(ownerCommentDoc.set({comment: 'hello'}, {merge:true}))
-            await firebase.assertFails(unAuthedCommentDoc.get())
-            await firebase.assertSucceeds(outsiderCommentDoc.get())
-            await firebase.assertSucceeds(editorCommentDoc.get())
-            await firebase.assertSucceeds(ownerCommentDoc.get())
-            await firebase.assertFails(unAuthedCommentDoc.set({comment: 'hi'}, {merge:true}))
-            await firebase.assertSucceeds(outsiderCommentDoc.set({comment: 'hi'}, {merge:true}))
-            await firebase.assertSucceeds(ownerCommentDoc.set({comment: 'hi'}, {merge:true}))
-            await firebase.assertSucceeds(editorCommentDoc.set({comment: 'hi'}, {merge:true}))
-            await firebase.assertFails(unAuthedCommentDoc.delete())
-            await firebase.assertSucceeds(outsiderCommentDoc.delete())
-            await firebase.assertSucceeds(editorCommentDoc.delete())
-            await firebase.assertSucceeds(ownerCommentDoc.delete())
+            const ownerGroupDoc = doc(collection(ownerDb, 'groups'), 'somegroup');
+            await assertSucceeds(setDoc(ownerGroupDoc, { name: 'reds', users: ['tAFWJ8p1jQXFWG4p5GAa5nrwxgG3', 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG2'], owner: 'tAFWJ8p1jQXFWG4p5GAa5nrwxgG3' }))
+            const ownerCommentDoc = doc(collection(doc(collection(ownerDb, 'groups'), 'somegroup'), 'comments'), 'somecomment1');
+            const editorCommentDoc = doc(collection(doc(collection(editorDb, 'groups'), 'somegroup'), 'comments'), 'somecomment2');
+            const outsiderCommentDoc = doc(collection(doc(collection(outsiderDb, 'groups'), 'somegroup'), 'comments'), 'somecomment3');
+            const unAuthedCommentDoc = doc(collection(doc(collection(unAuthedDb, 'groups'), 'somegroup'), 'comments'), 'somecomment1');
+            await assertFails(setDoc(unAuthedCommentDoc, { comment: 'hello' }, { merge: true }))
+            await assertSucceeds(setDoc(outsiderCommentDoc, { comment: 'hello' }, { merge: true }))
+            await assertSucceeds(setDoc(editorCommentDoc, { comment: 'hello' }, { merge: true }))
+            await assertSucceeds(setDoc(ownerCommentDoc, { comment: 'hello' }, { merge: true }))
+            await assertFails(getDoc(unAuthedCommentDoc))
+            await assertSucceeds(getDoc(outsiderCommentDoc))
+            await assertSucceeds(getDoc(editorCommentDoc))
+            await assertSucceeds(getDoc(ownerCommentDoc))
+            await assertFails(setDoc(unAuthedCommentDoc, { comment: 'hi' }, { merge: true }))
+            await assertSucceeds(setDoc(outsiderCommentDoc, { comment: 'hi' }, { merge: true }))
+            await assertSucceeds(setDoc(ownerCommentDoc, { comment: 'hi' }, { merge: true }))
+            await assertSucceeds(setDoc(editorCommentDoc, { comment: 'hi' }, { merge: true }))
+            await assertFails(deleteDoc(unAuthedCommentDoc))
+            await assertSucceeds(deleteDoc(outsiderCommentDoc))
+            await assertSucceeds(deleteDoc(editorCommentDoc))
+            await assertSucceeds(deleteDoc(ownerCommentDoc))
         })
-        
+
     })
 })
