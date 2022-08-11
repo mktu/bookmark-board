@@ -2,7 +2,6 @@ import * as functions from "firebase-functions";
 import scrape from './scrape'
 import capture from './capture'
 import { lineBot } from './linebot'
-import { createIndex, updateIndex, deleteIndex } from './algolia'
 import app from './admin'
 import { getFirestore } from 'firebase-admin/firestore'
 import { onWriteReactions } from './triggers'
@@ -72,43 +71,6 @@ export const completeBookmark = functions
       .collection('bookmarks')
       .doc(bookmarkId)
     await bookmarkDoc.update(updateData)
-  });
-
-export const createAlgoliaIndex = functions
-  .region('asia-northeast1')
-  .https
-  .onCall(async (data) => {
-    const groupId = data.groupId as string
-    if (!groupId) {
-      throw new functions.https.HttpsError('invalid-argument', 'groupId parameter is undefined.')
-    }
-    await createIndex(groupId)
-  });
-
-export const updateAlgoliaIndex = functions
-  .region('asia-northeast1')
-  .https
-  .onCall(async (data) => {
-    const groupId = data.groupId as string
-    if (!groupId) {
-      throw new functions.https.HttpsError('invalid-argument', 'groupId parameter is undefined.')
-    }
-    const updated: Parameters<typeof updateIndex>[1] = {
-      name: data.name,
-      description: data.description
-    }
-    await updateIndex(groupId, updated)
-  });
-
-export const deleteAlgoliaIndex = functions
-  .region('asia-northeast1')
-  .https
-  .onCall(async (data) => {
-    const groupId = data.groupId as string
-    if (!groupId) {
-      throw new functions.https.HttpsError('invalid-argument', 'groupId parameter is undefined.')
-    }
-    await deleteIndex(groupId)
   });
 
 export {
