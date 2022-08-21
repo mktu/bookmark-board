@@ -24,7 +24,7 @@
     "autoprefixer": "10.4.8",
     "classnames": "2.3.1",
     "compressorjs": "1.1.1",
-    "firebase": "9.9.2",
+    "firebase": "9.9.3",
     "firebase-admin": "11.0.1",
     "focus-visible": "5.2.0",
     "initials": "3.1.2",
