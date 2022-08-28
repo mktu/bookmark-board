@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "@line/liff": "2.21.0",
-    "@next/bundle-analyzer": "9.5.5",
+    "@next/bundle-analyzer": "12.2.5",
     "@popperjs/core": "2.11.6",
     "@reduxjs/toolkit": "1.8.5",
     "@types/linkifyjs": "2.1.4",
