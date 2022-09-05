@@ -21,8 +21,8 @@
     "@types/uuid": "8.3.4",
     "firebase-admin": "11.0.1",
     "firebase-functions": "3.22.0",
-    "get-urls": "11.0.0",
-    "node-fetch": "3.2.10",
+    "get-urls": "^10.0.1",
+    "node-fetch": "^2.6.6",
     "open-graph-scraper": "4.11.1",
     "puppeteer": "15.5.0",
     "uuid": "8.3.2"
