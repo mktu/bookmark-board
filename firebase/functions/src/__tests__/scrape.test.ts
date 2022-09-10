@@ -21,7 +21,7 @@ describe('scraping tests', () => {
             description: '“Next.js 12とnext-pwaの組み合わせでいつの間にかbad-precaching-responseエラーが...。こちら記載のquick fixでなんとか解消🙇‍♂️ https://t.co/teZvWzj8B3”',
             url: 'https://twitter.com/mktu13/status/1467334593556934659?s=20',
             images: [
-                'https://pbs.twimg.com/card_img/1468926565438586881/21mtmJNd?format=jpg&name=600x314'
+                'https://pbs.twimg.com/profile_images/1376173980625739785/JbhuJSE8_400x400.jpg'
             ]
         }));
     })

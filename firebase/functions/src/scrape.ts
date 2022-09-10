@@ -1,18 +1,18 @@
 import ogs, { Options, SuccessResult } from 'open-graph-scraper'
-import {https, logger} from "firebase-functions";
+import { https, logger } from "firebase-functions";
 import fetch from 'node-fetch'
 
-const doScrape = async (url:string) => {
+const doScrape = async (url: string) => {
     const options: Options = {
         url,
         timeout: 10000,
         headers: {
-            "user-agent": 'bot' ,
+            "user-agent": 'bot',
         },
     }
-    try{
+    try {
         return await ogs(options)
-    }catch(e){
+    } catch (e) {
         logger.error(e)
         throw new https.HttpsError('invalid-argument', 'scraping error')
     }
@@ -25,9 +25,9 @@ const scrape = async (url: string, validate?: boolean) => {
         throw new https.HttpsError('invalid-argument', ret.result.error)
     }
     const successData = ret as SuccessResult
-    let images : string[] = []
-    if(successData.result.ogImage){
-        if(Array.isArray(successData.result.ogImage)){
+    let images: string[] = []
+    if (successData.result.ogImage) {
+        if (Array.isArray(successData.result.ogImage)) {
             images = successData.result.ogImage.map(v => typeof v === 'string' ? v : v.url)
         } else {
             images = [successData.result.ogImage.url]
