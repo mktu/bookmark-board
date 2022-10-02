@@ -21,10 +21,10 @@ const PublicBookmarksPage: React.FC<InferGetStaticPropsType<typeof getStaticProp
 }) => {
   const router = useRouter()
   if (router.isFallback) {
-    return <div className='flex justify-center items-center p-4 w-full text-lg text-primary-main'>ページを準備中です...</div>
+    return <div className='flex w-full items-center justify-center p-4 text-lg text-primary-main'>ページを準備中です...</div>
   }
   if (!group.sharable) {
-    return <div className='flex justify-center items-center p-4 w-full text-lg text-primary-main'>非公開ページです</div>
+    return <div className='flex w-full items-center justify-center p-4 text-lg text-primary-main'>非公開ページです</div>
   }
   return (
     <div>
