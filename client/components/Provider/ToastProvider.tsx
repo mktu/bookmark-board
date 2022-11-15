@@ -1,3 +1,5 @@
+import { SvgIconButton } from '@components/Common/Button';
+import X from '@components/Common/Icon/X';
 import React from 'react'
 import { ToastContainer, Slide } from 'react-toastify';
 
@@ -18,12 +20,16 @@ const ToastProvider: React.FC = () => (
         bodyClassName={() => "text-sm font-white font-med block p-3"}
         autoClose={5000}
         hideProgressBar
+        closeButton={({ closeToast, ariaLabel }) => (
+            <SvgIconButton aria-label={ariaLabel} onClick={closeToast}><X strokeWidth={2} className='mr-2 h-5 w-5 stroke-white' /></SvgIconButton>
+        )}
         transition={Slide}
         newestOnTop={false}
         closeOnClick
         rtl={false}
         pauseOnFocusLoss
         draggable
+        icon={false}
         pauseOnHover
     />
 )
