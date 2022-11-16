@@ -1,7 +1,7 @@
 import { SvgIconButton } from '@components/Common/Button';
 import X from '@components/Common/Icon/X';
 import React from 'react'
-import { ToastContainer, Slide } from 'react-toastify';
+import { ToastContainer, cssTransition } from 'react-toastify';
 
 const contextClass = {
     success: "bg-blue-500",
@@ -11,6 +11,13 @@ const contextClass = {
     default: "bg-blue-500",
     dark: "bg-white-600 font-gray-300",
 };
+
+const Slide = cssTransition({
+    enter: `Toastify--animate-icon Toastify__slide-enter`,
+    exit: `Toastify--animate-icon Toastify__slide-exit`,
+    collapseDuration: 300,
+    appendPosition: true
+});
 
 const ToastProvider: React.FC = () => (
     <ToastContainer
