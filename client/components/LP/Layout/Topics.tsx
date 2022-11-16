@@ -1,5 +1,6 @@
-import React  from 'react'
+import React from 'react'
 import classNames from 'classnames'
+import { useInView } from 'react-intersection-observer'
 
 type Topic = {
     icon: React.ReactNode,
@@ -15,15 +16,18 @@ type Props = {
     style?: React.CSSProperties
 }
 
-const Topic = React.forwardRef<HTMLElement, Props>(function topic({
+const Topic: React.FC<Props> = ({
     title,
     topics,
     description,
     className,
-    style
-}, ref) {
+    style }) => {
+    const { ref, inView } = useInView({ triggerOnce: true })
     return (
-        <section ref={ref} style={style} className={classNames('w-full md:p-8 break-words flex flex-col justify-center items-center', className)}>
+        <section ref={ref} style={style} className={classNames(
+            'w-full md:p-8 break-words flex flex-col justify-center items-center transition-all duration-1000',
+            inView ? 'opacity-100' : 'opacity-0',
+            className)}>
             <h1 className='my-4 text-2xl font-bold text-primary-700'>{title}</h1>
             <div className='mb-4'>{description}</div>
             <div className='justify-between md:flex'>
@@ -41,6 +45,6 @@ const Topic = React.forwardRef<HTMLElement, Props>(function topic({
             </div>
         </section>
     )
-})
+}
 
 export default Topic;
