@@ -1,5 +1,6 @@
 import React, { CSSProperties } from 'react'
 import classNames from 'classnames'
+import { useInView } from 'react-intersection-observer'
 
 type ContentProps = {
     title: React.ReactNode | string,
@@ -51,14 +52,18 @@ const LeftImageLayout: React.FC<ContentProps> = ({
     </>
 )
 
-const SideBySide = React.forwardRef<HTMLElement, Props>(function sideBySide({
+const SideBySide: React.FC<Props> = ({
     className,
     imageLeft = false,
     style,
     ...props
-}, ref) {
+}) => {
+    const { ref, inView } = useInView({ triggerOnce: true })
     return (
-        <section style={style} ref={ref} className={classNames('w-full md:flex flex-row p-4 md:p-8 justify-center', className)} >
+        <section style={style} ref={ref} className={classNames(
+            'w-full md:flex flex-row p-4 md:p-8 justify-center transition-all duration-1000',
+            inView ? 'opacity-100' : 'opacity-0',
+            className)} >
             {imageLeft ? (
                 <LeftImageLayout {...props} />
             ) : (
@@ -66,6 +71,6 @@ const SideBySide = React.forwardRef<HTMLElement, Props>(function sideBySide({
             )}
         </section>
     )
-})
+}
 
 export default SideBySide;
