@@ -56,13 +56,15 @@ const Selector: React.FC<Props> = ({
                 </label>
             </div>
             <div>
-                <Link href={colorSettingPath}>
-                    <a href={colorSettingPath} className='text-sm text-link-main underline hover:text-link-hover'>色設定へ</a>
+                <Link
+                    href={colorSettingPath}
+                    className='text-sm text-link-main underline hover:text-link-hover'>
+                    色設定へ
                 </Link>
 
             </div>
         </div>
-    )
+    );
 }
 
 export default Selector

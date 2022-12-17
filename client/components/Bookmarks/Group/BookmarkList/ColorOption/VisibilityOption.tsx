@@ -68,14 +68,14 @@ const VisibilityOption: React.FC<Props> = ({
                 )
             })}
             <div className='mt-2 flex justify-end'>
-                <Link href={colorSettingPath} shallow>
+                <Link href={colorSettingPath} shallow legacyBehavior>
                     {// eslint-disable-next-line jsx-a11y/anchor-is-valid
                         (<a className='inline-block text-sm text-link-main underline hover:text-link-hover'>色設定へ</a>)
                     }
                 </Link>
             </div>
         </div>
-    )
+    );
 }
 
 export default VisibilityOption

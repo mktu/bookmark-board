@@ -59,30 +59,32 @@ const Presenter: React.FC<Props> = ({
                     {image}
                 </div>
                 <div style={{ minHeight: BookmarkListImageSize }} className='mx-2' />
-                <Link href={detailLink}>
-                    <a href={detailLink} className='flex max-w-full flex-1 flex-col items-start justify-center overflow-hidden' tabIndex={0}>
-                        <div className='max-w-full overflow-hidden truncate'>{title || url}</div>
-                        {description && (<div className='max-w-full overflow-hidden truncate text-xs text-primary-main' key={description} > {description}</div>)}
-                        {url && (
-                            <div className='mt-auto max-w-full items-center overflow-hidden truncate pt-1 text-xs text-primary-main md:flex' >
-                                {url && (
-                                    <div className='flex items-center'>
-                                        <span>
-                                            <LinkIcon className='mr-1 w-4 stroke-primary-main' />
-                                        </span>
-                                        <span className='max-w-full overflow-hidden truncate text-primary-main' > {url}</span>
-                                    </div>
-                                )}
-                            </div>)}
-                        {comment && (
-                            <div className='mt-1 flex max-w-full items-center rounded border border-primary-border p-1 text-xs text-primary-main' >
-                                <Chat className='mr-1 w-6 stroke-primary-300' strokeWidth={1} />
-                                <div className='flex-1 overflow-hidden truncate'>
-                                    {comment}
-                                </div>
-                            </div>)}
+                <Link
+                    href={detailLink}
+                    className='flex max-w-full flex-1 flex-col items-start justify-center overflow-hidden'
+                    tabIndex={0}>
 
-                    </a>
+                    <div className='max-w-full overflow-hidden truncate'>{title || url}</div>
+                    {description && (<div className='max-w-full overflow-hidden truncate text-xs text-primary-main' key={description} > {description}</div>)}
+                    {url && (
+                        <div className='mt-auto max-w-full items-center overflow-hidden truncate pt-1 text-xs text-primary-main md:flex' >
+                            {url && (
+                                <div className='flex items-center'>
+                                    <span>
+                                        <LinkIcon className='mr-1 w-4 stroke-primary-main' />
+                                    </span>
+                                    <span className='max-w-full overflow-hidden truncate text-primary-main' > {url}</span>
+                                </div>
+                            )}
+                        </div>)}
+                    {comment && (
+                        <div className='mt-1 flex max-w-full items-center rounded border border-primary-border p-1 text-xs text-primary-main' >
+                            <Chat className='mr-1 w-6 stroke-primary-300' strokeWidth={1} />
+                            <div className='flex-1 overflow-hidden truncate'>
+                                {comment}
+                            </div>
+                        </div>)}
+
                 </Link>
                 <div className='ml-auto hidden flex-col justify-start md:flex'>
                     <div className='flex items-start'>
@@ -120,7 +122,7 @@ const Presenter: React.FC<Props> = ({
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Presenter

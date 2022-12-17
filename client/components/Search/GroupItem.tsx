@@ -16,16 +16,16 @@ const GroupItem: React.VFC<Props> = ({
     const link = `/bookmarks/${group.id}`
     return (
         <li key={group.id} className={className}>
-            <Link href={link}>
-                <a href={link} className='flex items-center'>
-                    <FolderOpen className='mr-1 h-5 w-5 stroke-primary-main' />
-                    <p className='text-primary-main underline'>{group.name}</p>
-                </a>
+            <Link href={link} className='flex items-center'>
+
+                <FolderOpen className='mr-1 h-5 w-5 stroke-primary-main' />
+                <p className='text-primary-main underline'>{group.name}</p>
+
             </Link>
 
             {children}
         </li>
-    )
+    );
 }
 
 export default GroupItem

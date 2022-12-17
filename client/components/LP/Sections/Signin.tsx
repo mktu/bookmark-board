@@ -12,7 +12,7 @@ export const Content: React.FC = () => (
     <div>
         <p>
             <span>Googleのアカウントがあれば無料で開始することができます。早速ブックマークの</span>
-            <Link href={SigninPath}><a className='text-primary-main underline' href={SigninPath}>登録</a></Link>
+            <Link href={SigninPath} className='text-primary-main underline'>登録</Link>
             <span>を行いましょう！</span>
         </p>
         <p>

@@ -50,11 +50,11 @@ const SimilarityDetail: React.VFC<Props> = ({
                 <div className='mb-2'>{bookmark.comment || '-'}</div>
                 <div className='mb-2 font-semibold text-primary-main'>類似度:</div>
                 <div className='mb-2 ml-2'>
-                    <Link href={myGroupLink}><a className='text-primary-main underline' href={myGroupLink}>{currentGroup.name}(現在)</a></Link>
+                    <Link href={myGroupLink} className='text-primary-main underline'>{currentGroup.name}(現在)</Link>
                     <span className='mx-2'>{Math.floor(originalSimilarity * 100)}%</span>
                 </div>
                 <div className='mb-2 ml-2'>
-                    <Link href={targetGroupLink}><a className='text-primary-main underline' href={targetGroupLink}>{targetGroup.name}</a></Link>
+                    <Link href={targetGroupLink} className='text-primary-main underline'>{targetGroup.name}</Link>
                     <span className='mx-2'>{Math.floor(targetSimilarity * 100)}%</span>
                 </div>
 
@@ -70,7 +70,7 @@ const SimilarityDetail: React.VFC<Props> = ({
                 }}>ブックマークを編集する</OutlinedButton>
             </div>
         </div>
-    )
+    );
 }
 
 export default SimilarityDetail

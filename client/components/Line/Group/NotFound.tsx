@@ -14,8 +14,8 @@ const NotFound: React.FC<Props> = ({ message }) => {
                 </h3>
                 <div className='p-4'>
                     <p className='text-primary-main'>
-                        <Link href='/'>
-                            <a href={'/'} className='inline-flex underline'>Bookmark-Board</a>
+                        <Link href='/' className='inline-flex underline'>
+                            Bookmark-Board
                         </Link>
                         <span>にてLINE連携及びグループが登録されていることを確認してください</span>
                         <span role='img' aria-label='sorry'>🙇‍♂️</span>
@@ -26,7 +26,7 @@ const NotFound: React.FC<Props> = ({ message }) => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default NotFound

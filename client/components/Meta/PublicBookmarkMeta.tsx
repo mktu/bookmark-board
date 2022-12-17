@@ -13,7 +13,7 @@ const PublickBookmarkMeta: React.FC<Props> = ({
     profile
 }) => (
     <Head>
-        <title>{group.name} | {AppName}</title>
+        <title>{`${group.name} | ${AppName}`}</title>
         <meta name='description' content={group.description || ''} />
         <meta property="og:title" content={`${group.name} | ${AppName}`} />
         <meta property="og:type" content="website" />
