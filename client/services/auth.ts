@@ -44,7 +44,9 @@ export const loginByGoogle = (
 ) => {
     const provider = new GoogleAuthProvider();
     signInWithPopup(auth, provider).then((usercred) => {
-        usercred.user && onSucceeded(convertUser(usercred.user))
+        if (usercred?.user) {
+            onSucceeded(convertUser(usercred.user))
+        }
     }).catch(onFailed);
 }
 
