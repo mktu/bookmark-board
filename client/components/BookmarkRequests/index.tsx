@@ -67,7 +67,7 @@ const BookmarkRequests: React.VFC = () => {
                         リクエストが一定回数を超えました
                     </div>
                 )}
-                <div className=''><WelcomeImg width='480px' height='480px' /></div>
+                <div className=''><WelcomeImg width={480} height={480} /></div>
                 <div className='flex items-center justify-center'>
                     <ContainedButton className='mr-2 whitespace-nowrap' disabled={latestStatus === 'requesting' || exceededLimit} onClick={() => {
                         clientService.addRequest({
