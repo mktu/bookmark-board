@@ -1,5 +1,5 @@
 import React from 'react'
-import NextImage from 'next/image'
+import NextImage from "next/legacy/image";
 import appImage from 'public/App.png'
 import { ContainedButton } from '@components/Common/Button'
 import classNames from 'classnames'

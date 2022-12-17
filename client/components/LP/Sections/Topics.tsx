@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import FolderOpen from '@components/Common/Icon/FolderOpen'
 import Share from '@components/Common/Icon/Share'
 import LpShare from 'public/LpShare.svg'

@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import Link from 'next/link'
 import Baloons from 'public/undraw_Balloons_re_8ymj.svg' 
 import { HelpLink } from '@utils/constants'

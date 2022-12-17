@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from 'next/image'
+import Image from "next/legacy/image";
 
 const BookmarksSigninImg : React.FC<React.ImgHTMLAttributes<HTMLImageElement>> = ({width,height})=>{
     return <Image src={'/BookmarksSignin.svg'} alt='BookmarksSignin' width={width} height={height}/>;
