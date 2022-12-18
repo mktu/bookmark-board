@@ -57,7 +57,9 @@ export const loginByGoogleWithRedirect = (
     const provider = new GoogleAuthProvider();
     signInWithRedirect(auth, provider).catch(onFailed);
     getRedirectResult(auth).then(result => {
-        onSucceeded(convertUser(result.user))
+        if (result) {
+            onSucceeded(convertUser(result.user))
+        }
     }, onFailed)
 }
 
