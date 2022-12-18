@@ -17,8 +17,6 @@ const useAuth = (clientService: FirebaseClientServiceType) => {
             dispatch(authActions.authFailed())
         }
         const unsubscribe = listenAuthState((user) => {
-            console.log('---Logged In---')
-            console.log(user)
             setUid(user.uid)
             dispatch(authActions.authSucceeded(user.uid))
         }, onFailed, () => {
