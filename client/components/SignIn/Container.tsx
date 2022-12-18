@@ -10,7 +10,7 @@ import MobileLogin from './MobileLogin'
 
 const Signin = () => {
     const { clientService, uid } = useContext(FirebaseContext)
-    const { auth: authModuleImported, getMyProfile, loginByGoogle, loginWithAnonymous, loginByGoogleWithRedirect } = clientService
+    const { auth: authModuleImported, getMyProfile, loginByGoogle, loginWithAnonymous, loginByGoogleWithRedirect, mock } = clientService
     const [needSignup, setNeedSignup] = useState(false)
     const [signining, setSignining] = useState(false)
     const router = useRouter()
@@ -23,12 +23,12 @@ const Signin = () => {
                 const fromPath = sessionStorage.getItem('fromPath')
                 // tbd check if profile exists
                 if (fromPath) {
-                    router.push(fromPath).then(()=>{
+                    router.push(fromPath).then(() => {
                         !unmounted && setSignining(false)
                     })
                 }
                 else {
-                    router.push('/bookmarks').then(()=>{
+                    router.push('/bookmarks').then(() => {
                         !unmounted && setSignining(false)
                     })
                 }
@@ -38,7 +38,7 @@ const Signin = () => {
                 setNeedSignup(true)
             })
         }
-        return ()=>{
+        return () => {
             unmounted = true
         }
     }, [authModuleImported, uid, getMyProfile, router])
@@ -82,9 +82,12 @@ const Signin = () => {
     />
 
     return (
-        <Presenter
-            {...{ welcome, webLogin, mobileLogin }}
-        />
+        <>
+            {uid},{authModuleImported}, {mock}
+            <Presenter
+                {...{ welcome, webLogin, mobileLogin }}
+            />
+        </>
     )
 }
 
