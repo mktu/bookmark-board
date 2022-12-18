@@ -16,7 +16,7 @@ const useAuth = (clientService: FirebaseClientServiceType) => {
             dispatch(profileActions.clear())
             dispatch(authActions.authFailed())
         }
-        listenAuthState((user) => {
+        const unsubscribe = listenAuthState((user) => {
             console.log('---Logged In---')
             console.log(user)
             setUid(user.uid)
@@ -25,6 +25,9 @@ const useAuth = (clientService: FirebaseClientServiceType) => {
             toast.error('ログイン中にエラーが発生しました')
             onFailed()
         })
+        return () => {
+            unsubscribe()
+        }
     }, [listenAuthState, getProfile, dispatch])
 
     const { listenProfile, auth } = clientService
