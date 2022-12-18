@@ -83,7 +83,7 @@ const Signin = () => {
 
     return (
         <>
-            {uid},{authModuleImported}, {mock}
+            {uid},{authModuleImported ? 'Yes' : 'No'}, {mock ? 'Yes' : 'No'}
             <Presenter
                 {...{ welcome, webLogin, mobileLogin }}
             />
