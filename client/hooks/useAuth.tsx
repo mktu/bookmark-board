@@ -13,6 +13,7 @@ const useAuth = (clientService: FirebaseClientServiceType) => {
     useEffect(() => {
         const onFailed = () => {
             setUid('')
+            toast.info('ログアウトしました')
             dispatch(profileActions.clear())
             dispatch(authActions.authFailed())
         }
