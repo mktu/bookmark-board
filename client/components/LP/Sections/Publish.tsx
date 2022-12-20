@@ -1,5 +1,5 @@
 import React from 'react'
-import NextImage from 'next/image'
+import NextImage from "next/legacy/image";
 import LpPubApp from 'public/PublicApp.png'
 import { SampleUrl } from '@utils/constants'
 //import Link from 'next/link'

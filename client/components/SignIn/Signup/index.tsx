@@ -74,7 +74,7 @@ const Signup: React.FC<Props> = ({
                 </div>
             </div>
             <div className='ml-4 hidden items-end p-10 md:flex'>
-                <SigninImg width='256px' height='256px' />
+                <SigninImg width={256} height={256} />
             </div>
         </div>
     )

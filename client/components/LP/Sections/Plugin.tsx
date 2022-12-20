@@ -1,5 +1,5 @@
 import React from 'react'
-import NextImage from 'next/image'
+import NextImage from "next/legacy/image";
 import LpPlugin from 'public/Plugin.png'
 import LineBookmarkBoard from 'public/LineBookmarkBoard.png'
 import { PluginUrl } from '@utils/constants'

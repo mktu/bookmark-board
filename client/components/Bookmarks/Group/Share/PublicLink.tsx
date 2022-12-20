@@ -42,17 +42,13 @@ const PublicLink: React.FC<Props> = ({
                 <p className='hidden md:block'>閲覧用リンク</p>
                 <div className='flex flex-1 items-center'>
                     <div className='mx-2 hidden md:block'>
-                        <Link href={publicPath} shallow>
-                            {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                                (<a className='text-blue-700 underline'>{publicUrl}</a>)
-                            }
+                        <Link href={publicPath} shallow className='text-blue-700 underline'>
+                            {publicUrl}
                         </Link>
                     </div>
                     <div className='mx-2 md:hidden'>
-                        <Link href={publicPath} shallow>
-                            {// eslint-disable-next-line jsx-a11y/anchor-is-valid
-                                (<a className='text-blue-700 underline'>閲覧用リンク</a>)
-                            }
+                        <Link href={publicPath} shallow className='text-blue-700 underline'>
+                            閲覧用リンク
                         </Link>
                     </div>
                     <TooltipDivContainer content='URLをコピー' placement='bottom'>
@@ -70,7 +66,7 @@ const PublicLink: React.FC<Props> = ({
 
                     </label> */}
         </div>
-    )
+    );
 }
 
 

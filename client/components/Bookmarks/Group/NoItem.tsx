@@ -60,8 +60,8 @@ const NoItem: React.FC<Props> = ({
                     <span>タイトルをクリックすることで、グループの名前を変更することができます</span>
                 </li>
                 <li className='text-sm'>
-                    <Link href={shareLink}>
-                        <a href={shareLink} className='inline-flex underline'>共有設定<Share className='hidden h-5 w-4 stroke-primary-dark md:inline-block' strokeWidth={1.5} /></a>
+                    <Link href={shareLink} className='inline-flex underline'>
+                        共有設定<Share className='hidden h-5 w-4 stroke-primary-dark md:inline-block' strokeWidth={1.5} />
                     </Link>
                     <span className='ml-1'>でこのグループの公開設定や共同編集設定を行うことができます</span>
                 </li>
@@ -88,7 +88,7 @@ const NoItem: React.FC<Props> = ({
                 {preview}
             </div>
         </div>
-    )
+    );
 }
 
 export default NoItem

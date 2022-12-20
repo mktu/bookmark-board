@@ -1,7 +1,7 @@
-import Image from 'next/image'
+import Image from "next/legacy/image";
 import AnalysisImage from 'public/undraw_file_analysis_8k9b.svg'
 
-const SimilarityHelp: React.VFC = () => {
+const SimilarityHelp: React.FC = () => {
     return (
         <div className='flex w-full flex-col items-center p-6'>
             <h1 className='text-2xl font-bold text-primary-main'>Bookmark Advice</h1>

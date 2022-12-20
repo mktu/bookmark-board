@@ -14,11 +14,13 @@ const BookmarkListItem: React.FC<Props> = ({
     const { group } = useBookmarkGroup(bookmark.groupId)
     return (
         <div className='flex w-full items-end overflow-hidden'>
-            <Link href={path}>
-                <a href={path} className='max-w-full flex-1 overflow-hidden truncate text-sm'>
-                    <span className='mr-2 underline'>{bookmark.title}</span>
-                    <span className='mr-2'>[{group.name}]</span>
-                </a>
+            <Link
+                href={path}
+                className='max-w-full flex-1 overflow-hidden truncate text-sm'>
+
+                <span className='mr-2 underline'>{bookmark.title}</span>
+                <span className='mr-2'>[{group.name}]</span>
+
             </Link>
             <div className='ml-3 text-xs'>
                 <span>{numberToDateTime(bookmark.created, {
@@ -30,7 +32,7 @@ const BookmarkListItem: React.FC<Props> = ({
                 })}</span>
             </div>
         </div>
-    )
+    );
 }
 
 export default BookmarkListItem

@@ -47,11 +47,13 @@ const Presenter: React.FC<Props> = ({
 
                                 </li>
                                 <li>
-                                    <Link href={profileUrl}>
-                                        <a href={profileUrl} className='inline-flex items-center text-sm text-primary-dark underline'>
-                                            <LoginIcon strokeWidth={1.5} className='mr-1 h-5 w-5' />
-                                            <span>LINE連携を行う</span>
-                                        </a>
+                                    <Link
+                                        href={profileUrl}
+                                        className='inline-flex items-center text-sm text-primary-dark underline'>
+
+                                        <LoginIcon strokeWidth={1.5} className='mr-1 h-5 w-5' />
+                                        <span>LINE連携を行う</span>
+
                                     </Link>
                                 </li>
                             </ul>
@@ -69,7 +71,7 @@ const Presenter: React.FC<Props> = ({
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Presenter

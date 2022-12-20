@@ -2,8 +2,8 @@ import React from 'react'
 import initials from 'initials'
 import classNames from 'classnames'
 
-function ja2Bit ( str:string ) {
-    return ( str.match(/^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+$/) )? true : false
+function ja2Bit(str: string) {
+    return (str.match(/^[\u30a0-\u30ff\u3040-\u309f\u3005-\u3006\u30e0-\u9fcf]+$/)) ? true : false;
 }
 
 const bgValues = [

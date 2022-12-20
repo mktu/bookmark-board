@@ -39,7 +39,7 @@ const SimilarityListItem: React.VFC<Props> = ({
 
             </div>
             <div className='my-2 ml-auto flex items-center whitespace-nowrap text-xs'>
-                <Link href={detailPath}><a className='underline' href={detailPath}>詳細を見る</a></Link>
+                <Link href={detailPath} className='underline'>詳細を見る</Link>
                 <TextButton className='ml-auto block border-r border-primary-border px-2' onClick={async (e) => {
                     e.stopPropagation()
                     e.preventDefault()
@@ -54,7 +54,7 @@ const SimilarityListItem: React.VFC<Props> = ({
                 }}>無視する</TextButton>
             </div>
         </div>
-    )
+    );
 }
 
 export default SimilarityListItem
