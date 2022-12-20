@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from "next/legacy/image";
+import Image from "next/image";
 import { PlaceHolderImg } from '../Image'
 import Frame from './Frame'
 
@@ -27,7 +27,20 @@ export const NextImage: React.FC<Props> = ({
             // background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAE0lEQVR42mPMq6ysZ0ADjDQQBAA3RAlhPiic9AAAAABJRU5ErkJggg==);
             return <img alt={name} src={src} width={width} height={height} style={{ objectFit: 'cover' }} />
         } else {
-            return <Image alt={name} src={src} width={width} height={height} objectFit='cover' placeholder='blur' blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAE0lEQVR42mPMq6ysZ0ADjDQQBAA3RAlhPiic9AAAAABJRU5ErkJggg==' />
+            return (
+                <Image
+                    alt={name}
+                    src={src}
+                    width={width}
+                    height={height}
+                    placeholder='blur'
+                    blurDataURL='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAE0lEQVR42mPMq6ysZ0ADjDQQBAA3RAlhPiic9AAAAABJRU5ErkJggg=='
+                    style={{
+                        maxWidth: "100%",
+                        height: "auto",
+                        objectFit: "cover"
+                    }} />
+            );
         }
     }
     if (fallback) {

@@ -1,4 +1,4 @@
-import Image from "next/legacy/image";
+import Image from "next/image";
 import AnalysisImage from 'public/undraw_file_analysis_8k9b.svg'
 
 const SimilarityHelp: React.FC = () => {
@@ -6,7 +6,15 @@ const SimilarityHelp: React.FC = () => {
         <div className='flex w-full flex-col items-center p-6'>
             <h1 className='text-2xl font-bold text-primary-main'>Bookmark Advice</h1>
             <div className=''>
-                <Image width={300} height={350} src={AnalysisImage} />
+                <Image
+                    alt='similarity-help'
+                    width={300}
+                    height={350}
+                    src={AnalysisImage}
+                    style={{
+                        maxWidth: "100%",
+                        height: "auto"
+                    }} />
             </div>
             <h3 className='my-2 font-semibold text-primary-main'>
                 <span role='img' aria-label='suprise'>✨</span>
@@ -23,7 +31,7 @@ const SimilarityHelp: React.FC = () => {
 
             </p>
         </div>
-    )
+    );
 }
 
 export default SimilarityHelp

@@ -1,5 +1,5 @@
 import React from 'react'
-import NextImage from "next/legacy/image";
+import NextImage from "next/image";
 import appImage from 'public/App.png'
 import { ContainedButton } from '@components/Common/Button'
 import classNames from 'classnames'
@@ -25,9 +25,27 @@ export const Content: React.FC<{ handleLogin: () => void }> = ({
 // 4:17
 export const Image = <>
     <div className={classNames('hidden md:block', styles.nextImageWrapper)}>
-        <NextImage src={appImage} width={760} height={453} placeholder='blur' alt='app' />
+        <NextImage
+            src={appImage}
+            width={760}
+            height={453}
+            placeholder='blur'
+            alt='app'
+            style={{
+                maxWidth: "100%",
+                height: "auto"
+            }} />
     </div>
     <div className={classNames('md:hidden', styles.nextImageWrapper)}>
-        <NextImage src={appImage} width={512} height={305} placeholder='blur' alt='app'/>
+        <NextImage
+            src={appImage}
+            width={512}
+            height={305}
+            placeholder='blur'
+            alt='app'
+            style={{
+                maxWidth: "100%",
+                height: "auto"
+            }} />
     </div>
 </>

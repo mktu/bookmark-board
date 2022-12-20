@@ -1,5 +1,5 @@
 import React from 'react'
-import NextImage from "next/legacy/image";
+import NextImage from "next/image";
 import LpPubApp from 'public/PublicApp.png'
 import { SampleUrl } from '@utils/constants'
 //import Link from 'next/link'
@@ -20,4 +20,12 @@ export const Content: React.ReactNode = (
     </div>
 )
 
-export const Image = <NextImage src={LpPubApp} alt='PublicApp' width={490} height={540} />
+export const Image = <NextImage
+    src={LpPubApp}
+    alt='PublicApp'
+    width={490}
+    height={540}
+    style={{
+        maxWidth: "100%",
+        height: "auto"
+    }} />
