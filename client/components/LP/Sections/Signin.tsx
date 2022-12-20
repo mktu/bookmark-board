@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from "next/legacy/image";
+import Image from "next/image";
 import Link from 'next/link'
 import Baloons from 'public/undraw_Balloons_re_8ymj.svg' 
 import { HelpLink } from '@utils/constants'
@@ -22,7 +22,15 @@ export const Content: React.FC = () => (
             <span>にも載せていますので、ぜひ確認してみてください</span>
         </p>
         <div className='my-6 flex w-full justify-center'>
-            <Image src={Baloons} width={245} height={300} alt='LpStart'/>
+            <Image
+                src={Baloons}
+                width={245}
+                height={300}
+                alt='LpStart'
+                style={{
+                    maxWidth: "100%",
+                    height: "auto"
+                }} />
         </div>
         <div className='my-4 text-sm'>
             <p>※動作環境について 以下のブラウザで動作確認しています</p>

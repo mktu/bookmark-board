@@ -1,5 +1,5 @@
 import React from 'react'
-import Image from "next/legacy/image";
+import Image from "next/image";
 import FolderOpen from '@components/Common/Icon/FolderOpen'
 import Share from '@components/Common/Icon/Share'
 import LpShare from 'public/LpShare.svg'
@@ -22,7 +22,15 @@ export const Topics = [
                     また、それぞれのグループに対して50までのブックマークを登録することが可能です。一度登録したブックマークを別のグループに移動させることも可能です
                 </p>
                 <div className='relative mt-4 flex justify-end' style={{ width: '100%', height: '300px' }}>
-                    <Image src={LpGroup} layout='fill' objectFit='contain' alt='LpGroup' objectPosition='left top'/>
+                    <Image
+                        src={LpGroup}
+                        alt='LpGroup'
+                        fill
+                        sizes="100vw"
+                        style={{
+                            objectFit: "contain",
+                            objectPosition: "left top"
+                        }} />
                 </div>
             </div>
         )
@@ -36,7 +44,14 @@ export const Topics = [
                     共有したい人をブックマークリストの共同編集者として招待することで、一緒にそのブックマークを充実させることができます。誰かと一緒に情報を収集したい際などに便利です
                 </p>
                 <div className='relative mt-4 flex justify-end' style={{ width: '100%', height: '300px' }}>
-                    <Image src={LpShare}  layout='fill' objectFit='contain' alt='LpShare'/>
+                    <Image
+                        src={LpShare}
+                        alt='LpShare'
+                        fill
+                        sizes="100vw"
+                        style={{
+                            objectFit: "contain"
+                        }} />
                 </div>
             </div>
         )
@@ -51,7 +66,15 @@ export const Topics = [
                     自分なりの色やコメントを記載することで、そのブックマークを識別する手助けとすることができます
                 </p>
                 <div className='relative mt-4 w-full' style={{height:'300px', width : '100%'}}>
-                    <Image src={LpComment}  layout='fill' objectFit='cover' objectPosition='left top' alt='LpComment' />
+                    <Image
+                        src={LpComment}
+                        alt='LpComment'
+                        fill
+                        sizes="100vw"
+                        style={{
+                            objectFit: "cover",
+                            objectPosition: "left top"
+                        }} />
                 </div>
             </div>
         )

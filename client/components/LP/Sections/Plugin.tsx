@@ -1,5 +1,5 @@
 import React from 'react'
-import NextImage from "next/legacy/image";
+import NextImage from "next/image";
 import LpPlugin from 'public/Plugin.png'
 import LineBookmarkBoard from 'public/LineBookmarkBoard.png'
 import { PluginUrl } from '@utils/constants'
@@ -27,7 +27,15 @@ export const Content: React.ReactNode = (
         </p>
         <div className={classNames('flex justify-center items-center md:hidden my-6', styles.nextImageWrapper)}>
             <span className='rounded-xl shadow-lg' >
-                <NextImage alt='Plugin' src={LpPlugin} width={545} height={400} />
+                <NextImage
+                    alt='Plugin'
+                    src={LpPlugin}
+                    width={545}
+                    height={400}
+                    style={{
+                        maxWidth: "100%",
+                        height: "auto"
+                    }} />
             </span>
         </div>
         <p className='mt-6 align-middle'>
@@ -47,7 +55,15 @@ export const Image = (
     <>
         <div className={classNames('flex justify-center items-center md:hidden', styles.nextImageWrapper)}>
             <span className='rounded-xl shadow-lg' >
-                <NextImage alt='Line' src={LineBookmarkBoard} width={185} height={400} />
+                <NextImage
+                    alt='Line'
+                    src={LineBookmarkBoard}
+                    width={185}
+                    height={400}
+                    style={{
+                        maxWidth: "100%",
+                        height: "auto"
+                    }} />
             </span>
         </div>
         <div className='hidden md:block'>
@@ -57,12 +73,28 @@ export const Image = (
             >
                 <div className={classNames('flex justify-center items-center', styles.nextImageWrapper)}>
                     <span className='rounded-xl shadow-lg' >
-                        <NextImage alt='Plugin' src={LpPlugin} width={545} height={400} />
+                        <NextImage
+                            alt='Plugin'
+                            src={LpPlugin}
+                            width={545}
+                            height={400}
+                            style={{
+                                maxWidth: "100%",
+                                height: "auto"
+                            }} />
                     </span>
                 </div>
                 <div className={classNames('flex justify-center items-center', styles.nextImageWrapper)}>
                     <span className='rounded-xl shadow-lg' >
-                        <NextImage alt='Line' src={LineBookmarkBoard} width={185} height={400} />
+                        <NextImage
+                            alt='Line'
+                            src={LineBookmarkBoard}
+                            width={185}
+                            height={400}
+                            style={{
+                                maxWidth: "100%",
+                                height: "auto"
+                            }} />
                     </span>
                 </div>
             </Carousel>
