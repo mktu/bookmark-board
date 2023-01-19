@@ -25,7 +25,7 @@ const Topic: React.FC<Props> = ({
     const { ref, inView } = useInView({ triggerOnce: true })
     return (
         <section ref={ref} style={style} className={classNames(
-            'w-full md:p-8 break-words flex flex-col justify-center items-center transition-all duration-1000',
+            'w-full md:p-8 break-words flex flex-col justify-center items-center transition-opacity duration-1000',
             inView ? 'opacity-100' : 'opacity-0',
             className)}>
             <h1 className='my-4 text-2xl font-bold text-primary-700'>{title}</h1>
