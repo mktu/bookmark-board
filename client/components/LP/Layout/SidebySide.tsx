@@ -61,7 +61,7 @@ const SideBySide: React.FC<Props> = ({
     const { ref, inView } = useInView({ triggerOnce: true })
     return (
         <section style={style} ref={ref} className={classNames(
-            'w-full md:flex flex-row p-4 md:p-8 justify-center transition-all duration-1000',
+            'w-full md:flex flex-row p-4 md:p-8 justify-center transition-opacity duration-1000',
             inView ? 'opacity-100' : 'opacity-0',
             className)} >
             {imageLeft ? (
