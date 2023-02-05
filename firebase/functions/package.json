@@ -22,7 +22,7 @@
     "firebase-admin": "11.5.0",
     "firebase-functions": "4.2.1",
     "get-urls": "10.0.1",
-    "node-fetch": "2.6.8",
+    "node-fetch": "2.6.9",
     "open-graph-scraper": "4.11.1",
     "puppeteer": "18.1.0",
     "uuid": "9.0.0"
