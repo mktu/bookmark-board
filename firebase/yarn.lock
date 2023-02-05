@@ -680,10 +680,10 @@
     "@firebase/util" "1.9.0"
     tslib "^2.1.0"
 
-"@firebase/rules-unit-testing@2.0.5":
-  version "2.0.5"
-  resolved "https://registry.yarnpkg.com/@firebase/rules-unit-testing/-/rules-unit-testing-2.0.5.tgz#bad9b500b7a879fc0ce41468f8e0c00d1bda7d8c"
-  integrity sha512-EV9YgbpfdUSA65aHBX/wkqKJbORrA9UmBNLRZxUsIWbHu9W8GE8Jvlb0uxU02iR+GpGW69zw+ZENANdRW3ZUMA==
+"@firebase/rules-unit-testing@2.0.7":
+  version "2.0.7"
+  resolved "https://registry.yarnpkg.com/@firebase/rules-unit-testing/-/rules-unit-testing-2.0.7.tgz#6b9e95bd724438f85b8e55433b0a0e863cfe420b"
+  integrity sha512-tioToru3AgRanuHLt650rmP9oeyhyc9yb3i3jtZDFz3MTpztHVFI4q6sYnIneTr9aSllsItCYYCJS5ylPOCsWg==
   dependencies:
     node-fetch "2.6.7"
 
