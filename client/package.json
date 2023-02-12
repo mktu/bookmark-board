@@ -55,7 +55,7 @@
     "@playwright/test": "1.29.2",
     "@types/jest": "29.4.0",
     "@types/node": "16.18.12",
-    "@types/react": "18.0.27",
+    "@types/react": "18.0.28",
     "@types/react-infinite-scroller": "1.2.3",
     "@typescript-eslint/eslint-plugin": "5.48.2",
     "@typescript-eslint/parser": "5.48.2",
