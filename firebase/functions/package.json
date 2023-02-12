@@ -23,7 +23,7 @@
     "firebase-functions": "4.2.1",
     "get-urls": "10.0.1",
     "node-fetch": "2.6.9",
-    "open-graph-scraper": "4.11.1",
+    "open-graph-scraper": "5.0.0",
     "puppeteer": "18.1.0",
     "uuid": "9.0.0"
   },
