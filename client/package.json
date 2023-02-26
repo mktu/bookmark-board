@@ -16,7 +16,7 @@
     "@line/liff": "2.21.4",
     "@next/bundle-analyzer": "13.1.6",
     "@popperjs/core": "2.11.6",
-    "@reduxjs/toolkit": "1.9.2",
+    "@reduxjs/toolkit": "1.9.3",
     "@types/linkifyjs": "2.1.4",
     "@types/puppeteer-core": "5.4.0",
     "@types/react-redux": "7.1.25",
