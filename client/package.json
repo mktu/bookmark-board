@@ -54,7 +54,7 @@
   "devDependencies": {
     "@playwright/test": "1.30.0",
     "@types/jest": "29.4.0",
-    "@types/node": "16.18.12",
+    "@types/node": "16.18.14",
     "@types/react": "18.0.28",
     "@types/react-infinite-scroller": "1.2.3",
     "@typescript-eslint/eslint-plugin": "5.52.0",
