@@ -28,9 +28,9 @@
     "uuid": "9.0.0"
   },
   "devDependencies": {
-    "@babel/core": "7.21.3",
+    "@babel/core": "7.21.4",
     "@babel/preset-env": "7.20.2",
-    "@babel/preset-typescript": "7.21.0",
+    "@babel/preset-typescript": "7.21.4",
     "@typescript-eslint/eslint-plugin": "5.57.1",
     "@typescript-eslint/parser": "5.57.1",
     "babel-jest": "29.4.3",
