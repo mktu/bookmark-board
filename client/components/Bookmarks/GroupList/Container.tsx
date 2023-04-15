@@ -9,6 +9,7 @@ import Presenter from './Presenter'
 import Droppable from './Droppable'
 import Refinements from './Refinements'
 import NewGroup, { Dialog as NewGroupDialog } from './NewGroup'
+import SearchFilter from './SearchFilter'
 
 const Container: React.FC = () => {
     const [hover, setHover] = useState(-1)
@@ -16,12 +17,13 @@ const Container: React.FC = () => {
     const { clientService } = useContext(FirebaseContext)
     const profile = useProfile()
     const groupsBase = useGroupsByUser(profile.id)
+    const [searchText, setSearchText] = useState('')
     const bookmarks = useBookmarks()
     const bookmarkLoadStatus = useBookmarkStatus()
-    const groups = useMemo(()=>groupsBase.map(v=>({
+    const groups = useMemo(() => groupsBase.map(v => ({
         ...v,
-        bookmarkCount : bookmarks.filter(b=>b.groupId === v.id).length
-    })),[groupsBase, bookmarks])
+        bookmarkCount: bookmarks.filter(b => b.groupId === v.id).length
+    })), [groupsBase, bookmarks])
 
     const onChangeOrder = (next: number) => (id: string) => {
         const ordered = spliceAndInsert(groups.map(g => g.id), next, id)
@@ -30,31 +32,43 @@ const Container: React.FC = () => {
     const onCloseNewGroup = () => {
         setShowNewGroup(false)
     }
-    const groupList = groups.map((group, idx) => {
+    const groupList = groups.filter(v => !searchText || v.name.toLowerCase().includes(searchText.toLowerCase())).map((group, idx) => {
         return (
             <React.Fragment key={group.id}>
                 {idx === 0 && (
-                    <Droppable droppable={hover != -1} onChangeOrder={onChangeOrder(0)} open={hover === 0} />
+                    <Droppable droppable={!searchText && hover != -1} onChangeOrder={onChangeOrder(0)} open={hover === 0} />
                 )}
                 <ListItem bookmarkLoaded={bookmarkLoadStatus === 'loaded'} bookmarkGroup={group} onHover={setHover} listIndex={idx} />
-                <Droppable droppable={hover != -1} onChangeOrder={onChangeOrder(idx + 1)} open={hover === idx + 1} />
+                <Droppable droppable={!searchText && hover != -1} onChangeOrder={onChangeOrder(idx + 1)} open={hover === idx + 1} />
             </React.Fragment>
         )
     })
 
-    const refinements = (
-        <Refinements onClickNewGroup={() => { setShowNewGroup(true) }} />
-    )
+    const refinements = useMemo(() => (
+        <Refinements
+            searchWord={searchText}
+            onChangeSearchWord={setSearchText}
+            onClickNewGroup={() => { setShowNewGroup(true) }} />
+    ), [searchText])
+
+    const searchFilter = useMemo(() => (
+        <SearchFilter searchWord={searchText} onClear={() => {
+            setSearchText('')
+        }} />
+    ), [searchText])
+
     return (
         <>
             <Presenter
+
                 {...{
                     groupList,
-                    refinements
+                    refinements,
+                    searchFilter
                 }}
             />
             <NewGroupDialog open={showNewGroup} onClose={onCloseNewGroup}>
-                <NewGroup onClose={onCloseNewGroup}/>
+                <NewGroup onClose={onCloseNewGroup} />
             </NewGroupDialog>
         </>
     )

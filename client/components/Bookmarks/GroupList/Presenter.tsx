@@ -3,11 +3,13 @@ import { useInView } from 'react-intersection-observer'
 type Props = {
     groupList: React.ReactNode,
     refinements: React.ReactNode,
+    searchFilter: React.ReactNode
 }
 
 const Presenter: React.FC<Props> = ({
     refinements,
     groupList,
+    searchFilter
 }) => {
     const { ref, inView } = useInView()
     return (
@@ -15,6 +17,7 @@ const Presenter: React.FC<Props> = ({
             <div ref={ref} className='bg-white py-1 px-0 text-primary-main'>
                 {refinements}
             </div>
+            <div className='w-full overflow-hidden'>{searchFilter}</div>
             <div className='overflow-y-auto md:bg-white'>
                 {groupList}
             </div>

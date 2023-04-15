@@ -10,7 +10,7 @@ type Props = {
     checked?: boolean
 } & Parameters<typeof ButtonBase>[0]
 
-const Checkbox: React.VFC<Props> = ({ onClick, color, checked, className }) => {
+const Checkbox: React.FC<Props> = ({ onClick, color, checked, className }) => {
     const rgba = hex2rgb(color)
     const [hover, setHover] = useState(false)
     const isTouch = useMemo(() => checkIsTouch(), [])
