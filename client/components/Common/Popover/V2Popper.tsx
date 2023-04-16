@@ -8,23 +8,23 @@ type Children<T extends HTMLElement> = React.ReactElement & {
 
 export type Props<T extends HTMLElement> = {
     children: Children<T>,
-    render: (toggle:()=>void)=>React.ReactNode,
+    render: (toggle: () => void, open: boolean) => React.ReactNode,
     content?: React.ReactNode,
     placement?: PopperChildrenProps['placement'],
-    zIndex?:number,
-    disabled?:boolean
+    zIndex?: number,
+    disabled?: boolean
 } | {
     children: Children<T>,
-    render?: (toggle:()=>void)=>React.ReactNode,
+    render?: (toggle: () => void, open: boolean) => React.ReactNode,
     content: React.ReactNode,
     placement?: PopperChildrenProps['placement'],
-    zIndex?:number,
-    disabled?:boolean
+    zIndex?: number,
+    disabled?: boolean
 }
 
-export function Popover<T extends HTMLElement>({ children, content, render, disabled, placement = 'auto', zIndex=20 }: Props<T>) {
+export function Popover<T extends HTMLElement>({ children, content, render, disabled, placement = 'auto', zIndex = 20 }: Props<T>) {
     const [popoverShow, setPopoverShow] = useState(false);
-    const [timestamp,setTimestamp] = useState(-1)
+    const [timestamp, setTimestamp] = useState(-1)
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
@@ -52,8 +52,8 @@ export function Popover<T extends HTMLElement>({ children, content, render, disa
                         }
                         setReferenceElement(value)
                     },
-                    onClick: (e:React.MouseEvent<T>)=>{
-                        if(disabled){
+                    onClick: (e: React.MouseEvent<T>) => {
+                        if (disabled) {
                             return
                         }
                         setTimestamp(e.timeStamp)
@@ -64,12 +64,12 @@ export function Popover<T extends HTMLElement>({ children, content, render, disa
             }, [children, toggle, disabled])}
             {popoverShow && (
                 <Clickaway onClickAway={(e) => {
-                    if(timestamp!==e.timeStamp){
+                    if (timestamp !== e.timeStamp) {
                         setPopoverShow(false)
                     }
                 }}>
-                    <div ref={setPopperElement} style={{...styles.popper, zIndex}} {...attributes.popper}>
-                        {render ? render(toggle) : content}
+                    <div ref={setPopperElement} style={{ ...styles.popper, zIndex }} {...attributes.popper}>
+                        {render ? render(toggle, popoverShow) : content}
                     </div>
                 </Clickaway>
             )}
