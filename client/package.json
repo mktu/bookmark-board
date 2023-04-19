@@ -13,7 +13,7 @@
     "fix:lint": "next lint --fix"
   },
   "dependencies": {
-    "@line/liff": "2.21.4",
+    "@line/liff": "2.22.0",
     "@next/bundle-analyzer": "13.3.0",
     "@popperjs/core": "2.11.7",
     "@reduxjs/toolkit": "1.9.3",
