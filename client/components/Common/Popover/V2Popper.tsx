@@ -1,4 +1,4 @@
-import React, { useState, useMemo, useCallback } from "react";
+import React, { useState, useMemo, useCallback, useEffect } from "react";
 import { usePopper, PopperChildrenProps } from 'react-popper';
 import Clickaway from '../Clickaway'
 
@@ -33,6 +33,21 @@ export function Popover<T extends HTMLElement>({ children, content, render, disa
     const toggle = useCallback(() => {
         setPopoverShow(before => !before)
     }, []);
+
+    useEffect(() => {
+        if (!document) {
+            return
+        }
+        const handleKeyDown = (event: KeyboardEvent) => {
+            if (event.key === 'Escape') {
+                setPopoverShow(false);
+            }
+        }
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+    }, [])
 
     return (
         <>
