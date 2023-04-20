@@ -14,7 +14,7 @@ export const Dialog: React.FC<DialogProps> = ({
     onClose
 }) => {
     return (
-        <Modal open={open} showCloseIcon={false} blockScroll center focusTrapped={false} onClose={onClose} classNames={{
+        <Modal open={open} showCloseIcon={false} blockScroll center onClose={onClose} classNames={{
             modal: 'w-full md:w-1/3',
         }} styles={{
             modal: {

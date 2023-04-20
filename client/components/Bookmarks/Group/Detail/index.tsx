@@ -15,7 +15,7 @@ const DetailDialog: React.FC<DialogProps> = ({
     onClose
 }) => {
     return (
-        <Modal blockScroll={false} open={open} showCloseIcon={false} focusTrapped={false} onClose={onClose} center classNames={{
+        <Modal blockScroll={false} open={open} showCloseIcon={false} onClose={onClose} center classNames={{
             modal: 'w-full md:w-2/3',
         }}>
             {children}
