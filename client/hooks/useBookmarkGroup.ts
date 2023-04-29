@@ -16,7 +16,7 @@ export const useBookmarkGroup = (groupId?: string) => {
         }))
     }, [])
     const hasOwnership = profile?.id === base?.owner
-    const hydrateColor = useMemo(()=>base?.colors || {},[base])
+    const hydrateColor = useMemo(() => base?.colors || {}, [base])
 
     const bookmarkColors = useMemo(() => {
         return Object.keys(hydrateColor).reduce((acc, cur, idx) => {
@@ -40,6 +40,12 @@ export const useBookmarkGroup = (groupId?: string) => {
         updatePartial({ users: group.users.filter(u => u !== uid) })
     }, [group?.users, updatePartial])
 
+    const handleChangeIcon = useCallback((emoji: EmojiIconType) => {
+        updatePartial({
+            emojiIcon: emoji
+        })
+    }, [updatePartial])
+
     const handleDeleteGroup = async () => {
         await clientService.deleteGroup(group.id)
         router.push('/bookmarks')
@@ -54,13 +60,13 @@ export const useBookmarkGroup = (groupId?: string) => {
         , [update, base])
 
     // update immediately
-    const leaveGroup = useCallback(()=>new Promise<void>((resolve, reject) => {
+    const leaveGroup = useCallback(() => new Promise<void>((resolve, reject) => {
         profile?.id && clientService.modifyGroup(groupId, {
             users: group.users.filter(u => u !== profile?.id)
         }, () => {
             resolve()
         }, reject)
-    }),[profile?.id,clientService,group,groupId])
+    }), [profile?.id, clientService, group, groupId])
 
     const handleSubmit = useCallback((partial?: Partial<BookmarkGroup>) =>
         new Promise<{ after: Partial<BookmarkGroup>, before: Partial<BookmarkGroup> }>((resolve, reject) => {
@@ -83,7 +89,6 @@ export const useBookmarkGroup = (groupId?: string) => {
         })
         , [clientService, update, hasChange, groupId, base])
 
-
     return {
         group,
         editors,
@@ -94,11 +99,12 @@ export const useBookmarkGroup = (groupId?: string) => {
         handleSubmit,
         leaveGroup,
         hasChange,
-        hasOwnership
+        hasOwnership,
+        handleChangeIcon
     }
 }
 
-export const useGroupSelector = (initGroupId?:string)=>{
+export const useGroupSelector = (initGroupId?: string) => {
     const profile = useProfile()
     const groups = useGroupsByUser(profile.id)
     const [selectedGroup, selectGroup] = useState(groups.find(g => initGroupId && g.id === initGroupId))

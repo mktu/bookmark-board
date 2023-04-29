@@ -11,6 +11,7 @@ import { useRequestsByGroup } from '../../../modules/requestSlice'
 
 import RequestUsers from './RequestUsers'
 import { useBookmarkGroup } from '../../../hooks/useBookmarkGroup'
+import Emoji from '@components/Common/Emoji'
 
 type Props = {
     groupId: string,
@@ -20,7 +21,7 @@ const Header: React.FC<Props> = ({
     groupId,
 }) => {
     const router = useRouter()
-    const { group, editors } = useBookmarkGroup(groupId)
+    const { group, editors, handleSubmit } = useBookmarkGroup(groupId)
 
     const requests = useRequestsByGroup(group?.id)
     if (!group) {
@@ -35,12 +36,17 @@ const Header: React.FC<Props> = ({
     }
 
     return (
-        <div className='flex h-full w-full items-center border-b border-primary-border bg-white p-2' >
-            <div className='flex max-w-full items-center overflow-hidden' >
+        <div className='flex h-full w-full items-center border-b border-primary-border bg-white p-1' >
+            <div className='flex max-w-full items-center overflow-hidden p-1' >
                 <div className='flex items-center'>
                     <SvgIconButton className='md:hidden' onClick={handleBack}>
                         <ArrowLeft strokeWidth={1.0} className='w-6' />
                     </SvgIconButton>
+                    <div className='hidden md:block'>
+                        <Emoji selected={group.emojiIcon} onSelectEmoji={(emoji) => {
+                            handleSubmit({ emojiIcon: emoji })
+                        }} />
+                    </div>
                 </div>
                 <ButtonBase className='mr-4 ml-2 block flex-1 overflow-hidden truncate text-left text-primary-main' onClick={jumpTo('setting')}>
                     <div className='max-w-full overflow-hidden truncate font-semibold' >
@@ -51,7 +57,6 @@ const Header: React.FC<Props> = ({
                     </div>
                 </ButtonBase>
             </div>
-
             <div className='ml-auto flex items-center justify-end'>
                 {requests.length > 0 && (
                     <PopoverDivContainer className='px-2' placement='bottom' content={<RequestUsers requests={requests} />}>
