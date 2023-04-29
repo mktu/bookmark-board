@@ -36,8 +36,8 @@ const Header: React.FC<Props> = ({
     }
 
     return (
-        <div className='flex h-full w-full items-center border-b border-primary-border bg-white p-2' >
-            <div className='flex max-w-full items-center overflow-hidden' >
+        <div className='flex h-full w-full items-center border-b border-primary-border bg-white p-1' >
+            <div className='flex max-w-full items-center overflow-hidden p-1' >
                 <div className='flex items-center'>
                     <SvgIconButton className='md:hidden' onClick={handleBack}>
                         <ArrowLeft strokeWidth={1.0} className='w-6' />
@@ -57,7 +57,6 @@ const Header: React.FC<Props> = ({
                     </div>
                 </ButtonBase>
             </div>
-
             <div className='ml-auto flex items-center justify-end'>
                 {requests.length > 0 && (
                     <PopoverDivContainer className='px-2' placement='bottom' content={<RequestUsers requests={requests} />}>
