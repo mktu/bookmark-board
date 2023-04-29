@@ -56,6 +56,12 @@ declare type BookmarkGroupIndex = {
     numberOfLikes?: number,
 }
 
+declare type EmojiIconType = {
+    id: string,
+    native: string,
+    name: string,
+}
+
 declare type BookmarkGroup = {
     users: string[],
     owner: string,
@@ -68,7 +74,8 @@ declare type BookmarkGroup = {
     searchable?: boolean,
     imageUrl?: string,
     lastUpdate?: number,
-    colors?: BookmarkColors
+    colors?: BookmarkColors,
+    emojiIcon?: EmojiIconType
 }
 
 declare type BookmarkRefinement = {
@@ -99,7 +106,7 @@ declare type Bookmark = {
 }
 
 declare type BookmarkSimilarity = {
-    id : string,
+    id: string,
     originalSimilarity: number,
     targetSimilarity: number,
     targetGroupId: string,
@@ -111,19 +118,19 @@ declare type BookmarkSimilarity = {
 }
 
 declare type IgnoreSimilarity = {
-    id : string,
+    id: string,
     bookmarkId: string,
     title?: string,
-    image?:string,
+    image?: string,
     targetGroupId: string,
-    targetGroupName?:string,
+    targetGroupName?: string,
     currentGroupId: string,
 }
 
 declare type Similarity = {
-    id : string,
-    count : number,
-    updated : number
+    id: string,
+    count: number,
+    updated: number
 }
 
 declare type BookmarkComment = {

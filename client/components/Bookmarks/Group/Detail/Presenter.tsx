@@ -10,7 +10,7 @@ type Props = {
     update: React.ReactNode,
     back: React.ReactNode,
     lastUpdate: string
-
+    emoji: React.ReactNode
 }
 
 const Presenter: React.FC<Props> = ({
@@ -21,16 +21,20 @@ const Presenter: React.FC<Props> = ({
     cancel,
     update,
     back,
-    lastUpdate
+    lastUpdate,
+    emoji
 }) => {
     return (
         <div className='w-full p-2'>
+            <div className='mx-1 my-2 md:hidden'>
+                {back}
+            </div>
             <div className='flex w-full items-center'>
-                <div className='mx-1 md:hidden'>
-                    {back}
-                </div>
                 <div className='flex-1 overflow-hidden'>
                     {title}
+                </div>
+                <div>
+                    {emoji}
                 </div>
             </div>
             <div className='mt-2'>

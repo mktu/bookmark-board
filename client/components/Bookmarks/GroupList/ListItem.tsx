@@ -1,15 +1,15 @@
 import React from 'react'
-import { FolderOpen } from '@components/Common/Icon'
 import { useRouter } from 'next/router'
 import { useHoverable } from '@hooks/useBookmarkGroupDnd'
 import classNames from 'classnames'
 import { checkIsTouch } from '@utils/dnd'
+import Emoji from '@components/Common/Emoji'
 
 type Props = {
-    bookmarkGroup: BookmarkGroup & { bookmarkCount : number },
+    bookmarkGroup: BookmarkGroup & { bookmarkCount: number },
     onHover: Parameters<typeof useHoverable>[1],
     listIndex: Parameters<typeof useHoverable>[2],
-    bookmarkLoaded : boolean
+    bookmarkLoaded: boolean
 }
 
 const ListItem: React.FC<Props> = ({
@@ -34,7 +34,7 @@ const ListItem: React.FC<Props> = ({
             dragging && 'hidden'
         )}>
             <div ref={isTouch ? attachDnDRef : undefined}>
-                <FolderOpen className='w-8 stroke-primary-main' strokeWidth={1} />
+                <Emoji selected={bookmarkGroup.emojiIcon} iconSize='lg' />
             </div>
             <div className='mr-1 ml-2 truncate'>{bookmarkGroup.name}</div>
             <div className={`text-sm ${bookmarkLoaded ? 'opacity-100' : 'opacity-0'}`}>({bookmarkGroup.bookmarkCount})</div>

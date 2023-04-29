@@ -12,6 +12,7 @@ import DangerZone from '../DangerZone'
 import { useBookmarkGroup } from '@hooks/useBookmarkGroup'
 import { useAlgoliaRegister } from '@hooks/useAlgoliaRegister'
 import Presenter from './Presenter'
+import Emoji from '@components/Common/Emoji';
 
 type Props = {
     groupId: string,
@@ -30,6 +31,7 @@ const Container: React.FC<Props> = ({
         handleDeleteGroup,
         handleSubmit,
         leaveGroup,
+        handleChangeIcon,
         hasChange,
         group
     } = useBookmarkGroup(groupId)
@@ -113,6 +115,10 @@ const Container: React.FC<Props> = ({
         </SvgIconButton>
     )
 
+    const emoji = (
+        <Emoji onSelectEmoji={handleChangeIcon} selected={group.emojiIcon} />
+    )
+
     const lastUpdate = group.lastUpdate && `最終更新 ${numberToDateTime(group.lastUpdate)}`
 
     if (!group) {
@@ -128,7 +134,8 @@ const Container: React.FC<Props> = ({
             update,
             cancel,
             back,
-            lastUpdate
+            lastUpdate,
+            emoji
         }}
     />
 }
