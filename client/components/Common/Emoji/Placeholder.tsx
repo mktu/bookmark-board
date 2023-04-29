@@ -1,7 +1,9 @@
+import { lazy, Suspense } from "react";
 import { SvgIconButton } from "../Button"
 import { FolderOpen } from "../Icon"
 import { PopoverDivContainer } from "../Popover"
-import EmojiPicker from "./EmojiPicker"
+
+const EmojiPicker = lazy(() => import('./EmojiPicker'));
 
 type ViewProps = {
     iconSize: string
@@ -28,13 +30,15 @@ const Placeholder: React.FC<Props> = ({ onSelectEmoji, iconSize }) => {
     }
     return (
         <PopoverDivContainer render={(toggle) => (
-            <EmojiPicker
-                iconSize={iconSize}
-                onSelectEmoji={(props) => {
-                    onSelectEmoji(props)
-                    toggle()
-                }}
-            />
+            <Suspense fallback={<div />}>
+                <EmojiPicker
+                    iconSize={iconSize}
+                    onSelectEmoji={(props) => {
+                        onSelectEmoji(props)
+                        toggle()
+                    }}
+                />
+            </Suspense>
         )}>
             <SvgIconButton>
                 <PlaceholderView iconSize={iconSize} />

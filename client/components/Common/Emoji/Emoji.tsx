@@ -1,10 +1,9 @@
+import { lazy, Suspense } from "react";
 import { SvgIconButton } from "../Button"
-import data from '@emoji-mart/data'
-import { init } from 'emoji-mart'
+import { LoadingImg } from "../Image";
 import { PopoverDivContainer } from "../Popover"
-import EmojiPicker from "./EmojiPicker"
 
-init({ data })
+const EmojiPicker = lazy(() => import('./EmojiPicker'));
 
 type ViewProps = {
     emoji: EmojiIconType,
@@ -39,14 +38,20 @@ const EmojiComponent: React.FC<Props> = ({
     }
     return (
         <PopoverDivContainer render={(toggle) => (
-            <EmojiPicker
-                resetable
-                iconSize={iconSize}
-                onSelectEmoji={(props) => {
-                    onSelectEmoji(props)
-                    toggle()
-                }}
-            />
+            <Suspense fallback={
+                <div className="w-[100px]">
+                    <LoadingImg />
+                </div>
+            }>
+                <EmojiPicker
+                    resetable
+                    iconSize={iconSize}
+                    onSelectEmoji={(props) => {
+                        onSelectEmoji(props)
+                        toggle()
+                    }}
+                />
+            </Suspense>
         )}>
             <SvgIconButton>
                 <EmojiView emoji={emoji} iconSize={iconSize} />
