@@ -36,7 +36,7 @@ const Header: React.FC<Props> = ({
     }
 
     return (
-        <div className='h-full w-full border-b border-primary-border bg-white p-1'>
+        <div className='flex h-full w-full flex-col gap-2 border-b border-primary-border bg-white p-1'>
             <SvgIconButton className='flex items-center gap-1 text-sm text-primary-main underline md:hidden' onClick={handleBack}>
                 <ArrowLeft strokeWidth={1.0} className='w-4' />
                 グループ一覧に戻る
