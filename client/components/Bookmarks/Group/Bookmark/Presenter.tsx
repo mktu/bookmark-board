@@ -35,12 +35,10 @@ const Presenter: React.FC<Props> = ({
 }) => {
     return (
         <div className='flex flex-col'>
-            <div className='w-full overflow-hidden p-4'>
-                <div className='flex items-center'>
-                    <div className='mr-2 md:hidden'>{back}</div>
-                    <div className='w-full flex-1'>
-                        {title}
-                    </div>
+            <div className='flex w-full flex-col justify-center gap-2 overflow-hidden'>
+                <div className='mr-2 p-1 md:hidden'>{back}</div>
+                <div className='w-full flex-1 p-4'>
+                    {title}
                 </div>
             </div>
             <div className='flex w-full items-center justify-end overflow-hidden px-4'>
