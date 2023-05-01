@@ -117,10 +117,11 @@ const Container: React.FC<Props> = ({
     ), [deleteBookmark, router, group.id])
 
     const back = useMemo(() => (
-        <SvgIconButton onClick={() => {
+        <SvgIconButton className='flex items-center gap-1 text-sm text-primary-main underline' onClick={() => {
             router.push(`/bookmarks/[[...ids]]`, `/bookmarks/${group.id}`, { shallow: true })
         }}>
-            <ArrowLeft className='h-5 w-5' />
+            <ArrowLeft className='h-4 w-4' />
+            ブックマーク一覧へ戻る
         </SvgIconButton>
     ), [router, group.id])
 
