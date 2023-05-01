@@ -55,7 +55,7 @@
     "uuid": "9.0.0"
   },
   "devDependencies": {
-    "@playwright/test": "1.30.0",
+    "@playwright/test": "1.33.0",
     "@types/jest": "29.5.1",
     "@types/node": "16.18.25",
     "@types/react": "18.0.38",
