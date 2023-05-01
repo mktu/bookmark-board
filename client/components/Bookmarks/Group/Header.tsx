@@ -51,7 +51,7 @@ const Header: React.FC<Props> = ({
                         </div>
                     </div>
                     <ButtonBase className='mr-4 ml-2 block flex-1 overflow-hidden truncate text-left text-primary-main' onClick={jumpTo('setting')}>
-                        <div className='max-w-full overflow-hidden truncate font-semibold underline' >
+                        <div className='max-w-full overflow-hidden truncate font-semibold underline md:no-underline' >
                             {group.name}
                         </div>
                         <div className='hidden max-w-full overflow-hidden truncate text-sm md:block'>
