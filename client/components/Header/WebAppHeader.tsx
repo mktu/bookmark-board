@@ -75,7 +75,7 @@ const Header: React.VFC = () => {
                     <Profile root={mainRootStyle} svg={mainSvgStyle} />
                 </div>
             </Layout>
-            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'rounded-full border border-primary-400 p-2 opacity-100 '} fixed top-0 right-0 z-50 m-8 transition-all duration-500 ease-in-out`}>
+            <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'rounded-full border border-primary-400 p-2 opacity-100 '} fixed right-0 top-0 z-50 m-8 transition-all duration-500 ease-in-out`}>
                 <App root={sideRootStyle} />
                 <Search root={sideRootStyle} />
                 <Help root={sideRootStyle} />

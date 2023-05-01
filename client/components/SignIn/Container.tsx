@@ -10,7 +10,9 @@ import MobileLogin from './MobileLogin'
 
 const Signin = () => {
     const { clientService, uid } = useContext(FirebaseContext)
-    const { auth: authModuleImported, getMyProfile, loginByGoogle, loginWithAnonymous, loginByGoogleWithRedirect } = clientService
+    const { auth: authModuleImported, getMyProfile, loginByGoogle, loginWithAnonymous,
+        // loginByGoogleWithRedirect 
+    } = clientService
     const [needSignup, setNeedSignup] = useState(false)
     const [signining, setSignining] = useState(false)
     const router = useRouter()

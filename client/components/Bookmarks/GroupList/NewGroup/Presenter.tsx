@@ -13,7 +13,7 @@ const Presenter: React.VFC<Props> = ({
     cancel,
     error
 }) => {
-    const showError = error && (<div className='py-2 px-4 text-xs text-secondary-main'>{error}</div>)
+    const showError = error && (<div className='px-4 py-2 text-xs text-secondary-main'>{error}</div>)
     return (
         <div>
             <div className='mb-4 text-primary-main'>新しいグループを追加します</div>

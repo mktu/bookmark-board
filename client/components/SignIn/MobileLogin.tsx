@@ -26,7 +26,7 @@ const CommonSection = ({
             }}>
                 <Logo theme='dark' size='lg' />
             </ButtonBase>
-            <div className='mt-8 mb-4 p-4 text-sm'>
+            <div className='mb-4 mt-8 p-4 text-sm'>
                 <p>
                     <span>Bookmark-Boardでは新規登録・ログインともにGoogleアカウントを用いて行えます。</span>
                     <span>以下に合意の上、ご登録ください。</span>

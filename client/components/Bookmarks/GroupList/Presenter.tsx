@@ -14,7 +14,7 @@ const Presenter: React.FC<Props> = ({
     const { ref, inView } = useInView()
     return (
         <div className='flex h-full w-full flex-col bg-primary-light md:bg-white'>
-            <div ref={ref} className='bg-white py-1 px-0 text-primary-main'>
+            <div ref={ref} className='bg-white px-0 py-1 text-primary-main'>
                 {refinements}
             </div>
             <div className='w-full overflow-hidden'>{searchFilter}</div>
@@ -22,7 +22,7 @@ const Presenter: React.FC<Props> = ({
                 {groupList}
             </div>
             {!inView && (
-                <div className='fixed top-0 left-0 z-20 w-full border-primary-border bg-white text-primary-main shadow' >
+                <div className='fixed left-0 top-0 z-20 w-full border-primary-border bg-white text-primary-main shadow' >
                     {refinements}
                 </div>
             )}

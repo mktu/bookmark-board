@@ -104,7 +104,7 @@ const AppMenu: React.VFC<{ onClose: () => void }> = ({
     )
 
     const close = (
-        <SvgIconButton aria-label='Close dialog' colorType='none' className='absolute top-0 right-0 mr-2 flex items-center rounded-full border border-primary-dark bg-primary-light p-2 opacity-75'
+        <SvgIconButton aria-label='Close dialog' colorType='none' className='absolute right-0 top-0 mr-2 flex items-center rounded-full border border-primary-dark bg-primary-light p-2 opacity-75'
             onClick={() => {
                 onClose()
 

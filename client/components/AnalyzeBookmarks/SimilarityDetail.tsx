@@ -26,7 +26,7 @@ const SimilarityDetail: React.VFC<Props> = ({
     const targetGroupLink = `/bookmarks/${targetGroup.id}`
     return (
         <div className='w-full'>
-            <a className='flex w-full py-2 px-4 text-primary-main underline md:overflow-x-hidden' href={bookmark.url}>
+            <a className='flex w-full px-4 py-2 text-primary-main underline md:overflow-x-hidden' href={bookmark.url}>
                 <SvgIconButton className='mr-2'>
                     <ExternalLink className='h-5 w-5' strokeWidth={2} />
                 </SvgIconButton>
@@ -35,7 +35,7 @@ const SimilarityDetail: React.VFC<Props> = ({
                 </span>
 
             </a>
-            <div className='flex justify-center py-2 px-4'>
+            <div className=' flex justify-center px-4 py-2'>
                 <UrlImage className='rounded border-primary-border p-1 md:border' enableEndpoint={false} objectFit='cover' src={bookmark?.image || ''}
                     style={imageStyle}
                     fallback={(
@@ -43,7 +43,7 @@ const SimilarityDetail: React.VFC<Props> = ({
                             <NotFound style={imageStyle} text={`画像が見つかりません`} />
                         </div>)} />
             </div>
-            <div className='w-full py-2 px-4 text-sm'>
+            <div className='w-full px-4 py-2 text-sm'>
                 <div className='font-semibold text-primary-main'>説明:</div>
                 <div className='mb-2'>{bookmark.description || '-'}</div>
                 <div className='font-semibold text-primary-main'>ひとこと:</div>

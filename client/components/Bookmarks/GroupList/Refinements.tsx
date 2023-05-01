@@ -18,7 +18,7 @@ const Refinements: React.FC<Props> = ({
     onChangeSearchWord
 }) => {
     return (
-        <div className='flex items-center py-2 px-4 text-sm shadow'>
+        <div className='flex items-center px-4 py-2 text-sm shadow'>
             <TextButton className='flex items-center py-2' aria-label='New Group' fontType='none' onClick={onClickNewGroup}>
                 <Folder strokeWidth={1.5} className='mr-2 h-5 w-5' />
                 <div>新しいグループ</div>

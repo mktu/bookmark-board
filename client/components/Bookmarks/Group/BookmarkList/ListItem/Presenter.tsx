@@ -104,7 +104,7 @@ const Presenter: React.FC<Props> = ({
                     </div>
                 </div>
             </div>
-            <div className='flex w-full items-center rounded-tr bg-white py-1 px-2 shadow md:hidden' >
+            <div className='flex w-full items-center rounded-tr bg-white px-2 py-1 shadow md:hidden' >
                 {dateInfo}
                 <div className='ml-auto flex items-center border-x border-primary-border px-2'>
                     <div className='mx-2'>{colorButton}</div>

@@ -58,10 +58,10 @@ const LineLogin: VFC<Props> = ({
 
             <div className='my-4 flex w-full flex-col justify-center'>
                 {!hideMessage && (
-                    <div className='relative mr-2 mb-2 w-full flex-1 rounded border border-dotted border-primary-border p-2 text-sm text-primary-400'>
+                    <div className='relative mb-2 mr-2 w-full flex-1 rounded border border-dotted border-primary-border p-2 text-sm text-primary-400'>
                         <span role='img' aria-label='right' className='mr-1'>💡</span>
                         <span>Bookmark-Board公式アカウントを友達登録することで、LINE上からもブックマーク登録できるようになります</span>
-                        <SvgIconButton className='absolute -top-1 -right-1 h-5 w-5' onClick={() => {
+                        <SvgIconButton className='absolute -right-1 -top-1 h-5 w-5' onClick={() => {
                             setMessageVisibility('line-add-friend', true)
                             setVisibility(true)
                         }} ><XCircle className='rounded-full bg-white stroke-primary-400' /></SvgIconButton>

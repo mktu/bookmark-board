@@ -44,7 +44,7 @@ const Image: React.FC<Props> = ({
                                     </div>)} />
                         </div>
                         {otherImages.length > 0 && (
-                            <div className='mr-1 ml-auto'>
+                            <div className='ml-auto mr-1'>
                                 <div className='hidden text-xs text-primary-main md:block'>選択可能なアイコン</div>
                                 <div className='mt-4 flex items-end'>
                                     {otherImages.map((i) => (

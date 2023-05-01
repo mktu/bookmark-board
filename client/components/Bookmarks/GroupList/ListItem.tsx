@@ -36,7 +36,7 @@ const ListItem: React.FC<Props> = ({
             <div ref={isTouch ? attachDnDRef : undefined}>
                 <Emoji selected={bookmarkGroup.emojiIcon} iconSize='lg' />
             </div>
-            <div className='mr-1 ml-2 truncate'>{bookmarkGroup.name}</div>
+            <div className='ml-2 mr-1 truncate'>{bookmarkGroup.name}</div>
             <div className={`text-sm ${bookmarkLoaded ? 'opacity-100' : 'opacity-0'}`}>({bookmarkGroup.bookmarkCount})</div>
         </button>
     )
