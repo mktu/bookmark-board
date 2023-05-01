@@ -59,18 +59,18 @@ const Container: React.FC = () => {
             name={profile.name} />
     )
     const uploadingImage = status === 'loading' && (
-        <label className='rounded border py-2 px-4 text-primary-300'>
+        <label className='rounded border px-4 py-2 text-primary-300'>
             更新中...{progress}%
         </label>
     )
     const modifyImage = status === 'loaded' && (
-        <label className='cursor-pointer rounded border border-primary-main py-2 px-4 text-primary-main hover:border-primary-dark hover:text-primary-dark' htmlFor='file-upload'>
+        <label className='cursor-pointer rounded border border-primary-main px-4 py-2 text-primary-main hover:border-primary-dark hover:text-primary-dark' htmlFor='file-upload'>
             画像を変更
             <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />
         </label>
     )
     const failedUpload = status === 'failed' && (
-        <label className='py-2 px-4 text-secondary-main'>
+        <label className='px-4 py-2 text-secondary-main'>
             {error.name}
         </label>
     )

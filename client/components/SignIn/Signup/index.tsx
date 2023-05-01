@@ -47,7 +47,7 @@ const Signup: React.FC<Props> = ({
                 <div className='w-full md:flex'>
                     <div className='flex flex-col items-center p-2'>
                         <Avatar width={128} height={128} src={fileUrl} disableNextImage />
-                        <label className='my-2 cursor-pointer rounded border border-primary-main py-2 px-4 text-primary-main hover:border-primary-dark hover:text-primary-dark' htmlFor='file-upload'>
+                        <label className='my-2 cursor-pointer rounded border border-primary-main px-4 py-2 text-primary-main hover:border-primary-dark hover:text-primary-dark' htmlFor='file-upload'>
                             画像を変更
                             <input id="file-upload" type='file' className='hidden' onChange={handleChangeFile} />
                         </label>

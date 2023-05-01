@@ -22,7 +22,7 @@ const ListCard: React.FC<Props> = ({
 }) => {
     const [r, g, b] = hex2rgb(bookmark.color)
     return (
-        <div className='flex rounded border border-primary-border py-1 px-2'>
+        <div className='flex rounded border border-primary-border px-2 py-1'>
             <div style={{ minWidth: BookmarkListImageSize }}>
                 <UrlImage className='rounded' width={BookmarkListImageSize} height={BookmarkListImageSize} src={bookmark.image} />
             </div>

@@ -17,7 +17,7 @@ const WebLoginSection = ({
     privactPolicyLink
 }: Props) => {
     return (
-        <div className='flex h-full flex-col items-center justify-center bg-primary-dark py-4 px-2 text-white'>
+        <div className='flex h-full flex-col items-center justify-center bg-primary-dark px-2 py-4 text-white'>
             <div className='w-7/12'>
                 <h1 className='mb-8 flex justify-center text-2xl font-bold'>Sign In</h1>
                 <div className='mb-6 text-sm'>

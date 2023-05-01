@@ -37,7 +37,7 @@ const Move: React.FC<Props> = ({
                 options={groups.map(g => ({ label: g.name, value: g.id }))}
                 selected={moveDest?.id}
                 onSelect={handleSelectMoveDest} />
-            <Checkbox label='コピーを作成' className='mt-2 ml-2' id='copy' onChange={(e) => { handleCheckCopy(e.target.checked) }} />
+            <Checkbox label='コピーを作成' className='ml-2 mt-2' id='copy' onChange={(e) => { handleCheckCopy(e.target.checked) }} />
             <OutlinedButton
                 disabled={disabled}
                 className='ml-auto block'

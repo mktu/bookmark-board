@@ -29,7 +29,7 @@ const Default: React.FC<Props> = ({
 }) => {
     const [r, g, b] = hex2rgb(color)
     return (
-        <div className='flex rounded border border-primary-border py-1 px-2'>
+        <div className='flex rounded border border-primary-border px-2 py-1'>
             <div className='flex items-center justify-center' style={{ minWidth: '64px' }}>
                 {image}
             </div>

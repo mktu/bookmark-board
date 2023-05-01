@@ -45,7 +45,7 @@ const MobileHeader: React.VFC<{ Child: ChildType, authed: boolean, fixed?: boole
                 </div>
             </Layout>
             {fixed && (
-                <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'p-2 opacity-75'} fixed top-0 right-0 z-50 transition-all duration-500 ease-in-out`}>
+                <div className={`${inView ? 'h-0 overflow-hidden opacity-0' : 'p-2 opacity-75'} fixed right-0 top-0 z-50 transition-all duration-500 ease-in-out`}>
                     {mobileMenu}
                 </div>
             )}

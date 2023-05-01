@@ -55,7 +55,7 @@ const Dropdowns: React.FC<Props> = ({
                     onClick={toggle}
                     style={comboStyles}
                     type="button"
-                    className="flex w-full items-center justify-start rounded-md border border-primary-border stroke-primary-main py-2 px-4 text-sm font-medium text-primary-700 shadow-sm hover:bg-primary-hover hover:stroke-primary-dark focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
+                    className="flex w-full items-center justify-start rounded-md border border-primary-border stroke-primary-main px-4 py-2 text-sm font-medium text-primary-700 shadow-sm hover:bg-primary-hover hover:stroke-primary-dark focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-100"
                     id="options-menu"
                     aria-haspopup="true"
                     aria-expanded="true">
@@ -78,13 +78,13 @@ const Dropdowns: React.FC<Props> = ({
                                     <TextButton onClick={() => {
                                         onSelect(o.value)
                                         setPopoverShow(false)
-                                    }} className="block w-full truncate py-2 px-4 text-left text-sm text-primary-700 hover:bg-primary-hover hover:text-primary-dark" role="menuitem" key={o.value}>{o.label}</TextButton>
+                                    }} className="block w-full truncate px-4 py-2 text-left text-sm text-primary-700 hover:bg-primary-hover hover:text-primary-dark" role="menuitem" key={o.value}>{o.label}</TextButton>
                                 ))}
                                 {allowEmpty && (
                                     <TextButton onClick={() => {
                                         onSelect('')
                                         setPopoverShow(false)
-                                    }} className="block w-full py-2 px-4 text-left text-sm text-primary-700 hover:bg-primary-hover hover:text-primary-dark" role="menuitem" key={'empty'}>選択なし</TextButton>
+                                    }} className="block w-full px-4 py-2 text-left text-sm text-primary-700 hover:bg-primary-hover hover:text-primary-dark" role="menuitem" key={'empty'}>選択なし</TextButton>
                                 )}
                             </div>
                         </div>

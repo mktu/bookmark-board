@@ -35,11 +35,11 @@ const LineLogin: VFC<Props> = ({
                 </div>
             ) : (
                 <div className='relative mt-4 flex w-full flex-col justify-center'>
-                    <div className='mr-2 mb-2 w-full flex-1 rounded border border-dotted border-primary-border p-2 text-sm text-primary-400'>
+                    <div className='mb-2 mr-2 w-full flex-1 rounded border border-dotted border-primary-border p-2 text-sm text-primary-400'>
                         <span role='img' aria-label='right' className='mr-1'>💡</span>
                         <span>LINE連携することで、Bookmark-Board公式アカウントとのチャットを通してブックマーク登録できるようになります</span>
                     </div>
-                    <SvgIconButton className='absolute -top-1 -right-1 h-5 w-5' onClick={() => {
+                    <SvgIconButton className='absolute -right-1 -top-1 h-5 w-5' onClick={() => {
                         setMessageVisibility('line-integration', true)
                         setVisibility(true)
                     }} ><XCircle className='rounded-full bg-white stroke-primary-400' /></SvgIconButton>

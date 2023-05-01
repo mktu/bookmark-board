@@ -30,7 +30,7 @@ const Default: React.FC<Props> = ({
     return (
         <div className='relative rounded border border-primary-border p-2'>
             <div className='flex'>
-                <SvgFillIconButton className='absolute -top-4 -left-5 mr-2 rounded-full border bg-white fill-primary-400 p-2' onClick={()=>{
+                <SvgFillIconButton className='absolute -left-5 -top-4 mr-2 rounded-full border bg-white fill-primary-400 p-2' onClick={()=>{
                     window && window.open(editLink)
                 }}>
                     <Edit className='h-5 w-5'/>
