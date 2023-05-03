@@ -6,15 +6,16 @@ type IconSize = 'md' | 'lg' | 'xl'
 type Props = {
     onSelectEmoji?: (emoji: EmojiIconType) => void,
     selected?: EmojiIconType,
-    iconSize?: IconSize
+    iconSize?: IconSize,
+    placement?: 'fixed' | 'absolute'
 }
 
-const Emoji: React.FC<Props> = ({ onSelectEmoji, selected, iconSize = 'lg' }) => {
+const Emoji: React.FC<Props> = ({ onSelectEmoji, selected, placement, iconSize = 'lg' }) => {
     if (selected && selected.id !== '-1') {
-        return <EmojiComponent emoji={selected} onSelectEmoji={onSelectEmoji} iconSize={iconSize} />
+        return <EmojiComponent placement={placement} emoji={selected} onSelectEmoji={onSelectEmoji} iconSize={iconSize} />
     }
     return (
-        <Placeholder onSelectEmoji={onSelectEmoji} iconSize={iconSize} />
+        <Placeholder placement={placement} onSelectEmoji={onSelectEmoji} iconSize={iconSize} />
     )
 }
 

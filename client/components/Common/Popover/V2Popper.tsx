@@ -1,5 +1,5 @@
 import React, { useState, useMemo, useCallback, useEffect } from "react";
-import { usePopper, PopperChildrenProps } from 'react-popper';
+import { usePopper, PopperChildrenProps, } from 'react-popper';
 import Clickaway from '../Clickaway'
 
 type Children<T extends HTMLElement> = React.ReactElement & {
@@ -11,6 +11,7 @@ export type Props<T extends HTMLElement> = {
     render: (toggle: () => void, open: boolean) => React.ReactNode,
     content?: React.ReactNode,
     placement?: PopperChildrenProps['placement'],
+    strategy?: 'absolute' | 'fixed'
     zIndex?: number,
     disabled?: boolean
 } | {
@@ -18,17 +19,19 @@ export type Props<T extends HTMLElement> = {
     render?: (toggle: () => void, open: boolean) => React.ReactNode,
     content: React.ReactNode,
     placement?: PopperChildrenProps['placement'],
+    strategy?: 'absolute' | 'fixed',
     zIndex?: number,
     disabled?: boolean
 }
 
-export function Popover<T extends HTMLElement>({ children, content, render, disabled, placement = 'auto', zIndex = 20 }: Props<T>) {
+export function Popover<T extends HTMLElement>({ children, content, render, disabled, placement = 'auto', strategy = 'absolute', zIndex = 20 }: Props<T>) {
     const [popoverShow, setPopoverShow] = useState(false);
     const [timestamp, setTimestamp] = useState(-1)
     const [referenceElement, setReferenceElement] = useState<HTMLElement>()
     const [popperElement, setPopperElement] = useState<HTMLDivElement>()
     const { styles, attributes } = usePopper(referenceElement, popperElement, {
-        placement
+        placement,
+        strategy
     });
     const toggle = useCallback(() => {
         setPopoverShow(before => !before)

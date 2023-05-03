@@ -12,6 +12,7 @@ type ViewProps = {
 
 type Props = ViewProps & {
     onSelectEmoji?: (emoji: EmojiIconType) => void,
+    placement?: 'fixed' | 'absolute'
 }
 
 const iconSizeMap = {
@@ -25,12 +26,12 @@ export const PlaceholderView: React.FC<ViewProps> = ({
     <FolderOpen className={`${iconSizeMap[iconSize]} stroke-primary-main`} strokeWidth={1} />
 )
 
-const Placeholder: React.FC<Props> = ({ onSelectEmoji, iconSize }) => {
+const Placeholder: React.FC<Props> = ({ onSelectEmoji, iconSize, placement }) => {
     if (!onSelectEmoji) {
         return <PlaceholderView iconSize={iconSize} />
     }
     return (
-        <PopoverDivContainer render={(toggle) => (
+        <PopoverDivContainer strategy={placement} render={(toggle) => (
             <Suspense fallback={
                 <div className="w-[100px]">
                     <LoadingImg />
