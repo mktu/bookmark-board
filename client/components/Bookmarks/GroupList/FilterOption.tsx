@@ -16,7 +16,7 @@ const FilterOption: React.FC<Props> = ({
 }) => {
     return (
         <div className='flex w-[280px] flex-col gap-2 rounded border border-primary-border bg-white p-4 shadow'>
-            <TextInput className='text-base md:text-sm' label='グループを検索' value={searchWord} onChange={(e) => {
+            <TextInput focusOnMount className='text-base md:text-sm' label='グループを検索' value={searchWord} onChange={(e) => {
                 onChangeSearchWord(e.target.value)
             }} clear={
                 <Clear handleClear={() => { onChangeSearchWord('') }} />

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import TextInputBase from './TextInputBase'
 import { Label } from '../Label'
 import styles from './index.module.scss'
@@ -16,7 +16,8 @@ type Props = Parameters<typeof TextInputBase>[0] & {
     label?: string,
     required?: boolean,
     className?: string,
-    border?: keyof typeof borderVariants
+    border?: keyof typeof borderVariants,
+    focusOnMount?: boolean
 }
 
 export const Warning: React.FC<{ text: string }> = ({ text }) => (
@@ -34,9 +35,11 @@ const TextInput: React.FC<Props> = ({
     onBlur,
     border = 'underline',
     className,
+    focusOnMount,
     ...props
 }) => {
     const [focus, setFocus] = useState(false)
+    const ref = useRef<HTMLInputElement>()
     const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
         setFocus(false)
         onBlur && onBlur(e)
@@ -46,6 +49,9 @@ const TextInput: React.FC<Props> = ({
         onFocus && onFocus(e)
     }
     const borderClass = borderVariants[border]
+    useEffect(() => {
+        focusOnMount && ref.current && ref.current.focus()
+    }, [focusOnMount])
     return (
         <div className={className}>
             {label &&
@@ -64,6 +70,7 @@ const TextInput: React.FC<Props> = ({
                     </div>
                 )}
                 <TextInputBase {...props}
+                    ref={ref}
                     onFocus={handleFocus}
                     onBlur={handleBlur}
                     id={id}
