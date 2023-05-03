@@ -5,14 +5,28 @@ import { ContainedButton, OutlinedButton } from '@components/Common/Button'
 import useNewBookmarkGroup from '@hooks/useNewBookmarkGroup'
 
 type Props = {
-    onClose : ()=>void
+    onClose: () => void
 }
 
-const Container: React.VFC<Props> = ({onClose}) => {
-    const { newGroup, setNewGroup, submit : handleSubmit, error, description : descriptionInput, setDescription } = useNewBookmarkGroup()
-    
+const Container: React.FC<Props> = ({ onClose }) => {
+    const {
+        newGroup,
+        setNewGroup,
+        submit: handleSubmit,
+        error,
+        description: descriptionInput,
+        setDescription,
+        emojiIcon,
+        setEmojiIcon } = useNewBookmarkGroup()
+
     const input = (
-        <GroupInput value={newGroup} onChange={(e)=>{setNewGroup(e.target.value)}}/>
+        <GroupInput
+            value={newGroup}
+            onSelectEmoji={setEmojiIcon}
+            emojiIcon={emojiIcon}
+            onChange={(e) => { setNewGroup(e.target.value) }}
+
+        />
     )
     const description = (
         <TextArea
@@ -24,22 +38,22 @@ const Container: React.VFC<Props> = ({onClose}) => {
             border='outlined'
             paddings='p-2'
             value={descriptionInput}
-            onChange={(e)=>{setDescription(e.target.value)}}
+            onChange={(e) => { setDescription(e.target.value) }}
         />
     )
     const submit = (
-        <ContainedButton 
-        className='text-sm' 
-        disabled={Boolean(error) || !newGroup}
-        onClick={()=>{
-            handleSubmit().then(()=>{
-                onClose()
-            })
-        }}
+        <ContainedButton
+            className='text-sm'
+            disabled={Boolean(error) || !newGroup}
+            onClick={() => {
+                handleSubmit().then(() => {
+                    onClose()
+                })
+            }}
         >作成</ContainedButton>
     )
     const cancel = (
-        <OutlinedButton className='mr-2 text-sm'  onClick={onClose}>キャンセル</OutlinedButton>
+        <OutlinedButton className='mr-2 text-sm' onClick={onClose}>キャンセル</OutlinedButton>
     )
     return (
         <Presenter

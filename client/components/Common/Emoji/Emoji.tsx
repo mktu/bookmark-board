@@ -12,6 +12,7 @@ type ViewProps = {
 
 type Props = ViewProps & {
     onSelectEmoji?: (emoji: EmojiIconType) => void,
+    placement?: 'fixed' | 'absolute'
 }
 
 const iconSizeMap = {
@@ -31,13 +32,14 @@ export const EmojiView: React.FC<ViewProps> = ({
 const EmojiComponent: React.FC<Props> = ({
     emoji,
     onSelectEmoji,
-    iconSize
+    iconSize,
+    placement
 }) => {
     if (!onSelectEmoji) {
         return <EmojiView emoji={emoji} iconSize={iconSize} />
     }
     return (
-        <PopoverDivContainer render={(toggle) => (
+        <PopoverDivContainer strategy={placement} render={(toggle) => (
             <Suspense fallback={
                 <div className="w-[100px]">
                     <LoadingImg />
