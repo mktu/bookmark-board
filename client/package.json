@@ -17,7 +17,7 @@
     "@emoji-mart/react": "1.1.1",
     "@line/liff": "2.22.1",
     "@next/bundle-analyzer": "13.3.4",
-    "@popperjs/core": "2.11.7",
+    "@popperjs/core": "2.11.8",
     "@reduxjs/toolkit": "1.9.5",
     "@types/linkifyjs": "2.1.4",
     "@types/puppeteer-core": "5.4.0",
