@@ -13,7 +13,7 @@
     "firebase": "9.23.0",
     "fs": "0.0.1-security",
     "jest": "29.5.0",
-    "ts-jest": "29.1.0",
+    "ts-jest": "29.1.1",
     "typescript": "5.1.3"
   }
 }
