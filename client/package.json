@@ -15,7 +15,7 @@
   "dependencies": {
     "@emoji-mart/data": "1.1.2",
     "@emoji-mart/react": "1.1.1",
-    "@line/liff": "2.22.1",
+    "@line/liff": "2.22.2",
     "@next/bundle-analyzer": "13.4.7",
     "@popperjs/core": "2.11.8",
     "@reduxjs/toolkit": "1.9.5",
