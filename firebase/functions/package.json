@@ -18,7 +18,7 @@
     "@line/bot-sdk": "7.5.2",
     "@types/node-fetch": "2.6.4",
     "@types/uuid": "9.0.2",
-    "firebase-admin": "11.9.0",
+    "firebase-admin": "11.10.1",
     "firebase-functions": "4.3.1",
     "get-urls": "10.0.1",
     "node-fetch": "2.6.12",
