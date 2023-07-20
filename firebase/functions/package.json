@@ -23,7 +23,7 @@
     "get-urls": "10.0.1",
     "node-fetch": "2.6.12",
     "open-graph-scraper": "6.1.0",
-    "puppeteer": "18.1.0",
+    "puppeteer": "20.9.0",
     "uuid": "9.0.0"
   },
   "devDependencies": {
