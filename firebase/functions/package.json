@@ -20,7 +20,7 @@
     "@types/uuid": "9.0.2",
     "firebase-admin": "11.10.1",
     "firebase-functions": "4.4.1",
-    "get-urls": "12.1.0",
+    "get-urls": "10.0.1",
     "node-fetch": "2.6.12",
     "open-graph-scraper": "6.1.0",
     "puppeteer": "18.1.0",
