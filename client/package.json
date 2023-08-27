@@ -21,7 +21,7 @@
     "@reduxjs/toolkit": "1.9.5",
     "@types/linkifyjs": "2.1.4",
     "@types/puppeteer-core": "5.4.0",
-    "@types/react-redux": "7.1.25",
+    "@types/react-redux": "7.1.26",
     "@types/uuid": "9.0.2",
     "autoprefixer": "10.4.14",
     "classnames": "2.3.2",
