@@ -7,7 +7,7 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@firebase/rules-unit-testing": "3.0.0",
+    "@firebase/rules-unit-testing": "3.0.1",
     "@types/jest": "29.5.4",
     "dotenv": "16.3.1",
     "firebase": "10.3.1",
