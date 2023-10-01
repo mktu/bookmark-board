@@ -17,14 +17,14 @@
   "dependencies": {
     "@line/bot-sdk": "7.5.3",
     "@types/node-fetch": "2.6.6",
-    "@types/uuid": "9.0.3",
+    "@types/uuid": "9.0.4",
     "firebase-admin": "11.10.1",
     "firebase-functions": "4.4.1",
     "get-urls": "10.0.1",
     "node-fetch": "2.6.13",
     "open-graph-scraper": "6.1.0",
     "puppeteer": "18.1.0",
-    "uuid": "9.0.0"
+    "uuid": "9.0.1"
   },
   "devDependencies": {
     "@babel/core": "7.22.20",
