@@ -15,7 +15,7 @@
   },
   "main": "lib/index.js",
   "dependencies": {
-    "@line/bot-sdk": "7.5.3",
+    "@line/bot-sdk": "7.7.0",
     "@types/node-fetch": "2.6.6",
     "@types/uuid": "9.0.5",
     "firebase-admin": "11.11.0",
@@ -27,9 +27,9 @@
     "uuid": "9.0.1"
   },
   "devDependencies": {
-    "@babel/core": "7.22.20",
+    "@babel/core": "7.23.0",
     "@babel/preset-env": "7.22.20",
-    "@babel/preset-typescript": "7.22.15",
+    "@babel/preset-typescript": "7.23.0",
     "@typescript-eslint/eslint-plugin": "6.7.4",
     "@typescript-eslint/parser": "6.7.4",
     "babel-jest": "29.6.4",
