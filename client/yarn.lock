@@ -6977,10 +6977,10 @@ linkify-it@^3.0.1:
   dependencies:
     uc.micro "^1.0.1"
 
-linkifyjs@4.1.2:
-  version "4.1.2"
-  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.1.2.tgz#48fadb05ddf5a5f7065510a385a500ca1ac4e65e"
-  integrity sha512-1elJrH8MwUgr77Rgmx4JgB/nBgISYVoGossH6pAfCeHG+07TblTn6RWKx0MKozEMJU6NCFYHRih9M8ZtV3YZ+Q==
+linkifyjs@4.1.3:
+  version "4.1.3"
+  resolved "https://registry.yarnpkg.com/linkifyjs/-/linkifyjs-4.1.3.tgz#0edbc346428a7390a23ea2e5939f76112c9ae07f"
+  integrity sha512-auMesunaJ8yfkHvK4gfg1K0SaKX/6Wn9g2Aac/NwX+l5VdmFZzo/hdPGxEOETj+ryRa4/fiOPjeeKURSAJx1sg==
 
 loader-utils@^2.0.0:
   version "2.0.2"
