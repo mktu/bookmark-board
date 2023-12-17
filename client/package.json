@@ -54,7 +54,7 @@
   },
   "devDependencies": {
     "@playwright/test": "1.40.1",
-    "@types/jest": "29.5.10",
+    "@types/jest": "29.5.11",
     "@types/linkifyjs": "2.1.7",
     "@types/node": "18.18.14",
     "@types/react": "18.2.41",
