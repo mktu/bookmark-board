@@ -16,7 +16,7 @@
   "main": "lib/index.js",
   "dependencies": {
     "@line/bot-sdk": "7.7.0",
-    "@types/node-fetch": "2.6.9",
+    "@types/node-fetch": "2.6.10",
     "@types/uuid": "9.0.7",
     "firebase-admin": "11.11.1",
     "firebase-functions": "4.6.0",
